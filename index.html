@@ -3,10 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meine Node.js-App</title>
+    <title>Cybersecurity Demos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        button {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 15px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hallo, willkommen bei meiner Node.js-App!</h1>
-    <p>Diese App läuft auf Render und wird immer besser!</p>
+    <div class="container">
+        <h1>Cybersecurity Demos</h1>
+        <p>
+            Willkommen zu unseren interaktiven Cybersecurity-Demos! Wähle eine der folgenden Optionen aus,
+            um mehr über Sicherheitsangriffe zu lernen:
+        </p>
+        <div class="button-container">
+            <button onclick="window.location.href='bruteforce.html'">Brute-Force-Angriff</button>
+            <button onclick="window.location.href='phishingquiz.html'">Phishing-Quiz</button>
+        </div>
+    </div>
 </body>
 </html>
