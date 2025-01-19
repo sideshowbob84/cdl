@@ -38,7 +38,7 @@
             border-radius: 5px;
             box-sizing: border-box;
         }
-        button, input[type="file"] {
+        button {
             background: #007bff;
             color: #fff;
             padding: 10px 15px;
@@ -47,7 +47,7 @@
             cursor: pointer;
             font-size: 16px;
         }
-        button:hover, input[type="file"]:hover {
+        button:hover {
             background: #0056b3;
         }
         .shell {
@@ -60,14 +60,6 @@
             height: 200px;
             overflow-y: scroll;
             white-space: pre-wrap;
-        }
-        .flag {
-            background: #007bff;
-            color: #fff;
-            padding: 10px;
-            text-align: center;
-            border-radius: 5px;
-            display: none;
         }
     </style>
 </head>
@@ -89,15 +81,12 @@
         <div class="demo-container">
             <h2>Brute-Force-Demo</h2>
             <p>
-                Hier kannst du eine eigene Wordlist hochladen und sehen, wie ein Brute-Force-Angriff funktioniert.
-                Nach der Simulation kannst du die gefundenen Zugangsdaten verwenden, um dich oben einzuloggen.
+                Hier wird gezeigt, wie ein Brute-Force-Angriff funktioniert. Wir verwenden die bekannte Wordlist <strong>rockyou.txt</strong>, um die Passwörter für "<strong>admin</strong>" und "<strong>user</strong>" zu finden.
             </p>
             <p>Hydra-Befehl:</p>
             <div class="shell">
                 hydra -l admin -P rockyou.txt http-post-form "/login:username=^USER^&password=^PASS^:F=Login fehlgeschlagen"
             </div>
-            <p>Wordlist hochladen:</p>
-            <input type="file" id="wordlist" accept=".txt">
             <button onclick="startSimulation()">Simulation starten</button>
 
             <div class="shell" id="simulation"></div>
@@ -106,52 +95,42 @@
 
     <script>
         const correctPasswords = { admin: "admin123", user: "user123" }; // Bekannte Passwörter
+        const rockyouSample = [
+            "123456", "password", "qwerty", "abc123", "letmein", "monkey", "admin123", // Passwort für admin
+            "football", "iloveyou", "welcome", "user123", // Passwort für user
+            "sunshine", "master", "hello", "freedom"
+        ]; // Beispielhafte Passwörter aus rockyou.txt
         const found = [];
 
         function startSimulation() {
-            const wordlistInput = document.getElementById("wordlist");
             const simulation = document.getElementById("simulation");
             simulation.textContent = ""; // Vorherigen Inhalt löschen
+            let index = 0;
 
-            if (!wordlistInput.files.length) {
-                simulation.textContent = "Fehler: Bitte eine Wordlist hochladen!";
-                return;
-            }
+            const interval = setInterval(() => {
+                if (index < rockyouSample.length) {
+                    const pass = rockyouSample[index];
+                    simulation.textContent += `Testing password: ${pass}\n`;
 
-            const file = wordlistInput.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function(event) {
-                const lines = event.target.result.split(/\r?\n/); // Wordlist-Zeilen
-                let index = 0;
-
-                const interval = setInterval(() => {
-                    if (index < lines.length) {
-                        const pass = lines[index];
-                        simulation.textContent += `Testing password: ${pass}\n`;
-
-                        if (pass === correctPasswords.admin || pass === correctPasswords.user) {
-                            found.push(pass);
-                            simulation.textContent += `Password found for ${
-                                pass === correctPasswords.admin ? "admin" : "user"
-                            }: ${pass}\n`;
-                        }
-
-                        simulation.scrollTop = simulation.scrollHeight; // Scroll automatisch nach unten
-                        index++;
-                    } else {
-                        clearInterval(interval);
-                        if (found.length > 0) {
-                            simulation.textContent += `\nGefundene Passwörter: ${found.join(", ")}`;
-                            simulation.textContent += `\n\nVerwende die gefundenen Zugangsdaten, um dich oben einzuloggen.`;
-                        } else {
-                            simulation.textContent += "\nKeine Passwörter gefunden!";
-                        }
+                    if (pass === correctPasswords.admin || pass === correctPasswords.user) {
+                        found.push(pass);
+                        simulation.textContent += `Password found for ${
+                            pass === correctPasswords.admin ? "admin" : "user"
+                        }: ${pass}\n`;
                     }
-                }, 100); // Simuliere Delay
-            };
 
-            reader.readAsText(file); // Datei lesen
+                    simulation.scrollTop = simulation.scrollHeight; // Scroll automatisch nach unten
+                    index++;
+                } else {
+                    clearInterval(interval);
+                    if (found.length > 0) {
+                        simulation.textContent += `\nGefundene Passwörter: ${found.join(", ")}`;
+                        simulation.textContent += `\n\nVerwende die gefundenen Zugangsdaten, um dich oben einzuloggen.`;
+                    } else {
+                        simulation.textContent += "\nKeine Passwörter gefunden!";
+                    }
+                }
+            }, 300); // Simuliere längeren Delay
         }
     </script>
 </body>
