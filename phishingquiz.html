@@ -1,244 +1,140 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phishing-Quiz</title>
+    <title>Phishing Quiz</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+            margin: 20px;
         }
-        .container {
-            max-width: 900px;
-            margin: 30px auto;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            padding: 20px;
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
         }
-        .header {
-            background-color: #007bff;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        .description {
+        .email {
+            border: 1px solid #ddd;
+            padding: 15px;
             margin-bottom: 20px;
-            font-size: 18px;
-            line-height: 1.8;
-            color: #333;
-            text-align: justify;
+            background: #f9f9f9;
         }
-        .email-viewer {
+        .controls {
+            margin-top: 10px;
+        }
+        .explanation {
+            color: #007bff;
+            font-weight: bold;
+        }
+        .hidden {
             display: none;
         }
-        .email-editor {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        .email-header {
-            background: #f1f1f1;
-            padding: 10px 15px;
-            border-bottom: 1px solid #ddd;
-        }
-        .email-header div {
-            margin-bottom: 5px;
-            font-size: 16px;
-        }
-        .email-body {
-            padding: 20px;
-            font-size: 16px;
-            line-height: 1.5;
-        }
-        .progress-bar {
-            margin: 10px 0;
-            height: 25px;
-            background: #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        .progress-bar-inner {
-            height: 100%;
-            background: #007bff;
-            width: 0%;
-            text-align: center;
-            color: #fff;
+        .result {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: green;
             font-weight: bold;
-        }
-        .actions {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .actions button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 15px 20px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 18px;
-            margin: 5px;
-        }
-        .actions button:hover {
-            background-color: #0056b3;
-        }
-        #feedback {
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-        #explanation {
-            margin-top: 20px;
-            font-size: 18px;
-            background: #f9f9f9;
-            padding: 15px;
-            border-left: 4px solid #007bff;
-        }
-        .back-button {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: #fff;
-            text-align: center;
-            text-decoration: none;
-            font-size: 18px;
-            border-radius: 5px;
-        }
-        .back-button:hover {
-            background-color: #0056b3;
         }
     </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Phishing Quiz</h1>
+        <p>Willkommen zum Phishing-Quiz! Lies die E-Mails sorgfältig und entscheide, ob sie Phishing sind oder nicht. Nach jeder Antwort erfährst du, warum die E-Mail echt oder gefälscht ist.</p>
+        <div id="quiz-content">
+            <div id="email" class="email"></div>
+            <div class="controls">
+                <button id="phishing-btn">Phishing</button>
+                <button id="not-phishing-btn">Kein Phishing</button>
+            </div>
+            <div id="explanation" class="explanation hidden"></div>
+        </div>
+        <div id="result" class="result hidden"></div>
+    </div>
+
     <script>
         const emails = [
             {
-                sender: "noreply@dhl.com",
-                subject: "Ihr Paket konnte nicht zugestellt werden!",
-                body: "Ihr Paket wartet auf die Zustellung. Bitte bestätigen Sie Ihre Adresse <a href='#' title='https://phishing-dhl.com'>hier</a>.",
+                text: "Hallo, Ihr Konto wurde gesperrt. Bitte klicken Sie hier, um es zu entsperren: <a href='http://am4zon-security.com'>am4zon-security.com</a>",
                 isPhishing: true,
-                explanation: "Diese E-Mail stammt nicht von der echten DHL-Adresse. Der Link führt zu einer gefälschten Domain."
+                explanation: "Diese E-Mail ist Phishing, da die URL verdächtig aussieht und nicht zur echten Amazon-Domain gehört."
             },
             {
-                sender: "support@am4zon.de",
-                subject: "Verdächtige Login-Aktivität",
-                body: "Es wurde ein verdächtiger Login in Ihrem Konto festgestellt. Melden Sie sich <a href='#' title='https://secure-am4zon.com'>hier</a> an, um dies zu prüfen.",
+                text: "Ihre DHL-Lieferung wurde verpasst. Bitte zahlen Sie die Liefergebühr hier: <a href='http://dhl-delivery-pay.com'>dhl-delivery-pay.com</a>",
                 isPhishing: true,
-                explanation: "Diese E-Mail imitiert Amazon, aber die Domain am4zon.de ist gefälscht und täuschend ähnlich."
+                explanation: "Phishing! DHL fordert nie per E-Mail zur Zahlung auf, und die URL ist nicht offiziell."
             },
             {
-                sender: "service@paypal-secure.com",
-                subject: "Ungewöhnliche Aktivität erkannt",
-                body: "Wir haben ungewöhnliche Aktivitäten auf Ihrem Konto festgestellt. Klicken Sie <a href='#' title='https://paypal-secure.com'>hier</a>, um Ihre Identität zu bestätigen.",
+                text: "Hallo, hier ist PayPal. Ihr Konto hat ungewöhnliche Aktivitäten. Klicken Sie hier: <a href='http://payl-security.com'>payl-security.com</a>",
                 isPhishing: true,
-                explanation: "Die echte PayPal-Domain endet auf paypal.com. Diese Domain ist ein klassisches Beispiel für eine Phishing-Falle."
+                explanation: "Diese E-Mail ist Phishing. Die Domain 'payl-security.com' sieht aus wie PayPal, ist es aber nicht."
+            },
+            {
+                text: "Ihr Kontoauszug für den Monat steht bereit. Loggen Sie sich bei Ihrer Bank ein: <a href='https://meinebank.de'>meinebank.de</a>",
+                isPhishing: false,
+                explanation: "Diese E-Mail ist kein Phishing. Die URL ist korrekt und führt zur offiziellen Bank-Website."
+            },
+            {
+                text: "Ihr Amazon-Gutschein im Wert von 50 € wartet. Klicken Sie hier, um ihn einzulösen: <a href='http://amz-reward.com'>amz-reward.com</a>",
+                isPhishing: true,
+                explanation: "Phishing! Amazon verschickt keine Gutscheine per E-Mail, und die Domain ist falsch."
+            },
+            {
+                text: "Vielen Dank für Ihre Bestellung bei Amazon. Ihre Rechnung finden Sie hier: <a href='https://amazon.de/invoice'>amazon.de/invoice</a>",
+                isPhishing: false,
+                explanation: "Diese E-Mail ist echt. Die URL führt zur offiziellen Amazon-Website."
             }
         ];
 
         let currentEmail = 0;
-        let score = 0;
+        let correctAnswers = 0;
 
-        function startQuiz() {
-            document.querySelector('.description').style.display = 'none';
-            document.querySelector('.email-viewer').style.display = 'block';
-            showEmail();
-        }
+        const emailDiv = document.getElementById("email");
+        const explanationDiv = document.getElementById("explanation");
+        const phishingBtn = document.getElementById("phishing-btn");
+        const notPhishingBtn = document.getElementById("not-phishing-btn");
+        const resultDiv = document.getElementById("result");
 
-        function showEmail() {
-            const email = emails[currentEmail];
-            document.getElementById('sender').textContent = `Von: ${email.sender}`;
-            document.getElementById('subject').textContent = `Betreff: ${email.subject}`;
-            document.getElementById('body').innerHTML = email.body;
-            document.getElementById('feedback').textContent = "";
-            document.getElementById('explanation').textContent = "";
-            updateProgressBar();
+        function loadEmail() {
+            if (currentEmail >= emails.length) {
+                endQuiz();
+                return;
+            }
+            emailDiv.innerHTML = emails[currentEmail].text;
+            explanationDiv.classList.add("hidden");
         }
 
         function checkAnswer(isPhishing) {
             const email = emails[currentEmail];
-            const feedback = document.getElementById('feedback');
-            const explanation = document.getElementById('explanation');
-
             if (isPhishing === email.isPhishing) {
-                feedback.textContent = "Richtig!";
-                feedback.style.color = "green";
-                score++;
-            } else {
-                feedback.textContent = "Falsch!";
-                feedback.style.color = "red";
+                correctAnswers++;
             }
-
-            explanation.textContent = email.explanation;
-
+            explanationDiv.textContent = email.explanation;
+            explanationDiv.classList.remove("hidden");
             currentEmail++;
-            if (currentEmail < emails.length) {
-                setTimeout(showEmail, 3000);
+            setTimeout(loadEmail, 5000); // Nach 5 Sekunden zur nächsten Mail wechseln
+        }
+
+        function endQuiz() {
+            emailDiv.classList.add("hidden");
+            phishingBtn.classList.add("hidden");
+            notPhishingBtn.classList.add("hidden");
+            explanationDiv.classList.add("hidden");
+            if (correctAnswers === emails.length) {
+                resultDiv.textContent = "Herzlichen Glückwunsch! Du hast alles richtig gemacht. Hier ist deine Flag: {CAUGHT_ALL_THE_PHISH}";
             } else {
-                setTimeout(showResults, 3000);
+                resultDiv.textContent = `Du hast ${correctAnswers} von ${emails.length} richtig. Versuche es erneut!`;
             }
+            resultDiv.classList.remove("hidden");
         }
 
-        function updateProgressBar() {
-            const progress = ((currentEmail / emails.length) * 100).toFixed(0);
-            const progressBar = document.querySelector('.progress-bar-inner');
-            progressBar.style.width = `${progress}%`;
-            progressBar.textContent = `${progress}%`;
-        }
+        phishingBtn.addEventListener("click", () => checkAnswer(true));
+        notPhishingBtn.addEventListener("click", () => checkAnswer(false));
 
-        function showResults() {
-            const container = document.querySelector('.container');
-            container.innerHTML = `
-                <div class="header">
-                    <h1>Quiz abgeschlossen!</h1>
-                </div>
-                <div class="email-viewer">
-                    <p style="text-align: center; font-size: 20px;">Du hast ${score} von ${emails.length} korrekt beantwortet.</p>
-                    ${score === emails.length ? '<p style="text-align: center; font-size: 24px; color: green;">Flag: {CAUGHT_ALL_THE_PHISH}</p>' : ''}
-                    <a href="index.html" class="back-button">Zurück zur Hauptseite</a>
-                </div>
-            `;
-        }
+        loadEmail();
     </script>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Phishing-Quiz</h1>
-        </div>
-        <div class="description">
-            <h2>Was ist Phishing?</h2>
-            <p>
-                Phishing ist ein Angriff, bei dem Angreifer versuchen, vertrauliche Informationen zu stehlen. Lies weiter, um mehr zu erfahren!
-            </p>
-            <button onclick="startQuiz()" style="margin-top: 10px;">Quiz starten</button>
-        </div>
-        <div class="email-viewer">
-            <div class="progress-bar">
-                <div class="progress-bar-inner"></div>
-            </div>
-            <div class="email-editor">
-                <div class="email-header">
-                    <div id="sender"></div>
-                    <div id="subject"></div>
-                </div>
-                <div class="email-body" id="body"></div>
-            </div>
-            <div class="actions">
-                <p>Ist diese E-Mail ein Phishing-Versuch?</p>
-                <button onclick="checkAnswer(true)">Ja</button>
-                <button onclick="checkAnswer(false)">Nein</button>
-            </div>
-            <div id="feedback"></div>
-            <div id="explanation"></div>
-        </div>
-    </div>
 </body>
 </html>
-
 
 
 
