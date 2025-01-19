@@ -25,6 +25,9 @@ const server = http.createServer((req, res) => {
         } else if (req.url === '/password-simulator.html') {
             // Passwortstärke-Simulator ausliefern
             serveFile('password-simulator.html', res);
+        } else if (req.url === '/social-engineering.html') {
+            // Social-Engineering-Lab ausliefern
+            serveFile('social-engineering.html', res);
         } else {
             // 404-Seite
             res.statusCode = 404;
