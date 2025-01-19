@@ -104,10 +104,15 @@
 
     <script>
         const correctPasswords = { admin: "admin123", user: "user123" }; // Bekannte Passwörter
-        const rockyouSample = Array.from({ length: 50 }, (_, i) => `password${i + 1}`).concat([
-            "admin123", // Passwort für admin
-            "user123" // Passwort für user
-        ]); // Beispielhafte Passwörter aus rockyou.txt
+        const rockyouSample = [
+            "123456", "password", "qwerty", "abc123", "letmein", "monkey", "iloveyou", "sunshine", 
+            "football", "welcome", "master", "hello", "freedom", "dragon", "whatever", "trustno1", 
+            "secret", "superman", "batman", "admin123", "passw0rd", "123qwe", "1q2w3e4r", "zxcvbnm", 
+            "login", "admin", "user123", "password1", "hunter2", "test123", "summer2023", "winter2023", 
+            "hello123", "letmein1", "god123", "abcdef", "admin1", "userpass", "rockyou", "ilove123", 
+            "securepass", "mypassword", "password2023", "adminadmin", "guessme", "hardpass", "simplepass", 
+            "bruteforce", "opensesame", "trustme", "guess123"
+        ]; // Beispielhafte Passwörter
 
         function startSimulation() {
             const targetUsername = document.getElementById("targetUsername").value.trim();
