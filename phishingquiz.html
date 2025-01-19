@@ -7,25 +7,42 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #eaf6ff;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             color: #333;
         }
         .quiz-container {
             max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
+            margin: 0 auto;
             background: #fff;
             border-radius: 10px;
+            padding: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         h1 {
             text-align: center;
-            color: #007bff;
+            color: #0056b3;
         }
         p {
             line-height: 1.6;
+            text-align: justify;
+        }
+        .progress-bar-container {
+            width: 100%;
+            background: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            height: 25px;
+            background: #007bff;
+            width: 0%;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            transition: width 0.5s ease-in-out;
         }
         .email {
             border: 1px solid #ddd;
@@ -44,22 +61,6 @@
         }
         .email-body {
             padding: 20px;
-        }
-        .progress-bar-container {
-            width: 100%;
-            background: #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-        .progress-bar {
-            height: 25px;
-            background: #007bff;
-            width: 0%;
-            text-align: center;
-            color: white;
-            font-weight: bold;
-            transition: width 0.5s ease-in-out;
         }
         .controls {
             text-align: center;
@@ -91,6 +92,18 @@
             text-align: center;
             color: green;
         }
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -99,10 +112,10 @@
         <div class="progress-bar-container">
             <div id="progress-bar" class="progress-bar">0%</div>
         </div>
-        <p>Willkommen zum Phishing-Quiz! Lies die E-Mails sorgfältig und entscheide, ob sie Phishing sind oder nicht.</p>
+        <p>Willkommen zum Phishing-Quiz! Lies die E-Mails sorgfältig und entscheide, ob sie Phishing sind oder nicht. Nach jeder Antwort erfährst du, warum die E-Mail echt oder gefälscht ist.</p>
         <div id="quiz-content">
             <div id="email" class="email">
-                <div id="email-header" class="email-header"></div>
+                <div id="email-header"></div>
                 <div id="email-body" class="email-body"></div>
             </div>
             <div class="controls">
@@ -112,6 +125,7 @@
             <div id="explanation" class="explanation"></div>
         </div>
         <div id="result" class="result hidden"></div>
+        <a href="index.html" class="back-button">Zurück zur Hauptseite</a>
     </div>
 
     <script>
@@ -143,6 +157,20 @@
                 body: "Ihre aktuelle Rechnung ist verfügbar. Loggen Sie sich in Ihr Konto ein, um die Details einzusehen.",
                 isPhishing: false,
                 explanation: "Diese E-Mail ist echt. Es gibt keine verdächtigen Links, und die Domain ist korrekt."
+            },
+            {
+                sender: "info@meineschule.de",
+                subject: "Elternabend Einladung",
+                body: "Wir laden Sie herzlich zum Elternabend ein. Die Details finden Sie hier: <a href='https://meineschule.de/elternabend'>meineschule.de/elternabend</a>.",
+                isPhishing: false,
+                explanation: "Diese E-Mail ist echt. Die Domain ist korrekt und führt zur offiziellen Schulwebsite."
+            },
+            {
+                sender: "news@vertrauternewsletter.com",
+                subject: "Neuigkeiten: Wichtige Updates für diesen Monat",
+                body: "Hier sind die neuesten Updates aus unserem Newsletter. Lesen Sie mehr: <a href='https://vertrauternewsletter.com/news'>vertrauternewsletter.com/news</a>.",
+                isPhishing: false,
+                explanation: "Diese E-Mail ist echt. Die URL ist korrekt und führt zur offiziellen Newsletter-Domain."
             }
         ];
 
