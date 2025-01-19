@@ -136,27 +136,6 @@
                 body: "Wir haben ungewöhnliche Aktivitäten auf Ihrem Konto festgestellt. Klicken Sie <a href='#' title='https://paypal-secure.com'>hier</a>, um Ihre Identität zu bestätigen.",
                 isPhishing: true,
                 explanation: "Die echte PayPal-Domain endet auf paypal.com. Diese Domain ist ein klassisches Beispiel für eine Phishing-Falle."
-            },
-            {
-                sender: "support@amazon.de",
-                subject: "Ihre Bestellung wurde bestätigt",
-                body: "Vielen Dank für Ihre Bestellung! Melden Sie sich <a href='#' title='https://www.amazon.de/order-details'>hier</a> an, um Ihre Bestelldetails zu sehen.",
-                isPhishing: false,
-                explanation: "Diese E-Mail ist echt, da sie keine verdächtigen Links enthält und die echte Amazon-Domain verwendet wird."
-            },
-            {
-                sender: "lottery@bigwin.com",
-                subject: "Herzlichen Glückwunsch! Sie haben gewonnen!",
-                body: "Klicken Sie <a href='#' title='https://bigwin-lottery.com'>hier</a>, um Ihren Preis zu beanspruchen.",
-                isPhishing: true,
-                explanation: "Diese E-Mail verspricht einen Gewinn, obwohl Sie nie an einem Gewinnspiel teilgenommen haben. Ein typisches Phishing-Merkmal."
-            },
-            {
-                sender: "billing@energycompany.com",
-                subject: "Ihre Rechnung für diesen Monat",
-                body: "Ihre aktuelle Rechnung ist verfügbar. Loggen Sie sich in Ihr Konto ein, um die Details einzusehen.",
-                isPhishing: false,
-                explanation: "Diese E-Mail ist echt, da sie keine verdächtigen Links enthält und von einer bekannten Domain stammt."
             }
         ];
 
@@ -218,13 +197,8 @@
                 </div>
                 <div class="email-viewer">
                     <p style="text-align: center; font-size: 20px;">Du hast ${score} von ${emails.length} korrekt beantwortet.</p>
-                    ${
-                        score === emails.length
-                            ? `<p style="text-align: center; font-size: 24px; color: green;">Flag: {CAUGHT_ALL_THE_PHISH}</p>
-                               <a href="index.html" class="back-button">Zurück zur Hauptseite</a>`
-                            : `<p style="text-align: center; font-size: 20px; color: red;">Leider hast du nicht alle Fragen richtig beantwortet. Versuche es erneut!</p>
-                               <a href="phishingquiz.html" class="back-button">Quiz erneut starten</a>`
-                    }
+                    ${score === emails.length ? '<p style="text-align: center; font-size: 24px; color: green;">Flag: {CAUGHT_ALL_THE_PHISH}</p>' : ''}
+                    <a href="index.html" class="back-button">Zurück zur Hauptseite</a>
                 </div>
             `;
         }
@@ -238,8 +212,7 @@
         <div class="description">
             <h2>Was ist Phishing?</h2>
             <p>
-                Phishing ist ein Angriff, bei dem Angreifer versuchen, vertrauliche Informationen wie Passwörter, Kreditkarteninformationen oder persönliche Daten zu stehlen.
-                Sie geben sich als vertrauenswürdige Institutionen aus und nutzen gefälschte E-Mails oder Webseiten, um ihre Opfer zu täuschen.
+                Phishing ist ein Angriff, bei dem Angreifer versuchen, vertrauliche Informationen zu stehlen. Lies weiter, um mehr zu erfahren!
             </p>
             <button onclick="startQuiz()" style="margin-top: 10px;">Quiz starten</button>
         </div>
@@ -265,6 +238,7 @@
     </div>
 </body>
 </html>
+
 
 
 
