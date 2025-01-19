@@ -9,92 +9,94 @@
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
         .container {
             max-width: 800px;
-            margin: auto;
+            margin: 20px auto;
             background: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .email-editor {
+            background: #e4e4e4;
             padding: 20px;
-        }
-        h1, h2 {
-            color: #333;
-            text-align: center;
-        }
-        p {
-            color: #555;
-            line-height: 1.6;
+            border-bottom: 2px solid #ddd;
         }
         .email-header {
-            background-color: #007bff;
-            color: #ffffff;
-            padding: 10px;
-            text-align: center;
-            margin-bottom: 10px;
+            background: #f9f9f9;
+            padding: 10px 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        .email-header div {
+            margin: 5px 0;
         }
         .email-body {
             padding: 20px;
-            background-color: #f4f4f4;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 10px;
+            line-height: 1.6;
+            color: #333;
         }
         .actions {
             text-align: center;
-            margin-top: 20px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-top: 1px solid #ddd;
         }
         .actions button {
-            background-color: #007bff;
-            color: #ffffff;
+            background: #007bff;
+            color: #fff;
             border: none;
-            padding: 10px 15px;
+            padding: 10px 20px;
             margin: 5px;
             cursor: pointer;
             border-radius: 5px;
-            font-size: 14px;
+            font-size: 16px;
         }
         .actions button:hover {
-            background-color: #0056b3;
+            background: #0056b3;
         }
         #feedback {
-            margin-top: 20px;
-            font-weight: bold;
             text-align: center;
+            padding: 20px;
+            font-weight: bold;
+        }
+        .explanation {
+            margin: 20px auto;
+            padding: 15px;
+            background: #f0f0f0;
+            border-left: 4px solid #007bff;
+        }
+        .flag {
+            text-align: center;
+            font-size: 20px;
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 20px;
         }
     </style>
     <script>
         const emails = [
             {
-                sender: "service@securebank.com",
+                sender: "support@securebank.com",
                 subject: "Dringend: Sicherheitswarnung",
                 body: "Ihr Konto wurde aufgrund verdächtiger Aktivitäten gesperrt. Bitte klicken Sie auf <a href='#'>diesen Link</a>, um es wieder zu aktivieren.",
-                isPhishing: true
+                isPhishing: true,
+                explanation: "Diese E-Mail fordert Sie auf, einen Link zu klicken, um ein Problem zu lösen. Seriöse Unternehmen würden solche Anfragen nie über E-Mails senden."
             },
             {
-                sender: "orders@shoponline.com",
+                sender: "info@onlineshop.com",
                 subject: "Vielen Dank für Ihre Bestellung!",
-                body: "Wir bestätigen Ihre Bestellung. Sie können die Details <a href='#'>hier</a> einsehen.",
-                isPhishing: false
+                body: "Ihre Bestellung wurde erfolgreich bearbeitet. Die Rechnung können Sie <a href='#'>hier</a> einsehen.",
+                isPhishing: false,
+                explanation: "Diese E-Mail ist echt, da sie keine verdächtigen Links oder ungewöhnliche Aufforderungen enthält. Es gibt keine Rechtschreibfehler und die Sprache ist professionell."
             },
             {
                 sender: "lottery@bigwin.com",
                 subject: "Herzlichen Glückwunsch! Sie haben gewonnen!",
-                body: "Klicken Sie <a href='#'>hier</a>, um Ihren Preis einzufordern.",
-                isPhishing: true
-            },
-            {
-                sender: "support@streamingworld.com",
-                subject: "Passwortänderung erfolgreich",
-                body: "Ihr Passwort wurde geändert. Wenn Sie dies nicht angefordert haben, klicken Sie bitte <a href='#'>hier</a>.",
-                isPhishing: true
-            },
-            {
-                sender: "reminder@meetingsapp.com",
-                subject: "Erinnerung: Ihr Meeting um 10:00 Uhr",
-                body: "Dies ist eine freundliche Erinnerung an Ihr Meeting. Melden Sie sich <a href='#'>hier</a> an, wenn Sie Fragen haben.",
-                isPhishing: false
+                body: "Klicken Sie <a href='#'>hier</a>, um Ihren Preis zu beanspruchen.",
+                isPhishing: true,
+                explanation: "E-Mails, die Gewinne versprechen, obwohl Sie nicht an einem Gewinnspiel teilgenommen haben, sind fast immer Phishing-Versuche."
             }
         ];
 
@@ -107,11 +109,13 @@
             document.getElementById('subject').textContent = `Betreff: ${email.subject}`;
             document.getElementById('body').innerHTML = email.body;
             document.getElementById('feedback').textContent = "";
+            document.getElementById('explanation').textContent = "";
         }
 
         function checkAnswer(isPhishing) {
             const email = emails[currentEmail];
             const feedback = document.getElementById('feedback');
+            const explanation = document.getElementById('explanation');
 
             if (isPhishing === email.isPhishing) {
                 feedback.textContent = "Richtig!";
@@ -122,19 +126,22 @@
                 feedback.style.color = "red";
             }
 
+            explanation.textContent = email.explanation;
+
             currentEmail++;
             if (currentEmail < emails.length) {
-                setTimeout(showEmail, 2000);
+                setTimeout(showEmail, 4000);
             } else {
-                setTimeout(showResults, 2000);
+                setTimeout(showResults, 4000);
             }
         }
 
         function showResults() {
             const container = document.querySelector('.container');
             container.innerHTML = `
-                <h2>Quiz abgeschlossen!</h2>
-                <p>Du hast ${score} von ${emails.length} korrekt beantwortet.</p>
+                <h2 style="text-align: center;">Quiz abgeschlossen!</h2>
+                <p style="text-align: center;">Du hast ${score} von ${emails.length} korrekt beantwortet.</p>
+                ${score === emails.length ? '<div class="flag">Flag: {CAUGHT_ALL_THE_PHISH}</div>' : ''}
             `;
         }
 
@@ -143,18 +150,22 @@
 </head>
 <body>
     <div class="container">
-        <h1>Phishing-Quiz</h1>
+        <div class="email-editor">
+            <h2 style="text-align: center;">E-Mail Editor</h2>
+        </div>
         <div class="email-header">
-            <h2 id="subject"></h2>
+            <div id="sender"></div>
+            <div id="subject"></div>
         </div>
         <div class="email-body" id="body"></div>
-        <p id="sender"></p>
         <div class="actions">
             <p>Ist diese E-Mail ein Phishing-Versuch?</p>
             <button onclick="checkAnswer(true)">Ja</button>
             <button onclick="checkAnswer(false)">Nein</button>
         </div>
         <div id="feedback"></div>
+        <div class="explanation" id="explanation"></div>
     </div>
 </body>
 </html>
+
