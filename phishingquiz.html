@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phishing-Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+            text-align: center;
+        }
+        p {
+            color: #555;
+            line-height: 1.6;
+        }
+        .email-header {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .email-body {
+            padding: 20px;
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .actions button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .actions button:hover {
+            background-color: #0056b3;
+        }
+        #feedback {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+    <script>
+        const emails = [
+            {
+                sender: "service@securebank.com",
+                subject: "Dringend: Sicherheitswarnung",
+                body: "Ihr Konto wurde aufgrund verdächtiger Aktivitäten gesperrt. Bitte klicken Sie auf <a href='#'>diesen Link</a>, um es wieder zu aktivieren.",
+                isPhishing: true
+            },
+            {
+                sender: "orders@shoponline.com",
+                subject: "Vielen Dank für Ihre Bestellung!",
+                body: "Wir bestätigen Ihre Bestellung. Sie können die Details <a href='#'>hier</a> einsehen.",
+                isPhishing: false
+            },
+            {
+                sender: "lottery@bigwin.com",
+                subject: "Herzlichen Glückwunsch! Sie haben gewonnen!",
+                body: "Klicken Sie <a href='#'>hier</a>, um Ihren Preis einzufordern.",
+                isPhishing: true
+            },
+            {
+                sender: "support@streamingworld.com",
+                subject: "Passwortänderung erfolgreich",
+                body: "Ihr Passwort wurde geändert. Wenn Sie dies nicht angefordert haben, klicken Sie bitte <a href='#'>hier</a>.",
+                isPhishing: true
+            },
+            {
+                sender: "reminder@meetingsapp.com",
+                subject: "Erinnerung: Ihr Meeting um 10:00 Uhr",
+                body: "Dies ist eine freundliche Erinnerung an Ihr Meeting. Melden Sie sich <a href='#'>hier</a> an, wenn Sie Fragen haben.",
+                isPhishing: false
+            }
+        ];
+
+        let currentEmail = 0;
+        let score = 0;
+
+        function showEmail() {
+            const email = emails[currentEmail];
+            document.getElementById('sender').textContent = `Von: ${email.sender}`;
+            document.getElementById('subject').textContent = `Betreff: ${email.subject}`;
+            document.getElementById('body').innerHTML = email.body;
+            document.getElementById('feedback').textContent = "";
+        }
+
+        function checkAnswer(isPhishing) {
+            const email = emails[currentEmail];
+            const feedback = document.getElementById('feedback');
+
+            if (isPhishing === email.isPhishing) {
+                feedback.textContent = "Richtig!";
+                feedback.style.color = "green";
+                score++;
+            } else {
+                feedback.textContent = "Falsch!";
+                feedback.style.color = "red";
+            }
+
+            currentEmail++;
+            if (currentEmail < emails.length) {
+                setTimeout(showEmail, 2000);
+            } else {
+                setTimeout(showResults, 2000);
+            }
+        }
+
+        function showResults() {
+            const container = document.querySelector('.container');
+            container.innerHTML = `
+                <h2>Quiz abgeschlossen!</h2>
+                <p>Du hast ${score} von ${emails.length} korrekt beantwortet.</p>
+            `;
+        }
+
+        window.onload = showEmail;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Phishing-Quiz</h1>
+        <div class="email-header">
+            <h2 id="subject"></h2>
+        </div>
+        <div class="email-body" id="body"></div>
+        <p id="sender"></p>
+        <div class="actions">
+            <p>Ist diese E-Mail ein Phishing-Versuch?</p>
+            <button onclick="checkAnswer(true)">Ja</button>
+            <button onclick="checkAnswer(false)">Nein</button>
+        </div>
+        <div id="feedback"></div>
+    </div>
+</body>
+</html>
