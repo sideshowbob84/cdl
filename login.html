@@ -81,12 +81,12 @@
         <div class="demo-container">
             <h2>Brute-Force-Demo</h2>
             <p>
-                Hier wird gezeigt, wie ein Brute-Force-Angriff funktioniert. Wir verwenden die bekannte Wordlist <strong>rockyou.txt</strong>, um die Passwörter für "<strong>admin</strong>" und "<strong>user</strong>" zu finden.
+                Gib den Benutzernamen ein (z. B. "<strong>admin</strong>" oder "<strong>user</strong>"), den du angreifen möchtest.
+                Wir simulieren dann einen Brute-Force-Angriff mit der Wordlist <strong>rockyou.txt</strong>.
             </p>
+            <input type="text" id="targetUsername" placeholder="Ziel-Benutzername (z. B. admin)">
             <p>Hydra-Befehl:</p>
-            <div class="shell">
-                hydra -l admin -P rockyou.txt http-post-form "/login:username=^USER^&password=^PASS^:F=Login fehlgeschlagen"
-            </div>
+            <div class="shell" id="hydraCommand"></div>
             <button onclick="startSimulation()">Simulation starten</button>
 
             <div class="shell" id="simulation"></div>
@@ -100,34 +100,42 @@
             "football", "iloveyou", "welcome", "user123", // Passwort für user
             "sunshine", "master", "hello", "freedom"
         ]; // Beispielhafte Passwörter aus rockyou.txt
-        const found = [];
 
         function startSimulation() {
+            const targetUsername = document.getElementById("targetUsername").value.trim();
             const simulation = document.getElementById("simulation");
+            const hydraCommand = document.getElementById("hydraCommand");
+
+            // Benutzername prüfen
+            if (!targetUsername || !correctPasswords[targetUsername]) {
+                simulation.textContent = "Fehler: Bitte einen gültigen Benutzernamen eingeben (admin oder user)!";
+                return;
+            }
+
+            // Hydra-Befehl anzeigen
+            hydraCommand.textContent = `hydra -l ${targetUsername} -P rockyou.txt http-post-form "/login:username=^USER^&password=^PASS^:F=Login fehlgeschlagen"`;
+
             simulation.textContent = ""; // Vorherigen Inhalt löschen
             let index = 0;
+            const foundPasswords = [];
 
             const interval = setInterval(() => {
                 if (index < rockyouSample.length) {
                     const pass = rockyouSample[index];
-                    simulation.textContent += `Testing password: ${pass}\n`;
+                    simulation.textContent += `Testing password for ${targetUsername}: ${pass}\n`;
 
-                    if (pass === correctPasswords.admin || pass === correctPasswords.user) {
-                        found.push(pass);
-                        simulation.textContent += `Password found for ${
-                            pass === correctPasswords.admin ? "admin" : "user"
-                        }: ${pass}\n`;
+                    if (pass === correctPasswords[targetUsername]) {
+                        foundPasswords.push(pass);
+                        simulation.textContent += `Password found for ${targetUsername}: ${pass}\n`;
+                        clearInterval(interval); // Simulation stoppen, wenn das Passwort gefunden wurde
                     }
 
                     simulation.scrollTop = simulation.scrollHeight; // Scroll automatisch nach unten
                     index++;
                 } else {
                     clearInterval(interval);
-                    if (found.length > 0) {
-                        simulation.textContent += `\nGefundene Passwörter: ${found.join(", ")}`;
-                        simulation.textContent += `\n\nVerwende die gefundenen Zugangsdaten, um dich oben einzuloggen.`;
-                    } else {
-                        simulation.textContent += "\nKeine Passwörter gefunden!";
+                    if (foundPasswords.length === 0) {
+                        simulation.textContent += `\nKeine Passwörter für ${targetUsername} gefunden.`;
                     }
                 }
             }, 300); // Simuliere längeren Delay
