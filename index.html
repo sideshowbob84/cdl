@@ -123,6 +123,50 @@
         <h1>Cybersecurity Aufgaben</h1>
 
         <div class="accordion">
+            <!-- Phishing Quiz -->
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordionBody(event)">
+                    Aufgabe 1: Phishing Quiz
+                </div>
+                <div class="accordion-body">
+                    <p>
+                        <strong>Phishing:</strong> Phishing ist eine Methode, bei der Angreifer gefälschte E-Mails verwenden, um sensible Daten wie Passwörter, Bankinformationen oder persönliche Daten zu stehlen. 
+                        Typische Anzeichen für Phishing sind gefälschte Links, E-Mails mit dringlichen Aufforderungen und verdächtigen Absendern.
+                    </p>
+                    <p>
+                        <strong>Aufgabe:</strong> Analysiere die bereitgestellten E-Mails und entscheide, ob sie echt oder Phishing-Versuche sind. Erkenne alle Phishing-Mails, um die Flag zu erhalten.
+                    </p>
+                    <button onclick="window.location.href='phishingquiz.html'">Zum Phishing-Quiz</button>
+                    <div class="flag-section">
+                        <input type="text" id="phishing-flag" placeholder="Flag hier eingeben...">
+                        <button class="check-button" onclick="checkFlag('phishing', 'phishing-flag', 'phishing-result')">Flag prüfen</button>
+                        <div id="phishing-result"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brute Force -->
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordionBody(event)">
+                    Aufgabe 2: Brute-Force-Angriff
+                </div>
+                <div class="accordion-body">
+                    <p>
+                        <strong>Brute-Force:</strong> Ein Brute-Force-Angriff versucht, Passwörter systematisch zu erraten. Dies kann automatisiert mit Tools wie Hydra erfolgen. 
+                        Solche Angriffe sind besonders effektiv gegen kurze oder einfache Passwörter.
+                    </p>
+                    <p>
+                        <strong>Aufgabe:</strong> Simuliere in unserem Lab einen Brute-Force-Angriff und finde die Passwörter der beiden Nutzer. Nach erfolgreicher Durchführung erhältst du eine Flag.
+                    </p>
+                    <button onclick="window.location.href='bruteforce.html'">Zum Brute-Force-Lab</button>
+                    <div class="flag-section">
+                        <input type="text" id="bruteforce-flag" placeholder="Flag hier eingeben...">
+                        <button class="check-button" onclick="checkFlag('bruteforce', 'bruteforce-flag', 'bruteforce-result')">Flag prüfen</button>
+                        <div id="bruteforce-result"></div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Passwortstärke-Simulator -->
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordionBody(event)">
