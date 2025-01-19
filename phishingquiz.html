@@ -1,45 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phishing Quiz</title>
+    <title>Phishing-Quiz</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
         }
         .quiz-container {
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        p {
+            line-height: 1.6;
         }
         .email {
             border: 1px solid #ddd;
             padding: 15px;
             margin-bottom: 20px;
             background: #f9f9f9;
+            font-family: monospace;
         }
         .controls {
-            margin-top: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .controls button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+        .controls button:hover {
+            background-color: #0056b3;
         }
         .explanation {
-            color: #007bff;
-            font-weight: bold;
-        }
-        .hidden {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e6f7ff;
+            border-left: 5px solid #007bff;
             display: none;
         }
         .result {
-            font-size: 1.2em;
-            margin-top: 20px;
+            font-size: 1.5em;
+            margin-top: 30px;
+            text-align: center;
             color: green;
-            font-weight: bold;
+        }
+        .hidden {
+            display: none;
         }
     </style>
 </head>
 <body>
     <div class="quiz-container">
-        <h1>Phishing Quiz</h1>
+        <h1>Phishing-Quiz</h1>
         <p>Willkommen zum Phishing-Quiz! Lies die E-Mails sorgfältig und entscheide, ob sie Phishing sind oder nicht. Nach jeder Antwort erfährst du, warum die E-Mail echt oder gefälscht ist.</p>
         <div id="quiz-content">
             <div id="email" class="email"></div>
@@ -47,7 +79,7 @@
                 <button id="phishing-btn">Phishing</button>
                 <button id="not-phishing-btn">Kein Phishing</button>
             </div>
-            <div id="explanation" class="explanation hidden"></div>
+            <div id="explanation" class="explanation"></div>
         </div>
         <div id="result" class="result hidden"></div>
     </div>
@@ -101,7 +133,7 @@
                 return;
             }
             emailDiv.innerHTML = emails[currentEmail].text;
-            explanationDiv.classList.add("hidden");
+            explanationDiv.style.display = "none";
         }
 
         function checkAnswer(isPhishing) {
@@ -110,16 +142,13 @@
                 correctAnswers++;
             }
             explanationDiv.textContent = email.explanation;
-            explanationDiv.classList.remove("hidden");
+            explanationDiv.style.display = "block";
             currentEmail++;
-            setTimeout(loadEmail, 5000); // Nach 5 Sekunden zur nächsten Mail wechseln
+            setTimeout(loadEmail, 4000);
         }
 
         function endQuiz() {
-            emailDiv.classList.add("hidden");
-            phishingBtn.classList.add("hidden");
-            notPhishingBtn.classList.add("hidden");
-            explanationDiv.classList.add("hidden");
+            document.getElementById("quiz-content").style.display = "none";
             if (correctAnswers === emails.length) {
                 resultDiv.textContent = "Herzlichen Glückwunsch! Du hast alles richtig gemacht. Hier ist deine Flag: {CAUGHT_ALL_THE_PHISH}";
             } else {
@@ -135,6 +164,7 @@
     </script>
 </body>
 </html>
+
 
 
 
