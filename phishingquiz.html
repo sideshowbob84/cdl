@@ -46,6 +46,13 @@
             line-height: 1.6;
             margin-bottom: 20px;
         }
+        .email-body a {
+            color: #007bff;
+            text-decoration: underline;
+        }
+        .email-body a:hover {
+            color: #0056b3;
+        }
         .progress-bar {
             margin: 10px 0;
             height: 25px;
@@ -84,50 +91,57 @@
             font-weight: bold;
             margin-top: 20px;
         }
+        #explanation {
+            margin-top: 20px;
+            font-size: 18px;
+            background: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+        }
     </style>
     <script>
         const emails = [
             {
                 sender: "noreply@dhl.com",
                 subject: "Ihr Paket konnte nicht zugestellt werden!",
-                body: "Ihr Paket wartet auf die Zustellung. Bitte bestätigen Sie Ihre Adresse <a href='#'>hier</a>.",
+                body: "Ihr Paket wartet auf die Zustellung. Bitte bestätigen Sie Ihre Adresse <a href='#' title='https://phishing-dhl.com'>hier</a>.",
                 isPhishing: true,
-                explanation: "Die E-Mail stammt nicht von der echten DHL-Adresse und fordert Sie auf, sensible Informationen einzugeben."
+                explanation: "Diese E-Mail stammt nicht von der echten DHL-Adresse. Der Link führt zu einer gefälschten Domain."
             },
             {
-                sender: "service@paypal.com",
-                subject: "Ungewöhnliche Aktivität erkannt",
-                body: "Wir haben ungewöhnliche Aktivitäten auf Ihrem Konto festgestellt. Klicken Sie <a href='#'>hier</a>, um Ihre Identität zu bestätigen.",
+                sender: "support@am4zon.de",
+                subject: "Verdächtige Login-Aktivität",
+                body: "Es wurde ein verdächtiger Login in Ihrem Konto festgestellt. Melden Sie sich <a href='#' title='https://secure-am4zon.com'>hier</a> an, um dies zu prüfen.",
                 isPhishing: true,
-                explanation: "PayPal warnt vor Phishing-E-Mails, die Nutzer auffordern, sich über Links anzumelden."
+                explanation: "Diese E-Mail imitiert Amazon, aber die Domain am4zon.de ist gefälscht und täuschend ähnlich."
+            },
+            {
+                sender: "service@paypal-secure.com",
+                subject: "Ungewöhnliche Aktivität erkannt",
+                body: "Wir haben ungewöhnliche Aktivitäten auf Ihrem Konto festgestellt. Klicken Sie <a href='#' title='https://paypal-secure.com'>hier</a>, um Ihre Identität zu bestätigen.",
+                isPhishing: true,
+                explanation: "Die echte PayPal-Domain endet auf paypal.com. Diese Domain ist ein klassisches Beispiel für eine Phishing-Falle."
+            },
+            {
+                sender: "support@amazon.de",
+                subject: "Ihre Bestellung wurde bestätigt",
+                body: "Vielen Dank für Ihre Bestellung! Melden Sie sich <a href='#' title='https://www.amazon.de/order-details'>hier</a> an, um Ihre Bestelldetails zu sehen.",
+                isPhishing: false,
+                explanation: "Diese E-Mail ist echt, da sie keine verdächtigen Links enthält und die echte Amazon-Domain verwendet wird."
             },
             {
                 sender: "lottery@bigwin.com",
                 subject: "Herzlichen Glückwunsch! Sie haben gewonnen!",
-                body: "Klicken Sie <a href='#'>hier</a>, um Ihren Preis zu beanspruchen.",
+                body: "Klicken Sie <a href='#' title='https://bigwin-lottery.com'>hier</a>, um Ihren Preis zu beanspruchen.",
                 isPhishing: true,
-                explanation: "Lotto-E-Mails, die Gewinne versprechen, obwohl Sie nie teilgenommen haben, sind fast immer Betrug."
+                explanation: "Diese E-Mail verspricht einen Gewinn, obwohl Sie nie an einem Gewinnspiel teilgenommen haben. Ein typisches Phishing-Merkmal."
             },
             {
-                sender: "support@amazon.de",
-                subject: "Ungewöhnliche Login-Aktivität",
-                body: "Es wurde ein verdächtiger Login in Ihrem Konto festgestellt. Melden Sie sich <a href='#'>hier</a> an, um dies zu prüfen.",
-                isPhishing: true,
-                explanation: "Diese E-Mail imitiert Amazon, um an Ihre Zugangsdaten zu kommen."
-            },
-            {
-                sender: "info@university.de",
-                subject: "Willkommen zu Ihrem neuen Semester!",
-                body: "Wir freuen uns, Sie im neuen Semester willkommen zu heißen. Hier finden Sie alle wichtigen Infos.",
+                sender: "billing@energycompany.com",
+                subject: "Ihre Rechnung für diesen Monat",
+                body: "Ihre aktuelle Rechnung ist verfügbar. Loggen Sie sich in Ihr Konto ein, um die Details einzusehen.",
                 isPhishing: false,
-                explanation: "Diese E-Mail enthält keine Links zu unbekannten Seiten und ist klar und professionell formuliert."
-            },
-            {
-                sender: "noreply@energycompany.com",
-                subject: "Ihre letzte Rechnung ist verfügbar",
-                body: "Ihre aktuelle Stromrechnung ist verfügbar. Loggen Sie sich in Ihr Kundenkonto ein, um die Rechnung herunterzuladen.",
-                isPhishing: false,
-                explanation: "Die E-Mail stammt von einer echten Adresse und fordert keine sensiblen Informationen."
+                explanation: "Diese E-Mail ist echt, da sie keine verdächtigen Links enthält und von einer bekannten Domain stammt."
             }
         ];
 
@@ -140,12 +154,14 @@
             document.getElementById('subject').textContent = `Betreff: ${email.subject}`;
             document.getElementById('body').innerHTML = email.body;
             document.getElementById('feedback').textContent = "";
+            document.getElementById('explanation').textContent = "";
             updateProgressBar();
         }
 
         function checkAnswer(isPhishing) {
             const email = emails[currentEmail];
             const feedback = document.getElementById('feedback');
+            const explanation = document.getElementById('explanation');
 
             if (isPhishing === email.isPhishing) {
                 feedback.textContent = "Richtig!";
@@ -156,11 +172,13 @@
                 feedback.style.color = "red";
             }
 
+            explanation.textContent = email.explanation;
+
             currentEmail++;
             if (currentEmail < emails.length) {
-                setTimeout(showEmail, 3000);
+                setTimeout(showEmail, 5000);
             } else {
-                setTimeout(showResults, 3000);
+                setTimeout(showResults, 5000);
             }
         }
 
@@ -207,8 +225,10 @@
                 <button onclick="checkAnswer(false)">Nein</button>
             </div>
             <div id="feedback"></div>
+            <div id="explanation"></div>
         </div>
     </div>
 </body>
 </html>
+
 
