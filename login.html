@@ -27,7 +27,7 @@
             color: #555;
             line-height: 1.6;
         }
-        .login-container, .demo-container {
+        .login-container, .demo-container, .info-container {
             margin-bottom: 20px;
         }
         input {
@@ -74,6 +74,32 @@
 <body>
     <div class="container">
         <h1>Login und Brute-Force-Demo</h1>
+
+        <!-- Infotext -->
+        <div class="info-container">
+            <h2>Was passiert hier?</h2>
+            <p>
+                Diese Anwendung zeigt eine <strong>Brute-Force-Attacke</strong>, wie sie in der IT-Sicherheit vorkommen könnte.
+                Beim Brute-Force-Angriff versucht ein Angreifer, alle möglichen Passwörter für ein Benutzerkonto zu testen, 
+                bis das richtige Passwort gefunden wird. Dies wird mit Hilfe einer sogenannten <em>Wordlist</em> durchgeführt, 
+                in der häufig genutzte Passwörter gesammelt sind.
+            </p>
+            <p>
+                In unserer Demo simulieren wir diesen Angriff mithilfe des Tools <strong>Hydra</strong>. Hydra ist ein bekanntes 
+                Werkzeug für Sicherheitsforschung und Penetrationstests. Es wird häufig genutzt, um Schwachstellen in Systemen 
+                zu finden – aber nur für legale Zwecke!
+            </p>
+            <p>
+                Die hier genutzte <strong>Wordlist</strong> enthält realistische, häufig verwendete Passwörter, 
+                wie sie auch in Datenlecks vorkommen könnten. Während der Simulation testet Hydra alle Einträge 
+                aus der Wordlist gegen ein Benutzerkonto. Am Ende zeigt die Anwendung, welches Passwort funktioniert hat.
+            </p>
+            <p>
+                Hinweis: Dies ist eine rein <strong>simulierte Umgebung</strong>. Es findet kein echter Angriff statt. 
+                Ziel ist es, die Funktionsweise eines Brute-Force-Angriffs besser zu verstehen und 
+                die Bedeutung von sicheren Passwörtern zu erkennen.
+            </p>
+        </div>
 
         <!-- Loginmaske -->
         <div class="login-container">
