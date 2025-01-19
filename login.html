@@ -61,6 +61,14 @@
             overflow-y: scroll;
             white-space: pre-wrap;
         }
+        .flag {
+            background: #007bff;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -70,11 +78,12 @@
         <!-- Loginmaske -->
         <div class="login-container">
             <h2>Login</h2>
-            <form action="/login" method="POST">
-                <input type="text" name="username" placeholder="Benutzername" required>
-                <input type="password" name="password" placeholder="Passwort" required>
+            <form onsubmit="handleLogin(event)">
+                <input type="text" id="loginUsername" placeholder="Benutzername" required>
+                <input type="password" id="loginPassword" placeholder="Passwort" required>
                 <button type="submit">Einloggen</button>
             </form>
+            <div id="flag" class="flag"></div>
         </div>
 
         <!-- Brute-Force-Demo -->
@@ -95,10 +104,10 @@
 
     <script>
         const correctPasswords = { admin: "admin123", user: "user123" }; // Bekannte Passwörter
-        const rockyouSample = [
-            "123456", "password", "qwerty", "abc123", "letmein", "monkey", "football", "iloveyou", "welcome",
-            "sunshine", "master", "hello", "freedom", "admin123", "user123"
-        ]; // Beispielhafte Passwörter aus rockyou.txt
+        const rockyouSample = Array.from({ length: 50 }, (_, i) => `password${i + 1}`).concat([
+            "admin123", // Passwort für admin
+            "user123" // Passwort für user
+        ]); // Beispielhafte Passwörter aus rockyou.txt
 
         function startSimulation() {
             const targetUsername = document.getElementById("targetUsername").value.trim();
@@ -117,7 +126,7 @@
             simulation.textContent = ""; // Vorherigen Inhalt löschen
             let index = 0;
             const foundPasswords = [];
-            const delay = 600; // Verzögerung in ms für realistischere Simulation
+            const delay = 500; // Verzögerung in ms für realistischere Simulation
             const introText = [
                 "Hydra v9.4-dev (c) 2023 by van Hauser/THC and David Maciejak\n",
                 "This tool is for legal purposes only! Do not use it for illegal activities.\n",
@@ -148,6 +157,25 @@
                     }
                 }
             }, delay);
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById("loginUsername").value.trim();
+            const password = document.getElementById("loginPassword").value.trim();
+            const flagDiv = document.getElementById("flag");
+
+            if (correctPasswords[username] && correctPasswords[username] === password) {
+                if (username === "admin") {
+                    flagDiv.textContent = "Flag: {BRUTE_FORCE_ADMIN_SUCCESS}";
+                } else {
+                    flagDiv.textContent = "Login erfolgreich!";
+                }
+                flagDiv.style.display = "block";
+            } else {
+                flagDiv.textContent = "Login fehlgeschlagen!";
+                flagDiv.style.display = "block";
+            }
         }
     </script>
 </body>
