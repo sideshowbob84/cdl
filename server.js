@@ -22,6 +22,9 @@ const server = http.createServer((req, res) => {
         } else if (req.url === '/phishingquiz.html') {
             // Phishing-Quiz ausliefern
             serveFile('phishingquiz.html', res);
+        } else if (req.url === '/password-simulator.html') {
+            // Passwortstärke-Simulator ausliefern
+            serveFile('password-simulator.html', res);
         } else {
             // 404-Seite
             res.statusCode = 404;
