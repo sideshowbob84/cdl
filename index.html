@@ -3,64 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cybersecurity Demos</title>
+    <title>Cybersecurity Aufgaben</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            padding: 0;
+            background-color: #f4f4f4;
         }
         .container {
-            text-align: center;
-            background: #fff;
+            max-width: 800px;
+            margin: 20px auto;
             padding: 20px;
+            background: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         h1 {
+            text-align: center;
             color: #333;
-            margin-bottom: 20px;
         }
-        p {
-            color: #555;
-            margin-bottom: 30px;
+        .accordion {
+            margin: 10px 0;
+        }
+        .accordion-item {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background: #f9f9f9;
+        }
+        .accordion-header {
+            padding: 15px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+        .accordion-header:hover {
+            background: #0056b3;
+        }
+        .accordion-body {
+            padding: 15px;
+            display: none;
+        }
+        .accordion-body p {
+            margin-bottom: 15px;
             line-height: 1.6;
         }
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        button {
+        .accordion-body button {
             background: #007bff;
             color: #fff;
             border: none;
-            padding: 15px 20px;
-            font-size: 16px;
-            border-radius: 5px;
+            padding: 10px 15px;
             cursor: pointer;
+            border-radius: 5px;
         }
-        button:hover {
+        .accordion-body button:hover {
             background: #0056b3;
         }
+        .flag-section {
+            margin-top: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .check-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .check-button:hover {
+            background: #218838;
+        }
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .result.error {
+            color: red;
+        }
     </style>
+    <script>
+        function toggleAccordionBody(event) {
+            const body = event.currentTarget.nextElementSibling;
+            body.style.display = body.style.display === "block" ? "none" : "block";
+        }
+
+        function checkFlag(task, inputId, resultId) {
+            const flags = {
+                "phishing": "{CAUGHT_ALL_THE_PHISH}",
+                "bruteforce": "{BRUTE_FORCE_ADMIN_SUCCESS}"
+            };
+
+            const userInput = document.getElementById(inputId).value.trim();
+            const result = document.getElementById(resultId);
+
+            if (userInput === flags[task]) {
+                result.textContent = "Richtig! Flag akzeptiert.";
+                result.className = "result";
+            } else {
+                result.textContent = "Falsch! Versuche es nochmal.";
+                result.className = "result error";
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
-        <h1>Cybersecurity Demos</h1>
-        <p>
-            Willkommen zu unseren interaktiven Cybersecurity-Demos! Wähle eine der folgenden Optionen aus,
-            um mehr über Sicherheitsangriffe zu lernen:
-        </p>
-        <div class="button-container">
-            <button onclick="window.location.href='bruteforce.html'">Brute-Force-Angriff</button>
-            <button onclick="window.location.href='phishingquiz.html'">Phishing-Quiz</button>
+        <h1>Cybersecurity Aufgaben</h1>
+
+        <div class="accordion">
+            <!-- Phishing Quiz -->
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordionBody(event)">
+                    Aufgabe 1: Phishing Quiz
+                </div>
+                <div class="accordion-body">
+                    <p>
+                        <strong>Phishing:</strong> Phishing ist eine Methode, bei der Angreifer gefälschte E-Mails verwenden, um sensible Daten wie Passwörter, Bankinformationen oder persönliche Daten zu stehlen. Diese E-Mails wirken oft täuschend echt und stammen scheinbar von vertrauenswürdigen Quellen wie Banken oder großen Unternehmen. Typische Anzeichen für Phishing-E-Mails sind:
+                    </p>
+                    <ul>
+                        <li>Rechtschreib- und Grammatikfehler.</li>
+                        <li>Verdächtige Links, die auf unbekannte Domains führen.</li>
+                        <li>Dringliche Aufforderungen, wie "Klicken Sie hier, um Ihr Konto zu schützen".</li>
+                    </ul>
+                    <p>
+                        <strong>Aufgabe:</strong> Im Lab analysierst du mehrere E-Mails und entscheidest, ob es sich um legitime oder Phishing-Versuche handelt.
+                        Deine Erkenntnisse helfen dir, eine Flag zu erhalten, wenn du alle Phishing-E-Mails korrekt erkennst.
+                    </p>
+                    <button onclick="window.location.href='phishingquiz.html'">Zum Phishing-Quiz</button>
+                    <div class="flag-section">
+                        <input type="text" id="phishing-flag" placeholder="Flag hier eingeben...">
+                        <button class="check-button" onclick="checkFlag('phishing', 'phishing-flag', 'phishing-result')">Flag prüfen</button>
+                        <div id="phishing-result"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brute Force -->
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordionBody(event)">
+                    Aufgabe 2: Brute-Force-Angriff
+                </div>
+                <div class="accordion-body">
+                    <p>
+                        <strong>Brute-Force:</strong> Brute-Force-Angriffe versuchen, Passwörter durch das systematische Testen aller möglichen Kombinationen zu knacken. Diese Methode kann mit Tools wie Hydra automatisiert werden. Moderne Systeme versuchen, sich gegen solche Angriffe zu schützen, indem sie:
+                    </p>
+                    <ul>
+                        <li>Account-Sperrungen nach mehreren Fehlversuchen einführen.</li>
+                        <li>CAPTCHAs verwenden, um Bots zu stoppen.</li>
+                        <li>Zwei-Faktor-Authentifizierung einsetzen.</li>
+                    </ul>
+                    <p>
+                        <strong>Aufgabe:</strong> Simuliere in unserem Lab einen Brute-Force-Angriff und finde die Passwörter der beiden Nutzer. Sobald du erfolgreich bist, kannst du die Flag für diese Aufgabe eintragen.
+                    </p>
+                    <button onclick="window.location.href='bruteforce.html'">Zum Brute-Force-Angriff</button>
+                    <div class="flag-section">
+                        <input type="text" id="bruteforce-flag" placeholder="Flag hier eingeben...">
+                        <button class="check-button" onclick="checkFlag('bruteforce', 'bruteforce-flag', 'bruteforce-result')">Flag prüfen</button>
+                        <div id="bruteforce-result"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
 </html>
+
