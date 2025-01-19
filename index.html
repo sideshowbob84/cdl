@@ -26,6 +26,10 @@
             font-size: 36px;
             color: #007bff;
             margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
         p {
             font-size: 16px;
@@ -141,30 +145,33 @@
 
         function updateProgress() {
             const progress = document.getElementById("progress");
-            progress.textContent = `Fortschritt: ${collectedFlags} / 4 Flags gesammelt`;
+            progress.textContent = `🏁 Fortschritt: ${collectedFlags} / 4 Flags gesammelt`;
+        }
+
+        function toggleAccordionBody(event) {
+            const body = event.currentTarget.nextElementSibling;
+            body.style.display = body.style.display === "block" ? "none" : "block";
         }
     </script>
 </head>
 <body>
     <div class="container">
-        <h1>Berghorn's Cybersecurity Lab</h1>
+        <h1>🧪 Berghorn's Cybersecurity Lab</h1>
         <p>
             Willkommen im Cybersecurity Lab! Hier kannst du interaktive Übungen absolvieren, um mehr über Sicherheitsbedrohungen zu lernen 
             und dich dagegen zu verteidigen. Wähle eine der folgenden Aufgaben und finde die Flag!
         </p>
 
-        <div id="progress" class="progress">Fortschritt: 0 / 4 Flags gesammelt</div>
+        <div id="progress" class="progress">🏁 Fortschritt: 0 / 4 Flags gesammelt</div>
 
         <div class="accordion">
             <!-- Aufgabe 1 -->
+            <p><strong>Phishing Quiz:</strong> Analysiere verdächtige E-Mails, erkenne Phishing-Versuche und lerne, wie du dich davor schützen kannst.</p>
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordionBody(event)">
                     Aufgabe 1: Phishing Quiz
                 </div>
                 <div class="accordion-body">
-                    <p>
-                        Analysiere E-Mails und erkenne, ob sie echt oder Phishing sind. Lerne, wie du dich vor solchen Angriffen schützt!
-                    </p>
                     <button onclick="window.location.href='phishingquiz.html'">Zum Quiz</button>
                     <div class="flag-section">
                         <input type="text" id="phishing-flag" placeholder="Flag hier eingeben...">
@@ -175,14 +182,12 @@
             </div>
 
             <!-- Aufgabe 2 -->
+            <p><strong>Brute-Force-Demo:</strong> Lerne, wie Angreifer schwache Passwörter durch Brute-Force-Angriffe knacken, und erfahre, wie du dich schützen kannst.</p>
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordionBody(event)">
                     Aufgabe 2: Brute-Force-Demo
                 </div>
                 <div class="accordion-body">
-                    <p>
-                        Simuliere einen Brute-Force-Angriff, entdecke Schwachstellen und lerne, wie starke Passwörter schützen können!
-                    </p>
                     <button onclick="window.location.href='bruteforce.html'">Zum Lab</button>
                     <div class="flag-section">
                         <input type="text" id="bruteforce-flag" placeholder="Flag hier eingeben...">
@@ -193,14 +198,12 @@
             </div>
 
             <!-- Aufgabe 3 -->
+            <p><strong>Passwortstärke-Simulator:</strong> Teste die Stärke verschiedener Passwörter und finde heraus, wie lange ein Angreifer brauchen würde, um sie zu knacken.</p>
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordionBody(event)">
                     Aufgabe 3: Passwortstärke-Simulator
                 </div>
                 <div class="accordion-body">
-                    <p>
-                        Teste die Stärke verschiedener Passwörter und finde heraus, wie lange ein Angreifer brauchen würde, um sie zu knacken.
-                    </p>
                     <button onclick="window.location.href='password-simulator.html'">Zum Simulator</button>
                     <div class="flag-section">
                         <input type="text" id="password-flag" placeholder="Flag hier eingeben...">
@@ -211,14 +214,12 @@
             </div>
 
             <!-- Aufgabe 4 -->
+            <p><strong>Social Engineering:</strong> Analysiere Chatnachrichten von Angreifern und wähle die richtige Reaktion, um dich zu schützen.</p>
             <div class="accordion-item">
                 <div class="accordion-header" onclick="toggleAccordionBody(event)">
                     Aufgabe 4: Social Engineering
                 </div>
                 <div class="accordion-body">
-                    <p>
-                        Erkenne und blockiere Social-Engineering-Angriffe! Analysiere Chatnachrichten und wähle die richtige Reaktion.
-                    </p>
                     <button onclick="window.location.href='social-engineering.html'">Zum Lab</button>
                     <div class="flag-section">
                         <input type="text" id="social-flag" placeholder="Flag hier eingeben...">
@@ -229,13 +230,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function toggleAccordionBody(event) {
-            const body = event.currentTarget.nextElementSibling;
-            body.style.display = body.style.display === "block" ? "none" : "block";
-        }
-    </script>
 </body>
 </html>
 
