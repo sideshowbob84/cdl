@@ -146,50 +146,64 @@
     </div>
 
     <script>
-        const emails = [
-            {
-                sender: "noreply@dhl.com",
-                subject: "Ihr Paket konnte nicht zugestellt werden!",
-                body: "Ihr Paket wartet auf die Zustellung. Bitte bestätigen Sie Ihre Adresse <a href='http://phishing-dhl.com'>hier</a>.",
-                isPhishing: true,
-                explanation: "Diese E-Mail ist Phishing, da die URL verdächtig aussieht und nicht zur echten DHL-Domain gehört."
-            },
-            {
-                sender: "support@am4zon.de",
-                subject: "Verdächtige Login-Aktivität",
-                body: "Es wurde ein verdächtiger Login in Ihrem Konto festgestellt. Melden Sie sich <a href='http://secure-am4zon.com'>hier</a> an, um dies zu prüfen.",
-                isPhishing: true,
-                explanation: "Diese E-Mail imitiert Amazon, aber die Domain am4zon.de ist gefälscht."
-            },
-            {
-                sender: "info@meineschule.de",
-                subject: "Einladung zum Elternabend",
-                body: "Wir laden Sie herzlich zum Elternabend ein. Details finden Sie hier: <a href='https://meineschule.de/elternabend'>meineschule.de/elternabend</a>.",
-                isPhishing: false,
-                explanation: "Diese E-Mail ist echt. Die Domain ist korrekt und führt zur offiziellen Schulwebsite."
-            },
-            {
-                sender: "service@paypal-secure.com",
-                subject: "Ungewöhnliche Aktivität erkannt",
-                body: "Wir haben ungewöhnliche Aktivitäten auf Ihrem Konto festgestellt. Klicken Sie <a href='http://payl-security.com'>hier</a>, um Ihre Identität zu bestätigen.",
-                isPhishing: true,
-                explanation: "Diese E-Mail ist Phishing. Die Domain sieht aus wie PayPal, ist aber gefälscht."
-            },
-            {
-                sender: "billing@energycompany.com",
-                subject: "Ihre Rechnung für diesen Monat",
-                body: "Ihre aktuelle Rechnung ist verfügbar. Loggen Sie sich in Ihr Konto ein, um die Details einzusehen.",
-                isPhishing: false,
-                explanation: "Diese E-Mail ist echt. Es gibt keine verdächtigen Links, und die Domain ist korrekt."
-            },
-            {
-                sender: "newsletter@trustedsource.com",
-                subject: "Neues Update verfügbar",
-                body: "Hier sind die neuesten Updates aus unserem Newsletter: <a href='https://trustedsource.com/news'>trustedsource.com/news</a>.",
-                isPhishing: false,
-                explanation: "Diese E-Mail ist echt. Die Domain ist korrekt und führt zur offiziellen Webseite."
-            }
-        ];
+       const emails = [
+    {
+        sender: "info@dhl-express.com",
+        subject: "Dringend: Ihr Paket kann nicht zugestellt werden",
+        body: "Sehr geehrte Kundin, sehr geehrter Kunde,<br><br>Wir konnten Ihr Paket nicht zustellen. Bitte bestätigen Sie Ihre Adresse <a href='http://dhl-packstation-update.com'>hier</a>, um die Lieferung zu erhalten.<br><br>Mit freundlichen Grüßen,<br>DHL Express Team",
+        isPhishing: true,
+        explanation: "Die Domain 'dhl-packstation-update.com' sieht auf den ersten Blick echt aus, ist aber gefälscht. DHL würde auf die offizielle Domain verweisen."
+    },
+    {
+        sender: "security@am4zon-support.com",
+        subject: "Ungewöhnlicher Loginversuch in Ihrem Konto",
+        body: "Wir haben einen ungewöhnlichen Loginversuch aus Russland auf Ihrem Konto festgestellt. Wenn Sie dies nicht waren, <a href='http://secure-amazon-support.com'>klicken Sie hier</a>, um Ihr Konto zu schützen.<br><br>Amazon Support-Team",
+        isPhishing: true,
+        explanation: "Die Absenderadresse und der Link deuten auf Phishing hin. Amazon verwendet immer die Domain 'amazon.de' oder 'amazon.com'."
+    },
+    {
+        sender: "support@paypal.com",
+        subject: "Ihr Konto wurde vorübergehend eingeschränkt",
+        body: "Um die Sicherheit Ihres Kontos zu gewährleisten, haben wir es vorübergehend eingeschränkt. Bitte überprüfen Sie Ihre Identität <a href='https://www.paypal.com/verify-security'>hier</a>.<br><br>PayPal Sicherheits-Team",
+        isPhishing: false,
+        explanation: "Diese E-Mail ist echt, da der Link zur offiziellen PayPal-Domain führt und die Nachricht keine Rechtschreibfehler enthält."
+    },
+    {
+        sender: "lottery@bigprizes.org",
+        subject: "Herzlichen Glückwunsch! Sie haben 10.000 € gewonnen",
+        body: "Sie wurden als Gewinner unseres jährlichen Preisausschreibens ausgewählt! Bitte klicken Sie <a href='http://bigprizes.org/claim-reward'>hier</a>, um Ihren Gewinn zu beanspruchen.<br><br>Viel Glück,<br>Big Prizes Team",
+        isPhishing: true,
+        explanation: "Diese E-Mail ist Phishing, da 'bigprizes.org' keine bekannte Domain ist. Außerdem sollten Gewinnbenachrichtigungen kritisch geprüft werden, wenn man nicht teilgenommen hat."
+    },
+    {
+        sender: "billing@energycompany.de",
+        subject: "Ihre Stromrechnung ist verfügbar",
+        body: "Sehr geehrter Kunde,<br><br>Ihre Stromrechnung für den Monat Januar ist verfügbar. Loggen Sie sich bitte in Ihr Kundenportal ein, um die Details einzusehen: <a href='https://kundenportal.energycompany.de'>https://kundenportal.energycompany.de</a>.<br><br>Vielen Dank,<br>Ihr Energieversorger",
+        isPhishing: false,
+        explanation: "Diese E-Mail ist echt. Die Domain ist korrekt und die Nachricht enthält keine verdächtigen Aufforderungen."
+    },
+    {
+        sender: "newsletter@trustednews.com",
+        subject: "Exklusives Angebot für Abonnenten",
+        body: "Sehr geehrte/r Leser/in,<br><br>Als treuer Abonnent unseres Newsletters erhalten Sie exklusiv 20 % Rabatt auf unsere Premium-Mitgliedschaft. Klicken Sie <a href='https://trustednews.com/angebote'>hier</a>, um mehr zu erfahren.<br><br>Mit freundlichen Grüßen,<br>Ihr Trusted News Team",
+        isPhishing: false,
+        explanation: "Diese E-Mail ist echt. Die URL verweist auf die echte Domain 'trustednews.com' und enthält keine verdächtigen Aufforderungen."
+    },
+    {
+        sender: "security@commerzbank.de",
+        subject: "Bestätigen Sie Ihre Online-Banking-Daten",
+        body: "Sehr geehrter Kunde,<br><br>Aufgrund von Wartungsarbeiten müssen Sie Ihre Online-Banking-Daten aktualisieren. Bitte loggen Sie sich <a href='http://commerzbank-login-secure.com'>hier</a> ein.<br><br>Mit freundlichen Grüßen,<br>Commerzbank Sicherheits-Team",
+        isPhishing: true,
+        explanation: "Diese E-Mail ist Phishing, da die Domain 'commerzbank-login-secure.com' gefälscht ist. Banken fordern niemals per E-Mail zur Eingabe von Daten auf."
+    },
+    {
+        sender: "noreply@schule.de",
+        subject: "Erinnerung: Elternabend am Freitag",
+        body: "Liebe Eltern,<br><br>Wir möchten Sie an den Elternabend am kommenden Freitag erinnern. Weitere Details finden Sie in unserem Elternportal: <a href='https://schule.de/elternabend'>https://schule.de/elternabend</a>.<br><br>Mit freundlichen Grüßen,<br>Ihr Schulleitungsteam",
+        isPhishing: false,
+        explanation: "Diese E-Mail ist echt. Die URL und der Absender sind korrekt und vertrauenswürdig."
+    }
+];
 
         let currentEmail = 0;
         let correctAnswers = 0;
