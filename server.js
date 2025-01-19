@@ -12,18 +12,22 @@ const users = {
 };
 
 const server = http.createServer((req, res) => {
-    if (req.method === 'GET' && req.url === '/') {
-        // HTML-Login-Seite ausliefern
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/html');
-        fs.readFile('login.html', (err, data) => {
-            if (err) {
-                res.statusCode = 500;
-                res.end('Fehler beim Laden der Seite!');
-            } else {
-                res.end(data);
-            }
-        });
+    if (req.method === 'GET') {
+        if (req.url === '/' || req.url === '/index.html') {
+            // Startseite ausliefern
+            serveFile('index.html', res);
+        } else if (req.url === '/bruteforce.html') {
+            // Brute-Force-Demo ausliefern
+            serveFile('bruteforce.html', res);
+        } else if (req.url === '/phishingquiz.html') {
+            // Phishing-Quiz ausliefern
+            serveFile('phishingquiz.html', res);
+        } else {
+            // 404-Seite
+            res.statusCode = 404;
+            res.setHeader('Content-Type', 'text/plain');
+            res.end('Seite nicht gefunden!');
+        }
     } else if (req.method === 'POST' && req.url === '/login') {
         // Login-Daten verarbeiten
         let body = '';
@@ -51,6 +55,20 @@ const server = http.createServer((req, res) => {
         res.end('Seite nicht gefunden!');
     }
 });
+
+// Funktion zum Ausliefern von HTML-Dateien
+function serveFile(filename, res) {
+    fs.readFile(filename, (err, data) => {
+        if (err) {
+            res.statusCode = 500;
+            res.end('Fehler beim Laden der Seite!');
+        } else {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'text/html');
+            res.end(data);
+        }
+    });
+}
 
 server.listen(port, hostname, () => {
     console.log(`Server läuft auf http://${hostname}:${port}/`);
