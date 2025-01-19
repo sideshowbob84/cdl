@@ -3,86 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schulportal Login</title>
+    <title>Simulierter Brute-Force-Angriff</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 20px;
         }
-        .login-container {
-            width: 350px;
-            background: #ffffff;
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
             text-align: center;
         }
-        .login-container img {
-            width: 80px;
-            margin-bottom: 20px;
+        p {
+            color: #555;
+            line-height: 1.6;
         }
-        .login-container h2 {
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .login-container p {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        .login-container input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
+        .shell {
+            background: #000;
+            color: #0f0;
+            padding: 15px;
             border-radius: 5px;
-            box-sizing: border-box;
+            font-family: "Courier New", Courier, monospace;
+            margin-top: 20px;
+            height: 200px;
+            overflow-y: scroll;
+            white-space: pre-wrap;
         }
-        .login-container button {
-            width: 100%;
-            padding: 12px;
+        .flag {
             background: #007bff;
             color: #fff;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            display: none;
+        }
+        button {
+            background: #007bff;
+            color: #fff;
+            padding: 10px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
         }
-        .login-container button:hover {
+        button:hover {
             background: #0056b3;
-        }
-        .footer {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #aaa;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <!-- Schul-Logo -->
-        <img src="https://via.placeholder.com/80?text=Logo" alt="Schullogo">
-        
-        <!-- Titel -->
-        <h2>Schulportal Login</h2>
-        <p>Willkommen im sicheren Schulportal! Bitte logge dich ein.</p>
-        
-        <!-- Login-Formular -->
-        <form action="/login" method="POST">
-            <input type="text" name="username" placeholder="Benutzername" required>
-            <input type="password" name="password" placeholder="Passwort" required>
-            <button type="submit">Einloggen</button>
-        </form>
-        
-        <!-- Footer -->
-        <div class="footer">
-            © 2025 Fiktive Schule - Alle Rechte vorbehalten
+    <div class="container">
+        <h1>Simulierter Brute-Force-Angriff</h1>
+        <p>
+            In diesem Beispiel zeigen wir, wie ein Brute-Force-Angriff mit Hydra funktioniert.
+            Wir gehen von bekannten Benutzernamen ("<strong>user</strong>" und "<strong>admin</strong>") und
+            einer Wordlist (z. B. <strong>rockyou.txt</strong>) aus, um Passwörter zu testen.
+        </p>
+        <p>
+            Hier wäre ein passender Hydra-Befehl:
+        </p>
+        <div class="shell">
+            hydra -l admin -P rockyou.txt http-post-form "/login:username=^USER^&password=^PASS^:F=Login fehlgeschlagen"
+        </div>
+        <button onclick="startSimulation()">Simulation starten</button>
+
+        <div class="shell" id="simulation"></div>
+        <div class="flag" id="flag">
+            <strong>Login erfolgreich! Hier ist deine Flag:</strong><br>
+            <code>{BRUTE_FORCE_SIM_SUCCESS}</code>
         </div>
     </div>
+
+    <script>
+        const passwords = ["123456", "password", "admin123", "user123", "qwerty"]; // Beispiel-Wortliste
+        const correctPasswords = { admin: "admin123", user: "user123" };
+        const found = [];
+
+        function startSimulation() {
+            const simulation = document.getElementById("simulation");
+            simulation.textContent = ""; // Clear previous content
+            let index = 0;
+
+            const interval = setInterval(() => {
+                if (index < passwords.length) {
+                    const pass = passwords[index];
+                    simulation.textContent += `Testing password: ${pass}\n`;
+
+                    if (pass === correctPasswords.admin || pass === correctPasswords.user) {
+                        found.push(pass);
+                        simulation.textContent += `Password found for ${
+                            pass === correctPasswords.admin ? "admin" : "user"
+                        }: ${pass}\n`;
+                    }
+
+                    simulation.scrollTop = simulation.scrollHeight; // Scroll to bottom
+                    index++;
+                } else {
+                    clearInterval(interval);
+                    showFlag();
+                }
+            }, 500); // Simulate delay
+        }
+
+        function showFlag() {
+            if (found.length > 0) {
+                document.getElementById("flag").style.display = "block";
+            }
+        }
+    </script>
 </body>
 </html>
+
