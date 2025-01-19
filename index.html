@@ -33,6 +33,14 @@
             line-height: 1.6;
             margin-bottom: 30px;
         }
+        .progress {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 4px solid #007bff;
+            font-size: 16px;
+            text-align: left;
+        }
         .accordion {
             margin-top: 20px;
         }
@@ -72,11 +80,68 @@
         .accordion-body button:hover {
             background: #0056b3;
         }
+        .flag-section {
+            margin-top: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .check-button {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .check-button:hover {
+            background: #218838;
+        }
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .success {
+            color: #28a745;
+        }
+        .error {
+            color: red;
+        }
     </style>
     <script>
-        function toggleAccordionBody(event) {
-            const body = event.currentTarget.nextElementSibling;
-            body.style.display = body.style.display === "block" ? "none" : "block";
+        const flags = {
+            phishing: "{CAUGHT_ALL_THE_PHISH}",
+            bruteforce: "{BRUTE_FORCE_ADMIN_SUCCESS}",
+            password: "{UNBREAKABLE_PASSWORD}",
+            social: "{DEFENDER_OF_TRUST}"
+        };
+
+        let collectedFlags = 0;
+
+        function checkFlag(task, inputId, resultId) {
+            const userInput = document.getElementById(inputId).value.trim();
+            const result = document.getElementById(resultId);
+
+            if (userInput === flags[task]) {
+                if (!result.classList.contains("success")) {
+                    collectedFlags++;
+                    updateProgress();
+                }
+                result.textContent = "Richtig! Flag akzeptiert.";
+                result.className = "result success";
+            } else {
+                result.textContent = "Falsch! Versuche es nochmal.";
+                result.className = "result error";
+            }
+        }
+
+        function updateProgress() {
+            const progress = document.getElementById("progress");
+            progress.textContent = `Fortschritt: ${collectedFlags} / 4 Flags gesammelt`;
         }
     </script>
 </head>
@@ -87,6 +152,8 @@
             Willkommen im Cybersecurity Lab! Hier kannst du interaktive Übungen absolvieren, um mehr über Sicherheitsbedrohungen zu lernen 
             und dich dagegen zu verteidigen. Wähle eine der folgenden Aufgaben und finde die Flag!
         </p>
+
+        <div id="progress" class="progress">Fortschritt: 0 / 4 Flags gesammelt</div>
 
         <div class="accordion">
             <!-- Aufgabe 1 -->
@@ -99,6 +166,11 @@
                         Analysiere E-Mails und erkenne, ob sie echt oder Phishing sind. Lerne, wie du dich vor solchen Angriffen schützt!
                     </p>
                     <button onclick="window.location.href='phishingquiz.html'">Zum Quiz</button>
+                    <div class="flag-section">
+                        <input type="text" id="phishing-flag" placeholder="Flag hier eingeben...">
+                        <button class="check-button" onclick="checkFlag('phishing', 'phishing-flag', 'phishing-result')">Flag prüfen</button>
+                        <div id="phishing-result"></div>
+                    </div>
                 </div>
             </div>
 
@@ -112,6 +184,11 @@
                         Simuliere einen Brute-Force-Angriff, entdecke Schwachstellen und lerne, wie starke Passwörter schützen können!
                     </p>
                     <button onclick="window.location.href='bruteforce.html'">Zum Lab</button>
+                    <div class="flag-section">
+                        <input type="text" id="bruteforce-flag" placeholder="Flag hier eingeben...">
+                        <button class="check-button" onclick="checkFlag('bruteforce', 'bruteforce-flag', 'bruteforce-result')">Flag prüfen</button>
+                        <div id="bruteforce-result"></div>
+                    </div>
                 </div>
             </div>
 
@@ -125,6 +202,11 @@
                         Teste die Stärke verschiedener Passwörter und finde heraus, wie lange ein Angreifer brauchen würde, um sie zu knacken.
                     </p>
                     <button onclick="window.location.href='password-simulator.html'">Zum Simulator</button>
+                    <div class="flag-section">
+                        <input type="text" id="password-flag" placeholder="Flag hier eingeben...">
+                        <button class="check-button" onclick="checkFlag('password', 'password-flag', 'password-result')">Flag prüfen</button>
+                        <div id="password-result"></div>
+                    </div>
                 </div>
             </div>
 
@@ -138,9 +220,22 @@
                         Erkenne und blockiere Social-Engineering-Angriffe! Analysiere Chatnachrichten und wähle die richtige Reaktion.
                     </p>
                     <button onclick="window.location.href='social-engineering.html'">Zum Lab</button>
+                    <div class="flag-section">
+                        <input type="text" id="social-flag" placeholder="Flag hier eingeben...">
+                        <button class="check-button" onclick="checkFlag('social', 'social-flag', 'social-result')">Flag prüfen</button>
+                        <div id="social-result"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleAccordionBody(event) {
+            const body = event.currentTarget.nextElementSibling;
+            body.style.display = body.style.display === "block" ? "none" : "block";
+        }
+    </script>
 </body>
 </html>
+
