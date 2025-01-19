@@ -24,7 +24,10 @@
             text-align: center;
             color: #0056b3;
         }
-        p {
+        h2 {
+            color: #007bff;
+        }
+        p, ul {
             line-height: 1.6;
             text-align: justify;
         }
@@ -109,10 +112,24 @@
 <body>
     <div class="quiz-container">
         <h1>Phishing-Quiz</h1>
+        <h2>Was ist Phishing?</h2>
+        <p>
+            Phishing ist ein Betrugsversuch, bei dem Angreifer versuchen, persönliche Informationen wie Passwörter, 
+            Kreditkartendaten oder andere vertrauliche Daten zu stehlen. Sie nutzen dazu gefälschte E-Mails oder 
+            Webseiten, die seriösen Anbietern täuschend ähnlich sehen. Häufig wird in solchen E-Mails Druck ausgeübt, 
+            z. B. durch die Androhung einer Kontosperrung oder die Behauptung, Sie hätten etwas gewonnen.
+        </p>
+        <h3>Wie erkennt man Phishing?</h3>
+        <ul>
+            <li>Überprüfe die Absenderadresse: Sieht sie verdächtig aus?</li>
+            <li>Prüfe Links: Zeigen sie auf eine seriöse Domain?</li>
+            <li>Achte auf Rechtschreibfehler und ungewöhnliche Formulierungen.</li>
+            <li>Sei misstrauisch bei Aufforderungen, vertrauliche Daten einzugeben.</li>
+        </ul>
         <div class="progress-bar-container">
             <div id="progress-bar" class="progress-bar">0%</div>
         </div>
-        <p>Willkommen zum Phishing-Quiz! Lies die E-Mails sorgfältig und entscheide, ob sie Phishing sind oder nicht. Nach jeder Antwort erfährst du, warum die E-Mail echt oder gefälscht ist.</p>
+        <p>Im Folgenden siehst du eine Reihe von E-Mails. Entscheide, ob es sich um Phishing handelt oder nicht!</p>
         <div id="quiz-content">
             <div id="email" class="email">
                 <div id="email-header"></div>
@@ -145,6 +162,13 @@
                 explanation: "Diese E-Mail imitiert Amazon, aber die Domain am4zon.de ist gefälscht."
             },
             {
+                sender: "info@meineschule.de",
+                subject: "Einladung zum Elternabend",
+                body: "Wir laden Sie herzlich zum Elternabend ein. Details finden Sie hier: <a href='https://meineschule.de/elternabend'>meineschule.de/elternabend</a>.",
+                isPhishing: false,
+                explanation: "Diese E-Mail ist echt. Die Domain ist korrekt und führt zur offiziellen Schulwebsite."
+            },
+            {
                 sender: "service@paypal-secure.com",
                 subject: "Ungewöhnliche Aktivität erkannt",
                 body: "Wir haben ungewöhnliche Aktivitäten auf Ihrem Konto festgestellt. Klicken Sie <a href='http://payl-security.com'>hier</a>, um Ihre Identität zu bestätigen.",
@@ -159,18 +183,11 @@
                 explanation: "Diese E-Mail ist echt. Es gibt keine verdächtigen Links, und die Domain ist korrekt."
             },
             {
-                sender: "info@meineschule.de",
-                subject: "Elternabend Einladung",
-                body: "Wir laden Sie herzlich zum Elternabend ein. Die Details finden Sie hier: <a href='https://meineschule.de/elternabend'>meineschule.de/elternabend</a>.",
+                sender: "newsletter@trustedsource.com",
+                subject: "Neues Update verfügbar",
+                body: "Hier sind die neuesten Updates aus unserem Newsletter: <a href='https://trustedsource.com/news'>trustedsource.com/news</a>.",
                 isPhishing: false,
-                explanation: "Diese E-Mail ist echt. Die Domain ist korrekt und führt zur offiziellen Schulwebsite."
-            },
-            {
-                sender: "news@vertrauternewsletter.com",
-                subject: "Neuigkeiten: Wichtige Updates für diesen Monat",
-                body: "Hier sind die neuesten Updates aus unserem Newsletter. Lesen Sie mehr: <a href='https://vertrauternewsletter.com/news'>vertrauternewsletter.com/news</a>.",
-                isPhishing: false,
-                explanation: "Diese E-Mail ist echt. Die URL ist korrekt und führt zur offiziellen Newsletter-Domain."
+                explanation: "Diese E-Mail ist echt. Die Domain ist korrekt und führt zur offiziellen Webseite."
             }
         ];
 
@@ -184,6 +201,16 @@
         const notPhishingBtn = document.getElementById("not-phishing-btn");
         const progressBar = document.getElementById("progress-bar");
         const resultDiv = document.getElementById("result");
+
+        // Funktion zum Mischen der E-Mails
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        shuffle(emails);
 
         function updateProgress() {
             const progress = ((currentEmail / emails.length) * 100).toFixed(0);
@@ -233,6 +260,7 @@
     </script>
 </body>
 </html>
+
 
 
 
