@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Engineering Lab</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        h1 {
+            font-size: 28px;
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .chat-box {
+            background: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .option-button {
+            display: block;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: left;
+        }
+        .option-button:hover {
+            background: #0056b3;
+        }
+        .feedback {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f4f4f4;
+            border-left: 4px solid #007bff;
+            font-size: 16px;
+        }
+        .success {
+            color: #28a745;
+        }
+        .error {
+            color: red;
+        }
+        .flag {
+            margin-top: 20px;
+            padding: 15px;
+            background: #28a745;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Social Engineering Lab</h1>
+        <p>
+            Verteidige dich gegen Social-Engineering-Angriffe! Wähle die richtige Reaktion, um sensible Informationen zu schützen 
+            und den Angreifer abzuwehren. Schließe alle Szenarien erfolgreich ab, um die Flag zu erhalten.
+        </p>
+
+        <div id="scenario-container">
+            <div class="chat-box" id="chat-box">
+                <!-- Dynamische Nachrichten werden hier eingefügt -->
+            </div>
+            <div id="options-container">
+                <!-- Antwortoptionen werden hier eingefügt -->
+            </div>
+            <div id="feedback" class="feedback"></div>
+        </div>
+    </div>
+
+    <script>
+        const scenarios = [
+            {
+                name: "IServ-Hack",
+                messages: [
+                    "Hallo, hier ist Markus vom IServ-Support. Wir haben festgestellt, dass dein Konto gesperrt wurde. Könntest du mir kurz dein Passwort nennen, damit ich das Problem beheben kann?"
+                ],
+                options: [
+                    { text: "Mein Passwort ist Pa$$w0rd123.", correct: false },
+                    { text: "Warum brauchen Sie mein Passwort? Können Sie mir eine offizielle Mail über IServ schicken?", correct: false },
+                    { text: "Ich gebe keine sensiblen Informationen weiter.", correct: true }
+                ],
+                feedback: [
+                    "Das war falsch. Du hast dein Passwort weitergegeben!",
+                    "Fast richtig. Sei noch vorsichtiger, und gib niemals Passwörter weiter.",
+                    "Richtig! Du hast den Angriff abgewehrt."
+                ]
+            },
+            {
+                name: "Gefälschtes Gewinnspiel",
+                messages: [
+                    "Herzlichen Glückwunsch! Du hast einen 50 € Amazon-Gutschein gewonnen. Bitte schicke mir deinen vollständigen Namen und deine Schul-Email-Adresse, damit ich dir den Gutschein zusenden kann."
+                ],
+                options: [
+                    { text: "Das klingt super! Hier sind meine Daten: Max Mustermann, max@schule.de.", correct: false },
+                    { text: "Woher wissen Sie, dass ich gewonnen habe? Können Sie mir mehr Details schicken?", correct: false },
+                    { text: "Das klingt nicht seriös. Ich werde keine Daten angeben.", correct: true }
+                ],
+                feedback: [
+                    "Das war falsch. Du hast sensible Daten weitergegeben!",
+                    "Fast richtig. Sei noch vorsichtiger bei Gewinnspielen!",
+                    "Richtig! Du hast den Angriff abgewehrt."
+                ]
+            },
+            {
+                name: "Bankwarnung",
+                messages: [
+                    "Sehr geehrte*r Kunde*in, wir haben ungewöhnliche Aktivitäten auf Ihrem Konto festgestellt. Bitte klicken Sie auf den folgenden Link und geben Sie Ihre Login-Daten ein, um Ihr Konto zu verifizieren: [www.sparkasse-verify.com](#)."
+                ],
+                options: [
+                    { text: "Ich klicke auf den Link und gebe meine Daten ein.", correct: false },
+                    { text: "Ich überprüfe die Nachricht, aber frage bei meiner Bank nach, ob diese echt ist.", correct: false },
+                    { text: "Ich ignoriere diese Nachricht und überprüfe mein Konto direkt über die offizielle Bank-App.", correct: true }
+                ],
+                feedback: [
+                    "Das war falsch. Du hast deine Daten über eine Phishing-Seite preisgegeben!",
+                    "Fast richtig. Direkt zur Bank gehen wäre besser gewesen.",
+                    "Richtig! Du hast den Angriff erfolgreich abgewehrt."
+                ]
+            }
+        ];
+
+        let currentScenario = 0;
+
+        function loadScenario() {
+            const scenario = scenarios[currentScenario];
+            const chatBox = document.getElementById('chat-box');
+            const optionsContainer = document.getElementById('options-container');
+            const feedback = document.getElementById('feedback');
+
+            // Nachrichten anzeigen
+            chatBox.textContent = scenario.messages[0];
+            feedback.textContent = '';
+
+            // Antwortoptionen anzeigen
+            optionsContainer.innerHTML = '';
+            scenario.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option.text;
+                button.className = 'option-button';
+                button.onclick = () => handleOption(index);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function handleOption(selectedIndex) {
+            const scenario = scenarios[currentScenario];
+            const feedback = document.getElementById('feedback');
+
+            if (scenario.options[selectedIndex].correct) {
+                feedback.textContent = scenario.feedback[selectedIndex];
+                feedback.className = 'feedback success';
+                currentScenario++;
+                if (currentScenario < scenarios.length) {
+                    setTimeout(loadScenario, 2000);
+                } else {
+                    showFlag();
+                }
+            } else {
+                feedback.textContent = scenario.feedback[selectedIndex];
+                feedback.className = 'feedback error';
+            }
+        }
+
+        function showFlag() {
+            const container = document.getElementById('scenario-container');
+            container.innerHTML = `
+                <div class="flag">Flag: {DEFENDER_OF_TRUST}</div>
+            `;
+        }
+
+        // Initiales Laden
+        loadScenario();
+    </script>
+</body>
+</html>
