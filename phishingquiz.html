@@ -5,7 +5,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phishing-Quiz</title>
     <style>
-        /* Dein vorhandenes CSS bleibt unverändert */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        .header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .description {
+            margin-bottom: 20px;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            text-align: justify;
+        }
+        .email-viewer {
+            display: none;
+            font-family: 'Courier New', monospace;
+        }
+        .email-editor {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .email-header {
+            background: #f1f1f1;
+            padding: 10px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .email-header div {
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+        .email-body {
+            padding: 20px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .progress-bar {
+            margin: 10px 0;
+            height: 25px;
+            background: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .progress-bar-inner {
+            height: 100%;
+            background: #007bff;
+            width: 0%;
+            text-align: center;
+            color: #fff;
+            font-weight: bold;
+        }
+        .actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .actions button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 18px;
+            margin: 5px;
+        }
+        .actions button:hover {
+            background-color: #0056b3;
+        }
+        #feedback {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        #explanation {
+            margin-top: 20px;
+            font-size: 18px;
+            background: #f9f9f9;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+        }
+        .back-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        .back-button:hover {
+            background-color: #0056b3;
+        }
     </style>
     <script>
         const emails = [
@@ -56,9 +164,13 @@
         let currentEmail = 0;
         let score = 0;
 
-        function showEmail() {
+        function startQuiz() {
             document.querySelector('.description').style.display = 'none';
             document.querySelector('.email-viewer').style.display = 'block';
+            showEmail();
+        }
+
+        function showEmail() {
             const email = emails[currentEmail];
             document.getElementById('sender').textContent = `Von: ${email.sender}`;
             document.getElementById('subject').textContent = `Betreff: ${email.subject}`;
@@ -86,9 +198,9 @@
 
             currentEmail++;
             if (currentEmail < emails.length) {
-                setTimeout(showEmail, 5000);
+                setTimeout(showEmail, 3000);
             } else {
-                setTimeout(showResults, 5000);
+                setTimeout(showResults, 3000);
             }
         }
 
@@ -123,31 +235,21 @@
             <h2>Was ist Phishing?</h2>
             <p>
                 Phishing ist eine Methode, bei der Angreifer versuchen, sensible Daten wie Passwörter, Kreditkartennummern 
-                oder persönliche Informationen zu stehlen. Dazu nutzen sie gefälschte E-Mails, Webseiten oder Nachrichten, 
-                die täuschend echt wirken. Typische Merkmale von Phishing-E-Mails sind:
+                oder persönliche Informationen zu stehlen. Typische Merkmale sind gefälschte Domains oder verdächtige Links.
             </p>
-            <ul>
-                <li>Unerwartete Nachrichten von angeblich bekannten Unternehmen.</li>
-                <li>Dringender Handlungsbedarf, wie die Aufforderung, Daten einzugeben.</li>
-                <li>Gefälschte Links, die auf Seiten mit ähnlichen, aber falschen Domains führen.</li>
-                <li>Rechtschreib- oder Grammatikfehler.</li>
-            </ul>
-            <p>
-                In diesem Quiz lernst du, echte E-Mails von Phishing-Nachrichten zu unterscheiden. Lies die E-Mails 
-                aufmerksam und prüfe, ob sie verdächtig sind. Dein Ziel ist es, alle Phishing-Versuche zu erkennen 
-                und dabei keine echten Nachrichten zu verwerfen.
-            </p>
-            <button onclick="showEmail()" style="margin-top: 10px;">Quiz starten</button>
+            <button onclick="startQuiz()" style="margin-top: 10px;">Quiz starten</button>
         </div>
         <div class="email-viewer">
             <div class="progress-bar">
                 <div class="progress-bar-inner"></div>
             </div>
-            <div class="email-header">
-                <div id="sender"></div>
-                <div id="subject"></div>
+            <div class="email-editor">
+                <div class="email-header">
+                    <div id="sender"></div>
+                    <div id="subject"></div>
+                </div>
+                <div class="email-body" id="body"></div>
             </div>
-            <div class="email-body" id="body"></div>
             <div class="actions">
                 <p>Ist diese E-Mail ein Phishing-Versuch?</p>
                 <button onclick="checkAnswer(true)">Ja</button>
@@ -159,4 +261,5 @@
     </div>
 </body>
 </html>
+
 
