@@ -57,7 +57,7 @@
             border-radius: 5px;
             font-family: "Courier New", Courier, monospace;
             margin-top: 20px;
-            height: 200px;
+            height: 300px;
             overflow-y: scroll;
             white-space: pre-wrap;
         }
@@ -96,9 +96,8 @@
     <script>
         const correctPasswords = { admin: "admin123", user: "user123" }; // Bekannte Passwörter
         const rockyouSample = [
-            "123456", "password", "qwerty", "abc123", "letmein", "monkey", "admin123", // Passwort für admin
-            "football", "iloveyou", "welcome", "user123", // Passwort für user
-            "sunshine", "master", "hello", "freedom"
+            "123456", "password", "qwerty", "abc123", "letmein", "monkey", "football", "iloveyou", "welcome",
+            "sunshine", "master", "hello", "freedom", "admin123", "user123"
         ]; // Beispielhafte Passwörter aus rockyou.txt
 
         function startSimulation() {
@@ -118,15 +117,25 @@
             simulation.textContent = ""; // Vorherigen Inhalt löschen
             let index = 0;
             const foundPasswords = [];
+            const delay = 600; // Verzögerung in ms für realistischere Simulation
+            const introText = [
+                "Hydra v9.4-dev (c) 2023 by van Hauser/THC and David Maciejak\n",
+                "This tool is for legal purposes only! Do not use it for illegal activities.\n",
+                "Hydra starting at 16:37:22\n",
+                `Target: ${targetUsername} using rockyou.txt\n\n`
+            ];
+
+            // Intro anzeigen
+            introText.forEach(line => (simulation.textContent += line));
 
             const interval = setInterval(() => {
                 if (index < rockyouSample.length) {
                     const pass = rockyouSample[index];
-                    simulation.textContent += `Testing password for ${targetUsername}: ${pass}\n`;
+                    simulation.textContent += `[DATA] Testing ${targetUsername}: ${pass}\n`;
 
                     if (pass === correctPasswords[targetUsername]) {
                         foundPasswords.push(pass);
-                        simulation.textContent += `Password found for ${targetUsername}: ${pass}\n`;
+                        simulation.textContent += `[SUCCESS] Password for ${targetUsername}: ${pass}\n`;
                         clearInterval(interval); // Simulation stoppen, wenn das Passwort gefunden wurde
                     }
 
@@ -135,10 +144,10 @@
                 } else {
                     clearInterval(interval);
                     if (foundPasswords.length === 0) {
-                        simulation.textContent += `\nKeine Passwörter für ${targetUsername} gefunden.`;
+                        simulation.textContent += `\n[FAILURE] No valid password found for ${targetUsername}.`;
                     }
                 }
-            }, 300); // Simuliere längeren Delay
+            }, delay);
         }
     </script>
 </body>
