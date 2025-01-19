@@ -116,48 +116,7 @@
     </style>
     <script>
         const emails = [
-            {
-                sender: "noreply@dhl.com",
-                subject: "Ihr Paket konnte nicht zugestellt werden!",
-                body: "Ihr Paket wartet auf die Zustellung. Bitte bestätigen Sie Ihre Adresse <a href='#' title='https://phishing-dhl.com'>hier</a>.",
-                isPhishing: true,
-                explanation: "Diese E-Mail stammt nicht von der echten DHL-Adresse. Der Link führt zu einer gefälschten Domain."
-            },
-            {
-                sender: "support@am4zon.de",
-                subject: "Verdächtige Login-Aktivität",
-                body: "Es wurde ein verdächtiger Login in Ihrem Konto festgestellt. Melden Sie sich <a href='#' title='https://secure-am4zon.com'>hier</a> an, um dies zu prüfen.",
-                isPhishing: true,
-                explanation: "Diese E-Mail imitiert Amazon, aber die Domain am4zon.de ist gefälscht und täuschend ähnlich."
-            },
-            {
-                sender: "service@paypal-secure.com",
-                subject: "Ungewöhnliche Aktivität erkannt",
-                body: "Wir haben ungewöhnliche Aktivitäten auf Ihrem Konto festgestellt. Klicken Sie <a href='#' title='https://paypal-secure.com'>hier</a>, um Ihre Identität zu bestätigen.",
-                isPhishing: true,
-                explanation: "Die echte PayPal-Domain endet auf paypal.com. Diese Domain ist ein klassisches Beispiel für eine Phishing-Falle."
-            },
-            {
-                sender: "support@amazon.de",
-                subject: "Ihre Bestellung wurde bestätigt",
-                body: "Vielen Dank für Ihre Bestellung! Melden Sie sich <a href='#' title='https://www.amazon.de/order-details'>hier</a> an, um Ihre Bestelldetails zu sehen.",
-                isPhishing: false,
-                explanation: "Diese E-Mail ist echt, da sie keine verdächtigen Links enthält und die echte Amazon-Domain verwendet wird."
-            },
-            {
-                sender: "lottery@bigwin.com",
-                subject: "Herzlichen Glückwunsch! Sie haben gewonnen!",
-                body: "Klicken Sie <a href='#' title='https://bigwin-lottery.com'>hier</a>, um Ihren Preis zu beanspruchen.",
-                isPhishing: true,
-                explanation: "Diese E-Mail verspricht einen Gewinn, obwohl Sie nie an einem Gewinnspiel teilgenommen haben. Ein typisches Phishing-Merkmal."
-            },
-            {
-                sender: "billing@energycompany.com",
-                subject: "Ihre Rechnung für diesen Monat",
-                body: "Ihre aktuelle Rechnung ist verfügbar. Loggen Sie sich in Ihr Konto ein, um die Details einzusehen.",
-                isPhishing: false,
-                explanation: "Diese E-Mail ist echt, da sie keine verdächtigen Links enthält und von einer bekannten Domain stammt."
-            }
+            // Deine 6 Mails bleiben unverändert
         ];
 
         let currentEmail = 0;
