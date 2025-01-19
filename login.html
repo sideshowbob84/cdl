@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulierter Brute-Force-Angriff</title>
+    <title>Login und Brute-Force-Demo</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,6 +27,29 @@
             color: #555;
             line-height: 1.6;
         }
+        .login-container, .demo-container {
+            margin-bottom: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button, input[type="file"] {
+            background: #007bff;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover, input[type="file"]:hover {
+            background: #0056b3;
+        }
         .shell {
             background: #000;
             color: #0f0;
@@ -46,78 +69,89 @@
             border-radius: 5px;
             display: none;
         }
-        button {
-            background: #007bff;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background: #0056b3;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Simulierter Brute-Force-Angriff</h1>
-        <p>
-            In diesem Beispiel zeigen wir, wie ein Brute-Force-Angriff mit Hydra funktioniert.
-            Wir gehen von bekannten Benutzernamen ("<strong>user</strong>" und "<strong>admin</strong>") und
-            einer Wordlist (z. B. <strong>rockyou.txt</strong>) aus, um Passwörter zu testen.
-        </p>
-        <p>
-            Hier wäre ein passender Hydra-Befehl:
-        </p>
-        <div class="shell">
-            hydra -l admin -P rockyou.txt http-post-form "/login:username=^USER^&password=^PASS^:F=Login fehlgeschlagen"
-        </div>
-        <button onclick="startSimulation()">Simulation starten</button>
+        <h1>Login und Brute-Force-Demo</h1>
 
-        <div class="shell" id="simulation"></div>
-        <div class="flag" id="flag">
-            <strong>Login erfolgreich! Hier ist deine Flag:</strong><br>
-            <code>{BRUTE_FORCE_SIM_SUCCESS}</code>
+        <!-- Loginmaske -->
+        <div class="login-container">
+            <h2>Login</h2>
+            <form action="/login" method="POST">
+                <input type="text" name="username" placeholder="Benutzername" required>
+                <input type="password" name="password" placeholder="Passwort" required>
+                <button type="submit">Einloggen</button>
+            </form>
+        </div>
+
+        <!-- Brute-Force-Demo -->
+        <div class="demo-container">
+            <h2>Brute-Force-Demo</h2>
+            <p>
+                Hier kannst du eine eigene Wordlist hochladen und sehen, wie ein Brute-Force-Angriff funktioniert.
+                Nach der Simulation kannst du die gefundenen Zugangsdaten verwenden, um dich oben einzuloggen.
+            </p>
+            <p>Hydra-Befehl:</p>
+            <div class="shell">
+                hydra -l admin -P rockyou.txt http-post-form "/login:username=^USER^&password=^PASS^:F=Login fehlgeschlagen"
+            </div>
+            <p>Wordlist hochladen:</p>
+            <input type="file" id="wordlist" accept=".txt">
+            <button onclick="startSimulation()">Simulation starten</button>
+
+            <div class="shell" id="simulation"></div>
         </div>
     </div>
 
     <script>
-        const passwords = ["123456", "password", "admin123", "user123", "qwerty"]; // Beispiel-Wortliste
-        const correctPasswords = { admin: "admin123", user: "user123" };
+        const correctPasswords = { admin: "admin123", user: "user123" }; // Bekannte Passwörter
         const found = [];
 
         function startSimulation() {
+            const wordlistInput = document.getElementById("wordlist");
             const simulation = document.getElementById("simulation");
-            simulation.textContent = ""; // Clear previous content
-            let index = 0;
+            simulation.textContent = ""; // Vorherigen Inhalt löschen
 
-            const interval = setInterval(() => {
-                if (index < passwords.length) {
-                    const pass = passwords[index];
-                    simulation.textContent += `Testing password: ${pass}\n`;
-
-                    if (pass === correctPasswords.admin || pass === correctPasswords.user) {
-                        found.push(pass);
-                        simulation.textContent += `Password found for ${
-                            pass === correctPasswords.admin ? "admin" : "user"
-                        }: ${pass}\n`;
-                    }
-
-                    simulation.scrollTop = simulation.scrollHeight; // Scroll to bottom
-                    index++;
-                } else {
-                    clearInterval(interval);
-                    showFlag();
-                }
-            }, 500); // Simulate delay
-        }
-
-        function showFlag() {
-            if (found.length > 0) {
-                document.getElementById("flag").style.display = "block";
+            if (!wordlistInput.files.length) {
+                simulation.textContent = "Fehler: Bitte eine Wordlist hochladen!";
+                return;
             }
+
+            const file = wordlistInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const lines = event.target.result.split(/\r?\n/); // Wordlist-Zeilen
+                let index = 0;
+
+                const interval = setInterval(() => {
+                    if (index < lines.length) {
+                        const pass = lines[index];
+                        simulation.textContent += `Testing password: ${pass}\n`;
+
+                        if (pass === correctPasswords.admin || pass === correctPasswords.user) {
+                            found.push(pass);
+                            simulation.textContent += `Password found for ${
+                                pass === correctPasswords.admin ? "admin" : "user"
+                            }: ${pass}\n`;
+                        }
+
+                        simulation.scrollTop = simulation.scrollHeight; // Scroll automatisch nach unten
+                        index++;
+                    } else {
+                        clearInterval(interval);
+                        if (found.length > 0) {
+                            simulation.textContent += `\nGefundene Passwörter: ${found.join(", ")}`;
+                            simulation.textContent += `\n\nVerwende die gefundenen Zugangsdaten, um dich oben einzuloggen.`;
+                        } else {
+                            simulation.textContent += "\nKeine Passwörter gefunden!";
+                        }
+                    }
+                }, 100); // Simuliere Delay
+            };
+
+            reader.readAsText(file); // Datei lesen
         }
     </script>
 </body>
