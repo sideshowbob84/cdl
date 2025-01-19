@@ -104,45 +104,77 @@
                 ],
                 options: [
                     { text: "Mein Passwort ist Pa$$w0rd123.", correct: false },
-                    { text: "Warum brauchen Sie mein Passwort? Können Sie mir eine offizielle Mail über IServ schicken?", correct: false },
+                    { text: "Warum brauchen Sie mein Passwort? Können Sie mir eine E-Mail über IServ schicken?", correct: false },
                     { text: "Ich gebe keine sensiblen Informationen weiter.", correct: true }
                 ],
                 feedback: [
                     "Das war falsch. Du hast dein Passwort weitergegeben!",
-                    "Fast richtig. Sei noch vorsichtiger, und gib niemals Passwörter weiter.",
+                    "Fast richtig. Aber echte IT-Mitarbeiter fragen nie nach Passwörtern!",
                     "Richtig! Du hast den Angriff abgewehrt."
                 ]
             },
             {
-                name: "Gefälschtes Gewinnspiel",
+                name: "Fake-Freund",
                 messages: [
-                    "Herzlichen Glückwunsch! Du hast einen 50 € Amazon-Gutschein gewonnen. Bitte schicke mir deinen vollständigen Namen und deine Schul-Email-Adresse, damit ich dir den Gutschein zusenden kann."
+                    "Hey, hier ist Tim, dein Klassenkamerad. Mein Handy ist kaputt, und ich kann nicht auf meinen IServ-Account zugreifen. Kannst du mir bitte deine Zugangsdaten leihen? Es ist nur für heute!"
                 ],
                 options: [
-                    { text: "Das klingt super! Hier sind meine Daten: Max Mustermann, max@schule.de.", correct: false },
-                    { text: "Woher wissen Sie, dass ich gewonnen habe? Können Sie mir mehr Details schicken?", correct: false },
-                    { text: "Das klingt nicht seriös. Ich werde keine Daten angeben.", correct: true }
+                    { text: "Kein Problem, mein Passwort ist: Sunshine2025.", correct: false },
+                    { text: "Warum benutzt du nicht dein eigenes Konto?", correct: false },
+                    { text: "Ruf mich kurz an, damit ich sicher bin, dass du es wirklich bist.", correct: true }
                 ],
                 feedback: [
-                    "Das war falsch. Du hast sensible Daten weitergegeben!",
-                    "Fast richtig. Sei noch vorsichtiger bei Gewinnspielen!",
-                    "Richtig! Du hast den Angriff abgewehrt."
+                    "Das war falsch. Du hast deine Zugangsdaten weitergegeben!",
+                    "Das ist skeptisch, aber Angreifer könnten hartnäckig sein.",
+                    "Richtig! Verifizierung ist immer eine gute Idee."
                 ]
             },
             {
-                name: "Bankwarnung",
+                name: "IT-Sicherheitswarnung",
                 messages: [
-                    "Sehr geehrte*r Kunde*in, wir haben ungewöhnliche Aktivitäten auf Ihrem Konto festgestellt. Bitte klicken Sie auf den folgenden Link und geben Sie Ihre Login-Daten ein, um Ihr Konto zu verifizieren: [www.sparkasse-verify.com](#)."
+                    "Sehr geehrte*r Nutzer*in, wir haben ungewöhnliche Aktivitäten auf Ihrem Konto festgestellt. Bitte klicken Sie auf den folgenden Link und geben Sie Ihre Daten ein, um eine Sperrung zu vermeiden: [www.iserv-security-check.com](#)."
                 ],
                 options: [
                     { text: "Ich klicke auf den Link und gebe meine Daten ein.", correct: false },
-                    { text: "Ich überprüfe die Nachricht, aber frage bei meiner Bank nach, ob diese echt ist.", correct: false },
-                    { text: "Ich ignoriere diese Nachricht und überprüfe mein Konto direkt über die offizielle Bank-App.", correct: true }
+                    { text: "Ich melde das Problem bei meinem Lehrer und überprüfe meinen Account auf der offiziellen IServ-Seite.", correct: true },
+                    { text: "Ich ignoriere diese Nachricht, das ist bestimmt ein Fehler.", correct: false }
                 ],
                 feedback: [
-                    "Das war falsch. Du hast deine Daten über eine Phishing-Seite preisgegeben!",
-                    "Fast richtig. Direkt zur Bank gehen wäre besser gewesen.",
-                    "Richtig! Du hast den Angriff erfolgreich abgewehrt."
+                    "Das war falsch. Phishing-Links sind gefährlich!",
+                    "Richtig! So schützt du dich vor Phishing.",
+                    "Das Ignorieren ist riskant. Lieber unabhängig prüfen."
+                ]
+            },
+            {
+                name: "Lehrer-Vertretungsplan",
+                messages: [
+                    "Hallo, hier ist Frau Müller von der Schulleitung. Der Vertretungsplan hat sich geändert, aber wir konnten ihn nicht hochladen. Kannst du ihn über deinen IServ-Account verteilen? Du musst dafür nur deine Zugangsdaten kurz hier eingeben, damit ich die Datei anhängen kann."
+                ],
+                options: [
+                    { text: "Okay, hier sind meine Daten: user123, Pa$$w0rd.", correct: false },
+                    { text: "Wieso können Sie das nicht selbst hochladen?", correct: false },
+                    { text: "Das klingt merkwürdig, ich rufe die Schulleitung direkt an.", correct: true }
+                ],
+                feedback: [
+                    "Das war falsch. Echte Anfragen kommen nie so zustande!",
+                    "Skeptisch, aber ohne direkte Verifizierung ist das unsicher.",
+                    "Richtig! Direkt prüfen schützt dich vor Manipulation."
+                ]
+            },
+            {
+                name: "Geldforderung von Eltern",
+                messages: [
+                    "Hallo, hier ist Herr Krüger von der Elternvertretung. Es gab eine Unregelmäßigkeit bei der Klassenkasse, und wir brauchen dringend 20 € pro Schüler, um die Bücher rechtzeitig zu bestellen. Überweise das Geld bitte an folgendes Konto: DE1234567890. Wir geben dir auf dem Elternabend die Quittung."
+                ],
+                options: [
+                    { text: "Okay, ich überweise das Geld sofort.", correct: false },
+                    { text: "Warum wurde das nicht vorher kommuniziert? Haben Sie ein offizielles Schreiben?", correct: false },
+                    { text: "Ich werde die Elternvertretung kontaktieren und direkt nachfragen.", correct: true }
+                ],
+                feedback: [
+                    "Das war falsch. Niemals Geld überweisen ohne Verifizierung!",
+                    "Das ist skeptisch, aber du musst die Anfrage direkt prüfen.",
+                    "Richtig! Direkte Verifizierung schützt dich."
                 ]
             }
         ];
@@ -176,7 +208,7 @@
 
             if (scenario.options[selectedIndex].correct) {
                 feedback.textContent = scenario.feedback[selectedIndex];
-                feedback.className = 'feedback success';
+                feedback.className = "feedback success";
                 currentScenario++;
                 if (currentScenario < scenarios.length) {
                     setTimeout(loadScenario, 2000);
@@ -185,7 +217,7 @@
                 }
             } else {
                 feedback.textContent = scenario.feedback[selectedIndex];
-                feedback.className = 'feedback error';
+                feedback.className = "feedback error";
             }
         }
 
@@ -201,3 +233,4 @@
     </script>
 </body>
 </html>
+
