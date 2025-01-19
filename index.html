@@ -6,7 +6,6 @@
     <title>Berghorn's Cybersecurity Lab</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
-
         body {
             font-family: 'Roboto Mono', monospace;
             margin: 0;
@@ -27,12 +26,6 @@
             font-size: 36px;
             color: #007bff;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        h1 span {
-            margin-left: 10px;
         }
         p {
             font-size: 16px;
@@ -79,74 +72,22 @@
         .accordion-body button:hover {
             background: #0056b3;
         }
-        .flag-section {
-            margin-top: 20px;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .check-button {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .check-button:hover {
-            background: #218838;
-        }
-        .result {
-            margin-top: 10px;
-            font-weight: bold;
-            color: #28a745;
-        }
-        .result.error {
-            color: red;
-        }
     </style>
     <script>
         function toggleAccordionBody(event) {
             const body = event.currentTarget.nextElementSibling;
             body.style.display = body.style.display === "block" ? "none" : "block";
         }
-
-        function checkFlag(task, inputId, resultId) {
-            const flags = {
-                "phishing": "{CAUGHT_ALL_THE_PHISH}",
-                "bruteforce": "{BRUTE_FORCE_ADMIN_SUCCESS}",
-                "password": "{UNBREAKABLE_PASSWORD}"
-            };
-
-            const userInput = document.getElementById(inputId).value.trim();
-            const result = document.getElementById(resultId);
-
-            if (userInput === flags[task]) {
-                result.textContent = "Richtig! Flag akzeptiert.";
-                result.className = "result";
-            } else {
-                result.textContent = "Falsch! Versuche es nochmal.";
-                result.className = "result error";
-            }
-        }
     </script>
 </head>
 <body>
     <div class="container">
-        <!-- Hauptüberschrift mit Emoji -->
-        <h1>Berghorn's Cybersecurity Lab <span>🧪</span></h1>
-
-        <!-- Einführungstext -->
+        <h1>Berghorn's Cybersecurity Lab</h1>
         <p>
-            Willkommen im Cybersecurity Lab! Hier kannst du anhand interaktiver Übungen mehr über gängige Cyberbedrohungen lernen und wie du dich effektiv davor schützen kannst. 
-            Wähle eine der unten stehenden Aufgaben, löse das Problem und finde die Flag!
+            Willkommen im Cybersecurity Lab! Hier kannst du interaktive Übungen absolvieren, um mehr über Sicherheitsbedrohungen zu lernen 
+            und dich dagegen zu verteidigen. Wähle eine der folgenden Aufgaben und finde die Flag!
         </p>
 
-        <!-- Accordion für die Aufgaben -->
         <div class="accordion">
             <!-- Aufgabe 1 -->
             <div class="accordion-item">
@@ -155,15 +96,9 @@
                 </div>
                 <div class="accordion-body">
                     <p>
-                        Analysiere verdächtige E-Mails und entscheide, ob es sich um legitime Nachrichten oder Phishing-Versuche handelt.
-                        Sammle alle richtigen Entscheidungen, um die Flag zu erhalten.
+                        Analysiere E-Mails und erkenne, ob sie echt oder Phishing sind. Lerne, wie du dich vor solchen Angriffen schützt!
                     </p>
                     <button onclick="window.location.href='phishingquiz.html'">Zum Quiz</button>
-                    <div class="flag-section">
-                        <input type="text" id="phishing-flag" placeholder="Flag hier eingeben...">
-                        <button class="check-button" onclick="checkFlag('phishing', 'phishing-flag', 'phishing-result')">Flag prüfen</button>
-                        <div id="phishing-result"></div>
-                    </div>
                 </div>
             </div>
 
@@ -174,15 +109,9 @@
                 </div>
                 <div class="accordion-body">
                     <p>
-                        Simuliere einen Brute-Force-Angriff und entdecke die Schwächen schwacher Passwörter. 
-                        Lerne, wie wichtig starke Passwörter sind!
+                        Simuliere einen Brute-Force-Angriff, entdecke Schwachstellen und lerne, wie starke Passwörter schützen können!
                     </p>
                     <button onclick="window.location.href='bruteforce.html'">Zum Lab</button>
-                    <div class="flag-section">
-                        <input type="text" id="bruteforce-flag" placeholder="Flag hier eingeben...">
-                        <button class="check-button" onclick="checkFlag('bruteforce', 'bruteforce-flag', 'bruteforce-result')">Flag prüfen</button>
-                        <div id="bruteforce-result"></div>
-                    </div>
                 </div>
             </div>
 
@@ -193,19 +122,25 @@
                 </div>
                 <div class="accordion-body">
                     <p>
-                        Teste die Sicherheit deines Passworts! Schaffe ein extrem starkes Passwort, das Brute-Force-Angriffen standhält, 
-                        und erhalte die Flag.
+                        Teste die Stärke verschiedener Passwörter und finde heraus, wie lange ein Angreifer brauchen würde, um sie zu knacken.
                     </p>
                     <button onclick="window.location.href='password-simulator.html'">Zum Simulator</button>
-                    <div class="flag-section">
-                        <input type="text" id="password-flag" placeholder="Flag hier eingeben...">
-                        <button class="check-button" onclick="checkFlag('password', 'password-flag', 'password-result')">Flag prüfen</button>
-                        <div id="password-result"></div>
-                    </div>
+                </div>
+            </div>
+
+            <!-- Aufgabe 4 -->
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordionBody(event)">
+                    Aufgabe 4: Social Engineering
+                </div>
+                <div class="accordion-body">
+                    <p>
+                        Erkenne und blockiere Social-Engineering-Angriffe! Analysiere Chatnachrichten und wähle die richtige Reaktion.
+                    </p>
+                    <button onclick="window.location.href='social-engineering.html'">Zum Lab</button>
                 </div>
             </div>
         </div>
     </div>
 </body>
 </html>
-
