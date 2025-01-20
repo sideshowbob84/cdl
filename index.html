@@ -65,7 +65,7 @@
     <div class="container">
         <h1>Mr. Berghorn's Cybersecurity Lab 🧪</h1>
         <div class="progress" id="progress">
-            Fortschritt: 0/4 Flags gesammelt
+            Fortschritt: 0/5 Flags gesammelt
         </div>
 
         <!-- Aufgabe 1 -->
@@ -107,14 +107,23 @@
             <input type="text" id="flag4" placeholder="Flag eingeben" class="hidden">
             <button class="btn hidden" onclick="checkFlag(4, '{PATCH_THE_PATCH}')">Prüfen</button>
         </div>
+
+        <!-- Aufgabe 5 -->
+        <div class="task">
+            <h3>Social-Engineering-Simulation</h3>
+            <p>Schlüpfe in die Rolle eines Angreifers und erlebe, wie einfach es sein kann, durch geschickte Täuschung Informationen zu sammeln.</p>
+            <a href="social-engineering.html" class="btn">Aufgabe öffnen</a>
+            <input type="text" id="flag5" placeholder="Flag eingeben">
+            <button class="btn" onclick="checkFlag(5, '{SOCIAL_ENGINEER_SUCCESS}')">Prüfen</button>
+        </div>
     </div>
 
     <script>
-        const collectedFlags = [false, false, false, false];
+        const collectedFlags = [false, false, false, false, false];
 
         function updateProgress() {
             const progress = collectedFlags.filter(flag => flag).length;
-            document.getElementById("progress").textContent = `Fortschritt: ${progress}/4 Flags gesammelt`;
+            document.getElementById("progress").textContent = `Fortschritt: ${progress}/5 Flags gesammelt`;
         }
 
         function checkFlag(taskNumber, correctFlag) {
@@ -145,6 +154,7 @@
     </script>
 </body>
 </html>
+
 
 
 
