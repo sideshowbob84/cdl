@@ -146,64 +146,65 @@
     </div>
 
     <script>
-       const emails = [
+  const emails = [
     {
         sender: "info@dhl-express.com",
         subject: "Dringend: Ihr Paket kann nicht zugestellt werden",
-        body: "Sehr geehrte Kundin, sehr geehrter Kunde,<br><br>Wir konnten Ihr Paket nicht zustellen. Bitte bestätigen Sie Ihre Adresse <a href='http://dhl-packstation-update.com'>hier</a>, um die Lieferung zu erhalten.<br><br>Mit freundlichen Grüßen,<br>DHL Express Team",
+        body: "Sehr geehrte Kundin, sehr geehrter Kunde,<br><br>Ihr Paket wartet in einer unserer Filialen. Bitte klicken Sie <a href='http://dhl-verfolgung-paket.com'>hier</a>, um Ihre Adresse zu bestätigen.<br><br>Mit freundlichen Grüßen,<br>DHL Express Team",
         isPhishing: true,
-        explanation: "Die Domain 'dhl-packstation-update.com' sieht auf den ersten Blick echt aus, ist aber gefälscht. DHL würde auf die offizielle Domain verweisen."
+        explanation: "Diese E-Mail ist Phishing. Die Domain 'dhl-verfolgung-paket.com' ist nicht offiziell. DHL verwendet nur 'dhl.com' oder 'dhl.de'."
     },
     {
-        sender: "security@am4zon-support.com",
-        subject: "Ungewöhnlicher Loginversuch in Ihrem Konto",
-        body: "Wir haben einen ungewöhnlichen Loginversuch aus Russland auf Ihrem Konto festgestellt. Wenn Sie dies nicht waren, <a href='http://secure-amazon-support.com'>klicken Sie hier</a>, um Ihr Konto zu schützen.<br><br>Amazon Support-Team",
+        sender: "support@am4zon-security-alert.de",
+        subject: "Wichtige Mitteilung: Verdächtige Aktivitäten erkannt",
+        body: "Wir haben einen Loginversuch aus Hamburg festgestellt. Wenn Sie dies nicht waren, <a href='http://secure-am4zon.com'>klicken Sie hier</a>, um Ihr Konto zu sichern.<br><br>Amazon Support-Team",
         isPhishing: true,
-        explanation: "Die Absenderadresse und der Link deuten auf Phishing hin. Amazon verwendet immer die Domain 'amazon.de' oder 'amazon.com'."
+        explanation: "Die Absenderdomain 'am4zon-security-alert.de' und der Link 'secure-am4zon.com' sind gefälscht. Amazon nutzt immer die Domain 'amazon.de' oder 'amazon.com'."
     },
     {
-        sender: "support@paypal.com",
-        subject: "Ihr Konto wurde vorübergehend eingeschränkt",
-        body: "Um die Sicherheit Ihres Kontos zu gewährleisten, haben wir es vorübergehend eingeschränkt. Bitte überprüfen Sie Ihre Identität <a href='https://www.paypal.com/verify-security'>hier</a>.<br><br>PayPal Sicherheits-Team",
+        sender: "service@netflix.com",
+        subject: "Ihr Konto wurde vorübergehend gesperrt",
+        body: "Hallo,<br><br>Wir konnten Ihre letzte Zahlung nicht verarbeiten. Bitte aktualisieren Sie Ihre Zahlungsdaten <a href='https://netflix-support-secure.com'>hier</a>.<br><br>Netflix-Support",
+        isPhishing: true,
+        explanation: "Diese E-Mail ist Phishing. Netflix würde keine Domain wie 'netflix-support-secure.com' verwenden, sondern immer 'netflix.com'."
+    },
+    {
+        sender: "account@apple.com",
+        subject: "Neue Geräteanmeldung erkannt",
+        body: "Ihr Konto wurde kürzlich von einem neuen Gerät aus angemeldet. Wenn Sie dies nicht waren, ändern Sie bitte Ihr Passwort <a href='https://appleid.apple.com/security'>hier</a>.<br><br>Apple ID-Team",
         isPhishing: false,
-        explanation: "Diese E-Mail ist echt, da der Link zur offiziellen PayPal-Domain führt und die Nachricht keine Rechtschreibfehler enthält."
+        explanation: "Diese E-Mail ist echt. Der Absender ist korrekt, und der Link führt zur echten Apple-ID-Domain."
     },
     {
         sender: "lottery@bigprizes.org",
-        subject: "Herzlichen Glückwunsch! Sie haben 10.000 € gewonnen",
-        body: "Sie wurden als Gewinner unseres jährlichen Preisausschreibens ausgewählt! Bitte klicken Sie <a href='http://bigprizes.org/claim-reward'>hier</a>, um Ihren Gewinn zu beanspruchen.<br><br>Viel Glück,<br>Big Prizes Team",
+        subject: "Sie haben einen Preis gewonnen!",
+        body: "Herzlichen Glückwunsch! Sie haben 1.000 € gewonnen. Bitte klicken Sie <a href='http://bigprizes.org/reward'>hier</a>, um Ihren Preis zu beanspruchen.<br><br>Big Prizes Team",
         isPhishing: true,
-        explanation: "Diese E-Mail ist Phishing, da 'bigprizes.org' keine bekannte Domain ist. Außerdem sollten Gewinnbenachrichtigungen kritisch geprüft werden, wenn man nicht teilgenommen hat."
+        explanation: "Diese E-Mail ist Phishing. Sie haben an keinem Gewinnspiel teilgenommen, und die Domain 'bigprizes.org' ist nicht vertrauenswürdig."
     },
     {
-        sender: "billing@energycompany.de",
-        subject: "Ihre Stromrechnung ist verfügbar",
-        body: "Sehr geehrter Kunde,<br><br>Ihre Stromrechnung für den Monat Januar ist verfügbar. Loggen Sie sich bitte in Ihr Kundenportal ein, um die Details einzusehen: <a href='https://kundenportal.energycompany.de'>https://kundenportal.energycompany.de</a>.<br><br>Vielen Dank,<br>Ihr Energieversorger",
+        sender: "support@spotify.com",
+        subject: "Neue Anmeldung erkannt",
+        body: "Hallo,<br><br>Ihr Konto wurde kürzlich von einem unbekannten Gerät aus Schweden angemeldet. Wenn Sie dies nicht waren, melden Sie sich bitte <a href='https://spotify.com/account/secure'>hier</a> an.<br><br>Spotify Support",
         isPhishing: false,
-        explanation: "Diese E-Mail ist echt. Die Domain ist korrekt und die Nachricht enthält keine verdächtigen Aufforderungen."
+        explanation: "Diese E-Mail ist echt. Die URL 'spotify.com' ist korrekt, und die Nachricht enthält keine verdächtigen Aufforderungen."
     },
     {
-        sender: "newsletter@trustednews.com",
-        subject: "Exklusives Angebot für Abonnenten",
-        body: "Sehr geehrte/r Leser/in,<br><br>Als treuer Abonnent unseres Newsletters erhalten Sie exklusiv 20 % Rabatt auf unsere Premium-Mitgliedschaft. Klicken Sie <a href='https://trustednews.com/angebote'>hier</a>, um mehr zu erfahren.<br><br>Mit freundlichen Grüßen,<br>Ihr Trusted News Team",
+        sender: "kundenservice@telekom.de",
+        subject: "Ihre aktuelle Rechnung ist verfügbar",
+        body: "Sehr geehrter Kunde,<br><br>Ihre Telekom-Rechnung für diesen Monat ist online verfügbar. Klicken Sie <a href='https://www.telekom.de/rechnung'>hier</a>, um sie anzusehen.<br><br>Ihr Telekom Kundenservice",
         isPhishing: false,
-        explanation: "Diese E-Mail ist echt. Die URL verweist auf die echte Domain 'trustednews.com' und enthält keine verdächtigen Aufforderungen."
+        explanation: "Diese E-Mail ist echt. Die URL führt zur offiziellen Domain der Telekom, und die Nachricht ist vertrauenswürdig."
     },
     {
-        sender: "security@commerzbank.de",
-        subject: "Bestätigen Sie Ihre Online-Banking-Daten",
-        body: "Sehr geehrter Kunde,<br><br>Aufgrund von Wartungsarbeiten müssen Sie Ihre Online-Banking-Daten aktualisieren. Bitte loggen Sie sich <a href='http://commerzbank-login-secure.com'>hier</a> ein.<br><br>Mit freundlichen Grüßen,<br>Commerzbank Sicherheits-Team",
+        sender: "finance@bankingservice.com",
+        subject: "Wichtige Mitteilung: Kontoaktualisierung erforderlich",
+        body: "Sehr geehrter Kunde,<br><br>Wir führen eine Sicherheitsaktualisierung durch. Bitte loggen Sie sich <a href='http://bankingservice-login-secure.com'>hier</a> ein, um Ihr Konto zu bestätigen.<br><br>Ihr Bank-Team",
         isPhishing: true,
-        explanation: "Diese E-Mail ist Phishing, da die Domain 'commerzbank-login-secure.com' gefälscht ist. Banken fordern niemals per E-Mail zur Eingabe von Daten auf."
-    },
-    {
-        sender: "noreply@schule.de",
-        subject: "Erinnerung: Elternabend am Freitag",
-        body: "Liebe Eltern,<br><br>Wir möchten Sie an den Elternabend am kommenden Freitag erinnern. Weitere Details finden Sie in unserem Elternportal: <a href='https://schule.de/elternabend'>https://schule.de/elternabend</a>.<br><br>Mit freundlichen Grüßen,<br>Ihr Schulleitungsteam",
-        isPhishing: false,
-        explanation: "Diese E-Mail ist echt. Die URL und der Absender sind korrekt und vertrauenswürdig."
+        explanation: "Diese E-Mail ist Phishing. Banken fordern nie per E-Mail zur Eingabe von Daten auf. Die Domain ist zudem gefälscht."
     }
 ];
+
 
         let currentEmail = 0;
         let correctAnswers = 0;
