@@ -23,11 +23,9 @@
             text-align: center;
             color: #007bff;
         }
-        .progress {
-            margin: 20px 0;
-            text-align: center;
-            font-size: 18px;
-            color: #333;
+        h2 {
+            margin-top: 30px;
+            color: #007bff;
         }
         .task {
             border: 1px solid #ddd;
@@ -44,7 +42,7 @@
             margin: 10px 0;
             color: #333;
         }
-        .task .btn {
+        .btn {
             padding: 10px 15px;
             background-color: #007bff;
             color: white;
@@ -53,11 +51,17 @@
             display: inline-block;
             margin-top: 10px;
         }
-        .task .btn:hover {
+        .btn:hover {
             background-color: #0056b3;
         }
         .hidden {
             display: none;
+        }
+        .password-protected {
+            margin-top: 20px;
+            padding: 10px;
+            border: 2px solid #f00;
+            background-color: #ffe5e5;
         }
         .error-message {
             color: red;
@@ -69,110 +73,70 @@
 <body>
     <div class="container">
         <h1>Mr. Berghorn's Cybersecurity Lab 🧪</h1>
-        <div class="progress" id="progress">
-            Fortschritt: 0/6 Flags gesammelt
-        </div>
 
-        <!-- Aufgabe 1 -->
-        <div class="task">
-            <h3>Brute-Force-Angriff</h3>
-            <p>Simuliere einen Brute-Force-Angriff und lerne, wie schwache Passwörter ausgenutzt werden können.</p>
-            <a href="bruteforce.html" class="btn">Aufgabe öffnen</a>
-            <input type="text" id="flag1" placeholder="Flag eingeben">
-            <button class="btn" onclick="checkFlag(1, '{BRUTE_FORCE_ADMIN_SUCCESS}')">Prüfen</button>
-        </div>
-
-        <!-- Aufgabe 2 -->
+        <!-- Oberer Bereich -->
+        <h2>Offene Aufgaben</h2>
         <div class="task">
             <h3>Phishing-Quiz</h3>
             <p>Identifiziere Phishing-Mails und lerne, wie du echte von gefälschten Nachrichten unterscheidest.</p>
             <a href="phishingquiz.html" class="btn">Aufgabe öffnen</a>
-            <input type="text" id="flag2" placeholder="Flag eingeben">
-            <button class="btn" onclick="checkFlag(2, '{CAUGHT_ALL_THE_PHISH}')">Prüfen</button>
         </div>
-
-        <!-- Aufgabe 3 -->
+        <div class="task">
+            <h3>Brute-Force-Simulator</h3>
+            <p>Simuliere einen Brute-Force-Angriff und lerne, wie schwache Passwörter ausgenutzt werden können.</p>
+            <a href="bruteforce.html" class="btn">Aufgabe öffnen</a>
+        </div>
+        <div class="task">
+            <h3>Social-Engineering-Simulation</h3>
+            <p>Schlüpfe in die Rolle eines Angreifers und erlebe, wie einfach es sein kann, durch Täuschung Informationen zu sammeln.</p>
+            <a href="social-engineering.html" class="btn">Aufgabe öffnen</a>
+        </div>
         <div class="task">
             <h3>Passwortsicherheit</h3>
             <p>Erfahre, wie du sichere Passwörter erstellst und warum schwache Passwörter ein Problem sind.</p>
             <a href="password-simulator.html" class="btn">Aufgabe öffnen</a>
-            <input type="text" id="flag3" placeholder="Flag eingeben">
-            <button class="btn" onclick="checkFlag(3, '{PASSWORDS_ARE_KEY}')">Prüfen</button>
         </div>
 
-        <!-- Aufgabe 4 -->
-        <div class="task">
-            <h3>Updates und Patches 🔒</h3>
-            <p>Erfahre, warum es wichtig ist, Systeme regelmäßig zu patchen, und teste eine Schwachstelle.</p>
-            <div id="password-container">
-                <input type="password" id="task-password" placeholder="Passwort eingeben">
-                <button class="btn" onclick="checkPassword()">Freischalten</button>
-                <p class="error-message hidden" id="error-message">
-                    Wenn du das Passwort nicht selbst herausfindest, bist du nicht bereit für dieses Lab.
-                </p>
-            </div>
-            <div id="unlocked-container" class="hidden">
+        <!-- Passwortgeschützter Bereich -->
+        <h2>Passwortgeschützter Bereich</h2>
+        <div id="password-container">
+            <p>Um auf die fortgeschrittenen Aufgaben zuzugreifen, gib das Passwort ein:</p>
+            <input type="password" id="lab-password" placeholder="Passwort eingeben" style="width: calc(100% - 30px); padding: 10px;">
+            <button class="btn" onclick="unlockTasks()">Freischalten</button>
+            <p class="error-message hidden" id="error-message">Falsches Passwort! Versuche es erneut.</p>
+        </div>
+        <div id="protected-tasks" class="hidden">
+            <div class="task">
+                <h3>Updates und Patches 🔒</h3>
+                <p>Erfahre, warum es wichtig ist, Systeme regelmäßig zu patchen, und teste eine Schwachstelle.</p>
                 <a href="updates.html" class="btn">Aufgabe öffnen</a>
-                <input type="text" id="flag4" placeholder="Flag eingeben">
-                <button class="btn" onclick="checkFlag(4, '{PATCH_THE_PATCH}')">Prüfen</button>
             </div>
-        </div>
-
-        <!-- Aufgabe 5 -->
-        <div class="task">
-            <h3>Social-Engineering-Simulation</h3>
-            <p>Schlüpfe in die Rolle eines Angreifers und erlebe, wie einfach es sein kann, durch geschickte Täuschung Informationen zu sammeln.</p>
-            <a href="social-engineering.html" class="btn">Aufgabe öffnen</a>
-            <input type="text" id="flag5" placeholder="Flag eingeben">
-            <button class="btn" onclick="checkFlag(5, '{SOCIAL_ENGINEER_SUCCESS}')">Prüfen</button>
-        </div>
-
-        <!-- Aufgabe 6 -->
-        <div class="task">
-            <h3>DirBuster-Simulation</h3>
-            <p>Simuliere einen Verzeichnis-Scan und finde das versteckte Verzeichnis auf unserem Server.</p>
-            <a href="dirbuster.html" class="btn">Aufgabe öffnen</a>
-            <input type="text" id="flag6" placeholder="Flag eingeben">
-            <button class="btn" onclick="checkFlag(6, '{FOUND_SECRET_FLAG}')">Prüfen</button>
+            <div class="task">
+                <h3>Gobuster-Simulation</h3>
+                <p>Finde versteckte Verzeichnisse auf einem Server durch einen Directory Busting Scan.</p>
+                <a href="dirbuster.html" class="btn">Aufgabe öffnen</a>
+            </div>
         </div>
     </div>
 
     <script>
-        const collectedFlags = [false, false, false, false, false, false];
+        const correctPassword = "t00h0t4ya";
 
-        function updateProgress() {
-            const progress = collectedFlags.filter(flag => flag).length;
-            document.getElementById("progress").textContent = `Fortschritt: ${progress}/6 Flags gesammelt`;
-        }
-
-        function checkFlag(taskNumber, correctFlag) {
-            const input = document.getElementById(`flag${taskNumber}`);
-            if (input.value === correctFlag) {
-                alert(`Richtig! Flag für Aufgabe ${taskNumber} akzeptiert.`);
-                collectedFlags[taskNumber - 1] = true;
-                input.disabled = true;
-                updateProgress();
-            } else {
-                alert("Falsch! Versuche es erneut.");
-            }
-        }
-
-        function checkPassword() {
-            const input = document.getElementById("task-password").value;
+        function unlockTasks() {
+            const inputPassword = document.getElementById("lab-password").value;
             const errorMessage = document.getElementById("error-message");
-            const unlockedContainer = document.getElementById("unlocked-container");
+            const protectedTasks = document.getElementById("protected-tasks");
 
-            if (input === "bscexploit") {
-                unlockedContainer.classList.remove("hidden");
+            if (inputPassword === correctPassword) {
                 document.getElementById("password-container").classList.add("hidden");
+                protectedTasks.classList.remove("hidden");
                 errorMessage.classList.add("hidden");
             } else {
                 errorMessage.classList.remove("hidden");
             }
         }
-
-        updateProgress();
     </script>
 </body>
 </html>
+
 
