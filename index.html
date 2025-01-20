@@ -24,90 +24,141 @@
             color: #007bff;
             margin-bottom: 20px;
         }
-        .task {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #f9f9f9;
+        .accordion {
             border: 1px solid #ddd;
             border-radius: 5px;
+            margin-bottom: 10px;
         }
-        .task h3 {
-            margin: 0;
-            color: #007bff;
+        .accordion-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            cursor: pointer;
         }
-        .task p {
-            margin: 10px 0;
+        .accordion-body {
+            padding: 15px;
+            display: none;
+            background: #f9f9f9;
         }
-        .task .btn {
+        .btn {
             display: inline-block;
             padding: 10px 15px;
             background-color: #007bff;
             color: white;
             text-decoration: none;
             border-radius: 5px;
-            cursor: pointer;
+            margin-top: 10px;
         }
-        .task .btn:hover {
+        .btn:hover {
             background-color: #0056b3;
         }
         .hidden {
             display: none;
+        }
+        .flag-input {
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Mr. Berghorn's Cybersecurity Lab 🧪</h1>
-        <p>Willkommen im Cybersecurity Lab! Wähle eine der folgenden Aufgaben, um mehr über Sicherheitskonzepte zu lernen und dabei Flaggen zu sammeln. Viel Erfolg!</p>
+        <p>Willkommen im Cybersecurity Lab! Wähle eine Aufgabe aus, um dein Wissen zu testen. Nach Abschluss jeder Aufgabe kannst du die zugehörige Flag eingeben, um deinen Fortschritt zu speichern.</p>
 
         <!-- Aufgabe 1 -->
-        <div class="task">
-            <h3>Brute-Force-Angriff</h3>
-            <p>Simuliere einen Brute-Force-Angriff und lerne, wie sich schwache Passwörter ausnutzen lassen.</p>
-            <a href="bruteforce.html" class="btn">Aufgabe öffnen</a>
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion('task1')">Brute-Force-Angriff</div>
+            <div class="accordion-body" id="task1">
+                <p>Simuliere einen Brute-Force-Angriff und lerne, wie schwache Passwörter ausgenutzt werden können.</p>
+                <a href="bruteforce.html" class="btn">Aufgabe öffnen</a>
+                <div class="flag-input">
+                    <label for="flag1">Flag eingeben:</label>
+                    <input type="text" id="flag1">
+                    <button class="btn" onclick="checkFlag('flag1', '{BRUTE_FORCE_ADMIN_SUCCESS}')">Prüfen</button>
+                    <p id="feedback1"></p>
+                </div>
+            </div>
         </div>
 
         <!-- Aufgabe 2 -->
-        <div class="task">
-            <h3>Phishing-Quiz</h3>
-            <p>Identifiziere Phishing-Mails und lerne, wie du echte von gefälschten Nachrichten unterscheidest.</p>
-            <a href="phishingquiz.html" class="btn">Aufgabe öffnen</a>
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion('task2')">Phishing-Quiz</div>
+            <div class="accordion-body" id="task2">
+                <p>Identifiziere Phishing-Mails und lerne, wie du echte von gefälschten Nachrichten unterscheidest.</p>
+                <a href="phishingquiz.html" class="btn">Aufgabe öffnen</a>
+                <div class="flag-input">
+                    <label for="flag2">Flag eingeben:</label>
+                    <input type="text" id="flag2">
+                    <button class="btn" onclick="checkFlag('flag2', '{CAUGHT_ALL_THE_PHISH}')">Prüfen</button>
+                    <p id="feedback2"></p>
+                </div>
+            </div>
         </div>
 
         <!-- Aufgabe 3 -->
-        <div class="task">
-            <h3>Passwortsicherheit</h3>
-            <p>Erfahre, wie du sichere Passwörter erstellst und warum schwache Passwörter ein Problem sind.</p>
-            <a href="password-simulator.html" class="btn">Aufgabe öffnen</a>
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion('task3')">Passwortsicherheit</div>
+            <div class="accordion-body" id="task3">
+                <p>Erfahre, wie du sichere Passwörter erstellst und warum schwache Passwörter ein Problem sind.</p>
+                <a href="password-simulator.html" class="btn">Aufgabe öffnen</a>
+                <div class="flag-input">
+                    <label for="flag3">Flag eingeben:</label>
+                    <input type="text" id="flag3">
+                    <button class="btn" onclick="checkFlag('flag3', '{PASSWORDS_ARE_KEY}')">Prüfen</button>
+                    <p id="feedback3"></p>
+                </div>
+            </div>
         </div>
 
         <!-- Aufgabe 4 -->
-        <div class="task">
-            <h3>Updates und Patches 🔒</h3>
-            <p>Erfahre, warum es wichtig ist, Systeme regelmäßig zu patchen, und teste eine Schwachstelle.</p>
-            <button class="btn" onclick="unlockTask()">Passwort eingeben</button>
-            <div id="password-container" class="hidden">
-                <input type="password" id="task-password" placeholder="Passwort eingeben">
-                <button class="btn" onclick="checkPassword()">Aufgabe freischalten</button>
-                <p id="password-feedback" style="color: red; display: none;">Falsches Passwort!</p>
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion('task4')">Updates und Patches</div>
+            <div class="accordion-body" id="task4">
+                <p>Erfahre, warum es wichtig ist, Systeme regelmäßig zu patchen, und teste eine Schwachstelle.</p>
+                <div id="password-container">
+                    <input type="password" id="task-password" placeholder="Passwort eingeben">
+                    <button class="btn" onclick="checkPassword()">Freischalten</button>
+                    <p id="password-feedback" style="color: red; display: none;">Falsches Passwort!</p>
+                </div>
+                <a href="updates.html" id="task-link" class="btn hidden">Aufgabe öffnen</a>
+                <div class="flag-input hidden" id="flag-container">
+                    <label for="flag4">Flag eingeben:</label>
+                    <input type="text" id="flag4">
+                    <button class="btn" onclick="checkFlag('flag4', '{PATCH_THE_PATCH}')">Prüfen</button>
+                    <p id="feedback4"></p>
+                </div>
             </div>
-            <a href="updates.html" id="task-link" class="btn hidden">Aufgabe öffnen</a>
         </div>
     </div>
 
     <script>
-        function unlockTask() {
-            document.getElementById("password-container").classList.remove("hidden");
+        function toggleAccordion(id) {
+            const body = document.getElementById(id);
+            body.style.display = body.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function checkFlag(inputId, correctFlag) {
+            const input = document.getElementById(inputId).value;
+            const feedback = document.getElementById(`feedback${inputId.slice(-1)}`);
+            if (input === correctFlag) {
+                feedback.textContent = "Richtig! Flag akzeptiert.";
+                feedback.style.color = "green";
+            } else {
+                feedback.textContent = "Falsch! Versuche es erneut.";
+                feedback.style.color = "red";
+            }
         }
 
         function checkPassword() {
             const input = document.getElementById("task-password").value;
             const feedback = document.getElementById("password-feedback");
             const link = document.getElementById("task-link");
+            const flagContainer = document.getElementById("flag-container");
 
             if (input === "bscexploit") {
                 feedback.style.display = "none";
                 link.classList.remove("hidden");
+                flagContainer.classList.remove("hidden");
             } else {
                 feedback.style.display = "block";
             }
@@ -115,5 +166,6 @@
     </script>
 </body>
 </html>
+
 
 
