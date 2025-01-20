@@ -162,8 +162,10 @@
                 <h3>Hashing Lab</h3>
                 <p>Entschlüssele Hashes mit Rainbow Tables und lerne, wie Salt die Sicherheit erhöht.</p>
                 <a href="hash.html" class="btn">Aufgabe öffnen</a>
-                <input type="text" id="flag7" placeholder="Flag eingeben">
-                <button class="btn" onclick="checkFlag(7, '{LET_HIM_COOK}', '🍳 Hash-Chef')">Prüfen</button>
+                <p>Gib beide Flags ein:</p>
+                <input type="text" id="flag7a" placeholder="Flag 1 eingeben">
+                <input type="text" id="flag7b" placeholder="Flag 2 eingeben">
+                <button class="btn" onclick="checkHashFlags()">Prüfen</button>
             </div>
         </div>
 
@@ -207,6 +209,27 @@
             }
         }
 
+        function checkHashFlags() {
+            const flag7a = document.getElementById("flag7a").value.trim();
+            const flag7b = document.getElementById("flag7b").value.trim();
+            const achievements = document.getElementById("achievements");
+
+            if (flag7a === "{LET_HIM_COOK}" && flag7b === "{ADD_A_PINCH_OF_SALT}") {
+                alert("Richtig! Beide Flags für das Hashing-Lab sind korrekt.");
+                collectedFlags[6] = true;
+
+                const achievement = document.createElement("div");
+                achievement.className = "achievement";
+                achievement.innerHTML = `<span>🔒</span> Hash-Meister`;
+                achievements.appendChild(achievement);
+
+                achievements.classList.remove("hidden");
+                updateProgress();
+            } else {
+                alert("Falsch! Überprüfe deine Eingaben.");
+            }
+        }
+
         function unlockTasks() {
             const inputPassword = document.getElementById("lab-password").value;
             const errorMessage = document.getElementById("error-message");
@@ -225,3 +248,4 @@
     </script>
 </body>
 </html>
+
