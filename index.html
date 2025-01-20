@@ -69,6 +69,22 @@
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        .achievements {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .achievement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .achievement span {
+            font-size: 24px;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -87,28 +103,28 @@
             <p>Identifiziere Phishing-Mails und lerne, wie du echte von gefälschten Nachrichten unterscheidest.</p>
             <a href="phishingquiz.html" class="btn">Aufgabe öffnen</a>
             <input type="text" id="flag1" placeholder="Flag eingeben">
-            <button class="btn" onclick="checkFlag(1, '{CAUGHT_ALL_THE_PHISH}')">Prüfen</button>
+            <button class="btn" onclick="checkFlag(1, '{CAUGHT_ALL_THE_PHISH}', '🎣 Phishing-Profi')">Prüfen</button>
         </div>
         <div class="task">
             <h3>Brute-Force-Simulator</h3>
             <p>Simuliere einen Brute-Force-Angriff und lerne, wie schwache Passwörter ausgenutzt werden können.</p>
             <a href="bruteforce.html" class="btn">Aufgabe öffnen</a>
             <input type="text" id="flag2" placeholder="Flag eingeben">
-            <button class="btn" onclick="checkFlag(2, '{BRUTE_FORCE_ADMIN_SUCCESS}')">Prüfen</button>
+            <button class="btn" onclick="checkFlag(2, '{BRUTE_FORCE_ADMIN_SUCCESS}', '🔓 Passwortknacker')">Prüfen</button>
         </div>
         <div class="task">
             <h3>Social-Engineering-Simulation</h3>
             <p>Schlüpfe in die Rolle eines Angreifers und erlebe, wie einfach es sein kann, durch Täuschung Informationen zu sammeln.</p>
             <a href="social-engineering.html" class="btn">Aufgabe öffnen</a>
             <input type="text" id="flag3" placeholder="Flag eingeben">
-            <button class="btn" onclick="checkFlag(3, '{SOCIAL_ENGINEER_SUCCESS}')">Prüfen</button>
+            <button class="btn" onclick="checkFlag(3, '{SOCIAL_ENGINEER_SUCCESS}', '🤝 Vertrauensbrecher')">Prüfen</button>
         </div>
         <div class="task">
             <h3>Passwortsicherheit</h3>
             <p>Erfahre, wie du sichere Passwörter erstellst und warum schwache Passwörter ein Problem sind.</p>
             <a href="password-simulator.html" class="btn">Aufgabe öffnen</a>
             <input type="text" id="flag4" placeholder="Flag eingeben">
-            <button class="btn" onclick="checkFlag(4, '{PASSWORDS_ARE_KEY}')">Prüfen</button>
+            <button class="btn" onclick="checkFlag(4, '{PASSWORDS_ARE_KEY}', '🔑 Passwort-Meister')">Prüfen</button>
         </div>
 
         <!-- Passwortgeschützter Bereich -->
@@ -125,15 +141,20 @@
                 <p>Erfahre, warum es wichtig ist, Systeme regelmäßig zu patchen, und teste eine Schwachstelle.</p>
                 <a href="updates.html" class="btn">Aufgabe öffnen</a>
                 <input type="text" id="flag5" placeholder="Flag eingeben">
-                <button class="btn" onclick="checkFlag(5, '{PATCH_THE_PATCH}')">Prüfen</button>
+                <button class="btn" onclick="checkFlag(5, '{PATCH_THE_PATCH}', '🛡️ Patch-Champion')">Prüfen</button>
             </div>
             <div class="task">
                 <h3>Gobuster-Simulation</h3>
                 <p>Finde versteckte Verzeichnisse auf einem Server durch einen Directory Busting Scan.</p>
                 <a href="dirbuster.html" class="btn">Aufgabe öffnen</a>
                 <input type="text" id="flag6" placeholder="Flag eingeben">
-                <button class="btn" onclick="checkFlag(6, '{FOUND_SECRET_FLAG}')">Prüfen</button>
+                <button class="btn" onclick="checkFlag(6, '{FOUND_SECRET_FLAG}', '🔍 Directory Detective')">Prüfen</button>
             </div>
+        </div>
+
+        <!-- Achievements -->
+        <div id="achievements" class="achievements hidden">
+            <h2>Erreichte Titel</h2>
         </div>
     </div>
 
@@ -146,12 +167,21 @@
             document.getElementById("progress").textContent = `Fortschritt: ${progress}/6 Flags gesammelt`;
         }
 
-        function checkFlag(taskNumber, correctFlag) {
+        function checkFlag(taskNumber, correctFlag, title) {
             const input = document.getElementById(`flag${taskNumber}`);
+            const achievements = document.getElementById("achievements");
+
             if (input.value === correctFlag) {
                 alert(`Richtig! Flag für Aufgabe ${taskNumber} akzeptiert.`);
                 collectedFlags[taskNumber - 1] = true;
                 input.disabled = true;
+
+                const achievement = document.createElement("div");
+                achievement.className = "achievement";
+                achievement.innerHTML = `<span>${title.split(" ")[0]}</span>${title.slice(2)}`;
+                achievements.appendChild(achievement);
+
+                achievements.classList.remove("hidden");
                 updateProgress();
             } else {
                 alert("Falsch! Versuche es erneut.");
@@ -176,4 +206,5 @@
     </script>
 </body>
 </html>
+
 
