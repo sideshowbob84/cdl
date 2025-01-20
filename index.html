@@ -70,7 +70,7 @@
     <div class="container">
         <h1>Mr. Berghorn's Cybersecurity Lab 🧪</h1>
         <div class="progress" id="progress">
-            Fortschritt: 0/5 Flags gesammelt
+            Fortschritt: 0/6 Flags gesammelt
         </div>
 
         <!-- Aufgabe 1 -->
@@ -126,17 +126,23 @@
             <input type="text" id="flag5" placeholder="Flag eingeben">
             <button class="btn" onclick="checkFlag(5, '{SOCIAL_ENGINEER_SUCCESS}')">Prüfen</button>
         </div>
+
+        <!-- Aufgabe 6 -->
+        <div class="task">
+            <h3>DirBuster-Simulation</h3>
+            <p>Simuliere einen Verzeichnis-Scan und finde das versteckte Verzeichnis auf unserem Server.</p>
+            <a href="dirbuster.html" class="btn">Aufgabe öffnen</a>
+            <input type="text" id="flag6" placeholder="Flag eingeben">
+            <button class="btn" onclick="checkFlag(6, '{FOUND_SECRET_FLAG}')">Prüfen</button>
+        </div>
     </div>
 
     <script>
-        const collectedFlags = [false, false, false, false, false];
-
-        // Klartext-Passwort im HTML (simuliert für Lehrer)
-        const labPassword = "bscexploit";
+        const collectedFlags = [false, false, false, false, false, false];
 
         function updateProgress() {
             const progress = collectedFlags.filter(flag => flag).length;
-            document.getElementById("progress").textContent = `Fortschritt: ${progress}/5 Flags gesammelt`;
+            document.getElementById("progress").textContent = `Fortschritt: ${progress}/6 Flags gesammelt`;
         }
 
         function checkFlag(taskNumber, correctFlag) {
@@ -156,7 +162,7 @@
             const errorMessage = document.getElementById("error-message");
             const unlockedContainer = document.getElementById("unlocked-container");
 
-            if (input === labPassword) {
+            if (input === "bscexploit") {
                 unlockedContainer.classList.remove("hidden");
                 document.getElementById("password-container").classList.add("hidden");
                 errorMessage.classList.add("hidden");
@@ -165,7 +171,6 @@
             }
         }
 
-        // Initialer Fortschritt
         updateProgress();
     </script>
 </body>
