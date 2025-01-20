@@ -83,7 +83,7 @@
                 Konfigurationsdateien, Backup-Daten oder versteckte Endpunkte zu finden.
             </p>
             <p>
-                Ziel: Finde das versteckte Verzeichnis <strong>secret-flag</strong>. Du musst danach selbst 
+                Ziel: Finde das versteckte Verzeichnis. Du musst danach selbst 
                 die Seite manuell aufrufen, um zu sehen, was sich darin befindet!
             </p>
         </div>
@@ -167,7 +167,7 @@ gobuster dir -u http://localhost -w wordlist.txt
 
                     if (directories[index] === "secret-flag") {
                         clearInterval(interval);
-                        consoleOutput.innerHTML += "\nScan abgeschlossen. Verstecktes Verzeichnis gefunden: /secret-flag\n";
+                        consoleOutput.innerHTML += "\nScan abgeschlossen.";
                     }
                     index++;
                 }
