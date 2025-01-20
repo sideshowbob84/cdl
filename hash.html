@@ -35,6 +35,9 @@
         .steps p {
             margin: 10px 0;
         }
+        ol {
+            margin: 15px 0;
+        }
         .btn {
             display: inline-block;
             padding: 10px 15px;
@@ -48,6 +51,13 @@
         .btn:hover {
             background: #0056b3;
         }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
         .hidden {
             display: none;
         }
@@ -57,70 +67,66 @@
     <div class="container">
         <h1>Hashing und Rainbow Tables Lab</h1>
 
-        <!-- Ausführlicher Info-Text -->
         <div class="info">
-            <h2>Was sind Hashes und warum sind sie wichtig?</h2>
-            <p>Ein Hash ist das Ergebnis einer mathematischen Funktion, die Daten – wie Passwörter – in eine fixe Zeichenkette umwandelt. 
-            Hashes werden oft verwendet, um Passwörter sicher in Datenbanken zu speichern. Ein Vorteil von Hashes ist, dass sie irreversibel sind: 
-            Das bedeutet, dass man den ursprünglichen Wert nicht direkt aus dem Hash errechnen kann. So bleibt dein Passwort geschützt, selbst wenn 
-            die Datenbank kompromittiert wird.</p>
-
-            <h2>Was sind Rainbow Tables?</h2>
-            <p>Rainbow Tables sind vorberechnete Tabellen, die zu bestimmten Hashes die dazugehörigen ursprünglichen Passwörter speichern. 
-            Damit können Angreifer bekannte Hashes sehr schnell entschlüsseln, ohne den gesamten Rechenaufwand eines Brute-Force-Angriffs 
-            auf sich nehmen zu müssen. Das macht Rainbow Tables zu einem leistungsstarken Werkzeug für Angriffe auf schwache Passwörter.</p>
-
-            <h2>Wie schützt Salt vor Rainbow Tables?</h2>
-            <p>Ein Salt ist eine zufällige Zeichenkette, die vor dem Hashing zu einem Passwort hinzugefügt wird. Dadurch wird der Hash für jedes 
-            Passwort einzigartig, selbst wenn mehrere Nutzer dasselbe Passwort verwenden. Rainbow Tables werden dadurch nutzlos, da sie auf 
-            den zusätzlichen Salt nicht vorbereitet sind. Ohne den genauen Salt können Angreifer den Hash nicht entschlüsseln.</p>
+            <h2>Was sind Hashes?</h2>
+            <p>
+                Hashes sind eine wichtige Technologie, um Passwörter und sensible Daten sicher zu speichern. 
+                Sie wandeln einen Eingabewert, wie ein Passwort, in eine scheinbar zufällige Zeichenkette um, 
+                den sogenannten Hash. Ein wesentlicher Vorteil ist, dass Hashes irreversibel sind – das heißt, 
+                man kann den ursprünglichen Wert nicht direkt aus dem Hash berechnen.
+            </p>
+            <p>
+                Dennoch können Angreifer Schwachstellen ausnutzen. Eine Möglichkeit ist die Verwendung von 
+                Rainbow Tables. Diese enthalten vorberechnete Hashes für viele mögliche Eingabewerte. 
+                Wenn ein Hash in der Rainbow Table enthalten ist, kann der Angreifer den ursprünglichen Wert 
+                leicht herausfinden.
+            </p>
+            <p>
+                Um Rainbow Tables unwirksam zu machen, wird oft ein Salt eingesetzt. Dabei handelt es sich 
+                um eine zufällige Zeichenkette, die vor dem Hashing an das Passwort angehängt wird. Dadurch 
+                wird der Hash einzigartig und in keiner Tabelle zu finden.
+            </p>
         </div>
 
-        <!-- Aufgabe -->
         <div class="steps">
             <h2>Aufgabe</h2>
+            <p>Deine Aufgabe ist es, zwei Hashes zu entschlüsseln und die ursprünglichen Passwörter zu finden. Zusätzlich lernst du, wie Salt die Sicherheit erhöht.</p>
+
             <h3>Schritt 1: Nutze CrackStation</h3>
             <p>
-                Öffne <a href="https://crackstation.net/" target="_blank">CrackStation</a>. Kopiere die folgenden Hashes und füge sie 
-                in das Eingabefeld bei CrackStation ein:
+                Öffne <a href="https://crackstation.net/" target="_blank">CrackStation</a>. Füge die folgenden Hashes ein, um zu sehen, welche Passwörter sie repräsentieren:
             </p>
             <pre>
 1. 5f4dcc3b5aa765d61d8327deb882cf99
 2. 098f6bcd4621d373cade4e832627b4f6
             </pre>
-            <p>Finde heraus, welche Passwörter zu diesen Hashes gehören.</p>
-
-            <h3>Schritt 2: Flag finden</h3>
             <p>
-                Nachdem du die Passwörter entschlüsselt hast, gib eines davon hier ein, um die Flag zu erhalten:
+                CrackStation durchsucht eine riesige Datenbank und liefert die passenden Passwörter, wenn sie bekannt sind. 
+                Überprüfe, welche Ergebnisse du erhältst.
             </p>
+
+            <h3>Schritt 2: Gib die Flag ein</h3>
+            <p>Nachdem du die Passwörter gefunden hast, gib eines davon als Flag ein:</p>
             <input type="text" id="flag1" placeholder="Flag eingeben">
             <button class="btn" onclick="checkFlag('password', '{PANZERKNACKER}')">Prüfen</button>
         </div>
 
-        <!-- Bonus-Aufgabe -->
         <div class="steps hidden" id="bonus-task">
             <h2>Bonus: Mit Salt arbeiten</h2>
-            <h3>Was ist ein Salt?</h3>
-            <p>Ein Salt ist eine zufällige Zeichenkette, die vor dem Hashing an das Passwort angehängt wird. Dadurch wird jeder Hash einzigartig 
-            – selbst wenn mehrere Personen dasselbe Passwort verwenden. Das schützt vor Rainbow-Table-Angriffen.</p>
-
-            <h3>Wie funktioniert Salt in der Praxis?</h3>
-            <p>Du kannst Salt manuell simulieren, indem du den Salt zum Passwort hinzufügst. Für unser Beispiel sieht das so aus:</p>
-            <pre>
-Passwort: password123
-Salt: 2023
-Zu hashen: password1232023
-            </pre>
-            <p>Gib die Kombination aus Passwort und Salt in CrackStation ein, um den Hash zu generieren. Der korrekte Hash ist:</p>
-            <pre>
-098f6bcd4621d373cade4e832627b4f62023
-            </pre>
             <p>
-                Nutze diesen Hash, um die Bonus-Flag zu erhalten. Gib sie hier ein:
+                Ein Salt ist eine zufällige Zeichenkette, die vor dem Hashing an das Passwort angehängt wird. Dadurch wird jeder Hash einzigartig – selbst wenn mehrere Personen dasselbe Passwort verwenden. Das schützt vor Rainbow-Table-Angriffen.:
+            </p>
+            <ol>
+                <li>Öffne <a href="https://gchq.github.io/CyberChef/" target="_blank">CyberChef</a>.</li>
+                <li>Gib das Passwort <strong>password123</strong> und das Salt <strong>2023</strong> in das Eingabefeld ein.</li>
+                <li>Verknüpfe die beiden zu: <strong>password1232023</strong>.</li>
+                <li>Suche in CyberChef nach der Operation <strong>MD5</strong> und wende sie an.</li>
+            </ol>
+            <p>
+                Gib den generierten Hash als Flag ein, um die Bonusaufgabe abzuschließen:
             </p>
             <input type="text" id="flag2" placeholder="Bonus-Flag eingeben">
-            <button class="btn" onclick="checkBonusFlag('098f6bcd4621d373cade4e832627b4f62023', '{ADD_A_PINCH_OF_SALT}')">Prüfen</button>
+            <button class="btn" onclick="checkBonusFlag()">Prüfen</button>
         </div>
     </div>
 
@@ -135,16 +141,19 @@ Zu hashen: password1232023
             }
         }
 
-        function checkBonusFlag(hash, flag) {
+        function checkBonusFlag() {
             const input = document.getElementById('flag2').value.trim();
-            if (input === hash) {
-                alert(`Richtig! Hier ist deine Bonus-Flag: ${flag}`);
+            const correctHash = "482c811da5d5b4bc6d497ffa98491e38"; // Hash von password1232023
+
+            if (input === correctHash) {
+                alert("Richtig! Du hast das Hashing mit Salt verstanden. Hier ist deine Bonus-Flag: {ADD_A_PINCH_OF_SALT}");
             } else {
-                alert("Falsch! Überprüfe deine Berechnungen.");
+                alert("Falsch! Überprüfe deine Berechnungen und versuche es erneut.");
             }
         }
     </script>
 </body>
 </html>
+
 
 
