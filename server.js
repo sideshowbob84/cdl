@@ -37,6 +37,9 @@ const server = http.createServer((req, res) => {
         } else if (req.url === '/secret-flag.html') {
             // Secret Flag Seite ausliefern
             serveFile('secret-flag.html', res);
+        } else if (req.url === '/hash.html') {
+            // Hashing Lab ausliefern
+            serveFile('hash.html', res);
         } else {
             // 404-Seite
             res.statusCode = 404;
@@ -88,5 +91,4 @@ function serveFile(filename, res) {
 server.listen(port, hostname, () => {
     console.log(`Server läuft auf http://${hostname}:${port}/`);
 });
-
 
