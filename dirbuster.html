@@ -83,14 +83,13 @@
                 Konfigurationsdateien, Backup-Daten oder versteckte Endpunkte zu finden.
             </p>
             <p>
-                Ziel: Finde das versteckte Verzeichnis. Du musst danach selbst 
-                die Seite manuell aufrufen, um zu sehen, was sich darin befindet!
+                Ziel: Finde das versteckte Verzeichnis. Du musst danach selbst die Seite manuell aufrufen, um zu sehen, was sich darin befindet!
             </p>
         </div>
 
         <p>Nutze den folgenden Befehl, um den Scan korrekt zu starten:</p>
         <pre style="background: #f4f4f4; padding: 10px; border-left: 4px solid #007bff; color: #333;">
-gobuster dir -u http://localhost -w wordlist.txt
+gobuster dir -u http://192.168.0.10 -w wordlist.txt
         </pre>
 
         <!-- Eingabeabschnitt -->
@@ -130,7 +129,17 @@ gobuster dir -u http://localhost -w wordlist.txt
             "secret-flag" // Verstecktes Verzeichnis
         ];
 
-        const correctCommand = "gobuster dir -u http://localhost -w wordlist.txt";
+        // Funktion zum Mischen der Verzeichnisse
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        shuffle(directories);
+
+        const correctCommand = "gobuster dir -u http://192.168.0.10 -w wordlist.txt";
 
         function validateCommand() {
             const inputCommand = document.getElementById("gobuster-command").value.trim();
@@ -165,15 +174,15 @@ gobuster dir -u http://localhost -w wordlist.txt
                     consoleOutput.innerHTML += `/` + directories[index] + `\n`;
                     consoleOutput.scrollTop = consoleOutput.scrollHeight;
 
-                    if (directories[index] === "secret-flag") {
-                        clearInterval(interval);
-                        consoleOutput.innerHTML += "\nScan abgeschlossen.";
-                    }
                     index++;
+                } else {
+                    clearInterval(interval);
+                    consoleOutput.innerHTML += "\nScan abgeschlossen. Überprüfe die gefundenen Verzeichnisse!";
                 }
             }, 500); // 0.5 Sekunde pro Verzeichnis simulieren
         }
     </script>
 </body>
 </html>
+
 
