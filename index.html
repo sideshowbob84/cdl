@@ -120,14 +120,14 @@
     </div>
 
     <script>
-        const correctPassword = "t00h0t4ya";
+        const obfuscatedPassword = atob("dDAwaDB0NHlh"); // "t00h0t4ya"
 
         function unlockTasks() {
             const inputPassword = document.getElementById("lab-password").value;
             const errorMessage = document.getElementById("error-message");
             const protectedTasks = document.getElementById("protected-tasks");
 
-            if (inputPassword === correctPassword) {
+            if (inputPassword === obfuscatedPassword) {
                 document.getElementById("password-container").classList.add("hidden");
                 protectedTasks.classList.remove("hidden");
                 errorMessage.classList.add("hidden");
