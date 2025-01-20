@@ -73,6 +73,33 @@
             Fortschritt: 0/5 Flags gesammelt
         </div>
 
+        <!-- Aufgabe 1 -->
+        <div class="task">
+            <h3>Brute-Force-Angriff</h3>
+            <p>Simuliere einen Brute-Force-Angriff und lerne, wie schwache Passwörter ausgenutzt werden können.</p>
+            <a href="bruteforce.html" class="btn">Aufgabe öffnen</a>
+            <input type="text" id="flag1" placeholder="Flag eingeben">
+            <button class="btn" onclick="checkFlag(1, '{BRUTE_FORCE_ADMIN_SUCCESS}')">Prüfen</button>
+        </div>
+
+        <!-- Aufgabe 2 -->
+        <div class="task">
+            <h3>Phishing-Quiz</h3>
+            <p>Identifiziere Phishing-Mails und lerne, wie du echte von gefälschten Nachrichten unterscheidest.</p>
+            <a href="phishingquiz.html" class="btn">Aufgabe öffnen</a>
+            <input type="text" id="flag2" placeholder="Flag eingeben">
+            <button class="btn" onclick="checkFlag(2, '{CAUGHT_ALL_THE_PHISH}')">Prüfen</button>
+        </div>
+
+        <!-- Aufgabe 3 -->
+        <div class="task">
+            <h3>Passwortsicherheit</h3>
+            <p>Erfahre, wie du sichere Passwörter erstellst und warum schwache Passwörter ein Problem sind.</p>
+            <a href="password-simulator.html" class="btn">Aufgabe öffnen</a>
+            <input type="text" id="flag3" placeholder="Flag eingeben">
+            <button class="btn" onclick="checkFlag(3, '{PASSWORDS_ARE_KEY}')">Prüfen</button>
+        </div>
+
         <!-- Aufgabe 4 -->
         <div class="task">
             <h3>Updates und Patches 🔒</h3>
@@ -89,6 +116,15 @@
                 <input type="text" id="flag4" placeholder="Flag eingeben">
                 <button class="btn" onclick="checkFlag(4, '{PATCH_THE_PATCH}')">Prüfen</button>
             </div>
+        </div>
+
+        <!-- Aufgabe 5 -->
+        <div class="task">
+            <h3>Social-Engineering-Simulation</h3>
+            <p>Schlüpfe in die Rolle eines Angreifers und erlebe, wie einfach es sein kann, durch geschickte Täuschung Informationen zu sammeln.</p>
+            <a href="social-engineering.html" class="btn">Aufgabe öffnen</a>
+            <input type="text" id="flag5" placeholder="Flag eingeben">
+            <button class="btn" onclick="checkFlag(5, '{SOCIAL_ENGINEER_SUCCESS}')">Prüfen</button>
         </div>
     </div>
 
@@ -134,5 +170,4 @@
     </script>
 </body>
 </html>
-
 
