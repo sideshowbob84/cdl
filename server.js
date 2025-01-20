@@ -28,6 +28,9 @@ const server = http.createServer((req, res) => {
         } else if (req.url === '/social-engineering.html') {
             // Social-Engineering-Lab ausliefern
             serveFile('social-engineering.html', res);
+        } else if (req.url === '/updates.html') {
+            // Updates und Patches Lab ausliefern
+            serveFile('updates.html', res);
         } else {
             // 404-Seite
             res.statusCode = 404;
@@ -79,3 +82,4 @@ function serveFile(filename, res) {
 server.listen(port, hostname, () => {
     console.log(`Server läuft auf http://${hostname}:${port}/`);
 });
+
