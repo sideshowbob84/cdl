@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patch-Lab</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        .console {
+            background: #000;
+            color: #0f0;
+            font-family: monospace;
+            padding: 20px;
+            border-radius: 5px;
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Patch-Lab: Warum Updates wichtig sind</h1>
+        <p>
+            In diesem Lab wirst du die Notwendigkeit von Updates und Patches kennenlernen, indem du die Schritte eines Exploits durchspielst. 
+            Ziel ist es, ein ungepatchtes System zu finden und eine Schwachstelle zu simulieren. 
+            Updates und Patches verhindern genau solche Angriffe!
+        </p>
+
+        <div id="step-1" class="step">
+            <h2>Schritt 1: Netzwerkscan</h2>
+            <p>Klicke auf den Button, um einen Netzwerkscan durchzuführen und potenzielle Ziele zu identifizieren.</p>
+            <button class="btn" onclick="startScan()">Netzwerkscan starten</button>
+            <div class="console" id="console-1"></div>
+        </div>
+
+        <div id="step-2" class="step hidden">
+            <h2>Schritt 2: Ziel auswählen</h2>
+            <p>Wähle das ungepatchte Ziel aus, um den Exploit vorzubereiten.</p>
+            <button class="btn" onclick="selectTarget(1)">Ziel 192.168.1.10 (ungepatcht)</button>
+            <button class="btn" onclick="selectTarget(2)">Ziel 192.168.1.20 (gepatcht)</button>
+            <div class="console" id="console-2"></div>
+        </div>
+
+        <div id="step-3" class="step hidden">
+            <h2>Schritt 3: Exploit ausführen</h2>
+            <p>Simuliere den Angriff und führe den Exploit aus, um das System zu übernehmen.</p>
+            <button class="btn" onclick="runExploit()">Exploit ausführen</button>
+            <div class="console" id="console-3"></div>
+        </div>
+
+        <div id="result" class="hidden">
+            <h2>Ergebnis</h2>
+            <p>Herzlichen Glückwunsch! Du hast die Simulation erfolgreich abgeschlossen. Hier ist deine Flag:</p>
+            <p style="font-size: 1.2em; color: green;">Flag: {PATCH_THE_PATCH}</p>
+            <a href="index.html" class="btn">Zurück zum Hauptmenü</a>
+        </div>
+    </div>
+
+    <script>
+        function startScan() {
+            const console1 = document.getElementById("console-1");
+            console1.innerHTML = "Starte Netzwerkscan...\n";
+            setTimeout(() => {
+                console1.innerHTML += "192.168.1.10 - Windows 7 (ungepatcht)\n";
+            }, 1000);
+            setTimeout(() => {
+                console1.innerHTML += "192.168.1.20 - Windows 10 (gepatcht)\n";
+            }, 2000);
+            setTimeout(() => {
+                document.getElementById("step-1").classList.add("hidden");
+                document.getElementById("step-2").classList.remove("hidden");
+            }, 3000);
+        }
+
+        function selectTarget(target) {
+            const console2 = document.getElementById("console-2");
+            if (target === 1) {
+                console2.innerHTML = "Ziel 192.168.1.10 ausgewählt. Vorbereitung läuft...\n";
+                setTimeout(() => {
+                    document.getElementById("step-2").classList.add("hidden");
+                    document.getElementById("step-3").classList.remove("hidden");
+                }, 2000);
+            } else {
+                console2.innerHTML = "Das Ziel ist bereits gepatcht. Angriff nicht möglich.\n";
+            }
+        }
+
+        function runExploit() {
+            const console3 = document.getElementById("console-3");
+            console3.innerHTML = "Exploit wird ausgeführt...\n";
+            setTimeout(() => {
+                console3.innerHTML += "Schwachstelle ausgenutzt. Zugriff auf System erhalten.\n";
+                document.getElementById("step-3").classList.add("hidden");
+                document.getElementById("result").classList.remove("hidden");
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
