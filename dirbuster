@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gobuster-Simulation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        .console {
+            background: #000;
+            color: #0f0;
+            font-family: monospace;
+            padding: 20px;
+            border-radius: 5px;
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .success-message {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .info {
+            background: #f4f4f4;
+            padding: 10px;
+            border-left: 4px solid #007bff;
+            color: #333;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gobuster-Simulation</h1>
+
+        <!-- Erklärender Infotext -->
+        <div class="info">
+            <h2>Was ist Directory Busting?</h2>
+            <p>
+                Directory Busting ist eine Technik, bei der Angreifer versuchen, versteckte Verzeichnisse und Dateien 
+                auf einem Webserver zu entdecken. Dies wird oft verwendet, um potenziell sensible Daten wie 
+                Konfigurationsdateien, Backup-Daten oder versteckte Endpunkte zu finden.
+            </p>
+            <p>
+                Diese Technik kann ausgenutzt werden, wenn ein Server schlecht konfiguriert ist oder versehentlich 
+                nicht autorisierte Dateien und Verzeichnisse freigegeben hat. In dieser Simulation verwenden wir 
+                Gobuster, ein beliebtes Werkzeug, um die Verzeichnisse auf unserem Lab-Server zu durchsuchen.
+            </p>
+            <p>
+                Ziel: Finde das versteckte Verzeichnis <strong>secret-flag</strong>, in dem sich eine Flag befindet. 
+                Verwende die unten angegebene Syntax, um den Scan durchzuführen.
+            </p>
+        </div>
+
+        <p>Nutze den folgenden Befehl, um den Scan korrekt zu starten:</p>
+        <pre style="background: #f4f4f4; padding: 10px; border-left: 4px solid #007bff; color: #333;">
+gobuster dir -u http://localhost -w wordlist.txt
+        </pre>
+
+        <!-- Eingabeabschnitt -->
+        <div id="step-1">
+            <h2>Schritt 1: Gobuster-Befehl eingeben</h2>
+            <p>Gib den Gobuster-Befehl ein, um den Scan zu starten:</p>
+            <input type="text" id="gobuster-command" placeholder="Befehl eingeben..." style="width: calc(100% - 30px); padding: 10px; font-family: monospace;">
+            <button class="btn" onclick="validateCommand()">Befehl ausführen</button>
+            <p class="error-message hidden" id="error-message">Ungültiger Befehl! Überprüfe die Syntax und versuche es erneut.</p>
+            <p class="success-message hidden" id="success-message">Befehl korrekt! Starte den Scan...</p>
+        </div>
+
+        <!-- Konsolenausgabe -->
+        <div id="step-2" class="hidden">
+            <h2>Schritt 2: Scan-Ergebnisse</h2>
+            <div class="console" id="console-output"></div>
+        </div>
+
+        <!-- Ergebnis -->
+        <div id="result-container" class="hidden">
+            <h2>Ergebnis</h2>
+            <p>Du hast das versteckte Verzeichnis gefunden! Hier ist die Flag:</p>
+            <p class="success-message">Flag: {FOUND_SECRET_FLAG}</p>
+            <a href="index.html" class="btn">Zurück zum Hauptmenü</a>
+        </div>
+    </div>
+
+    <script>
+        const directories = [
+            "bruteforce",
+            "phishingquiz",
+            "password-simulator",
+            "updates",
+            "social-engineering",
+            "secret-flag" // Verstecktes Verzeichnis
+        ];
+
+        const correctCommand = "gobuster dir -u http://localhost -w wordlist.txt";
+
+        function validateCommand() {
+            const inputCommand = document.getElementById("gobuster-command").value.trim();
+            const errorMessage = document.getElementById("error-message");
+            const successMessage = document.getElementById("success-message");
+
+            if (inputCommand === correctCommand) {
+                errorMessage.classList.add("hidden");
+                successMessage.classList.remove("hidden");
+                setTimeout(startGobuster, 1000); // 1 Sekunde warten, bevor der Scan startet
+            } else {
+                errorMessage.classList.remove("hidden");
+                successMessage.classList.add("hidden");
+            }
+        }
+
+        function startGobuster() {
+            const consoleOutput = document.getElementById("console-output");
+            const step1 = document.getElementById("step-1");
+            const step2 = document.getElementById("step-2");
+            const resultContainer = document.getElementById("result-container");
+
+            step1.classList.add("hidden");
+            step2.classList.remove("hidden");
+
+            consoleOutput.innerHTML = "Gobuster v3.1.0\n\n";
+            consoleOutput.innerHTML += "Scanning for directories...\n";
+
+            let index = 0;
+
+            const interval = setInterval(() => {
+                if (index < directories.length) {
+                    consoleOutput.innerHTML += `/` + directories[index] + `\n`;
+                    consoleOutput.scrollTop = consoleOutput.scrollHeight;
+
+                    if (directories[index] === "secret-flag") {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            step2.classList.add("hidden");
+                            resultContainer.classList.remove("hidden");
+                        }, 1000);
+                    }
+                    index++;
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
