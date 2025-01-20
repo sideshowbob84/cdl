@@ -68,8 +68,23 @@
         <h1>Hashing und Rainbow Tables Lab</h1>
 
         <div class="info">
-            <h2>Was sind Hashes?</h2>
-            <p>Hashes werden verwendet, um Daten wie Passwörter in eine eindeutige Zeichenkette zu verwandeln. Dies ermöglicht es, Passwörter sicher zu speichern, ohne sie im Klartext zu speichern. Hashes sind irreversibel, das bedeutet, sie können nicht direkt zurückgerechnet werden. Rainbow Tables nutzen jedoch vorberechnete Hashes, um Passwörter effizienter zu knacken.</p>
+            <h2>Was sind Hashes und Rainbow Tables?</h2>
+            <p>
+                Hashes sind mathematische Funktionen, die Eingabedaten wie Passwörter in scheinbar zufällige, 
+                fixe Ausgabewerte umwandeln. Ein Hash ist irreversibel, d.h., die ursprüngliche Eingabe kann nicht 
+                direkt aus dem Hash zurückgerechnet werden. Beispiele für Hash-Funktionen sind MD5, SHA-1 oder SHA-256.
+            </p>
+            <p>
+                Hashing wird häufig in der IT-Sicherheit genutzt, um Passwörter zu schützen. Wenn ein Nutzer 
+                sein Passwort eingibt, wird es gehasht und mit dem gespeicherten Hash verglichen. So wird verhindert, 
+                dass Klartext-Passwörter in Datenbanken gespeichert werden.
+            </p>
+            <p>
+                Rainbow Tables sind vorberechnete Tabellen von Hash-Werten und deren Ursprungswerten. 
+                Sie machen es Angreifern leichter, gehashte Passwörter zu knacken, indem sie schnell 
+                nach einem passenden Hash suchen können. Um Rainbow Tables unwirksam zu machen, 
+                wird oft ein sogenanntes "Salt" hinzugefügt.
+            </p>
         </div>
 
         <div class="steps">
@@ -87,9 +102,9 @@
             <p>Verwende CyberChef mit der "From Hex"-Funktion, um herauszufinden, ob diese Hashes bekannten Passwörtern entsprechen. Was findest du?</p>
 
             <h3>Schritt 2: Finde die Flag</h3>
-            <p>Wenn du die ursprünglichen Passwörter gefunden hast, gibt eines der beiden als Flag ein:</p>
+            <p>Wenn du die ursprünglichen Passwörter gefunden hast, gib eines der beiden als Flag ein:</p>
             <input type="text" id="flag1" placeholder="Flag eingeben">
-            <button class="btn" onclick="checkFlag('letmein', '{LET_HIM_COOK}')">Prüfen</button>
+            <button class="btn" onclick="checkFlag('password', '{LET_HIM_COOK}')">Prüfen</button>
         </div>
 
         <div class="steps hidden" id="bonus-task">
@@ -103,7 +118,7 @@
             </pre>
             <p>Finde heraus, was der Hash für dieses Beispiel ist, und gib die Bonus-Flag ein:</p>
             <input type="text" id="flag2" placeholder="Bonus-Flag eingeben">
-            <button class="btn" onclick="checkBonusFlag('098f6bcd4621d373cade4e832627b4f62023', '{ADD_A_PINCH_OF_SALT}')">Prüfen</button>
+            <button class="btn" onclick="checkBonusFlag('482c811da5d5b4bc6d497ffa98491e38', '{ADD_A_PINCH_OF_SALT}')">Prüfen</button>
         </div>
     </div>
 
@@ -129,3 +144,4 @@
     </script>
 </body>
 </html>
+
