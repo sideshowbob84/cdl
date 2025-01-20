@@ -7,7 +7,8 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            color: #fff;
             margin: 0;
             padding: 20px;
         }
@@ -15,9 +16,10 @@
             max-width: 800px;
             margin: 0 auto;
             background: #fff;
+            color: #333;
             border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         }
         h1 {
             text-align: center;
@@ -62,7 +64,7 @@
             font-weight: bold;
             margin-top: 10px;
         }
-        input[type="text"] {
+        input[type="text"], input[type="password"] {
             margin-top: 10px;
             padding: 5px;
             width: calc(100% - 20px);
@@ -84,6 +86,12 @@
         .achievement span {
             font-size: 24px;
             margin-right: 10px;
+        }
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #ddd;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -156,6 +164,10 @@
         <div id="achievements" class="achievements hidden">
             <h2>Erreichte Titel</h2>
         </div>
+
+        <footer>
+            &copy; 2025 Mr. Berghorn's Cybersecurity Lab
+        </footer>
     </div>
 
     <script>
