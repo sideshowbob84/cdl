@@ -3,233 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berghorn's Cybersecurity Lab</title>
+    <title>Cybersecurity Lab</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
         body {
-            font-family: 'Roboto Mono', monospace;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            background-color: #e6f7ff;
-            color: #333;
         }
         .container {
             max-width: 800px;
             margin: 30px auto;
-            background: #ffffff;
+            background: #fff;
             border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         h1 {
-            font-size: 36px;
+            text-align: center;
             color: #007bff;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
         }
-        p {
-            font-size: 16px;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-        .progress {
+        .task {
             margin-bottom: 20px;
             padding: 15px;
             background: #f9f9f9;
-            border-left: 4px solid #007bff;
-            font-size: 16px;
-            text-align: left;
-        }
-        .accordion {
-            margin-top: 20px;
-        }
-        .accordion-item {
             border: 1px solid #ddd;
             border-radius: 5px;
-            margin-bottom: 10px;
-            background: #f9f9f9;
         }
-        .accordion-header {
-            padding: 15px;
-            background: #007bff;
+        .task h3 {
+            margin: 0;
+            color: #007bff;
+        }
+        .task p {
+            margin: 10px 0;
+        }
+        .task .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #007bff;
             color: white;
-            cursor: pointer;
-            font-weight: bold;
-            border-bottom: 1px solid #ddd;
+            text-decoration: none;
+            border-radius: 5px;
         }
-        .accordion-header:hover {
-            background: #0056b3;
+        .task .btn:hover {
+            background-color: #0056b3;
         }
-        .accordion-body {
-            padding: 15px;
+        .hidden {
             display: none;
         }
-        .accordion-body p {
-            margin-bottom: 15px;
-            line-height: 1.6;
-        }
-        .accordion-body button {
-            background: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .accordion-body button:hover {
-            background: #0056b3;
-        }
-        .flag-section {
-            margin-top: 20px;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        .check-button {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .check-button:hover {
-            background: #218838;
-        }
-        .result {
-            margin-top: 10px;
-            font-weight: bold;
-        }
-        .success {
-            color: #28a745;
-        }
-        .error {
-            color: red;
-        }
     </style>
-    <script>
-        const flags = {
-            phishing: "{CAUGHT_ALL_THE_PHISH}",
-            bruteforce: "{BRUTE_FORCE_ADMIN_SUCCESS}",
-            password: "{UNBREAKABLE_PASSWORD}",
-            social: "{DEFENDER_OF_TRUST}"
-        };
-
-        let collectedFlags = 0;
-
-        function checkFlag(task, inputId, resultId) {
-            const userInput = document.getElementById(inputId).value.trim();
-            const result = document.getElementById(resultId);
-
-            if (userInput === flags[task]) {
-                if (!result.classList.contains("success")) {
-                    collectedFlags++;
-                    updateProgress();
-                }
-                result.textContent = "Richtig! Flag akzeptiert.";
-                result.className = "result success";
-            } else {
-                result.textContent = "Falsch! Versuche es nochmal.";
-                result.className = "result error";
-            }
-        }
-
-        function updateProgress() {
-            const progress = document.getElementById("progress");
-            progress.textContent = `🏁 Fortschritt: ${collectedFlags} / 4 Flags gesammelt`;
-        }
-
-        function toggleAccordionBody(event) {
-            const body = event.currentTarget.nextElementSibling;
-            body.style.display = body.style.display === "block" ? "none" : "block";
-        }
-    </script>
 </head>
 <body>
     <div class="container">
-        <h1>🧪 Berghorn's Cybersecurity Lab</h1>
-        <p>
-            Willkommen im Cybersecurity Lab! Hier kannst du interaktive Übungen absolvieren, um mehr über Sicherheitsbedrohungen zu lernen 
-            und dich dagegen zu verteidigen. Wähle eine der folgenden Aufgaben und finde die Flag!
-        </p>
+        <h1>Mr. Berghorn's Cybersecurity Lab</h1>
+        <p>Willkommen im Cybersecurity Lab! Wähle eine der folgenden Aufgaben, um mehr über Sicherheitskonzepte zu lernen.</p>
 
-        <div id="progress" class="progress">🏁 Fortschritt: 0 / 4 Flags gesammelt</div>
+        <!-- Aufgabe 1 -->
+        <div class="task">
+            <h3>Brute-Force-Angriff</h3>
+            <p>Simuliere einen Brute-Force-Angriff und lerne, wie sich schwache Passwörter ausnutzen lassen.</p>
+            <a href="bruteforce.html" class="btn">Aufgabe öffnen</a>
+        </div>
 
-        <div class="accordion">
-            <!-- Aufgabe 1 -->
-            <p><strong>Phishing Quiz:</strong> Analysiere verdächtige E-Mails, erkenne Phishing-Versuche und lerne, wie du dich davor schützen kannst.</p>
-            <div class="accordion-item">
-                <div class="accordion-header" onclick="toggleAccordionBody(event)">
-                    Aufgabe 1: Phishing Quiz
-                </div>
-                <div class="accordion-body">
-                    <button onclick="window.location.href='phishingquiz.html'">Zum Lab</button>
-                    <div class="flag-section">
-                        <input type="text" id="phishing-flag" placeholder="Flag hier eingeben...">
-                        <button class="check-button" onclick="checkFlag('phishing', 'phishing-flag', 'phishing-result')">Flag prüfen</button>
-                        <div id="phishing-result"></div>
-                    </div>
-                </div>
+        <!-- Aufgabe 2 -->
+        <div class="task">
+            <h3>Phishing-Quiz</h3>
+            <p>Identifiziere Phishing-Mails und lerne, wie du echte von gefälschten Nachrichten unterscheidest.</p>
+            <a href="phishingquiz.html" class="btn">Aufgabe öffnen</a>
+        </div>
+
+        <!-- Aufgabe 3 -->
+        <div class="task">
+            <h3>Passwortsicherheit</h3>
+            <p>Erfahre, wie du sichere Passwörter erstellst und warum schwache Passwörter ein Problem sind.</p>
+            <a href="password-simulator.html" class="btn">Aufgabe öffnen</a>
+        </div>
+
+        <!-- Aufgabe 4: Updates und Patches -->
+        <div class="task">
+            <h3>Updates und Patches</h3>
+            <p>Erlebe, wie Sicherheitslücken durch fehlende Updates ausgenutzt werden können.</p>
+            <button class="btn" onclick="unlockTask()">Passwort eingeben</button>
+            <div id="password-container" class="hidden">
+                <input type="password" id="task-password" placeholder="Passwort eingeben">
+                <button class="btn" onclick="checkPassword()">Aufgabe freischalten</button>
+                <p id="password-feedback" style="color: red; display: none;">Falsches Passwort!</p>
             </div>
-
-            <!-- Aufgabe 2 -->
-            <p><strong>Brute-Force-Demo:</strong> Lerne, wie Angreifer schwache Passwörter durch Brute-Force-Angriffe knacken, und erfahre, wie du dich schützen kannst.</p>
-            <div class="accordion-item">
-                <div class="accordion-header" onclick="toggleAccordionBody(event)">
-                    Aufgabe 2: Brute-Force-Demo
-                </div>
-                <div class="accordion-body">
-                    <button onclick="window.location.href='bruteforce.html'">Zum Lab</button>
-                    <div class="flag-section">
-                        <input type="text" id="bruteforce-flag" placeholder="Flag hier eingeben...">
-                        <button class="check-button" onclick="checkFlag('bruteforce', 'bruteforce-flag', 'bruteforce-result')">Flag prüfen</button>
-                        <div id="bruteforce-result"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Aufgabe 3 -->
-            <p><strong>Passwortstärke-Simulator:</strong> Teste die Stärke verschiedener Passwörter und finde heraus, wie lange ein Angreifer brauchen würde, um sie zu knacken.</p>
-            <div class="accordion-item">
-                <div class="accordion-header" onclick="toggleAccordionBody(event)">
-                    Aufgabe 3: Passwortstärke-Simulator
-                </div>
-                <div class="accordion-body">
-                    <button onclick="window.location.href='password-simulator.html'">Zum Lab</button>
-                    <div class="flag-section">
-                        <input type="text" id="password-flag" placeholder="Flag hier eingeben...">
-                        <button class="check-button" onclick="checkFlag('password', 'password-flag', 'password-result')">Flag prüfen</button>
-                        <div id="password-result"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Aufgabe 4 -->
-            <p><strong>Social Engineering:</strong> Analysiere Chatnachrichten von Angreifern und wähle die richtige Reaktion, um dich zu schützen.</p>
-            <div class="accordion-item">
-                <div class="accordion-header" onclick="toggleAccordionBody(event)">
-                    Aufgabe 4: Social Engineering
-                </div>
-                <div class="accordion-body">
-                    <button onclick="window.location.href='social-engineering.html'">Zum Lab</button>
-                    <div class="flag-section">
-                        <input type="text" id="social-flag" placeholder="Flag hier eingeben...">
-                        <button class="check-button" onclick="checkFlag('social', 'social-flag', 'social-result')">Flag prüfen</button>
-                        <div id="social-result"></div>
-                    </div>
-                </div>
-            </div>
+            <a href="updates.html" id="task-link" class="btn hidden">Aufgabe öffnen</a>
         </div>
     </div>
+
+    <script>
+        function unlockTask() {
+            document.getElementById("password-container").classList.remove("hidden");
+        }
+
+        function checkPassword() {
+            const input = document.getElementById("task-password").value;
+            const feedback = document.getElementById("password-feedback");
+            const link = document.getElementById("task-link");
+
+            if (input === "bscexploit") {
+                feedback.style.display = "none";
+                link.classList.remove("hidden");
+            } else {
+                feedback.style.display = "block";
+            }
+        }
+    </script>
 </body>
 </html>
 
