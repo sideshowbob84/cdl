@@ -1,96 +1,58 @@
-Mr. Berghorn's Cybersecurity Lab 🧪
-Einführung
-Willkommen in Mr. Berghorn's Cybersecurity Lab! Dieses interaktive Lab ist eine Simulation für Lehrer, Schüler und alle Cybersecurity-Interessierten. Es bietet eine sichere und lehrreiche Umgebung, um mehr über gängige Angriffsvektoren und Sicherheitsmaßnahmen zu lernen.
+Mr. Berghorn's Cybersecurity Lab
+Willkommen im Cybersecurity Lab! Diese interaktive Umgebung ist darauf ausgelegt, grundlegende Konzepte der IT-Sicherheit zu demonstrieren. Es bietet praktische Übungen zu Themen wie Brute-Force-Angriffen, Phishing, Passwortsicherheit, Social Engineering, Directory Busting und der Notwendigkeit von Updates und Patches.
 
-Die Aufgaben beinhalten:
+Features
+Interaktive Labs: Simulierte Szenarien zu verschiedenen Cybersecurity-Themen.
+Realistische Übungen: Praxisnah gestaltete Aufgaben wie Phishing-Quiz, Brute-Force-Simulationen oder Verzeichnisscans.
+Lernfokus: Jede Aufgabe enthält Anleitungen, Erklärungen und Feedback.
+Passwortgeschützte Sektionen: Zugriff auf fortgeschrittene Übungen nur mit Passwort möglich.
+Voraussetzungen
 
-Phishing-Quiz: Lerne, wie man echte von gefälschten E-Mails unterscheidet.
-Brute-Force-Simulator: Verstehe die Gefahren schwacher Passwörter.
-Social-Engineering-Simulation: Erlebe, wie Angreifer durch Täuschung Informationen sammeln können.
-Passwortsicherheit: Analysiere die Stärke verschiedener Passwörter.
-Updates und Patches: Verstehe, warum regelmäßige Sicherheitsupdates so wichtig sind.
-Gobuster-Simulation: Entdecke versteckte Verzeichnisse wie ein echter Penetration Tester.
-Das Lab ist so konzipiert, dass es sowohl für den Unterricht als auch für den Eigengebrauch geeignet ist.
+Um dieses Lab lokal auszuführen, benötigst du:
 
-Technische Anforderungen
-Frontend: HTML, CSS und JavaScript
-Backend: Node.js mit einem einfachen HTTP-Server
-Hosting: Lokale Nutzung oder Deployment auf GitHub Pages und Render.
-Installation und Lokale Nutzung
-1. Voraussetzungen
-Installiere Node.js (mindestens v14).
-Klone dieses Repository:
-bash
-Kopieren
-Bearbeiten
-git clone https://github.com/dein-benutzername/cybersecurity-lab.git
-cd cybersecurity-lab
-2. Lokale Nutzung
-Stelle sicher, dass alle Dateien im Projektverzeichnis vorhanden sind, einschließlich index.html, server.js und der Lab-Dateien.
-Installiere erforderliche Abhängigkeiten (falls benötigt):
-bash
-Kopieren
-Bearbeiten
-npm install
-Starte den Node.js-Server:
-bash
-Kopieren
-Bearbeiten
-node server.js
-Öffne deinen Browser und rufe http://localhost:3000 auf, um das Lab zu nutzen.
-Deployment auf GitHub Pages
-Du kannst die statischen Dateien (wie index.html, bruteforce.html, etc.) über GitHub Pages hosten.
+Node.js (Version 16 oder höher)
+npm (Node Package Manager)
+Optional:
 
-Repository erstellen:
-
-Lade das Projekt in ein neues GitHub-Repository hoch:
-bash
-Kopieren
-Bearbeiten
-git init
-git add .
-git commit -m "Initial Commit"
-git branch -M main
-git remote add origin https://github.com/dein-benutzername/cybersecurity-lab.git
-git push -u origin main
-GitHub Pages aktivieren:
+Einen GitHub-Account, wenn du das Repository klonen möchtest.
+Ein kostenloses Konto bei Render zur Veröffentlichung.
+Lokale Nutzung
+Repository klonen:
+Gehe zu deinem GitHub-Repository.
+Klicke auf den grünen Button "Code" und kopiere die URL.
+Öffne dein Terminal oder deine Eingabeaufforderung und führe git clone <repository-url> aus.
+Navigiere in das Projektverzeichnis:
+Gehe in das Verzeichnis, das du gerade geklont hast.
+Installiere die Abhängigkeiten:
+Führe npm install aus, um die erforderlichen Pakete zu installieren.
+Starte den Server:
+Führe node server.js aus, um den lokalen Server zu starten.
+Öffne die Seite im Browser:
+Gehe zu http://localhost:3000, um das Lab aufzurufen.
+Repository herunterladen
+Falls du das Repository nicht klonen möchtest, kannst du es auch als ZIP-Datei herunterladen:
 
 Gehe zu deinem Repository auf GitHub.
-Klicke auf Settings > Pages.
-Wähle den Branch main und speichere die Änderungen.
-URL aufrufen:
+Klicke auf den grünen Button "Code" und wähle "Download ZIP" aus.
+Entpacke die ZIP-Datei auf deinem Computer.
+Navigiere in das entpackte Verzeichnis.
+Folge den oben beschriebenen Schritten unter "Lokale Nutzung", um den Server zu starten.
+Deployment mit Render
+Um das Lab online zu hosten, kannst du Render verwenden:
 
-Nach der Bereitstellung kannst du dein Lab unter der angegebenen GitHub Pages-URL nutzen, z. B. https://dein-benutzername.github.io/cybersecurity-lab.
-Deployment auf Render
-Wenn du das Lab mit einem echten Server (z. B. für interaktive Backend-Funktionen) bereitstellen möchtest, ist Render eine gute Option.
+Erstelle ein kostenloses Konto auf der Render-Plattform.
+Gehe zu "New +" und wähle "Web Service" aus.
+Verbinde dein GitHub-Repository mit Render.
+Wähle die main-Branch deines Repositories aus.
+Unter "Build Command" gibst du npm install ein.
+Unter "Start Command" gibst du node server.js ein.
+Klicke auf "Create Web Service" und warte, bis der Build abgeschlossen ist.
+Deine Seite ist nun unter der von Render generierten URL erreichbar.
 
-Repository mit Render verbinden:
-
-Melde dich bei Render an.
-Erstelle einen neuen Web Service.
-Wähle dein GitHub-Repository aus.
-Einstellungen anpassen:
-
-Start-Befehl: node server.js
-Build-Einstellungen: Render benötigt keine speziellen Build-Schritte für dieses Projekt.
-URL erhalten:
-
-Nach der Bereitstellung erhältst du eine URL wie https://dein-lab.onrender.com, unter der das Lab erreichbar ist.
-
-Projektstruktur:
-
-cybersecurity-lab/
-├── index.html              # Startseite mit Aufgabenübersicht
-├── bruteforce.html         # Seite für den Brute-Force-Simulator
-├── phishingquiz.html       # Seite für das Phishing-Quiz
-├── password-simulator.html # Seite zur Analyse von Passwortstärke
-├── updates.html            # Seite für das Updates-und-Patches-Lab
-├── dirbuster.html          # Gobuster-Simulation
-├── secret-flag.html        # Seite für das versteckte Verzeichnis
-├── server.js               # Node.js-Server
-└── assets/                 # Bilder, Icons und andere statische Dateien
-
-
-Lizenz
-Dieses Projekt steht unter der MIT-Lizenz. Fühle dich frei, es anzupassen und zu erweitern!
-
+Aufgaben im Lab
+Phishing-Quiz: Analysiere verdächtige E-Mails und erkenne Phishing-Versuche.
+Brute-Force-Simulation: Simuliere Angriffe auf schwache Passwörter.
+Passwortsicherheit: Teste Passwörter und erfahre, wie lange ein Angriff dauern würde.
+Social-Engineering-Simulation: Erlebe, wie leicht Angreifer Informationen erlangen können.
+Updates und Patches: Verstehe die Bedeutung von regelmäßigen Updates und Patches.
+Directory Busting: Finde versteckte Verzeichnisse mit einem simulierten Gobuster-Tool.
