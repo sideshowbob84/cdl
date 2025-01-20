@@ -83,13 +83,8 @@
                 Konfigurationsdateien, Backup-Daten oder versteckte Endpunkte zu finden.
             </p>
             <p>
-                Diese Technik kann ausgenutzt werden, wenn ein Server schlecht konfiguriert ist oder versehentlich 
-                nicht autorisierte Dateien und Verzeichnisse freigegeben hat. In dieser Simulation verwenden wir 
-                Gobuster, ein beliebtes Werkzeug, um die Verzeichnisse auf unserem Lab-Server zu durchsuchen.
-            </p>
-            <p>
-                Ziel: Finde das versteckte Verzeichnis <strong>secret-flag</strong>, in dem sich eine Flag befindet. 
-                Verwende die unten angegebene Syntax, um den Scan durchzuführen.
+                Ziel: Finde das versteckte Verzeichnis <strong>secret-flag</strong>. Du musst danach selbst 
+                die Seite manuell aufrufen, um zu sehen, was sich darin befindet!
             </p>
         </div>
 
@@ -113,23 +108,25 @@ gobuster dir -u http://localhost -w wordlist.txt
             <h2>Schritt 2: Scan-Ergebnisse</h2>
             <div class="console" id="console-output"></div>
         </div>
-
-        <!-- Ergebnis -->
-        <div id="result-container" class="hidden">
-            <h2>Ergebnis</h2>
-            <p>Du hast das versteckte Verzeichnis gefunden! Hier ist die Flag:</p>
-            <p class="success-message">Flag: {FOUND_SECRET_FLAG}</p>
-            <a href="index.html" class="btn">Zurück zum Hauptmenü</a>
-        </div>
     </div>
 
     <script>
         const directories = [
+            "admin",
+            "login",
+            "images",
+            "css",
+            "js",
             "bruteforce",
             "phishingquiz",
             "password-simulator",
             "updates",
             "social-engineering",
+            "backup",
+            "test",
+            "old-site",
+            "config",
+            "logs",
             "secret-flag" // Verstecktes Verzeichnis
         ];
 
@@ -154,7 +151,6 @@ gobuster dir -u http://localhost -w wordlist.txt
             const consoleOutput = document.getElementById("console-output");
             const step1 = document.getElementById("step-1");
             const step2 = document.getElementById("step-2");
-            const resultContainer = document.getElementById("result-container");
 
             step1.classList.add("hidden");
             step2.classList.remove("hidden");
@@ -171,15 +167,13 @@ gobuster dir -u http://localhost -w wordlist.txt
 
                     if (directories[index] === "secret-flag") {
                         clearInterval(interval);
-                        setTimeout(() => {
-                            step2.classList.add("hidden");
-                            resultContainer.classList.remove("hidden");
-                        }, 1000);
+                        consoleOutput.innerHTML += "\nScan abgeschlossen. Verstecktes Verzeichnis gefunden: /secret-flag\n";
                     }
                     index++;
                 }
-            }, 1000);
+            }, 500); // 0.5 Sekunde pro Verzeichnis simulieren
         }
     </script>
 </body>
 </html>
+
