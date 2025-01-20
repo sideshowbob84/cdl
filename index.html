@@ -59,6 +59,11 @@
         .hidden {
             display: none;
         }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -102,6 +107,9 @@
             <div id="password-container">
                 <input type="password" id="task-password" placeholder="Passwort eingeben">
                 <button class="btn" onclick="checkPassword()">Freischalten</button>
+                <p class="error-message hidden" id="error-message">
+                    Wenn du das Passwort nicht selbst herausfindest, bist du nicht bereit für dieses Lab.
+                </p>
             </div>
             <a href="updates.html" id="task-link" class="btn hidden">Aufgabe öffnen</a>
             <input type="text" id="flag4" placeholder="Flag eingeben" class="hidden">
@@ -120,6 +128,9 @@
 
     <script>
         const collectedFlags = [false, false, false, false, false];
+
+        // Klartext-Passwort im HTML (simuliert für Lehrer)
+        const labPassword = "bscexploit";
 
         function updateProgress() {
             const progress = collectedFlags.filter(flag => flag).length;
@@ -140,13 +151,16 @@
 
         function checkPassword() {
             const input = document.getElementById("task-password").value;
-            if (input === "bscexploit") {
+            const errorMessage = document.getElementById("error-message");
+
+            if (input === labPassword) {
                 document.getElementById("task-link").classList.remove("hidden");
                 document.querySelector("#flag4").classList.remove("hidden");
                 document.querySelector("#flag4 + .btn").classList.remove("hidden");
                 document.getElementById("password-container").classList.add("hidden");
+                errorMessage.classList.add("hidden");
             } else {
-                alert("Falsches Passwort!");
+                errorMessage.classList.remove("hidden");
             }
         }
 
@@ -155,7 +169,6 @@
     </script>
 </body>
 </html>
-
 
 
 
