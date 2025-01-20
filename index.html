@@ -101,7 +101,7 @@
 
         <!-- Fortschrittsanzeige -->
         <div id="progress" style="text-align: center; margin-bottom: 20px;">
-            Fortschritt: 0/6 Flags gesammelt
+            Fortschritt: 0/7 Flags gesammelt
         </div>
 
         <!-- Offene Aufgaben -->
@@ -158,6 +158,13 @@
                 <input type="text" id="flag6" placeholder="Flag eingeben">
                 <button class="btn" onclick="checkFlag(6, '{FOUND_SECRET_FLAG}', '🔍 Directory Detective')">Prüfen</button>
             </div>
+            <div class="task">
+                <h3>Hashing Lab</h3>
+                <p>Entschlüssele Hashes mit Rainbow Tables und lerne, wie Salt die Sicherheit erhöht.</p>
+                <a href="hash.html" class="btn">Aufgabe öffnen</a>
+                <input type="text" id="flag7" placeholder="Flag eingeben">
+                <button class="btn" onclick="checkFlag(7, '{LET_HIM_COOK}', '🍳 Hash-Chef')">Prüfen</button>
+            </div>
         </div>
 
         <!-- Achievements -->
@@ -171,12 +178,12 @@
     </div>
 
     <script>
-        const collectedFlags = [false, false, false, false, false, false];
+        const collectedFlags = [false, false, false, false, false, false, false];
         const obfuscatedPassword = atob("dDAwaDB0NHlh"); // b64 enc
 
         function updateProgress() {
             const progress = collectedFlags.filter(flag => flag).length;
-            document.getElementById("progress").textContent = `Fortschritt: ${progress}/6 Flags gesammelt`;
+            document.getElementById("progress").textContent = `Fortschritt: ${progress}/7 Flags gesammelt`;
         }
 
         function checkFlag(taskNumber, correctFlag, title) {
@@ -218,5 +225,3 @@
     </script>
 </body>
 </html>
-
-
