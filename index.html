@@ -57,16 +57,17 @@
         .hidden {
             display: none;
         }
-        .password-protected {
-            margin-top: 20px;
-            padding: 10px;
-            border: 2px solid #f00;
-            background-color: #ffe5e5;
-        }
         .error-message {
             color: red;
             font-weight: bold;
             margin-top: 10px;
+        }
+        input[type="text"] {
+            margin-top: 10px;
+            padding: 5px;
+            width: calc(100% - 20px);
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -74,34 +75,47 @@
     <div class="container">
         <h1>Mr. Berghorn's Cybersecurity Lab 🧪</h1>
 
-        <!-- Oberer Bereich -->
+        <!-- Fortschrittsanzeige -->
+        <div id="progress" style="text-align: center; margin-bottom: 20px;">
+            Fortschritt: 0/6 Flags gesammelt
+        </div>
+
+        <!-- Offene Aufgaben -->
         <h2>Offene Aufgaben</h2>
         <div class="task">
             <h3>Phishing-Quiz</h3>
             <p>Identifiziere Phishing-Mails und lerne, wie du echte von gefälschten Nachrichten unterscheidest.</p>
             <a href="phishingquiz.html" class="btn">Aufgabe öffnen</a>
+            <input type="text" id="flag1" placeholder="Flag eingeben">
+            <button class="btn" onclick="checkFlag(1, '{CAUGHT_ALL_THE_PHISH}')">Prüfen</button>
         </div>
         <div class="task">
             <h3>Brute-Force-Simulator</h3>
             <p>Simuliere einen Brute-Force-Angriff und lerne, wie schwache Passwörter ausgenutzt werden können.</p>
             <a href="bruteforce.html" class="btn">Aufgabe öffnen</a>
+            <input type="text" id="flag2" placeholder="Flag eingeben">
+            <button class="btn" onclick="checkFlag(2, '{BRUTE_FORCE_ADMIN_SUCCESS}')">Prüfen</button>
         </div>
         <div class="task">
             <h3>Social-Engineering-Simulation</h3>
             <p>Schlüpfe in die Rolle eines Angreifers und erlebe, wie einfach es sein kann, durch Täuschung Informationen zu sammeln.</p>
             <a href="social-engineering.html" class="btn">Aufgabe öffnen</a>
+            <input type="text" id="flag3" placeholder="Flag eingeben">
+            <button class="btn" onclick="checkFlag(3, '{SOCIAL_ENGINEER_SUCCESS}')">Prüfen</button>
         </div>
         <div class="task">
             <h3>Passwortsicherheit</h3>
             <p>Erfahre, wie du sichere Passwörter erstellst und warum schwache Passwörter ein Problem sind.</p>
             <a href="password-simulator.html" class="btn">Aufgabe öffnen</a>
+            <input type="text" id="flag4" placeholder="Flag eingeben">
+            <button class="btn" onclick="checkFlag(4, '{PASSWORDS_ARE_KEY}')">Prüfen</button>
         </div>
 
         <!-- Passwortgeschützter Bereich -->
         <h2>Passwortgeschützter Bereich</h2>
         <div id="password-container">
             <p>Um auf die fortgeschrittenen Aufgaben zuzugreifen, gib das Passwort ein:</p>
-            <input type="password" id="lab-password" placeholder="Passwort eingeben" style="width: calc(100% - 30px); padding: 10px;">
+            <input type="password" id="lab-password" placeholder="Passwort eingeben">
             <button class="btn" onclick="unlockTasks()">Freischalten</button>
             <p class="error-message hidden" id="error-message">Falsches Passwort! Versuche es erneut.</p>
         </div>
@@ -110,17 +124,39 @@
                 <h3>Updates und Patches 🔒</h3>
                 <p>Erfahre, warum es wichtig ist, Systeme regelmäßig zu patchen, und teste eine Schwachstelle.</p>
                 <a href="updates.html" class="btn">Aufgabe öffnen</a>
+                <input type="text" id="flag5" placeholder="Flag eingeben">
+                <button class="btn" onclick="checkFlag(5, '{PATCH_THE_PATCH}')">Prüfen</button>
             </div>
             <div class="task">
                 <h3>Gobuster-Simulation</h3>
                 <p>Finde versteckte Verzeichnisse auf einem Server durch einen Directory Busting Scan.</p>
                 <a href="dirbuster.html" class="btn">Aufgabe öffnen</a>
+                <input type="text" id="flag6" placeholder="Flag eingeben">
+                <button class="btn" onclick="checkFlag(6, '{FOUND_SECRET_FLAG}')">Prüfen</button>
             </div>
         </div>
     </div>
 
     <script>
+        const collectedFlags = [false, false, false, false, false, false];
         const obfuscatedPassword = atob("dDAwaDB0NHlh"); // "t00h0t4ya"
+
+        function updateProgress() {
+            const progress = collectedFlags.filter(flag => flag).length;
+            document.getElementById("progress").textContent = `Fortschritt: ${progress}/6 Flags gesammelt`;
+        }
+
+        function checkFlag(taskNumber, correctFlag) {
+            const input = document.getElementById(`flag${taskNumber}`);
+            if (input.value === correctFlag) {
+                alert(`Richtig! Flag für Aufgabe ${taskNumber} akzeptiert.`);
+                collectedFlags[taskNumber - 1] = true;
+                input.disabled = true;
+                updateProgress();
+            } else {
+                alert("Falsch! Versuche es erneut.");
+            }
+        }
 
         function unlockTasks() {
             const inputPassword = document.getElementById("lab-password").value;
@@ -135,8 +171,9 @@
                 errorMessage.classList.remove("hidden");
             }
         }
+
+        updateProgress();
     </script>
 </body>
 </html>
-
 
