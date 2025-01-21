@@ -178,11 +178,22 @@
 
         function checkFlag(taskNumber, encodedFlag, title) {
             const input = document.getElementById(`flag${taskNumber}`);
+            const achievements = document.getElementById("achievements");
             const decodedFlag = decodeBase64(encodedFlag);
+
             if (input.value === decodedFlag) {
                 alert(`Richtig! Flag für Aufgabe ${taskNumber} akzeptiert.`);
                 collectedFlags[taskNumber - 1] = true;
                 input.disabled = true;
+
+                // Achievement hinzufügen
+                if (achievements) {
+                    const achievement = document.createElement("div");
+                    achievement.className = "achievement";
+                    achievement.innerHTML = `<span>${title.split(" ")[0]}</span>${title.slice(2)}`;
+                    achievements.appendChild(achievement);
+                    achievements.classList.remove("hidden");
+                }
                 updateProgress();
             } else {
                 alert("Falsch! Versuche es erneut.");
@@ -207,4 +218,5 @@
     </script>
 </body>
 </html>
+
 
