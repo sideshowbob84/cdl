@@ -1,4 +1,4 @@
-# Mr. Cyberdefense Lab 🧪
+# CyberDefense Lab 🧪
 
 ## Beschreibung
 Das **CyberDefense Lab** bietet praxisnahe Einblicke in zentrale IT-Sicherheitskonzepte. Es richtet sich an Lernende und Lehrende, die ein tieferes Verständnis für technische Sicherheitsprinzipien entwickeln möchten. In interaktiven Aufgaben können Angriffe wie Phishing, Social Engineering oder Passwortschwächen nachvollzogen und technische Schutzmaßnahmen wie Hashing, Salting und regelmäßige Updates erlernt werden. Es handelt sich ausschließlich um Simulationen - es werden keine echte Angriffe ausgeführt.
