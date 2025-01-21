@@ -87,6 +87,28 @@
             font-size: 24px;
             margin-right: 10px;
         }
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            z-index: 1000;
+        }
+        .cookie-banner button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .cookie-banner button:hover {
+            background-color: #0056b3;
+        }
         footer {
             margin-top: 30px;
             text-align: center;
@@ -111,7 +133,7 @@
 
         <!-- Fortschrittsanzeige -->
         <div id="progress" style="text-align: center; margin-bottom: 20px;">
-            Fortschritt: 0/7 Flags gesammelt
+            Fortschritt: 0/8 Flags gesammelt
         </div>
 
         <!-- Offene Aufgaben -->
@@ -136,6 +158,13 @@
             <a href="social-engineering.html" class="btn">Aufgabe öffnen</a>
             <input type="text" id="flag3" placeholder="Flag eingeben">
             <button class="btn" onclick="checkFlag(3, 'e0RFRkVOREVSX09GX1RSVVNUfQ==', '🤝 Vertrauensbrecher')">Prüfen</button>
+        </div>
+        <div class="task">
+            <h3>Passwortmanager-Lab</h3>
+            <p>Lerne, wie ein Passwortmanager deine Sicherheit erhöht, sichere Passwörter generiert und Schwachstellen aufdeckt.</p>
+            <a href="password-simulator.html" class="btn">Aufgabe öffnen</a>
+            <input type="text" id="flag4" placeholder="Flag eingeben">
+            <button class="btn" onclick="checkFlag(4, 'e1VOQlJFQUtBQkxFX1BBU1NXT1JEfQ==', '🔑 Schlüsselmeister')">Prüfen</button>
         </div>
 
         <!-- Passwortgeschützter Bereich -->
@@ -184,13 +213,18 @@
         </footer>
     </div>
 
+    <!-- Cookie-Banner -->
+    <div class="cookie-banner" id="cookie-banner">
+        🍪 Diese Website verwendet keine Cookies. <button onclick="hideCookieBanner()">Okay</button>
+    </div>
+
     <script>
-        const collectedFlags = [false, false, false, false, false, false, false];
+        const collectedFlags = [false, false, false, false, false, false, false, false];
         const obfuscatedPassword = atob("dDAwaDB0NHlh");
 
         function updateProgress() {
             const progress = collectedFlags.filter(flag => flag).length;
-            document.getElementById("progress").textContent = `Fortschritt: ${progress}/7 Flags gesammelt`;
+            document.getElementById("progress").textContent = `Fortschritt: ${progress}/8 Flags gesammelt`;
         }
 
         function decodeBase64(encoded) {
@@ -207,7 +241,6 @@
                 collectedFlags[taskNumber - 1] = true;
                 input.disabled = true;
 
-                // Achievement hinzufügen
                 const achievement = document.createElement("div");
                 achievement.className = "achievement";
                 achievement.innerHTML = `<span>${title.split(" ")[0]}</span>${title.slice(2)}`;
@@ -226,7 +259,7 @@
 
             if (flag7a === atob("e0xFVF9ISU1fQ09PS30=") && flag7b === atob("e0FERF9BX1BJTkNIX09GX1NBTFR9")) {
                 alert("Richtig! Beide Flags akzeptiert.");
-                collectedFlags[6] = true;
+                collectedFlags[7] = true;
                 updateProgress();
             } else {
                 alert("Falsch! Versuche es erneut.");
@@ -245,6 +278,11 @@
             } else {
                 errorMessage.classList.remove("hidden");
             }
+        }
+
+        function hideCookieBanner() {
+            const banner = document.getElementById("cookie-banner");
+            banner.style.display = "none";
         }
 
         updateProgress();
