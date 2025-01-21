@@ -1,63 +1,86 @@
 # Mr. Berghorn's Cybersecurity Lab 🧪
 
-Willkommen im Cybersecurity Lab! Diese interaktive Umgebung ist darauf ausgelegt, grundlegende Konzepte der IT-Sicherheit zu demonstrieren. Es bietet praktische Übungen zu Themen wie Brute-Force-Angriffen, Phishing, Passwortsicherheit, Social Engineering, Directory Busting und der Notwendigkeit von Updates und Patches.
+## Beschreibung
+Das **CyberDefense Lab** bietet praxisnahe Einblicke in zentrale IT-Sicherheitskonzepte. Es richtet sich an Lernende und Lehrende, die ein tieferes Verständnis für technische Sicherheitsprinzipien entwickeln möchten. In interaktiven Aufgaben können Angriffe wie Phishing, Social Engineering oder Passwortschwächen nachvollzogen und technische Schutzmaßnahmen wie Hashing, Salting und regelmäßige Updates erlernt werden.
 
-## Features
-- **Interaktive Labs:** Simulierte Szenarien zu verschiedenen Cybersecurity-Themen.
-- **Realistische Übungen:** Praxisnah gestaltete Aufgaben wie Phishing-Quiz, Brute-Force-Simulationen oder Verzeichnisscans.
-- **Lernfokus:** Jede Aufgabe enthält Anleitungen, Erklärungen und Feedback.
-- **Passwortgeschützte Sektionen:** Zugriff auf fortgeschrittene Übungen nur mit Passwort möglich.
+**Enthaltene Labs:**
+- **Phishing-Quiz:** Lernen, gefälschte E-Mails zu identifizieren und sich vor Phishing zu schützen.
+- **Brute-Force-Simulator:** Demonstriert, wie schwache Passwörter durch Brute-Force-Angriffe kompromittiert werden können.
+- **Social-Engineering-Simulation:** Praktische Szenarien, um Angriffe durch Täuschung zu erkennen und abzuwehren.
+- **Hashing und Rainbow Tables:** Wie Passwörter geschützt und durch Salting sicherer gemacht werden.
+- **Gobuster-Simulation:** Suchen und Aufdecken von Schwachstellen in versteckten Verzeichnissen.
+- **Updates und Patches:** Die Bedeutung regelmäßiger Sicherheitsupdates.
+- **Passwortsicherheit:** Erstellung sicherer Passwörter und Analyse von Passwortmanagern.
 
 ## Voraussetzungen
-Um dieses Lab lokal auszuführen, benötigst du:
-- Node.js (Version 16 oder höher)
-- npm (Node Package Manager)
+Um das Lab lokal auszuführen oder zu hosten, benötigst du:
+- **Node.js** (Version 16 oder höher)
+- **npm** (Node Package Manager)
+- Optional:
+  - **GitHub-Account** (zum Klonen des Repositories)
+  - **Render-Account** (für kostenloses Hosting)
 
-Optional:
-- Einen GitHub-Account, wenn du das Repository klonen möchtest.
-- Ein kostenloses Konto bei [Render](https://render.com/) zur Veröffentlichung.
+---
 
 ## Lokale Nutzung
-1. **Repository klonen:**
-   - Gehe zu deinem GitHub-Repository, klicke auf den grünen Button "Code" und kopiere die URL.
-   - Öffne dein Terminal oder deine Eingabeaufforderung und führe den Befehl `git clone <repository-url>` aus.
 
-2. **In das Projektverzeichnis navigieren:**
-   - Wechsle in das Verzeichnis, das du gerade geklont hast.
+### 1. Repository klonen
+1. Öffne das Terminal oder eine Git-Bash.
+2. Führe folgenden Befehl aus, um das Repository zu klonen:
+git clone https://github.com/Rampe89/node.git
+3. Navigiere ins Projektverzeichnis:
+cd node
 
-3. **Abhängigkeiten installieren:**
-   - Führe den Befehl `npm install` aus, um die erforderlichen Pakete zu installieren.
+### 2. Abhängigkeiten installieren
+1. Stelle sicher, dass Node.js und npm installiert sind.
+2. Installiere die benötigten Pakete:
+npm install
+### 3. Lokalen Server starten
+1. Starte den Server mit:
+node server.js
+2. Öffne deinen Browser und rufe `http://localhost:3000` auf.
 
-4. **Server starten:**
-   - Führe den Befehl `node server.js` aus, um den lokalen Server zu starten.
+---
 
-5. **Im Browser öffnen:**
-   - Gehe zu `http://localhost:3000`, um das Lab aufzurufen.
+## Hosting mit Render
 
-## Repository herunterladen
-Falls du das Repository nicht klonen möchtest, kannst du es auch als ZIP-Datei herunterladen:
-1. Gehe zu deinem Repository auf GitHub.
-2. Klicke auf den grünen Button "Code" und wähle "Download ZIP" aus.
-3. Entpacke die ZIP-Datei auf deinem Computer.
-4. Folge den oben beschriebenen Schritten unter "Lokale Nutzung", um den Server zu starten.
+### 1. Repository hochladen
+1. Forke dieses Repository oder lade den Code direkt in dein GitHub-Konto hoch.
+2. Melde dich bei [Render](https://render.com/) an.
 
-## Deployment mit Render
-1. Erstelle ein kostenloses Konto auf der [Render-Plattform](https://render.com/).
-2. Gehe zu "New +" und wähle "Web Service" aus.
-3. Verbinde dein GitHub-Repository mit Render.
-4. Wähle die `main`-Branch deines Repositories aus.
-5. Unter "Build Command" gibst du `npm install` ein.
-6. Unter "Start Command" gibst du `node server.js` ein.
-7. Klicke auf "Create Web Service" und warte, bis der Build abgeschlossen ist.
-8. Deine Seite ist nun unter der von Render generierten URL erreichbar.
+### 2. Neues Webservice-Projekt erstellen
+1. Klicke auf **"New Web Service"**.
+2. Verbinde dein GitHub-Konto mit Render und wähle dieses Repository aus.
+3. Konfiguriere das Webservice:
+- **Environment:** Node.js
+- **Start Command:** `node server.js`
+- **Port:** `3000` (standardmäßig)
 
-## Aufgaben im Lab
-- **Phishing-Quiz:** Analysiere verdächtige E-Mails und erkenne Phishing-Versuche.
-- **Brute-Force-Simulation:** Simuliere Angriffe auf schwache Passwörter.
-- **Passwortsicherheit:** Teste Passwörter und erfahre, wie lange ein Angriff dauern würde.
-- **Social-Engineering-Simulation:** Erlebe, wie leicht Angreifer Informationen erlangen können.
-- **Updates und Patches:** Verstehe die Bedeutung von regelmäßigen Updates und Patches.
-- **Directory Busting:** Finde versteckte Verzeichnisse mit einem simulierten Gobuster-Tool.
+4. Klicke auf **"Deploy"**, um dein Projekt zu starten.
+
+### 3. Zugriff
+Render generiert eine öffentliche URL, über die das Lab zugänglich ist.
+
+---
+
+## Ergänzungen
+### Flags und Achievements
+- Jede Lab-Aufgabe ist mit einer Flag verknüpft, die korrekt eingegeben werden muss.
+- Erfolgreich abgeschlossene Aufgaben schalten **Achievements** frei, die im Hauptmenü angezeigt werden.
+
+### Hashing Lab
+Das Hashing-Lab bietet die Möglichkeit, Passwörter zu entschlüsseln und den Schutz durch Salt zu erproben. Anleitungen sind in der Aufgabe enthalten.
+
+---
+
+## Feedback und Beiträge
+Fragen oder Verbesserungsvorschläge? Erstelle gerne ein Issue oder einen Pull-Request!
+
+---
+
+## Lizenz
+Dieses Projekt steht unter der MIT-Lizenz. Weitere Informationen findest du in der Datei `LICENSE`.
+
 
 
 
