@@ -40,6 +40,9 @@ const server = http.createServer((req, res) => {
         } else if (req.url === '/hash.html') {
             // Hashing Lab ausliefern
             serveFile('hash.html', res);
+        } else if (req.url === '/admin.html') {
+            // Admin-Seite ausliefern
+            serveFile('admin.html', res);
         } else {
             // 404-Seite
             res.statusCode = 404;
