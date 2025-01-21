@@ -1,3 +1,4 @@
+
 const http = require('http');
 const fs = require('fs');
 const querystring = require('querystring');
@@ -43,6 +44,9 @@ const server = http.createServer((req, res) => {
         } else if (req.url === '/admin.html') {
             // Admin-Seite ausliefern
             serveFile('admin.html', res);
+        } else if (req.url === '/impressum.html') {
+            // Impressum-Seite ausliefern
+            serveFile('impressum.html', res);
         } else {
             // 404-Seite
             res.statusCode = 404;
@@ -94,4 +98,3 @@ function serveFile(filename, res) {
 server.listen(port, hostname, () => {
     console.log(`Server läuft auf http://${hostname}:${port}/`);
 });
-
