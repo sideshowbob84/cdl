@@ -78,8 +78,9 @@ Fragen oder Verbesserungsvorschläge? Erstelle gerne ein Issue oder einen Pull-R
 
 ---
 
-## Lizenz
-Dieses Projekt steht unter der MIT-Lizenz. Weitere Informationen findest du in der Datei `LICENSE`.
+## Haftungsauschluss & Lizenz
+Das CyberDefense Lab wurde sorgfältig entwickelt, um ein sicheres Lernumfeld zu bieten. Dennoch wird keine Haftung für Schäden übernommen, die durch die unsachgemäße Nutzung des Labs oder der erlernten Techniken entstehen könnten. Die Nutzung des Labs erfolgt auf eigene Verantwortung.
+Dieses Projekt steht unter der MIT-Lizenz. Weitere Informationen findest du in der Datei.
 
 
 
