@@ -154,6 +154,22 @@
                 <input type="text" id="flag5" placeholder="Flag eingeben">
                 <button class="btn" onclick="checkFlag(5, 'e1BBVENIX1RIRV9QQVRDSH0=', '🛡️ Patch-Champion')">Prüfen</button>
             </div>
+            <div class="task">
+                <h3>Gobuster-Simulation</h3>
+                <p>Finde versteckte Verzeichnisse auf einem Server durch einen Directory Busting Scan.</p>
+                <a href="dirbuster.html" class="btn">Aufgabe öffnen</a>
+                <input type="text" id="flag6" placeholder="Flag eingeben">
+                <button class="btn" onclick="checkFlag(6, 'e0ZPVU5EX1NFQ1JFVF9GTEFHUw==', '🔍 Directory Detective')">Prüfen</button>
+            </div>
+            <div class="task">
+                <h3>Hashing Lab</h3>
+                <p>Entschlüssele Hashes mit Rainbow Tables und lerne, wie Salt die Sicherheit erhöht.</p>
+                <a href="hash.html" class="btn">Aufgabe öffnen</a>
+                <p>Gib beide Flags ein:</p>
+                <input type="text" id="flag7a" placeholder="Flag 1 eingeben">
+                <input type="text" id="flag7b" placeholder="Flag 2 eingeben">
+                <button class="btn" onclick="checkHashFlags()">Prüfen</button>
+            </div>
         </div>
 
         <!-- Achievements -->
@@ -204,6 +220,19 @@
             }
         }
 
+        function checkHashFlags() {
+            const flag7a = document.getElementById("flag7a").value.trim();
+            const flag7b = document.getElementById("flag7b").value.trim();
+
+            if (flag7a === atob("e0xFVF9ISU1fQ09PS30=") && flag7b === atob("e0FERF9BX1BJTkNIX09GX1NBTFR9")) {
+                alert("Richtig! Beide Flags akzeptiert.");
+                collectedFlags[6] = true;
+                updateProgress();
+            } else {
+                alert("Falsch! Versuche es erneut.");
+            }
+        }
+
         function unlockTasks() {
             const inputPassword = document.getElementById("lab-password").value;
             const errorMessage = document.getElementById("error-message");
@@ -222,6 +251,7 @@
     </script>
 </body>
 </html>
+
 
 
 
