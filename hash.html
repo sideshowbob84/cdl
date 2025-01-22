@@ -103,14 +103,19 @@
             <p>
                 Um Rainbow Tables zu umgehen, wird ein Salt verwendet. Es wird eine zufällige Zeichenkette an das Passwort angehängt, bevor es gehasht wird. Das Ergebnis ist ein einzigartiger Hash, selbst für gleiche Passwörter.
             </p>
-            <p>Hier ist ein Beispiel:</p>
-            <pre>
-                Passwort: password123
-                Salt: 2023
-                Eingabe in CyberChef: password1232023
-                Hashing-Methode: MD5
-            </pre>
-            <p>Finde den MD5-Hash mit CyberChef und gib ihn als Flag ein:</p>
+           <p>Hier ist ein Beispiel:</p>
+<pre>
+    Passwort: password123
+    Salt: 2023
+    Eingabe in CyberChef: password1232023
+    Hashing-Methode: MD5
+</pre>
+<p>
+    Finde den MD5-Hash mit 
+    <a href="https://gchq.github.io/CyberChef/" target="_blank" rel="noopener noreferrer">CyberChef</a> 
+    und gib ihn als Flag ein:
+</p>
+
             <input type="text" id="flag2" placeholder="Bonus-Flag eingeben">
             <button class="btn" onclick="checkBonusFlag()">Prüfen</button>
         </div>
