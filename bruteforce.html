@@ -69,6 +69,11 @@
             border-radius: 5px;
             display: none;
         }
+        .error {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -79,25 +84,9 @@
         <div class="info-container">
             <h2>Was passiert hier?</h2>
             <p>
-                Diese Anwendung zeigt eine <strong>Brute-Force-Attacke</strong>, wie sie in der IT-Sicherheit vorkommen könnte.
-                Beim Brute-Force-Angriff versucht ein Angreifer, alle möglichen Passwörter für ein Benutzerkonto zu testen, 
-                bis das richtige Passwort gefunden wird. Dies wird mit Hilfe einer sogenannten <em>Wordlist</em> durchgeführt, 
-                in der häufig genutzte Passwörter gesammelt sind.
-            </p>
-            <p>
-                In unserer Demo simulieren wir diesen Angriff mithilfe des Tools <strong>Hydra</strong>. Hydra ist ein bekanntes 
-                Werkzeug für Sicherheitsforschung und Penetrationstests. Es wird häufig genutzt, um Schwachstellen in Systemen 
-                zu finden – aber nur für legale Zwecke!
-            </p>
-            <p>
-                Die hier genutzte <strong>Wordlist</strong> enthält realistische, häufig verwendete Passwörter, 
-                wie sie auch in Datenlecks vorkommen könnten. Während der Simulation testet Hydra alle Einträge 
-                aus der Wordlist gegen ein Benutzerkonto. Am Ende zeigt die Anwendung, welches Passwort funktioniert hat.
-            </p>
-            <p>
-                Hinweis: Dies ist eine rein <strong>simulierte Umgebung</strong>. Es findet kein echter Angriff statt. 
-                Ziel ist es, die Funktionsweise eines Brute-Force-Angriffs besser zu verstehen und 
-                die Bedeutung von sicheren Passwörtern zu erkennen.
+                Diese Demo zeigt eine <strong>Brute-Force-Attacke</strong>, wie sie in der IT-Sicherheit vorkommen könnte.
+                Der Angreifer nutzt eine sogenannte <em>Wordlist</em>, um systematisch Passwörter zu testen, 
+                bis das richtige gefunden wird. Ziel ist es, die Bedeutung sicherer Passwörter zu verdeutlichen.
             </p>
         </div>
 
@@ -117,11 +106,11 @@
             <h2>Brute-Force-Demo</h2>
             <p>
                 Gib den Benutzernamen ein (z. B. "<strong>admin</strong>" oder "<strong>user</strong>"), den du angreifen möchtest.
-                Wir simulieren dann einen Brute-Force-Angriff mit der Wordlist <strong>rockyou.txt</strong>.
+                Die Simulation zeigt, wie ein Brute-Force-Angriff systematisch alle Einträge aus einer <em>Wordlist</em> testet.
             </p>
             <input type="text" id="targetUsername" placeholder="Ziel-Benutzername (z. B. admin)">
             <p>Hydra-Befehl:</p>
-            <div class="shell" id="hydraCommand"></div>
+            <div class="shell" id="hydraCommand">Warte auf Eingabe...</div>
             <button onclick="startSimulation()">Simulation starten</button>
 
             <div class="shell" id="simulation"></div>
@@ -130,62 +119,43 @@
 
     <script>
         const correctPasswords = { admin: "admin123", user: "user123" }; // Bekannte Passwörter
-        const rockyouSample = [
-            "123456", "password", "qwerty", "abc123", "letmein", "monkey", "iloveyou", "sunshine", 
-            "football", "welcome", "master", "hello", "freedom", "dragon", "whatever", "trustno1", 
-            "secret", "superman", "batman", "admin123", "passw0rd", "123qwe", "1q2w3e4r", "zxcvbnm", 
-            "login", "admin", "user123", "password1", "hunter2", "test123", "summer2023", "winter2023", 
-            "hello123", "letmein1", "god123", "abcdef", "admin1", "userpass", "rockyou", "ilove123", 
-            "securepass", "mypassword", "password2023", "adminadmin", "guessme", "hardpass", "simplepass", 
-            "bruteforce", "opensesame", "trustme", "guess123"
-        ]; // Beispielhafte Passwörter
+
+        // Beispielhafte große Wordlist (500 Einträge)
+        const rockyouSample = Array.from({ length: 500 }, (_, i) => {
+            return `pass${i}`; // Generiere pass0, pass1, ... pass499
+        }).concat(["admin123", "user123"]); // Die korrekten Passwörter hinzufügen
 
         function startSimulation() {
             const targetUsername = document.getElementById("targetUsername").value.trim();
             const simulation = document.getElementById("simulation");
             const hydraCommand = document.getElementById("hydraCommand");
 
-            // Benutzername prüfen
             if (!targetUsername || !correctPasswords[targetUsername]) {
-                simulation.textContent = "Fehler: Bitte einen gültigen Benutzernamen eingeben (admin oder user)!";
+                simulation.innerHTML = "<span class='error'>Fehler: Bitte einen gültigen Benutzernamen eingeben (admin oder user)!</span>";
                 return;
             }
 
-            // Hydra-Befehl anzeigen
             hydraCommand.textContent = `hydra -l ${targetUsername} -P rockyou.txt http-post-form "/login:username=^USER^&password=^PASS^:F=Login fehlgeschlagen"`;
 
             simulation.textContent = ""; // Vorherigen Inhalt löschen
             let index = 0;
-            const foundPasswords = [];
-            const delay = 500; // Verzögerung in ms für realistischere Simulation
-            const introText = [
-                "Hydra v9.4-dev (c) 2023 by van Hauser/THC and David Maciejak\n",
-                "This tool is for legal purposes only! Do not use it for illegal activities.\n",
-                "Hydra starting at 16:37:22\n",
-                `Target: ${targetUsername} using rockyou.txt\n\n`
-            ];
-
-            // Intro anzeigen
-            introText.forEach(line => (simulation.textContent += line));
+            const delay = 20; // Verzögerung in ms für die Simulation
 
             const interval = setInterval(() => {
                 if (index < rockyouSample.length) {
                     const pass = rockyouSample[index];
-                    simulation.textContent += `[DATA] Testing ${targetUsername}: ${pass}\n`;
+                    simulation.textContent += `[TEST] ${targetUsername}: ${pass}\n`;
 
                     if (pass === correctPasswords[targetUsername]) {
-                        foundPasswords.push(pass);
-                        simulation.textContent += `[SUCCESS] Password for ${targetUsername}: ${pass}\n`;
-                        clearInterval(interval); // Simulation stoppen, wenn das Passwort gefunden wurde
+                        simulation.textContent += `[SUCCESS] ${targetUsername}: ${pass}\n`;
+                        clearInterval(interval);
                     }
 
-                    simulation.scrollTop = simulation.scrollHeight; // Scroll automatisch nach unten
+                    simulation.scrollTop = simulation.scrollHeight;
                     index++;
                 } else {
                     clearInterval(interval);
-                    if (foundPasswords.length === 0) {
-                        simulation.textContent += `\n[FAILURE] No valid password found for ${targetUsername}.`;
-                    }
+                    simulation.textContent += `\n[FAILURE] Kein Passwort gefunden.`;
                 }
             }, delay);
         }
@@ -197,11 +167,9 @@
             const flagDiv = document.getElementById("flag");
 
             if (correctPasswords[username] && correctPasswords[username] === password) {
-                if (username === "admin") {
-                    flagDiv.textContent = "Flag: {BRUTE_FORCE_ADMIN_SUCCESS}";
-                } else {
-                    flagDiv.textContent = "Login erfolgreich!";
-                }
+                flagDiv.textContent = username === "admin"
+                    ? "Flag: {BRUTE_FORCE_ADMIN_SUCCESS}"
+                    : "Login erfolgreich!";
                 flagDiv.style.display = "block";
             } else {
                 flagDiv.textContent = "Login fehlgeschlagen!";
