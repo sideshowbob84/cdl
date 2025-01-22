@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phishing Quiz</title>
+    <title>Phishing-Quiz</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,6 +23,13 @@
         h1 {
             text-align: center;
             color: #0056b3;
+        }
+        h2 {
+            color: #007bff;
+        }
+        p, ul {
+            line-height: 1.6;
+            text-align: justify;
         }
         .progress-bar-container {
             width: 100%;
@@ -57,26 +64,6 @@
         }
         .email-body {
             padding: 20px;
-            position: relative;
-        }
-        .email-body a {
-            color: #007bff;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .email-body a:hover {
-            text-decoration: underline;
-        }
-        .link-preview {
-            position: absolute;
-            display: none;
-            padding: 5px;
-            background: #333;
-            color: #fff;
-            font-size: 12px;
-            border-radius: 5px;
-            pointer-events: none;
-            z-index: 10;
         }
         .controls {
             text-align: center;
@@ -120,20 +107,40 @@
         .back-button:hover {
             background-color: #0056b3;
         }
+        .link-preview {
+            font-size: 0.9em;
+            color: #0056b3;
+            margin-top: 5px;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="quiz-container">
         <h1>Phishing-Quiz</h1>
+        <h2>Was ist Phishing?</h2>
+        <p>
+            Phishing ist ein Betrugsversuch, bei dem Angreifer versuchen, persönliche Informationen wie Passwörter, 
+            Kreditkartendaten oder andere vertrauliche Daten zu stehlen. Sie nutzen dazu gefälschte E-Mails oder 
+            Webseiten, die seriösen Anbietern täuschend ähnlich sehen. Häufig wird in solchen E-Mails Druck ausgeübt, 
+            z. B. durch die Androhung einer Kontosperrung oder die Behauptung, Sie hätten etwas gewonnen.
+        </p>
+        <h3>Wie erkennt man Phishing?</h3>
+        <ul>
+            <li>Überprüfe die Absenderadresse: Sieht sie verdächtig aus?</li>
+            <li>Prüfe Links: Zeigen sie auf eine seriöse Domain?</li>
+            <li>Achte auf Rechtschreibfehler und ungewöhnliche Formulierungen.</li>
+            <li>Sei misstrauisch bei Aufforderungen, vertrauliche Daten einzugeben.</li>
+        </ul>
         <div class="progress-bar-container">
             <div id="progress-bar" class="progress-bar">0%</div>
         </div>
+        <p>Im Folgenden siehst du eine Reihe von E-Mails. Entscheide, ob es sich um Phishing handelt oder nicht!</p>
         <div id="quiz-content">
             <div id="email" class="email">
                 <div id="email-header"></div>
-                <div id="email-body" class="email-body">
-                    <div id="link-preview" class="link-preview"></div>
-                </div>
+                <div id="email-body" class="email-body"></div>
+                <div id="link-preview" class="link-preview"></div>
             </div>
             <div class="controls">
                 <button id="phishing-btn">Phishing</button>
@@ -146,7 +153,7 @@
     </div>
 
     <script>
-      const emailPool = [
+            const emailPool = [
     {
         sender: "info@paypal-verification.com",
         subject: "Ihr Konto wurde eingeschränkt",
@@ -254,77 +261,54 @@
     }
 ];
 
-
-        let emails = [];
-        let currentEmail = 0;
+        let currentEmailIndex = 0;
         let correctAnswers = 0;
+        const selectedEmails = [];
 
-        function initializeQuiz() {
-            emails = emailPool.sort(() => 0.5 - Math.random()).slice(0, 8);
-            loadEmail();
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
         }
 
-        function updateProgress() {
-            const progress = ((currentEmail / emails.length) * 100).toFixed(0);
-            document.getElementById("progress-bar").style.width = `${progress}%`;
-            document.getElementById("progress-bar").textContent = `${progress}%`;
+        function setupQuiz() {
+            shuffle(emailPool);
+            for (let i = 0; i < 8; i++) selectedEmails.push(emailPool[i]);
         }
 
         function loadEmail() {
-            if (currentEmail >= emails.length) {
+            if (currentEmailIndex >= selectedEmails.length) {
                 endQuiz();
                 return;
             }
-            const email = emails[currentEmail];
+            const email = selectedEmails[currentEmailIndex];
             document.getElementById("email-header").textContent = `Von: ${email.sender} | Betreff: ${email.subject}`;
             document.getElementById("email-body").innerHTML = email.body;
-            setupLinkPreview();
-            updateProgress();
-        }
-
-        function setupLinkPreview() {
-            const emailBody = document.getElementById("email-body");
-            const preview = document.getElementById("link-preview") || document.createElement("div");
-            preview.className = "link-preview";
-            emailBody.querySelectorAll("a").forEach(link => {
-                link.addEventListener("mouseover", e => {
-                    preview.textContent = link.href;
-                    emailBody.appendChild(preview);
-                    preview.style.display = "block";
-                });
-                link.addEventListener("mouseout", () => {
-                    preview.style.display = "none";
-                });
-            });
         }
 
         function checkAnswer(isPhishing) {
-            const email = emails[currentEmail];
-            if (isPhishing === email.isPhishing) correctAnswers++;
-            document.getElementById("explanation").textContent = email.explanation;
-            document.getElementById("explanation").style.display = "block";
-            currentEmail++;
-            setTimeout(loadEmail, 3000);
+            const email = selectedEmails[currentEmailIndex];
+            if (email.isPhishing === isPhishing) correctAnswers++;
+            currentEmailIndex++;
+            loadEmail();
         }
 
         function endQuiz() {
-            document.getElementById("quiz-content").style.display = "none";
             const result = document.getElementById("result");
-            if (correctAnswers === emails.length) {
-                result.textContent = "Perfekt! Alles richtig. Flag: {CAUGHT_ALL_THE_PHISH}";
-            } else {
-                result.textContent = `Ergebnis: ${correctAnswers} von ${emails.length} richtig. Versuche es erneut!`;
-            }
+            result.textContent = `Du hast ${correctAnswers} von 8 richtig beantwortet!`;
             result.classList.remove("hidden");
         }
 
-        document.getElementById("phishing-btn").addEventListener("click", () => checkAnswer(true));
-        document.getElementById("not-phishing-btn").addEventListener("click", () => checkAnswer(false));
-
-        initializeQuiz();
+        setupQuiz();
+        loadEmail();
     </script>
 </body>
 </html>
+
+
+
+
 
 
 
