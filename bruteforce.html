@@ -77,33 +77,27 @@
 
         <!-- Infotext -->
         <div class="info-container">
-  <h2>Was passiert hier?</h2>
-<p>
-    Diese Anwendung demonstriert eine <strong>Brute-Force-Attacke</strong>, wie sie in der IT-Sicherheit vorkommen könnte. 
-    Dabei handelt es sich um eine Angriffsmethode, bei der Angreifer systematisch alle möglichen Kombinationen von Passwörtern 
-    ausprobieren, um Zugriff auf ein Konto oder System zu erlangen. Statt zufällige Kombinationen zu raten, nutzen Angreifer 
-    in der Praxis oft eine sogenannte <em>Wordlist</em>, eine Datei, die häufig genutzte Passwörter aus realen Datenlecks enthält. 
-    Dadurch wird die Erfolgswahrscheinlichkeit des Angriffs deutlich erhöht.
-</p>
-<p>
-    Diese Demonstration simuliert den Einsatz einer Wordlist, indem Passwörter aus einer solchen Liste automatisiert gegen ein 
-    Benutzerkonto getestet werden. Das richtige Passwort wird dann gefunden, wenn eines der getesteten Passwörter mit dem 
-    tatsächlichen Passwort des Benutzerkontos übereinstimmt. Ziel ist es, die Methode und Funktionsweise hinter solchen Angriffen 
-    verständlich zu machen.
-</p>
-<p>
-    Ein Brute-Force-Angriff wird oft durch die Qualität der genutzten Wordlist und die Geschwindigkeit des Systems bestimmt. 
-    Viele Angreifer greifen dabei auf öffentlich zugängliche Wordlists zurück, wie die berühmte <strong>RockYou.txt</strong>, 
-    die Millionen von Passwörtern enthält. Ein gutes Passwort, das ausreichend lang ist und Sonderzeichen enthält, kann jedoch 
-    selbst mit einer solchen Wordlist nur schwer erraten werden.
-</p>
-<p>
-    <strong>Hinweis:</strong> Diese Demonstration findet in einer rein <strong>simulierten Umgebung</strong> statt. 
-    Es handelt sich hierbei um eine sichere Darstellung der Angriffsweise zu Bildungszwecken. Es wird kein echter Angriff durchgeführt, 
-    und keine echten Daten oder Systeme sind betroffen. Ziel ist es, ein besseres Verständnis für die Schwachstellen unsicherer 
-    Passwörter zu vermitteln und die Bedeutung sicherer Passwörter hervorzuheben.
-</p>
-
+            <h2>Was passiert hier?</h2>
+            <p>
+                Diese Anwendung demonstriert eine <strong>Brute-Force-Attacke</strong>, eine Methode, bei der systematisch 
+                Passwörter getestet werden, um Zugriff auf ein Konto oder System zu erlangen. Angreifer verwenden oft 
+                sogenannte <em>Wordlists</em>, die Passwörter aus realen Datenlecks enthalten. Diese Wordlists erhöhen die 
+                Erfolgswahrscheinlichkeit eines Brute-Force-Angriffs erheblich.
+            </p>
+            <p>
+                In dieser Simulation sehen Sie, wie ein Tool wie <strong>Hydra</strong> arbeitet. Hydra ist ein Werkzeug, 
+                das bei Penetrationstests eingesetzt wird, um Sicherheitslücken zu entdecken. Es testet automatisiert Passwörter 
+                aus einer Wordlist gegen ein Benutzerkonto.
+            </p>
+            <p>
+                Die hier genutzte Wordlist enthält reale Passwörter aus der berühmten <strong>RockYou.txt</strong>. Ziel dieser 
+                Simulation ist es, die Methode besser zu verstehen und die Bedeutung sicherer Passwörter zu verdeutlichen.
+            </p>
+            <p>
+                <strong>Hinweis:</strong> Diese Simulation ist rein <strong>fiktiv</strong> und findet in einer sicheren Umgebung statt. 
+                Sie dient ausschließlich zu Bildungszwecken und soll ein besseres Verständnis für Sicherheitsrisiken schaffen.
+            </p>
+        </div>
 
         <!-- Loginmaske -->
         <div class="login-container">
@@ -120,40 +114,35 @@
         <div class="demo-container">
             <h2>Brute-Force-Demo</h2>
             <p>
-                Gib den Benutzernamen ein (z. B. "<strong>admin</strong>"), den du angreifen möchtest.
+                Gib den Benutzernamen ein (z. B. "<strong>admin</strong>" oder "<strong>user</strong>"), den du angreifen möchtest.
                 Wir simulieren dann einen Brute-Force-Angriff mit einer Auswahl realer Einträge aus der Wordlist <strong>rockyou.txt</strong>.
             </p>
-            <input type="text" id="targetUsername" placeholder="Ziel-Benutzername (z. B. admin)">
+            <input type="text" id="targetUsername" placeholder="Ziel-Benutzername">
             <p>Hydra-Befehl:</p>
             <div class="shell" id="hydraCommand"></div>
             <button onclick="startSimulation()">Simulation starten</button>
-
             <div class="shell" id="simulation"></div>
         </div>
     </div>
 
     <script>
-        const correctPasswords = { admin: "admin123", user: "user123" }; // Bekannte Passwörter für Demo
+        const correctPasswords = { admin: "admin123", user: "user123" }; // Bekannte Passwörter
         const rockyouSample = [
             "12345", "password", "qwerty", "123456", "letmein", "football", "admin", "monkey",
-            "sunshine", "iloveyou", "trustno1", "123456789", "admin123", "passw0rd", "hunter2",
-            "password1", "1q2w3e", "hello123", "master", "freedom", "secret", "superman", "batman",
-            "dragon", "guessme", "securepass", "rockyou", "zxcvbn", "abcdef", "summer2023",
-            "spring2023", "winter2023", "testing", "mypassword", "123qwe", "welcome1", "default",
-            "whatever", "userpass", "baseball", "shadow", "starwars", "abc123", "access", "mustang",
-            "loveyou", "killer", "jordan23", "12345678", "ilove123", "god123", "football1", "trustme",
-            "simplepass", "hardpass", "mypassword123", "mysecurepass", "dragon123", "guessme123",
-            "securelife", "batmanforever", "trustpassword", "bruteforce2023", "hackmeifucan",
-            "starwarsfan", "pokemon123", "superuser", "kingkong", "matrixpass", "neopass","user123"
-        ]; // Realistische RockYou-Beispiele für die Simulation
+            "sunshine", "iloveyou", "trustno1", "123456789", "password1", "admin123", "hunter2",
+            "mypassword", "shadow", "freedom", "default", "dragon", "superman", "bruteforce2023",
+            "securepass", "kingkong", "rockyou", "guessme", "baseball", "spring2023", "summer2023",
+            "matrixpass", "starwars", "simplepass", "hardpass", "zxcvbn", "batmanforever", "hello123",
+            "masterpass", "securelife", "pokemon123", "mustang", "starwarsfan", "user123"
+        ]; // 50+ Passwörter aus RockYou.txt
 
         function startSimulation() {
             const targetUsername = document.getElementById("targetUsername").value.trim();
             const simulation = document.getElementById("simulation");
             const hydraCommand = document.getElementById("hydraCommand");
 
-            if (!targetUsername) {
-                simulation.textContent = "Fehler: Bitte einen gültigen Benutzernamen eingeben!";
+            if (!targetUsername || !correctPasswords[targetUsername]) {
+                simulation.textContent = "Fehler: Bitte einen gültigen Benutzernamen eingeben (admin oder user)!";
                 return;
             }
 
@@ -177,7 +166,7 @@
                     const pass = rockyouSample[index];
                     simulation.textContent += `[TEST] ${targetUsername}: ${pass}\n`;
 
-                    if (pass === correctPassword) {
+                    if (pass === correctPasswords[targetUsername]) {
                         simulation.textContent += `[SUCCESS] Password found: ${pass}\nAttack finished.\n`;
                         clearInterval(interval);
                     }
@@ -197,8 +186,8 @@
             const password = document.getElementById("loginPassword").value.trim();
             const flagDiv = document.getElementById("flag");
 
-            if (username === "admin" && password === correctPassword) {
-                flagDiv.textContent = "Flag: {BRUTE_FORCE_SUCCESS}";
+            if (correctPasswords[username] && correctPasswords[username] === password) {
+                flagDiv.textContent = "Login erfolgreich! Flag: {BRUTE_FORCE_SUCCESS}";
                 flagDiv.style.display = "block";
             } else {
                 flagDiv.textContent = "Login fehlgeschlagen!";
