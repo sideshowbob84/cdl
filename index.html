@@ -29,6 +29,11 @@
             margin-top: 30px;
             color: #007bff;
         }
+        .category {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #007bff;
+        }
         .task {
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -133,71 +138,65 @@
 
         <!-- Fortschrittsanzeige -->
         <div id="progress" style="text-align: center; margin-bottom: 20px;">
-            Fortschritt: 0/8 Flags gesammelt
+            Fortschritt: 0/7 Flags gesammelt
         </div>
 
-        <!-- Offene Aufgaben -->
-        <h2>Offene Aufgaben</h2>
-        <div class="task">
-            <h3>Phishing-Quiz</h3>
-            <p>Identifiziere Phishing-Mails und lerne, wie du echte von gefälschten Nachrichten unterscheidest.</p>
-            <a href="phishingquiz.html" class="btn">Aufgabe öffnen</a>
-            <input type="text" id="flag1" placeholder="Flag eingeben">
-            <button class="btn" onclick="checkFlag(1, 'e0NBVUdIVF9BTExfVEhFX1BISVNIfQ==', '🎣 Phishing-Profi')">Prüfen</button>
-        </div>
-        <div class="task">
-            <h3>Brute-Force-Simulator</h3>
-            <p>Simuliere einen Brute-Force-Angriff und lerne, wie schwache Passwörter ausgenutzt werden können.</p>
-            <a href="bruteforce.html" class="btn">Aufgabe öffnen</a>
-            <input type="text" id="flag2" placeholder="Flag eingeben">
-            <button class="btn" onclick="checkFlag(2, 'e0JSVVRFX0ZPUkNFX0FETUlOX1NVQ0NFU1N9', '🔓 Passwortknacker')">Prüfen</button>
-        </div>
-        <div class="task">
-            <h3>Social-Engineering-Simulation</h3>
-            <p>Schlüpfe in die Rolle eines Angreifers und erlebe, wie einfach es sein kann, durch Täuschung Informationen zu sammeln.</p>
-            <a href="social-engineering.html" class="btn">Aufgabe öffnen</a>
-            <input type="text" id="flag3" placeholder="Flag eingeben">
-            <button class="btn" onclick="checkFlag(3, 'e0RFRkVOREVSX09GX1RSVVNUfQ==', '🤝 Vertrauensbrecher')">Prüfen</button>
-        </div>
-        <div class="task">
-            <h3>Passwortmanager-Lab</h3>
-            <p>Lerne, wie ein Passwortmanager deine Sicherheit erhöht, sichere Passwörter generiert und Schwachstellen aufdeckt.</p>
-            <a href="password-simulator.html" class="btn">Aufgabe öffnen</a>
-            <input type="text" id="flag4" placeholder="Flag eingeben">
-            <button class="btn" onclick="checkFlag(4, 'e1VOQlJFQUtBQkxFX1BBU1NXT1JEfQ==', '🔑 Schlüsselmeister')">Prüfen</button>
-        </div>
-
-        <!-- Passwortgeschützter Bereich -->
-        <h2>Passwortgeschützter Bereich</h2>
-        <div id="password-container">
-            <p>Um auf die fortgeschrittenen Aufgaben zuzugreifen, gib das Passwort ein:</p>
-            <input type="password" id="lab-password" placeholder="Passwort eingeben">
-            <button class="btn" onclick="unlockTasks()">Freischalten</button>
-            <p class="error-message hidden" id="error-message"> Wenn du das Passwort nicht selbst herausfindest, bist du noch nicht bereit.</p>
-        </div>
-        <div id="protected-tasks" class="hidden">
+        <!-- Kategorie: Angriffssimulationen -->
+        <div class="category">
+            <h2>🗡️ Angriffssimulationen</h2>
             <div class="task">
-                <h3>Updates und Patches 🔒</h3>
-                <p>Erfahre, warum es wichtig ist, Systeme regelmäßig zu patchen, und teste eine Schwachstelle.</p>
-                <a href="updates.html" class="btn">Aufgabe öffnen</a>
-                <input type="text" id="flag5" placeholder="Flag eingeben">
-                <button class="btn" onclick="checkFlag(5, 'e1BBVENIX1RIRV9QQVRDSH0=', '🛡️ Patch-Champion')">Prüfen</button>
+                <h3>Phishing-Quiz</h3>
+                <p>Identifiziere Phishing-Mails und lerne, wie du echte von gefälschten Nachrichten unterscheidest.</p>
+                <a href="phishingquiz.html" class="btn">Aufgabe öffnen</a>
+                <input type="text" id="flag1" placeholder="Flag eingeben">
+                <button class="btn" onclick="checkFlag(1, 'e0NBVUdIVF9BTExfVEhFX1BISVNIfQ==', '🎣 Phishing-Profi')">Prüfen</button>
+            </div>
+            <div class="task">
+                <h3>Brute-Force-Simulator</h3>
+                <p>Simuliere einen Brute-Force-Angriff und lerne, wie schwache Passwörter ausgenutzt werden können.</p>
+                <a href="bruteforce.html" class="btn">Aufgabe öffnen</a>
+                <input type="text" id="flag2" placeholder="Flag eingeben">
+                <button class="btn" onclick="checkFlag(2, 'e0JSVVRFX0ZPUkNFX0FETUlOX1NVQ0NFU1N9', '🔓 Passwortknacker')">Prüfen</button>
+            </div>
+            <div class="task">
+                <h3>Social-Engineering-Simulation</h3>
+                <p>Schlüpfe in die Rolle eines Angreifers und erlebe, wie einfach es sein kann, durch Täuschung Informationen zu sammeln.</p>
+                <a href="social-engineering.html" class="btn">Aufgabe öffnen</a>
+                <input type="text" id="flag3" placeholder="Flag eingeben">
+                <button class="btn" onclick="checkFlag(3, 'e0RFRkVOREVSX09GX1RSVVNUfQ==', '🤝 Vertrauensbrecher')">Prüfen</button>
             </div>
             <div class="task">
                 <h3>Gobuster-Simulation</h3>
                 <p>Finde versteckte Verzeichnisse auf einem Server durch einen Directory Busting Scan.</p>
                 <a href="dirbuster.html" class="btn">Aufgabe öffnen</a>
+                <input type="text" id="flag4" placeholder="Flag eingeben">
+                <button class="btn" onclick="checkFlag(4, 'e0ZPVU5EX1NFQ1JFVF9GTEFHUw==', '🔍 Directory Detective')">Prüfen</button>
+            </div>
+        </div>
+
+        <!-- Kategorie: Prävention und Sicherheit -->
+        <div class="category">
+            <h2>🛡️ Prävention & Sicherheit</h2>
+            <div class="task">
+                <h3>Passwortmanager-Lab</h3>
+                <p>Lerne, wie ein Passwortmanager deine Sicherheit erhöht, sichere Passwörter generiert und Schwachstellen aufdeckt.</p>
+                <a href="password-simulator.html" class="btn">Aufgabe öffnen</a>
+                <input type="text" id="flag5" placeholder="Flag eingeben">
+                <button class="btn" onclick="checkFlag(5, 'e1VOQlJFQUtBQkxFX1BBU1NXT1JEfQ==', '🔑 Schlüsselmeister')">Prüfen</button>
+            </div>
+            <div class="task">
+                <h3>Updates und Patches</h3>
+                <p>Erfahre, warum es wichtig ist, Systeme regelmäßig zu patchen, und teste eine Schwachstelle.</p>
+                <a href="updates.html" class="btn">Aufgabe öffnen</a>
                 <input type="text" id="flag6" placeholder="Flag eingeben">
-                <button class="btn" onclick="checkFlag(6, 'e0ZPVU5EX1NFQ1JFVF9GTEFHUw==', '🔍 Directory Detective')">Prüfen</button>
+                <button class="btn" onclick="checkFlag(6, 'e1BBVENIX1RIRV9QQVRDSH0=', '🛡️ Patch-Champion')">Prüfen</button>
             </div>
             <div class="task">
                 <h3>Hashing Lab</h3>
                 <p>Entschlüssele Hashes mit Rainbow Tables und lerne, wie Salt die Sicherheit erhöht.</p>
                 <a href="hash.html" class="btn">Aufgabe öffnen</a>
-                <p>Gib beide Flags ein:</p>
-                <input type="text" id="flag7a" placeholder="Flag 1 eingeben">
-                <input type="text" id="flag7b" placeholder="Flag 2 eingeben">
-                <button class="btn" onclick="checkHashFlags()">Prüfen</button>
+                <input type="text" id="flag7" placeholder="Flag eingeben">
+                <button class="btn" onclick="checkFlag(7, 'e0xFVF9ISU1fQ09PS30=', '🔒 Hash-Knacker')">Prüfen</button>
             </div>
         </div>
 
@@ -219,64 +218,23 @@
     </div>
 
     <script>
-        const collectedFlags = [false, false, false, false, false, false, false, false];
-        const obfuscatedPassword = atob("dDAwaDB0NHlh");
-
+        const collectedFlags = [false, false, false, false, false, false, false];
         function updateProgress() {
             const progress = collectedFlags.filter(flag => flag).length;
-            document.getElementById("progress").textContent = `Fortschritt: ${progress}/8 Flags gesammelt`;
-        }
-
-        function decodeBase64(encoded) {
-            return atob(encoded);
+            document.getElementById("progress").textContent = `Fortschritt: ${progress}/7 Flags gesammelt`;
         }
 
         function checkFlag(taskNumber, encodedFlag, title) {
             const input = document.getElementById(`flag${taskNumber}`);
-            const achievements = document.getElementById("achievements");
-            const decodedFlag = decodeBase64(encodedFlag);
+            const decodedFlag = atob(encodedFlag);
 
             if (input.value === decodedFlag) {
                 alert(`Richtig! Flag für Aufgabe ${taskNumber} akzeptiert.`);
                 collectedFlags[taskNumber - 1] = true;
                 input.disabled = true;
-
-                const achievement = document.createElement("div");
-                achievement.className = "achievement";
-                achievement.innerHTML = `<span>${title.split(" ")[0]}</span>${title.slice(2)}`;
-                achievements.appendChild(achievement);
-
-                achievements.classList.remove("hidden");
                 updateProgress();
             } else {
                 alert("Falsch! Versuche es erneut.");
-            }
-        }
-
-        function checkHashFlags() {
-            const flag7a = document.getElementById("flag7a").value.trim();
-            const flag7b = document.getElementById("flag7b").value.trim();
-
-            if (flag7a === atob("e0xFVF9ISU1fQ09PS30=") && flag7b === atob("e0FERF9BX1BJTkNIX09GX1NBTFR9")) {
-                alert("Richtig! Beide Flags akzeptiert.");
-                collectedFlags[7] = true;
-                updateProgress();
-            } else {
-                alert("Falsch! Versuche es erneut.");
-            }
-        }
-
-        function unlockTasks() {
-            const inputPassword = document.getElementById("lab-password").value;
-            const errorMessage = document.getElementById("error-message");
-            const protectedTasks = document.getElementById("protected-tasks");
-
-            if (inputPassword === obfuscatedPassword) {
-                document.getElementById("password-container").classList.add("hidden");
-                protectedTasks.classList.remove("hidden");
-                errorMessage.classList.add("hidden");
-            } else {
-                errorMessage.classList.remove("hidden");
             }
         }
 
@@ -289,7 +247,6 @@
     </script>
 </body>
 </html>
-
 
 
 
