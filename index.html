@@ -25,15 +25,10 @@
             text-align: center;
             color: #007bff;
         }
-        h2 {
-            text-align: center;
-            color: #007bff;
-            margin-bottom: 30px;
-        }
         .categories {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 50px;
+            margin: 40px 0; /* Abstand zwischen Kategorien */
         }
         .category {
             width: 45%;
@@ -91,9 +86,6 @@
             font-size: 24px;
             margin-right: 10px;
         }
-        .hidden {
-            display: none;
-        }
         #progress {
             text-align: center;
             margin-bottom: 30px;
@@ -115,7 +107,6 @@
         </div>
 
         <!-- Kategorien -->
-        <h2>Kategorien</h2>
         <div class="categories">
             <div class="category" id="category-attacks">
                 🗡️ Angriffssimulationen
@@ -183,11 +174,6 @@
                 <button class="btn" onclick="checkFlag(7, 'e0xFVF9ISU1fQ09PS30=', '🔒 Hash-Knacker')">Prüfen</button>
             </div>
         </div>
-
-        <!-- Achievements -->
-        <div id="achievements" class="hidden">
-            <h2>Erreichte Titel</h2>
-        </div>
     </div>
 
     <script>
@@ -199,20 +185,12 @@
 
         function checkFlag(taskNumber, encodedFlag, title) {
             const input = document.getElementById(`flag${taskNumber}`);
-            const achievements = document.getElementById("achievements");
             const decodedFlag = atob(encodedFlag);
 
             if (input.value === decodedFlag) {
                 alert(`Richtig! Flag für Aufgabe ${taskNumber} akzeptiert.`);
                 collectedFlags[taskNumber - 1] = true;
                 input.disabled = true;
-
-                const achievement = document.createElement("div");
-                achievement.className = "achievement";
-                achievement.innerHTML = `<span>${title.split(" ")[0]}</span> ${title.slice(2)}`;
-                achievements.appendChild(achievement);
-
-                achievements.classList.remove("hidden");
                 updateProgress();
             } else {
                 alert("Falsch! Versuche es erneut.");
