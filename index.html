@@ -13,27 +13,20 @@
             padding: 20px;
         }
         .container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
             background: #fff;
             color: #333;
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
-        }
-        .left-column, .right-column {
-            display: flex;
-            flex-direction: column;
         }
         h1 {
             text-align: center;
             color: #007bff;
         }
         h2 {
-            margin-top: 20px;
+            margin-top: 30px;
             color: #007bff;
         }
         .task {
@@ -42,14 +35,14 @@
             margin-bottom: 20px;
             padding: 15px;
             background: #f9f9f9;
-            transition: transform 0.3s;
-        }
-        .task:hover {
-            transform: scale(1.05);
         }
         .task h3 {
             margin: 0 0 10px 0;
             color: #007bff;
+        }
+        .task p {
+            margin: 10px 0;
+            color: #333;
         }
         .btn {
             padding: 10px 15px;
@@ -63,24 +56,15 @@
         .btn:hover {
             background-color: #0056b3;
         }
-        .progress-bar-container {
-            background-color: #ddd;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            height: 20px;
-            margin: 20px 0;
-        }
-        .progress-bar {
-            background-color: #007bff;
-            width: 0;
-            height: 100%;
-            transition: width 0.3s;
-        }
         .hidden {
             display: none;
         }
-        input[type="text"] {
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        input[type="text"], input[type="password"] {
             margin-top: 10px;
             padding: 5px;
             width: calc(100% - 20px);
@@ -103,6 +87,28 @@
             font-size: 24px;
             margin-right: 10px;
         }
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            z-index: 1000;
+        }
+        .cookie-banner button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .cookie-banner button:hover {
+            background-color: #0056b3;
+        }
         footer {
             margin-top: 30px;
             text-align: center;
@@ -120,42 +126,56 @@
 </head>
 <body>
     <div class="container">
-        <div class="left-column">
-            <h1>CyberDefense Lab 🧪</h1>
-            <p style="text-align: center; font-size: 14px; color: #888;">
-                Hinweis: Dieses Lab dient ausschließlich Bildungszwecken. Der Einsatz der hier erlernten Techniken für illegale Zwecke ist strengstens untersagt. Es handelt sich hierbei ausschließlich um Simulationen und keine echten Angriffe.
-            </p>
+        <h1>CyberDefense Lab 🧪</h1>
+        <p style="text-align: center; font-size: 14px; color: #888;">
+            Hinweis: Dieses Lab dient ausschließlich Bildungszwecken. Der Einsatz der hier erlernten Techniken für illegale Zwecke ist strengstens untersagt. Es handelt sich hierbei ausschließlich um Simulationen und keine echten Angriffe.
+        </p>
 
-            <!-- Offene Aufgaben -->
-            <h2>Offene Aufgaben</h2>
-            <div class="task">
-                <h3>Phishing-Quiz</h3>
-                <p>Identifiziere Phishing-Mails und lerne, wie du echte von gefälschten Nachrichten unterscheidest.</p>
-                <a href="phishingquiz.html" class="btn">Aufgabe öffnen</a>
-                <input type="text" id="flag1" placeholder="Flag eingeben">
-                <button class="btn" onclick="checkFlag(1, 'e0NBVUdIVF9BTExfVEhFX1BISVNIfQ==', '🎣 Phishing-Profi')">Prüfen</button>
-            </div>
-            <div class="task">
-                <h3>Brute-Force-Simulator</h3>
-                <p>Simuliere einen Brute-Force-Angriff und lerne, wie schwache Passwörter ausgenutzt werden können.</p>
-                <a href="bruteforce.html" class="btn">Aufgabe öffnen</a>
-                <input type="text" id="flag2" placeholder="Flag eingeben">
-                <button class="btn" onclick="checkFlag(2, 'e0JSVVRFX0ZPUkNFX0FETUlOX1NVQ0NFU1N9', '🔓 Passwortknacker')">Prüfen</button>
-            </div>
-            <div class="task">
-                <h3>Social-Engineering-Simulation</h3>
-                <p>Lerne, wie Angreifer durch Täuschung Informationen gewinnen können, und entdecke Strategien, um solche Angriffe zu erkennen und abzuwehren.</p>
-                <a href="social-engineering.html" class="btn">Aufgabe öffnen</a>
-                <input type="text" id="flag3" placeholder="Flag eingeben">
-                <button class="btn" onclick="checkFlag(3, 'e0RFRkVOREVSX09GX1RSVVNUfQ==', '🤝 Abwehrstratege')">Prüfen</button>
-            </div>
-            <div class="task">
-                <h3>Passwortmanager-Lab</h3>
-                <p>Lerne, wie ein Passwortmanager deine Sicherheit erhöht, sichere Passwörter generiert und Schwachstellen aufdeckt.</p>
-                <a href="password-simulator.html" class="btn">Aufgabe öffnen</a>
-                <input type="text" id="flag4" placeholder="Flag eingeben">
-                <button class="btn" onclick="checkFlag(4, 'e1VOQlJFQUtBQkxFX1BBU1NXT1JEfQ==', '🔑 Schlüsselmeister')">Prüfen</button>
-            </div>
+        <!-- Fortschrittsanzeige -->
+        <div id="progress" style="text-align: center; margin-bottom: 20px;">
+            Fortschritt: 0/8 Flags gesammelt
+        </div>
+
+        <!-- Offene Aufgaben -->
+        <h2>Offene Aufgaben</h2>
+        <div class="task">
+            <h3>Phishing-Quiz</h3>
+            <p>Identifiziere Phishing-Mails und lerne, wie du echte von gefälschten Nachrichten unterscheidest.</p>
+            <a href="phishingquiz.html" class="btn">Aufgabe öffnen</a>
+            <input type="text" id="flag1" placeholder="Flag eingeben">
+            <button class="btn" onclick="checkFlag(1, 'e0NBVUdIVF9BTExfVEhFX1BISVNIfQ==', '🎣 Phishing-Profi')">Prüfen</button>
+        </div>
+        <div class="task">
+            <h3>Brute-Force-Simulator</h3>
+            <p>Simuliere einen Brute-Force-Angriff und lerne, wie schwache Passwörter ausgenutzt werden können.</p>
+            <a href="bruteforce.html" class="btn">Aufgabe öffnen</a>
+            <input type="text" id="flag2" placeholder="Flag eingeben">
+            <button class="btn" onclick="checkFlag(2, 'e0JSVVRFX0ZPUkNFX0FETUlOX1NVQ0NFU1N9', '🔓 Passwortknacker')">Prüfen</button>
+        </div>
+        <div class="task">
+            <h3>Social-Engineering-Simulation</h3>
+            <p>Lerne, wie Angreifer durch Täuschung Informationen gewinnen können, und entdecke Strategien, um solche Angriffe zu erkennen und abzuwehren.</p>
+            <a href="social-engineering.html" class="btn">Aufgabe öffnen</a>
+            <input type="text" id="flag3" placeholder="Flag eingeben">
+            <button class="btn" onclick="checkFlag(3, 'e0RFRkVOREVSX09GX1RSVVNUfQ==', '🤝 Abwehrstratege')">Prüfen</button>
+        </div>
+        <div class="task">
+            <h3>Passwortmanager-Lab</h3>
+            <p>Lerne, wie ein Passwortmanager deine Sicherheit erhöht, sichere Passwörter generiert und Schwachstellen aufdeckt.</p>
+            <a href="password-simulator.html" class="btn">Aufgabe öffnen</a>
+            <input type="text" id="flag4" placeholder="Flag eingeben">
+            <button class="btn" onclick="checkFlag(4, 'e1VOQlJFQUtBQkxFX1BBU1NXT1JEfQ==', '🔑 Schlüsselmeister')">Prüfen</button>
+        </div>
+
+        <!-- Passwortgeschützter Bereich -->
+        <h2>Passwortgeschützter Bereich</h2>
+        <div id="password-container">
+            <p>Um auf die fortgeschrittenen Aufgaben zuzugreifen, gib das Passwort ein:</p>
+            <input type="password" id="lab-password" placeholder="Passwort eingeben">
+            <button class="btn" onclick="unlockTasks()">Freischalten</button>
+            <p class="error-message hidden" id="error-message"> Wenn du das Passwort nicht selbst herausfindest, bist du noch nicht bereit.</p>
+        </div>
+        <div id="protected-tasks" class="hidden">
             <div class="task">
                 <h3>Updates und Patches 🔒</h3>
                 <p>Erfahre, warum es wichtig ist, Systeme regelmäßig zu patchen, und teste eine Schwachstelle.</p>
@@ -181,33 +201,30 @@
             </div>
         </div>
 
-        <div class="right-column">
-            <!-- Fortschrittsanzeige -->
-            <h2>Fortschritt</h2>
-            <div class="progress-bar-container">
-                <div id="progress-bar" class="progress-bar"></div>
-            </div>
-
-            <!-- Achievements -->
-            <div id="achievements" class="achievements hidden">
-                <h2>Erreichte Titel</h2>
-            </div>
+        <!-- Achievements -->
+        <div id="achievements" class="achievements hidden">
+            <h2>Erreichte Titel</h2>
         </div>
+
+        <footer>
+            &copy; 2025 CyberDefense Lab by Ramon Berghorn | Bildungszwecke |
+            <a href="impressum.html">Impressum</a> |
+            <a href="datenschutz.html">Datenschutzerklärung</a>
+        </footer>
     </div>
 
-    <footer>
-        &copy; 2025 CyberDefense Lab by Ramon Berghorn | Bildungszwecke |
-        <a href="impressum.html">Impressum</a> |
-        <a href="datenschutz.html">Datenschutzerklärung</a>
-    </footer>
+    <!-- Cookie-Banner -->
+    <div class="cookie-banner" id="cookie-banner">
+        🍪 Diese Website verwendet keine Cookies. <button onclick="hideCookieBanner()">Okay</button>
+    </div>
 
     <script>
         const collectedFlags = [false, false, false, false, false, false, false, false];
+        const obfuscatedPassword = atob("dDAwaDB0NHlh");
 
         function updateProgress() {
             const progress = collectedFlags.filter(flag => flag).length;
-            const progressBar = document.getElementById("progress-bar");
-            progressBar.style.width = `${(progress / collectedFlags.length) * 100}%`;
+            document.getElementById("progress").textContent = `Fortschritt: ${progress}/8 Flags gesammelt`;
         }
 
         function decodeBase64(encoded) {
@@ -236,11 +253,42 @@
             }
         }
 
+        function checkHashFlags() {
+            const flag7a = document.getElementById("flag7a").value.trim();
+            const flag7b = document.getElementById("flag7b").value.trim();
+
+            if (flag7a === atob("e0xFVF9ISU1fQ09PS30=") && flag7b === atob("e0FERF9BX1BJTkNIX09GX1NBTFR9")) {
+                alert("Richtig! Beide Flags akzeptiert.");
+                collectedFlags[7] = true;
+                updateProgress();
+            } else {
+                alert("Falsch! Versuche es erneut.");
+            }
+        }
+
+        function unlockTasks() {
+            const inputPassword = document.getElementById("lab-password").value;
+            const errorMessage = document.getElementById("error-message");
+            const protectedTasks = document.getElementById("protected-tasks");
+
+            if (inputPassword === obfuscatedPassword) {
+                document.getElementById("password-container").classList.add("hidden");
+                protectedTasks.classList.remove("hidden");
+                errorMessage.classList.add("hidden");
+            } else {
+                errorMessage.classList.remove("hidden");
+            }
+        }
+
+        function hideCookieBanner() {
+            const banner = document.getElementById("cookie-banner");
+            banner.style.display = "none";
+        }
+
         updateProgress();
     </script>
 </body>
 </html>
-
 
 
 
