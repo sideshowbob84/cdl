@@ -65,6 +65,14 @@
         .email-body {
             padding: 20px;
         }
+        .email-body a {
+            color: #007bff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .email-body a:hover {
+            text-decoration: underline;
+        }
         .controls {
             text-align: center;
             margin-top: 20px;
@@ -119,13 +127,6 @@
             Webseiten, die seriösen Anbietern täuschend ähnlich sehen. Häufig wird in solchen E-Mails Druck ausgeübt, 
             z. B. durch die Androhung einer Kontosperrung oder die Behauptung, Sie hätten etwas gewonnen.
         </p>
-        <h3>Wie erkennt man Phishing?</h3>
-        <ul>
-            <li>Überprüfe die Absenderadresse: Sieht sie verdächtig aus?</li>
-            <li>Prüfe Links: Zeigen sie auf eine seriöse Domain?</li>
-            <li>Achte auf Rechtschreibfehler und ungewöhnliche Formulierungen.</li>
-            <li>Sei misstrauisch bei Aufforderungen, vertrauliche Daten einzugeben.</li>
-        </ul>
         <div class="progress-bar-container">
             <div id="progress-bar" class="progress-bar">0%</div>
         </div>
@@ -146,66 +147,26 @@
     </div>
 
     <script>
-  const emails = [
-    {
-        sender: "info@dhl-express.com",
-        subject: "Dringend: Ihr Paket kann nicht zugestellt werden",
-        body: "Sehr geehrte Kundin, sehr geehrter Kunde,<br><br>Ihr Paket wartet in einer unserer Filialen. Bitte klicken Sie <a href='http://dhl-verfolgung-paket.com'>hier</a>, um Ihre Adresse zu bestätigen.<br><br>Mit freundlichen Grüßen,<br>DHL Express Team",
-        isPhishing: true,
-        explanation: "Diese E-Mail ist Phishing. Die Domain 'dhl-verfolgung-paket.com' ist nicht offiziell. DHL verwendet nur 'dhl.com' oder 'dhl.de'."
-    },
-    {
-        sender: "support@am4zon-security-alert.de",
-        subject: "Wichtige Mitteilung: Verdächtige Aktivitäten erkannt",
-        body: "Wir haben einen Loginversuch aus Hamburg festgestellt. Wenn Sie dies nicht waren, <a href='http://secure-am4zon.com'>klicken Sie hier</a>, um Ihr Konto zu sichern.<br><br>Amazon Support-Team",
-        isPhishing: true,
-        explanation: "Die Absenderdomain 'am4zon-security-alert.de' und der Link 'secure-am4zon.com' sind gefälscht. Amazon nutzt immer die Domain 'amazon.de' oder 'amazon.com'."
-    },
-    {
-        sender: "service@netflix.com",
-        subject: "Ihr Konto wurde vorübergehend gesperrt",
-        body: "Hallo,<br><br>Wir konnten Ihre letzte Zahlung nicht verarbeiten. Bitte aktualisieren Sie Ihre Zahlungsdaten <a href='https://netflix-support-secure.com'>hier</a>.<br><br>Netflix-Support",
-        isPhishing: true,
-        explanation: "Diese E-Mail ist Phishing. Netflix würde keine Domain wie 'netflix-support-secure.com' verwenden, sondern immer 'netflix.com'."
-    },
-    {
-        sender: "account@apple.com",
-        subject: "Neue Geräteanmeldung erkannt",
-        body: "Ihr Konto wurde kürzlich von einem neuen Gerät aus angemeldet. Wenn Sie dies nicht waren, ändern Sie bitte Ihr Passwort <a href='https://appleid.apple.com/security'>hier</a>.<br><br>Apple ID-Team",
-        isPhishing: false,
-        explanation: "Diese E-Mail ist echt. Der Absender ist korrekt, und der Link führt zur echten Apple-ID-Domain."
-    },
-    {
-        sender: "lottery@bigprizes.org",
-        subject: "Sie haben einen Preis gewonnen!",
-        body: "Herzlichen Glückwunsch! Sie haben 1.000 € gewonnen. Bitte klicken Sie <a href='http://bigprizes.org/reward'>hier</a>, um Ihren Preis zu beanspruchen.<br><br>Big Prizes Team",
-        isPhishing: true,
-        explanation: "Diese E-Mail ist Phishing. Sie haben an keinem Gewinnspiel teilgenommen, und die Domain 'bigprizes.org' ist nicht vertrauenswürdig."
-    },
-    {
-        sender: "support@spotify.com",
-        subject: "Neue Anmeldung erkannt",
-        body: "Hallo,<br><br>Ihr Konto wurde kürzlich von einem unbekannten Gerät aus Schweden angemeldet. Wenn Sie dies nicht waren, melden Sie sich bitte <a href='https://spotify.com/account/secure'>hier</a> an.<br><br>Spotify Support",
-        isPhishing: false,
-        explanation: "Diese E-Mail ist echt. Die URL 'spotify.com' ist korrekt, und die Nachricht enthält keine verdächtigen Aufforderungen."
-    },
-    {
-        sender: "kundenservice@telekom.de",
-        subject: "Ihre aktuelle Rechnung ist verfügbar",
-        body: "Sehr geehrter Kunde,<br><br>Ihre Telekom-Rechnung für diesen Monat ist online verfügbar. Klicken Sie <a href='https://www.telekom.de/rechnung'>hier</a>, um sie anzusehen.<br><br>Ihr Telekom Kundenservice",
-        isPhishing: false,
-        explanation: "Diese E-Mail ist echt. Die URL führt zur offiziellen Domain der Telekom, und die Nachricht ist vertrauenswürdig."
-    },
-    {
-        sender: "finance@bankingservice.com",
-        subject: "Wichtige Mitteilung: Kontoaktualisierung erforderlich",
-        body: "Sehr geehrter Kunde,<br><br>Wir führen eine Sicherheitsaktualisierung durch. Bitte loggen Sie sich <a href='http://bankingservice-login-secure.com'>hier</a> ein, um Ihr Konto zu bestätigen.<br><br>Ihr Bank-Team",
-        isPhishing: true,
-        explanation: "Diese E-Mail ist Phishing. Banken fordern nie per E-Mail zur Eingabe von Daten auf. Die Domain ist zudem gefälscht."
-    }
-];
+        const emailPool = [
+            {
+                sender: "info@dhl-express.com",
+                subject: "Ihr Paket kann nicht zugestellt werden",
+                body: "Sehr geehrte Kundin, klicken Sie <a href='http://dhl-betrug.de'>hier</a>, um Ihre Adresse zu bestätigen.",
+                isPhishing: true,
+                explanation: "Gefälschte Domain 'dhl-betrug.de'. DHL verwendet nur 'dhl.com' oder 'dhl.de'."
+            },
+            // Weitere Beispiele (echt + Phishing)
+            {
+                sender: "support@spotify.com",
+                subject: "Neue Anmeldung erkannt",
+                body: "Unbekanntes Gerät angemeldet. <a href='https://spotify.com/secure-login'>Details ansehen</a>.",
+                isPhishing: false,
+                explanation: "Die URL 'spotify.com' ist korrekt, diese Nachricht ist echt."
+            },
+            // Füge mehr hinzu für die Rotation ...
+        ];
 
-
+        let emails = [];
         let currentEmail = 0;
         let correctAnswers = 0;
 
@@ -217,7 +178,6 @@
         const progressBar = document.getElementById("progress-bar");
         const resultDiv = document.getElementById("result");
 
-        // Funktion zum Mischen der E-Mails
         function shuffle(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -225,7 +185,11 @@
             }
         }
 
-        shuffle(emails);
+        function initializeQuiz() {
+            shuffle(emailPool);
+            emails = emailPool.slice(0, 8);
+            loadEmail();
+        }
 
         function updateProgress() {
             const progress = ((currentEmail / emails.length) * 100).toFixed(0);
@@ -253,7 +217,7 @@
             explanationDiv.textContent = email.explanation;
             explanationDiv.style.display = "block";
             currentEmail++;
-            setTimeout(loadEmail, 4000);
+            setTimeout(loadEmail, 6000); // Anzeigezeit verlängert
         }
 
         function endQuiz() {
@@ -271,12 +235,10 @@
         phishingBtn.addEventListener("click", () => checkAnswer(true));
         notPhishingBtn.addEventListener("click", () => checkAnswer(false));
 
-        loadEmail();
+        initializeQuiz();
     </script>
 </body>
 </html>
-
-
 
 
 
