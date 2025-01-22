@@ -75,26 +75,49 @@
     <div class="container">
         <h1>Login und Brute-Force-Demo</h1>
 
-        <!-- Infotext -->
-        <div class="info-container">
-            <h2>Was passiert hier?</h2>
-            <p>
-                Diese Anwendung simuliert einen <strong>Brute-Force-Angriff</strong>. Ein Brute-Force-Angriff ist eine Methode, bei der ein Angreifer
-                systematisch verschiedene Passwörter ausprobiert, um Zugriff auf ein Benutzerkonto oder System zu erhalten.
-            </p>
-            <p>
-                In der Praxis verwenden Angreifer häufig sogenannte <strong>Wordlists</strong>. Das sind Listen, die reale, häufig verwendete
-                Passwörter enthalten – oft aus veröffentlichten Datenlecks. Diese Listen erhöhen die Erfolgswahrscheinlichkeit eines Angriffs,
-                da Menschen dazu neigen, unsichere Passwörter wie "123456" oder "password" zu verwenden.
-            </p>
-            <p>
-                Unsere Simulation nutzt eine Wordlist mit 70 Einträgen aus der bekannten Datei <strong>RockYou.txt</strong>. Diese Wordlist war
-                Teil eines realen Datenlecks und enthält viele einfache Passwörter, die oft in Brute-Force-Angriffen getestet werden.
-            </p>
-            <p>
-                <strong>Hinweis:</strong> Diese Demonstration ist rein <strong>simuliert</strong> und findet in einer sicheren Umgebung statt. Sie dient ausschließlich zu Bildungszwecken.
-            </p>
-        </div>
+<div class="info-container">
+    <h2>Was passiert hier?</h2>
+    <p>
+        Diese Anwendung demonstriert einen sogenannten <strong>Brute-Force-Angriff</strong>, eine Methode, bei der ein Angreifer
+        systematisch verschiedene Passwörter ausprobiert, um Zugriff auf ein Benutzerkonto oder ein System zu erlangen. 
+        Dabei wird nicht geraten, sondern automatisiert jede mögliche Kombination getestet, bis das korrekte Passwort gefunden wird.
+        Brute-Force-Angriffe gehören zu den ältesten und einfachsten Formen der Passwort-Angriffe, sind jedoch bei schwachen Passwörtern 
+        oft erfolgreich.
+    </p>
+    <p>
+        In der Praxis verwenden Angreifer häufig sogenannte <strong>Wordlists</strong>. Das sind Listen mit häufig verwendeten Passwörtern, 
+        die auf realen Datenlecks basieren. Die berühmte Datei <strong>RockYou.txt</strong>, die auch in dieser Simulation genutzt wird, 
+        ist ein Beispiel für eine solche Wordlist. Sie enthält Millionen von Passwörtern, die aus einem tatsächlichen Datenleak im Jahr 2009 
+        stammen. Diese Passwörter wurden von echten Nutzern erstellt und bieten Einblicke in die Passworthäufigkeit und -komplexität.
+    </p>
+    <p>
+        Brute-Force-Angriffe können auf verschiedene Arten durchgeführt werden:
+    </p>
+    <ul>
+        <li><strong>Einfacher Brute-Force-Angriff:</strong> Alle möglichen Kombinationen von Zeichen werden getestet (z. B. Buchstaben, Zahlen, Sonderzeichen).</li>
+        <li><strong>Wortlisten-Angriff:</strong> Statt alle Kombinationen zu testen, werden bekannte Passwörter aus einer Wordlist verwendet.</li>
+        <li><strong>Hybrid-Angriff:</strong> Eine Kombination aus einer Wordlist und Modifikationen, z. B. "password" wird zu "password123".</li>
+    </ul>
+    <p>
+        Der Vorteil einer Wordlist liegt darin, dass sie die Erfolgschancen erhöht, da viele Menschen unsichere und oft verwendete Passwörter wählen. 
+        Beispiele für häufige Passwörter sind "123456", "password" oder "iloveyou". Solche Passwörter sind leicht zu erraten und bieten keinen ausreichenden Schutz.
+    </p>
+    <p>
+        Unsere Simulation nutzt 70 Passwörter aus der <strong>RockYou.txt</strong>-Datei, die von Angreifern verwendet werden könnten. 
+        Dabei testen wir die Passwörter automatisiert gegen ein Benutzerkonto. Sobald das richtige Passwort gefunden ist, wird der Angriff erfolgreich abgeschlossen.
+    </p>
+    <p>
+        <strong>Warum ist das wichtig?</strong><br>
+        Diese Simulation zeigt die Schwachstellen unsicherer Passwörter auf und verdeutlicht, warum starke, einzigartige Passwörter unerlässlich sind. 
+        Ein sicheres Passwort sollte mindestens 12 Zeichen lang sein und eine Kombination aus Groß- und Kleinbuchstaben, Zahlen und Sonderzeichen enthalten.
+        Darüber hinaus sollten Passwörter regelmäßig geändert und niemals mehrfach verwendet werden.
+    </p>
+    <p>
+        <strong>Hinweis:</strong> Diese Demonstration findet in einer <strong>kontrollierten, sicheren Umgebung</strong> statt und dient ausschließlich zu Bildungszwecken. 
+        Es werden keine echten Daten oder Systeme angegriffen.
+    </p>
+</div>
+
 
         <!-- Loginmaske -->
         <div class="login-container">
@@ -109,11 +132,34 @@
 
         <!-- Brute-Force-Demo -->
         <div class="demo-container">
-            <h2>Brute-Force-Demo</h2>
-            <p>
-                Gib den Benutzernamen ein (z. B. "<strong>admin</strong>" oder "<strong>user</strong>"), den du angreifen möchtest.
-                Wir simulieren dann einen Brute-Force-Angriff mit einer Auswahl von 70 realen Einträgen aus der Wordlist <strong>RockYou.txt</strong>.
-            </p>
+          <h2>Brute-Force-Demo</h2>
+<p>
+    Gib den Benutzernamen ein (z. B. "<strong>admin</strong>" oder "<strong>user</strong>"), den du angreifen möchtest.
+    Wir simulieren dann einen Brute-Force-Angriff mit einer Auswahl von 70 realen Einträgen aus der Wordlist <strong>RockYou.txt</strong>.
+</p>
+<p>
+    <strong>Hydra-Befehl:</strong><br>
+    In dieser Simulation verwenden wir den folgenden Hydra-Befehl:
+</p>
+<div class="shell" style="background-color: #f0f0f0; color: #333; padding: 10px; border-radius: 5px;">
+    hydra -l &lt;BENUTZERNAME&gt; -P rockyou.txt http-post-form "/login:username=^USER^&amp;password=^PASS^:F=Login fehlgeschlagen"
+</div>
+<p>
+    <strong>Erklärung:</strong><br>
+    - <code>-l &lt;BENUTZERNAME&gt;</code>: Gibt den Benutzernamen an, der getestet werden soll (z. B. <code>admin</code>).<br>
+    - <code>-P rockyou.txt</code>: Legt die Wordlist fest, die für die Passwortprüfung verwendet wird (hier: <code>rockyou.txt</code>).<br>
+    - <code>http-post-form</code>: Definiert, dass ein POST-Request gesendet wird, um Benutzernamen und Passwort zu prüfen.<br>
+    - <code>/login</code>: Der Pfad der Login-Seite, auf die die Anfragen gesendet werden.<br>
+    - <code>username=^USER^&amp;password=^PASS^</code>: Platzhalter für Benutzernamen (<code>^USER^</code>) und Passwort (<code>^PASS^</code>), 
+      die aus der Wordlist getestet werden.<br>
+    - <code>:F=Login fehlgeschlagen</code>: Ein Muster in der Antwort, das darauf hinweist, dass die Anmeldung fehlgeschlagen ist 
+      (z. B. der Text "Login fehlgeschlagen"). Hydra prüft die Antwort der Seite auf dieses Muster.
+</p>
+<p>
+    Die Simulation zeigt, wie systematisch Passwörter getestet werden, bis ein erfolgreiches Ergebnis erzielt wird. In der echten Anwendung kann 
+    ein solcher Angriff gestoppt werden, indem man Mechanismen wie Account-Sperrung nach mehreren Fehlversuchen oder Captchas einsetzt.
+</p>
+
             <input type="text" id="targetUsername" placeholder="Ziel-Benutzername">
             <p>Hydra-Befehl:</p>
             <div class="shell" id="hydraCommand"></div>
