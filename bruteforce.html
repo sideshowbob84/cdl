@@ -104,6 +104,7 @@
     Passwörter zu vermitteln und die Bedeutung sicherer Passwörter hervorzuheben.
 </p>
 
+
         <!-- Loginmaske -->
         <div class="login-container">
             <h2>Login</h2>
@@ -119,8 +120,8 @@
         <div class="demo-container">
             <h2>Brute-Force-Demo</h2>
             <p>
-                Gib den Benutzernamen ein (z. B. "<strong>admin</strong>" oder "<strong>user</strong>"), den du angreifen möchtest.
-                Wir simulieren dann einen Brute-Force-Angriff mit der Wordlist <strong>rockyou.txt</strong>.
+                Gib den Benutzernamen ein (z. B. "<strong>admin</strong>"), den du angreifen möchtest.
+                Wir simulieren dann einen Brute-Force-Angriff mit einer Auswahl realer Einträge aus der Wordlist <strong>rockyou.txt</strong>.
             </p>
             <input type="text" id="targetUsername" placeholder="Ziel-Benutzername (z. B. admin)">
             <p>Hydra-Befehl:</p>
@@ -151,8 +152,8 @@
             const simulation = document.getElementById("simulation");
             const hydraCommand = document.getElementById("hydraCommand");
 
-            if (!targetUsername || !correctPasswords[targetUsername]) {
-                simulation.textContent = "Fehler: Bitte einen gültigen Benutzernamen eingeben (admin oder user)!";
+            if (!targetUsername) {
+                simulation.textContent = "Fehler: Bitte einen gültigen Benutzernamen eingeben!";
                 return;
             }
 
@@ -160,24 +161,32 @@
 
             simulation.textContent = ""; // Vorherigen Inhalt löschen
             let index = 0;
-            const delay = 50; // Kürzere Verzögerung für Geschwindigkeit
-            simulation.textContent += `Hydra v9.4-dev starting...\nTargeting username: ${targetUsername}\n\n`;
+            const delay = 100; // Verzögerung in ms
+
+            const introText = [
+                "Hydra v9.4-dev (c) 2023 by van Hauser/THC and David Maciejak\n",
+                "This tool is for legal purposes only! Do not use it for illegal activities.\n",
+                "Hydra starting...\n",
+                `Targeting username: ${targetUsername}\n\n`
+            ];
+
+            introText.forEach(line => (simulation.textContent += line));
 
             const interval = setInterval(() => {
-                const pass = rockyouSample[index];
-                simulation.textContent += `[TEST] ${targetUsername}: ${pass}\n`;
+                if (index < rockyouSample.length) {
+                    const pass = rockyouSample[index];
+                    simulation.textContent += `[TEST] ${targetUsername}: ${pass}\n`;
 
-                if (pass === correctPasswords[targetUsername]) {
-                    simulation.textContent += `[SUCCESS] Password found: ${pass}\nAttack finished.\n`;
+                    if (pass === correctPassword) {
+                        simulation.textContent += `[SUCCESS] Password found: ${pass}\nAttack finished.\n`;
+                        clearInterval(interval);
+                    }
+
+                    simulation.scrollTop = simulation.scrollHeight;
+                    index++;
+                } else {
                     clearInterval(interval);
-                }
-
-                simulation.scrollTop = simulation.scrollHeight;
-                index++;
-
-                if (index >= rockyouSample.length) {
-                    simulation.textContent += "\n[FAILURE] No password found in the wordlist.\n";
-                    clearInterval(interval);
+                    simulation.textContent += `\n[FAILURE] No valid password found for ${targetUsername}.`;
                 }
             }, delay);
         }
@@ -188,8 +197,8 @@
             const password = document.getElementById("loginPassword").value.trim();
             const flagDiv = document.getElementById("flag");
 
-            if (correctPasswords[username] && correctPasswords[username] === password) {
-                flagDiv.textContent = "Login erfolgreich! Flag: {BRUTE_FORCE_DEMO_SUCCESS}";
+            if (username === "admin" && password === correctPassword) {
+                flagDiv.textContent = "Flag: {BRUTE_FORCE_SUCCESS}";
                 flagDiv.style.display = "block";
             } else {
                 flagDiv.textContent = "Login fehlgeschlagen!";
@@ -199,3 +208,5 @@
     </script>
 </body>
 </html>
+
+
