@@ -152,6 +152,7 @@
     </div>
 
     <script>
+       
            const emailPool = [
     {
         sender: "info@paypal-verification.com",
@@ -259,6 +260,7 @@
         explanation: "Diese Nachricht ist echt. Microsoft verwendet die Domain 'microsoft.com'."
     }
 ];
+
         let currentEmailIndex = 0;
         let correctAnswers = 0;
         const selectedEmails = [];
@@ -273,6 +275,13 @@
         function setupQuiz() {
             shuffle(emailPool);
             for (let i = 0; i < 8; i++) selectedEmails.push(emailPool[i]);
+        }
+
+        function updateProgressBar() {
+            const progress = ((currentEmailIndex / selectedEmails.length) * 100).toFixed(0);
+            const progressBar = document.getElementById("progress-bar");
+            progressBar.style.width = `${progress}%`;
+            progressBar.textContent = `${progress}%`;
         }
 
         function loadEmail() {
@@ -296,16 +305,19 @@
                     document.getElementById("link-preview").style.display = "none";
                 });
             });
+
+            updateProgressBar();
         }
 
         function checkAnswer(isPhishing) {
             const email = selectedEmails[currentEmailIndex];
+            const explanationDiv = document.getElementById("explanation");
             if (email.isPhishing === isPhishing) correctAnswers++;
-            document.getElementById("explanation").textContent = email.explanation;
-            document.getElementById("explanation").style.display = "block";
+            explanationDiv.textContent = email.explanation;
+            explanationDiv.style.display = "block";
             currentEmailIndex++;
             setTimeout(() => {
-                document.getElementById("explanation").style.display = "none";
+                explanationDiv.style.display = "none";
                 loadEmail();
             }, 4000);
         }
@@ -325,5 +337,6 @@
     </script>
 </body>
 </html>
+
 
  
