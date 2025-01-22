@@ -171,7 +171,7 @@
         <h2>Passwortgeschützter Bereich</h2>
         <div id="password-container">
             <p>Um auf die fortgeschrittenen Aufgaben zuzugreifen, gib das Passwort ein:</p>
-            <input type="password" id="lab-password" placeholder="Passwort eingeben">
+            <input type="password" id="lab-password" placeholder="Admin-Passwort eingeben">
             <button class="btn" onclick="unlockTasks()">Freischalten</button>
             <p class="error-message hidden" id="error-message"> Wenn du das Passwort nicht selbst herausfindest, bist du noch nicht bereit.</p>
         </div>
@@ -221,7 +221,7 @@
 
     <script>
         const collectedFlags = [false, false, false, false, false, false, false, false];
-        const obfuscatedPassword = atob("dDAwaDB0NHlh");
+        const obfuscatedPassword = atob("YWRtaW4xMjM=");
 
         function updateProgress() {
             const progress = collectedFlags.filter(flag => flag).length;
