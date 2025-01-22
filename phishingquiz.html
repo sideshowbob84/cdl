@@ -52,7 +52,6 @@
             border-radius: 5px;
             margin-bottom: 20px;
             background: #f9f9f9;
-            font-family: Arial, sans-serif;
         }
         .email-header {
             background: #007bff;
@@ -153,7 +152,7 @@
     </div>
 
     <script>
-            const emailPool = [
+           const emailPool = [
     {
         sender: "info@paypal-verification.com",
         subject: "Ihr Konto wurde eingeschränkt",
@@ -260,7 +259,6 @@
         explanation: "Diese Nachricht ist echt. Microsoft verwendet die Domain 'microsoft.com'."
     }
 ];
-
         let currentEmailIndex = 0;
         let correctAnswers = 0;
         const selectedEmails = [];
@@ -285,16 +283,35 @@
             const email = selectedEmails[currentEmailIndex];
             document.getElementById("email-header").textContent = `Von: ${email.sender} | Betreff: ${email.subject}`;
             document.getElementById("email-body").innerHTML = email.body;
+
+            // Set up link hover preview
+            const links = document.querySelectorAll("#email-body a");
+            links.forEach(link => {
+                link.addEventListener("mouseover", () => {
+                    const preview = document.getElementById("link-preview");
+                    preview.textContent = `Ziel: ${link.href}`;
+                    preview.style.display = "block";
+                });
+                link.addEventListener("mouseout", () => {
+                    document.getElementById("link-preview").style.display = "none";
+                });
+            });
         }
 
         function checkAnswer(isPhishing) {
             const email = selectedEmails[currentEmailIndex];
             if (email.isPhishing === isPhishing) correctAnswers++;
+            document.getElementById("explanation").textContent = email.explanation;
+            document.getElementById("explanation").style.display = "block";
             currentEmailIndex++;
-            loadEmail();
+            setTimeout(() => {
+                document.getElementById("explanation").style.display = "none";
+                loadEmail();
+            }, 4000);
         }
 
         function endQuiz() {
+            document.getElementById("quiz-content").style.display = "none";
             const result = document.getElementById("result");
             result.textContent = `Du hast ${correctAnswers} von 8 richtig beantwortet!`;
             result.classList.remove("hidden");
@@ -302,15 +319,11 @@
 
         setupQuiz();
         loadEmail();
+
+        document.getElementById("phishing-btn").addEventListener("click", () => checkAnswer(true));
+        document.getElementById("not-phishing-btn").addEventListener("click", () => checkAnswer(false));
     </script>
 </body>
 </html>
 
-
-
-
-
-
-
-
-
+ 
