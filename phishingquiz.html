@@ -152,35 +152,41 @@
     </div>
 
     <script>
-       
-           const emailPool = [
+       const emailPool = [
+    {
+        sender: "support@am4zon-security-alert.de",
+        subject: "Ungewöhnliche Anmeldeaktivität erkannt",
+        body: "Wir haben verdächtige Aktivitäten festgestellt. <a href='http://secure-am4zon.com'>Konto überprüfen</a>.",
+        isPhishing: true,
+        explanation: "Diese E-Mail ist Phishing. Die Domain 'am4zon-security-alert.de' und der Link 'secure-am4zon.com' sind nicht vertrauenswürdig. Amazon nutzt ausschließlich 'amazon.com' oder 'amazon.de'."
+    },
     {
         sender: "info@paypal-verification.com",
         subject: "Ihr Konto wurde eingeschränkt",
-        body: "Klicken Sie <a href='http://paypal-verification.fake'>hier</a>, um Ihre Identität zu bestätigen.",
+        body: "Bitte bestätigen Sie Ihre Identität. <a href='http://paypal-verification.fake'>Hier klicken</a>.",
         isPhishing: true,
-        explanation: "Diese E-Mail ist Phishing. Die Domain 'paypal-verification.fake' ist gefälscht. PayPal verwendet ausschließlich 'paypal.com'."
+        explanation: "Diese E-Mail ist Phishing. Die Domain 'paypal-verification.fake' ist gefälscht. PayPal nutzt ausschließlich die Domain 'paypal.com'."
     },
     {
         sender: "support@amazon.de",
         subject: "Ungewöhnliche Anmeldeaktivitäten",
-        body: "Wir haben verdächtige Aktivitäten auf Ihrem Konto festgestellt. <a href='https://amazon.de/account-security'>Hier klicken</a>, um Ihr Konto zu schützen.",
+        body: "Wir haben verdächtige Aktivitäten festgestellt. <a href='https://amazon.de/account-security'>Hier klicken</a>, um Ihr Konto zu schützen.",
         isPhishing: false,
-        explanation: "Diese E-Mail ist echt. Amazon verwendet nur 'amazon.de' oder 'amazon.com'. Die URL zeigt auf eine vertrauenswürdige Domain."
+        explanation: "Diese E-Mail ist echt. Amazon verwendet nur 'amazon.de' oder 'amazon.com'. Der Link führt zu einer vertrauenswürdigen Domain."
     },
     {
         sender: "security@appleid.com",
         subject: "Apple ID wurde gesperrt",
         body: "Ihre Apple ID wurde gesperrt. <a href='http://appleid-security.com'>Hier klicken</a>, um Ihr Konto zu entsperren.",
         isPhishing: true,
-        explanation: "Diese E-Mail ist Phishing. Apple verwendet immer die Domain 'apple.com'. Die Domain 'appleid-security.com' ist nicht vertrauenswürdig."
+        explanation: "Diese Nachricht ist Phishing. Apple nutzt ausschließlich die Domain 'apple.com'. Die Domain 'appleid-security.com' ist nicht vertrauenswürdig."
     },
     {
         sender: "kundenservice@telekom.de",
         subject: "Ihre Rechnung ist verfügbar",
-        body: "Ihre aktuelle Telekom-Rechnung ist online verfügbar. <a href='https://www.telekom.de/rechnung'>Hier klicken</a>, um sie anzusehen.",
+        body: "Ihre Telekom-Rechnung ist online verfügbar. <a href='https://www.telekom.de/rechnung'>Hier klicken</a>.",
         isPhishing: false,
-        explanation: "Diese Nachricht ist echt. Die URL zeigt auf die offizielle Domain 'telekom.de'."
+        explanation: "Diese Nachricht ist echt. Die Domain 'telekom.de' ist korrekt und gehört zur Telekom."
     },
     {
         sender: "lottery@bigwin.org",
@@ -199,7 +205,7 @@
     {
         sender: "support@spotify.com",
         subject: "Ungewöhnliche Anmeldung festgestellt",
-        body: "Es wurde eine Anmeldung aus Frankreich festgestellt. <a href='https://spotify.com/account-security'>Überprüfen Sie Ihr Konto</a>.",
+        body: "Eine Anmeldung aus Frankreich wurde erkannt. <a href='https://spotify.com/account-security'>Überprüfen Sie Ihr Konto</a>.",
         isPhishing: false,
         explanation: "Diese E-Mail ist echt. Die Domain 'spotify.com' ist korrekt, und die Nachricht enthält keine verdächtigen Aufforderungen."
     },
@@ -208,7 +214,7 @@
         subject: "COVID-19 Testergebnisse verfügbar",
         body: "Klicken Sie <a href='http://gesundheitsamt-ergebnis.com'>hier</a>, um Ihre Ergebnisse einzusehen.",
         isPhishing: true,
-        explanation: "Diese E-Mail ist Phishing. Gesundheitsämter verwenden keine generischen Domains wie 'gesundheitsamt-ergebnis.com'."
+        explanation: "Diese Nachricht ist Phishing. Gesundheitsämter verwenden keine generischen Domains wie 'gesundheitsamt-ergebnis.com'."
     },
     {
         sender: "contact@linkedin.com",
@@ -227,7 +233,7 @@
     {
         sender: "info@facebook.com",
         subject: "Ungewöhnliche Anmeldung erkannt",
-        body: "Es wurde ein neuer Login-Versuch erkannt. <a href='https://facebook.com/security'>Sicherheitsüberprüfung starten</a>.",
+        body: "Ein Login-Versuch wurde erkannt. <a href='https://facebook.com/security'>Sicherheitsüberprüfung starten</a>.",
         isPhishing: false,
         explanation: "Diese Nachricht ist echt. Facebook verwendet ausschließlich 'facebook.com'."
     },
@@ -236,7 +242,7 @@
         subject: "Sicherheitswarnung für Ihr Konto",
         body: "Bitte bestätigen Sie Ihre Bankdaten <a href='http://banking-alerts.com'>hier</a>.",
         isPhishing: true,
-        explanation: "Diese Nachricht ist Phishing. Banken fordern niemals per E-Mail vertrauliche Daten an."
+        explanation: "Diese Nachricht ist Phishing. Banken fordern niemals per E-Mail vertrauliche Daten an. Die Domain 'banking-alerts.com' ist nicht vertrauenswürdig."
     },
     {
         sender: "newsletter@zalando.de",
@@ -293,7 +299,6 @@
             document.getElementById("email-header").textContent = `Von: ${email.sender} | Betreff: ${email.subject}`;
             document.getElementById("email-body").innerHTML = email.body;
 
-            // Set up link hover preview
             const links = document.querySelectorAll("#email-body a");
             links.forEach(link => {
                 link.addEventListener("mouseover", () => {
@@ -325,7 +330,11 @@
         function endQuiz() {
             document.getElementById("quiz-content").style.display = "none";
             const result = document.getElementById("result");
-            result.textContent = `Du hast ${correctAnswers} von 8 richtig beantwortet!`;
+            if (correctAnswers === selectedEmails.length) {
+                result.textContent = `Herzlichen Glückwunsch! Du hast alle richtig beantwortet. 🎉 Flag: {CAUGHT_ALL_THE_PHISH}`;
+            } else {
+                result.textContent = `Du hast ${correctAnswers} von 8 richtig beantwortet. Versuche es erneut!`;
+            }
             result.classList.remove("hidden");
         }
 
@@ -338,5 +347,4 @@
 </body>
 </html>
 
-
- 
+      
