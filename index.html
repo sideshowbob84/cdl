@@ -32,23 +32,24 @@
         .category-container {
             display: flex;
             justify-content: space-between;
-            margin: 30px 0;
+            margin: 50px 0; /* Erhöhter Abstand zwischen Kategorien */
         }
         .category {
             width: 45%;
             background: #007bff;
             color: #fff;
             border-radius: 10px;
-            padding: 20px;
+            padding: 30px; /* Vergrößertes Padding für mehr Raum */
             text-align: center;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.3s;
         }
         .category:hover {
             background: #0056b3;
+            transform: translateY(-5px); /* Hover-Effekt mit leichtem Anheben */
         }
         .emoji {
-            font-size: 1.5rem;
+            font-size: 2rem; /* Größere Emojis */
             margin-bottom: 10px;
         }
         .labs-list {
