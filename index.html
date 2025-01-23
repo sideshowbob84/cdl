@@ -12,32 +12,37 @@
             margin: 0;
             padding: 20px;
         }
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            max-width: 1200px;
+        .container {
+            max-width: 800px;
             margin: 0 auto;
-        }
-        .grid-item {
             background: #fff;
             color: #333;
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            text-align: center;
         }
         h1 {
             text-align: center;
             color: #007bff;
         }
         h2 {
-            margin: 10px 0;
+            margin-top: 30px;
             color: #007bff;
         }
-        p {
-            color: #555;
-            margin-bottom: 15px;
+        .task {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+        }
+        .task h3 {
+            margin: 0 0 10px 0;
+            color: #007bff;
+        }
+        .task p {
+            margin: 10px 0;
+            color: #333;
         }
         .btn {
             padding: 10px 15px;
@@ -47,23 +52,62 @@
             border-radius: 5px;
             display: inline-block;
             margin-top: 10px;
-            cursor: pointer;
         }
         .btn:hover {
             background-color: #0056b3;
         }
-        input[type="text"] {
+        .hidden {
+            display: none;
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        input[type="text"], input[type="password"] {
             margin-top: 10px;
             padding: 5px;
             width: calc(100% - 20px);
             border: 1px solid #ddd;
             border-radius: 5px;
         }
+        .achievements {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
         .achievement {
-            margin-top: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            color: green;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .achievement span {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            z-index: 1000;
+        }
+        .cookie-banner button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .cookie-banner button:hover {
+            background-color: #0056b3;
         }
         footer {
             margin-top: 30px;
@@ -78,133 +122,178 @@
         footer a:hover {
             text-decoration: underline;
         }
-        .hidden {
-            display: none;
-        }
-        .error-message {
-            color: red;
-            font-weight: bold;
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
-    <h1>CyberDefense Lab 🧪</h1>
-    <p style="text-align: center; font-size: 14px; color: #888;">
-        Hinweis: Dieses Lab dient ausschließlich Bildungszwecken. Der Einsatz der hier erlernten Techniken für illegale Zwecke ist strengstens untersagt. Es handelt sich hierbei ausschließlich um Simulationen und keine echten Angriffe.
-    </p>
+    <div class="container">
+        <h1>CyberDefense Lab 🧪</h1>
+        <p style="text-align: center; font-size: 14px; color: #888;">
+            Hinweis: Dieses Lab dient ausschließlich Bildungszwecken. Der Einsatz der hier erlernten Techniken für illegale Zwecke ist strengstens untersagt. Es handelt sich hierbei ausschließlich um Simulationen und keine echten Angriffe.
+        </p>
 
-    <!-- Übersicht der Aufgaben in Grid-Ansicht -->
-    <div class="grid-container">
-        <!-- Phishing-Quiz -->
-        <div class="grid-item">
-            <h2>Phishing-Quiz</h2>
+        <!-- Fortschrittsanzeige -->
+        <div id="progress" style="text-align: center; margin-bottom: 20px;">
+            Fortschritt: 0/8 Flags gesammelt
+        </div>
+
+        <!-- Offene Aufgaben -->
+        <h2>Offene Aufgaben</h2>
+        <div class="task">
+            <h3>Phishing-Quiz</h3>
             <p>Identifiziere Phishing-Mails und lerne, wie du echte von gefälschten Nachrichten unterscheidest.</p>
             <a href="phishingquiz.html" class="btn">Aufgabe öffnen</a>
             <input type="text" id="flag1" placeholder="Flag eingeben">
             <button class="btn" onclick="checkFlag(1, 'e0NBVUdIVF9BTExfVEhFX1BISVNIfQ==', '🎣 Phishing-Profi')">Prüfen</button>
-            <div id="achievement1" class="achievement"></div>
         </div>
-
-        <!-- Brute-Force-Simulator -->
-        <div class="grid-item">
-            <h2>Brute-Force-Simulator</h2>
+        <div class="task">
+            <h3>Brute-Force-Simulator</h3>
             <p>Simuliere einen Brute-Force-Angriff und lerne, wie schwache Passwörter ausgenutzt werden können.</p>
             <a href="bruteforce.html" class="btn">Aufgabe öffnen</a>
             <input type="text" id="flag2" placeholder="Flag eingeben">
             <button class="btn" onclick="checkFlag(2, 'e0JSVVRFX0ZPUkNFX0FETUlOX1NVQ0NFU1N9', '🔓 Passwortknacker')">Prüfen</button>
-            <div id="achievement2" class="achievement"></div>
         </div>
-
-        <!-- Social-Engineering-Simulation -->
-        <div class="grid-item">
-            <h2>Social-Engineering-Simulation</h2>
+        <div class="task">
+            <h3>Social-Engineering-Simulation</h3>
             <p>Lerne, wie Angreifer durch Täuschung Informationen gewinnen können, und entdecke Strategien, um solche Angriffe zu erkennen und abzuwehren.</p>
             <a href="social-engineering.html" class="btn">Aufgabe öffnen</a>
             <input type="text" id="flag3" placeholder="Flag eingeben">
             <button class="btn" onclick="checkFlag(3, 'e0RFRkVOREVSX09GX1RSVVNUfQ==', '🤝 Abwehrstratege')">Prüfen</button>
-            <div id="achievement3" class="achievement"></div>
         </div>
-
-        <!-- Passwortmanager-Lab -->
-        <div class="grid-item">
-            <h2>Passwortmanager-Lab</h2>
+        <div class="task">
+            <h3>Passwortmanager-Lab</h3>
             <p>Lerne, wie ein Passwortmanager deine Sicherheit erhöht, sichere Passwörter generiert und Schwachstellen aufdeckt.</p>
             <a href="password-simulator.html" class="btn">Aufgabe öffnen</a>
             <input type="text" id="flag4" placeholder="Flag eingeben">
             <button class="btn" onclick="checkFlag(4, 'e1VOQlJFQUtBQkxFX1BBU1NXT1JEfQ==', '🔑 Schlüsselmeister')">Prüfen</button>
-            <div id="achievement4" class="achievement"></div>
         </div>
 
         <!-- Passwortgeschützter Bereich -->
-        <div class="grid-item">
-            <h2>Fortgeschrittene Aufgaben</h2>
-            <p>Gib das Passwort ein, um die fortgeschrittenen Aufgaben freizuschalten:</p>
+        <h2>Passwortgeschützter Bereich</h2>
+        <div id="password-container">
+            <p>Um auf die fortgeschrittenen Aufgaben zuzugreifen, gib das User-Passwort ein:</p>
             <input type="password" id="lab-password" placeholder="User-Passwort eingeben">
             <button class="btn" onclick="unlockTasks()">Freischalten</button>
-            <p class="error-message hidden" id="error-message">Falsches Passwort. Versuche es erneut!</p>
-            <div id="protected-tasks" class="hidden">
-                <div class="grid-item">
-                    <h2>Updates und Patches</h2>
-                    <p>Erfahre, warum es wichtig ist, Systeme regelmäßig zu patchen, und teste eine Schwachstelle.</p>
-                    <a href="updates.html" class="btn">Aufgabe öffnen</a>
-                    <input type="text" id="flag5" placeholder="Flag eingeben">
-                    <button class="btn" onclick="checkFlag(5, 'e1BBVENIX1RIRV9QQVRDSH0=', '🛡️ Schildwache')">Prüfen</button>
-                    <div id="achievement5" class="achievement"></div>
-                </div>
-
-                <div class="grid-item">
-                    <h2>Gobuster-Simulation</h2>
-                    <p>Finde versteckte Verzeichnisse auf einem Server durch einen Directory Busting Scan.</p>
-                    <a href="dirbuster.html" class="btn">Aufgabe öffnen</a>
-                    <input type="text" id="flag6" placeholder="Flag eingeben">
-                    <button class="btn" onclick="checkFlag(6, 'e0ZPVU5EX1NFQ1JFVF9GTEFHUw==', '🔍 Directory Detective')">Prüfen</button>
-                    <div id="achievement6" class="achievement"></div>
-                </div>
-
-                <div class="grid-item">
-                    <h2>Hashing und Rainbow Tables</h2>
-                    <p>Lerne, wie Hashes und Rainbow Tables funktionieren, und entdecke Schwachstellen bei der Passwortsicherheit.</p>
-                    <a href="hash.html" class="btn">Aufgabe öffnen</a>
-                    <input type="text" id="flag7" placeholder="Flag eingeben">
-                    <button class="btn" onclick="checkFlag(7, 'e1BBVENIX1RIRV9IQU5EU09OfQ==', '🌈 Hash-Meister')">Prüfen</button>
-                    <div id="achievement7" class="achievement"></div>
-                </div>
+            <p class="error-message hidden" id="error-message"> Wenn du das Passwort nicht selbst herausfindest, bist du noch nicht bereit.</p>
+        </div>
+        <div id="protected-tasks" class="hidden">
+            <div class="task">
+                <h3>Updates und Patches 🔒</h3>
+                <p>Erfahre, warum es wichtig ist, Systeme regelmäßig zu patchen, und teste eine Schwachstelle.</p>
+                <a href="updates.html" class="btn">Aufgabe öffnen</a>
+                <input type="text" id="flag5" placeholder="Flag eingeben">
+                <button class="btn" onclick="checkFlag(5, 'e1BBVENIX1RIRV9QQVRDSH0=', '🛡️ Schildwache')">Prüfen</button>
+            </div>
+            <div class="task">
+                <h3>Gobuster-Simulation</h3>
+                <p>Finde versteckte Verzeichnisse auf einem Server durch einen Directory Busting Scan.</p>
+                <a href="dirbuster.html" class="btn">Aufgabe öffnen</a>
+                <input type="text" id="flag6" placeholder="Flag eingeben">
+                <button class="btn" onclick="checkFlag(6, 'e0ZPVU5EX1NFQ1JFVF9GTEFHUw==', '🔍 Directory Detective')">Prüfen</button>
+            </div>
+            <div class="task">
+                <h3>Hashing Lab</h3>
+                <p>Entschlüssele Hashes mit Rainbow Tables und lerne, wie Salt die Sicherheit erhöht.</p>
+                <a href="hash.html" class="btn">Aufgabe öffnen</a>
+                <p>Gib beide Flags ein:</p>
+                <input type="text" id="flag7a" placeholder="Flag 1 eingeben">
+                <input type="text" id="flag7b" placeholder="Flag 2 eingeben">
+                <button class="btn" onclick="checkHashFlags()">Prüfen</button>
             </div>
         </div>
-    </div>
 
-    <footer>
-        &copy; 2025 CyberDefense Lab by Ramon Berghorn | <a href="impressum.html">Impressum</a> | <a href="datenschutz.html">Datenschutzerklärung</a>
+        <!-- Achievements -->
+        <div id="achievements" class="achievements hidden">
+            <h2>Erreichte Titel</h2>
+        </div>
+
+    <footer style="color: #666;"> <!-- Dunklere Schriftfarbe -->
+    &copy; 2025 CyberDefense Lab by Ramon Berghorn | Bildungszwecke |
+    <a href="impressum.html">Impressum</a> |
+    <a href="datenschutz.html">Datenschutzerklärung</a>
     </footer>
 
+    </div>
+
+    <!-- Cookie-Banner -->
+    <div class="cookie-banner" id="cookie-banner">
+        🍪 Diese Website verwendet keine Cookies. <button onclick="hideCookieBanner()">Okay</button>
+    </div>
+
     <script>
-        function checkFlag(flagId, correctFlag, achievement) {
-            const input = document.getElementById(`flag${flagId}`).value;
-            const achievementDiv = document.getElementById(`achievement${flagId}`);
-            if (btoa(input) === correctFlag) {
-                achievementDiv.textContent = achievement;
+        const collectedFlags = [false, false, false, false, false, false, false, false];
+        const obfuscatedPassword = atob("dXNlcjEyMw==");
+
+        function updateProgress() {
+            const progress = collectedFlags.filter(flag => flag).length;
+            document.getElementById("progress").textContent = `Fortschritt: ${progress}/8 Flags gesammelt`;
+        }
+
+        function decodeBase64(encoded) {
+            return atob(encoded);
+        }
+
+        function checkFlag(taskNumber, encodedFlag, title) {
+            const input = document.getElementById(`flag${taskNumber}`);
+            const achievements = document.getElementById("achievements");
+            const decodedFlag = decodeBase64(encodedFlag);
+
+            if (input.value === decodedFlag) {
+                alert(`Richtig! Flag für Aufgabe ${taskNumber} akzeptiert.`);
+                collectedFlags[taskNumber - 1] = true;
+                input.disabled = true;
+
+                const achievement = document.createElement("div");
+                achievement.className = "achievement";
+                achievement.innerHTML = `<span>${title.split(" ")[0]}</span>${title.slice(2)}`;
+                achievements.appendChild(achievement);
+
+                achievements.classList.remove("hidden");
+                updateProgress();
             } else {
-                achievementDiv.textContent = 'Falsche Flag, bitte erneut versuchen!';
-                achievementDiv.style.color = 'red';
+                alert("Falsch! Versuche es erneut.");
+            }
+        }
+
+        function checkHashFlags() {
+            const flag7a = document.getElementById("flag7a").value.trim();
+            const flag7b = document.getElementById("flag7b").value.trim();
+
+            if (flag7a === atob("e0xFVF9ISU1fQ09PS30=") && flag7b === atob("e0FERF9BX1BJTkNIX09GX1NBTFR9")) {
+                alert("Richtig! Beide Flags akzeptiert.");
+                collectedFlags[7] = true;
+                updateProgress();
+            } else {
+                alert("Falsch! Versuche es erneut.");
             }
         }
 
         function unlockTasks() {
-            const password = document.getElementById('lab-password').value;
-            const errorMessage = document.getElementById('error-message');
-            const protectedTasks = document.getElementById('protected-tasks');
+            const inputPassword = document.getElementById("lab-password").value;
+            const errorMessage = document.getElementById("error-message");
+            const protectedTasks = document.getElementById("protected-tasks");
 
-            if (password === 'secure123') {
-                errorMessage.classList.add('hidden');
-                protectedTasks.classList.remove('hidden');
+            if (inputPassword === obfuscatedPassword) {
+                document.getElementById("password-container").classList.add("hidden");
+                protectedTasks.classList.remove("hidden");
+                errorMessage.classList.add("hidden");
             } else {
-                errorMessage.classList.remove('hidden');
+                errorMessage.classList.remove("hidden");
             }
         }
+
+        function hideCookieBanner() {
+            const banner = document.getElementById("cookie-banner");
+            banner.style.display = "none";
+        }
+
+        updateProgress();
     </script>
 </body>
 </html>
+
+
+
+
 
 
 
