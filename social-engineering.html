@@ -196,59 +196,63 @@
             }
         ];
 
-        let currentScenario = 0;
+       let currentScenario = 0;
 
-        function loadScenario() {
-            const scenario = scenarios[currentScenario];
-            const chatBox = document.getElementById('chat-box');
-            const optionsContainer = document.getElementById('options-container');
-            const feedback = document.getElementById('feedback');
+    function loadScenario() {
+        const scenario = scenarios[currentScenario];
+        const chatBox = document.getElementById('chat-box');
+        const optionsContainer = document.getElementById('options-container');
+        const feedback = document.getElementById('feedback');
 
-            // Nachrichten anzeigen
-            chatBox.textContent = scenario.messages[0];
-            feedback.textContent = '';
+        // Nachrichten anzeigen
+        chatBox.textContent = scenario.messages[0];
+        feedback.textContent = '';
 
-            // Antwortoptionen anzeigen
-            optionsContainer.innerHTML = '';
-            scenario.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.textContent = option.text;
-                button.className = 'option-button';
-                button.onclick = () => handleOption(index);
-                optionsContainer.appendChild(button);
-            });
-        }
+        // Antwortoptionen anzeigen
+        optionsContainer.innerHTML = '';
+        scenario.options.forEach((option, index) => {
+            const button = document.createElement('button');
+            button.textContent = option.text;
+            button.className = 'option-button';
+            button.onclick = () => handleOption(index);
+            optionsContainer.appendChild(button);
+        });
+    }
 
-        function handleOption(selectedIndex) {
-            const scenario = scenarios[currentScenario];
-            const feedback = document.getElementById('feedback');
+    function handleOption(selectedIndex) {
+        const scenario = scenarios[currentScenario];
+        const feedback = document.getElementById('feedback');
 
-            if (scenario.options[selectedIndex].correct) {
-                feedback.textContent = scenario.feedback[selectedIndex];
-                feedback.className = "feedback success";
-                currentScenario++;
-                if (currentScenario < scenarios.length) {
-                    setTimeout(loadScenario, 2000);
-                } else {
-                    showFlag();
-                }
+        if (scenario.options[selectedIndex].correct) {
+            feedback.textContent = scenario.feedback[selectedIndex];
+            feedback.className = "feedback success";
+            currentScenario++;
+            if (currentScenario < scenarios.length) {
+                setTimeout(loadScenario, 2000);
             } else {
-                feedback.textContent = scenario.feedback[selectedIndex];
-                feedback.className = "feedback error";
+                showFlag();
             }
+        } else {
+            feedback.textContent = scenario.feedback[selectedIndex];
+            feedback.className = "feedback error";
         }
+    }
 
-        function showFlag() {
-            const container = document.getElementById('scenario-container');
-            container.innerHTML = `
-                <div class="flag">Flag: {DEFENDER_OF_TRUST}</div>
-            `;
-        }
+    function showFlag() {
+        const container = document.getElementById('scenario-container');
+        container.innerHTML = `
+            <div class="flag">Flag: {DEFENDER_OF_TRUST}</div>
+        `;
+        // Zeige den Zusatztext nach Abschluss der Szenarien
+        document.getElementById('additional-info').classList.remove('hidden');
+    }
 
-        // Initiales Laden
-        loadScenario();
-    </script>
-<div style="background: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 8px; margin-top: 20px; font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
+    // Initiales Laden
+    loadScenario();
+</script>
+
+<div id="additional-info" class="hidden" style="background: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 8px; margin-top: 20px; font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
+    <h2>Weitere Informationen zu Social Engineering</h2>
     <p>
         Neben direkten Angriffen über Anrufe oder gefälschte E-Mails nutzen Social-Engineering-Angreifer auch physische Tricks, um Zugang zu Systemen oder Daten zu erhalten. 
         Ein Beispiel ist das Platzieren von USB-Sticks an öffentlichen Orten wie Parkplätzen oder Büros. Sobald ein solcher Stick in ein Gerät eingesteckt wird, 
@@ -268,7 +272,7 @@
         2FA und Vorsicht im Umgang mit physischen Medien anwendest, kannst du dich besser vor diesen Angriffen schützen.
     </p>
 </div>
-
+    
 </body>
 </html>
 
