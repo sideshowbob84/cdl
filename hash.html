@@ -69,16 +69,23 @@
 
         <div class="info">
             <h2>Was sind Hashes und Rainbow Tables?</h2>
-            <p>
-                Hashes werden verwendet, um sensible Daten wie Passwörter sicher zu speichern. Sie wandeln Klartext in eine scheinbar zufällige Zeichenkette um, die nicht direkt zurückgerechnet werden kann. 
-                Dies schützt Passwörter, selbst wenn ein Angreifer Zugriff auf die Datenbank erhält. 
-            </p>
-            <p>
-                Allerdings können Angreifer sogenannte <strong>Rainbow Tables</strong> verwenden: vorberechnete Tabellen von Passwörtern und ihren Hashes, um schnell Übereinstimmungen zu finden und Passwörter zu knacken.
-            </p>
-            <p>
-                Durch den Einsatz von Salt (einer zusätzlichen Zeichenkette, die vor dem Hashing an das Passwort angehängt wird), kann diese Technik entschärft werden, da der Hash mit jedem Salt einzigartig ist.
-            </p>
+ <p>
+    In diesem Lab beschäftigen wir uns mit Hashes, einer grundlegenden Methode zur Sicherung sensibler Daten wie Passwörter. Dabei wird Klartext in eine scheinbar zufällige Zeichenkette umgewandelt, die nicht direkt zurückgerechnet werden kann. 
+    Diese Technik dient dazu, selbst bei einem Datenbank-Leck zu verhindern, dass Passwörter direkt sichtbar werden.
+</p>
+<p>
+    Angreifer haben jedoch Methoden entwickelt, um Hashes zu knacken, beispielsweise mit <strong>Rainbow Tables</strong>. Dabei handelt es sich um vorberechnete Tabellen, die Passwörter und deren Hashes enthalten und einen schnellen Abgleich ermöglichen. 
+    Dies macht es möglich, schwache oder häufig genutzte Passwörter in kurzer Zeit zu entschlüsseln.
+</p>
+<p>
+    Um dieser Gefahr entgegenzuwirken, wird <strong>Salt</strong> eingesetzt – eine zufällige Zeichenkette, die vor dem Hashing an das Passwort angehängt wird. Durch diesen zusätzlichen Schritt wird jeder Hash einzigartig, 
+    selbst wenn zwei Benutzer dasselbe Passwort haben. Dies erschwert den Einsatz von Rainbow Tables erheblich.
+</p>
+<p>
+    Ziel dieses Labs ist es, ein Verständnis für die Funktionsweise und Schwachstellen von Hashes zu entwickeln und die Notwendigkeit von Schutzmechanismen wie Salt zu verdeutlichen. 
+    So können wir die Bedeutung sicherer Passwortrichtlinien und moderner Sicherheitsstandards besser begreifen.
+</p>
+
         </div>
 
         <div class="steps">
