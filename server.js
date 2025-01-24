@@ -49,6 +49,9 @@ const server = http.createServer((req, res) => {
         } else if (req.url === '/datenschutz.html') {
             // Datenschutz-Seite ausliefern
             serveFile('datenschutz.html', res);
+        } else if (req.url === '/sources.html') {
+            // Quellen-Seite ausliefern
+            serveFile('sources.html', res);
         } else {
             // 404-Seite
             res.statusCode = 404;
