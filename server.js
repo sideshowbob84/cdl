@@ -52,6 +52,12 @@ const server = http.createServer((req, res) => {
         } else if (req.url === '/sources.html') {
             // Quellen-Seite ausliefern
             serveFile('sources.html', res);
+         } else if (req.url === '/images.html') {
+            // Quellen-Seite ausliefern
+            serveFile('images.html', res);
+         } else if (req.url === '/hackerman.jpg') {
+            // Quellen-Seite ausliefern
+            serveFile('hackerman.jpg', res);
         } else {
             // 404-Seite
             res.statusCode = 404;
