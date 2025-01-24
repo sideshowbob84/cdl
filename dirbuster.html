@@ -92,10 +92,22 @@
 </p>
 
         </div>
-
-        <p>Nutze den folgenden Befehl, um den Scan korrekt zu starten:</p>
-        <pre style="background: #f4f4f4; padding: 10px; border-left: 4px solid #007bff; color: #333;">
+<p>Nutze den folgenden Befehl, um den Scan korrekt zu starten:</p>
+<div class="shell" style="background-color: #000; color: #0f0; padding: 10px; border-radius: 5px; font-family: monospace;">
 gobuster dir -u http://192.168.0.10 -w wordlist.txt
+</div>
+<p>
+    <strong>Was macht der Befehl?</strong><br>
+    - <code>gobuster</code>: Startet das Tool Gobuster, ein Verzeichnis-Suchwerkzeug.<br>
+    - <code>dir</code>: Gibt an, dass Verzeichnisse gesucht werden sollen.<br>
+    - <code>-u http://192.168.0.10</code>: Definiert die Ziel-URL (hier ein lokaler Server).<br>
+    - <code>-w wordlist.txt</code>: Verwendet die angegebene Wortliste (<code>wordlist.txt</code>), um nach Verzeichnissen zu suchen.<br>
+</p>
+<p>
+    Der Befehl durchsucht die angegebenen Ziel-URLs systematisch nach Verzeichnissen, die in der <code>wordlist.txt</code> enthalten sind. 
+    Dies simuliert die Vorgehensweise von Angreifern, um versteckte Verzeichnisse oder Dateien aufzuspüren.
+</p>
+
         </pre>
 
         <!-- Eingabeabschnitt -->
