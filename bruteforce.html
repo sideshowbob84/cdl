@@ -129,27 +129,41 @@
           <h2>Brute-Force-Demo</h2>
 <p>
     Gib den Benutzernamen ein (z. B. "<strong>admin</strong>" oder "<strong>user</strong>"), den du angreifen möchtest.
-    Wir simulieren dann einen Brute-Force-Angriff mit einer Auswahl von 70 realen Einträgen aus der Wordlist <strong>RockYou.txt</strong> (die in Wirklichkeit viele Millionen Einträge enthält).
-    Logge dich anschließend mit dem Account "admin" und dem gefunden Passwort ein, um deine Flag zu erhalten.
+    Wir simulieren dann einen Brute-Force-Angriff mit 70 realen Einträgen aus der Wordlist <strong>RockYou.txt</strong>. 
+    Diese Wordlist enthält in der echten Welt Millionen von Passwörtern, die aus Datenlecks stammen.
 </p>
 <p>
-    <strong>Hydra-Befehl:</strong><br>
-    In dieser Simulation verwenden wir den folgenden Hydra-Befehl:
+    Sobald das richtige Passwort gefunden wurde, kannst du dich mit dem Account "<strong>admin</strong>" und dem gefundenen Passwort einloggen, um deine Flag zu erhalten.
 </p>
-<div class="shell" style="background-color: #f0f0f0; color: #333; padding: 10px; border-radius: 5px;">
-    hydra -l &lt;BENUTZERNAME&gt; -P rockyou.txt http-post-form "/login:username=^USER^&amp;password=^PASS^:F=Login fehlgeschlagen"
+
+<h3>Hydra-Befehl (Simulation):</h3>
+<p>
+    In dieser Simulation nutzen wir den folgenden Befehl, um Passwörter systematisch zu testen:
+</p>
+<div class="shell" style="background-color: #f0f0f0; color: #333; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+    hydra -l <strong>&lt;BENUTZERNAME&gt;</strong> -P rockyou.txt http-post-form "/login:username=^USER^&amp;password=^PASS^:F=Login fehlgeschlagen"
 </div>
+
+<h3>Was macht der Befehl?</h3>
+<ul>
+    <li><code>-l &lt;BENUTZERNAME&gt;</code>: Gibt den Benutzernamen an, der getestet werden soll (z. B. <strong>admin</strong>).</li>
+    <li><code>-P rockyou.txt</code>: Verwendet die Wordlist <strong>rockyou.txt</strong>, um verschiedene Passwörter zu testen.</li>
+    <li><code>http-post-form</code>: Zeigt an, dass die Login-Daten über ein Formular gesendet werden.</li>
+    <li><code>/login</code>: Der Pfad zur Login-Seite, auf die die Angriffe zielen.</li>
+    <li><code>username=^USER^&amp;password=^PASS^</code>: Platzhalter für den Benutzernamen (<code>^USER^</code>) und das Passwort (<code>^PASS^</code>), 
+    die getestet werden.</li>
+    <li><code>:F=Login fehlgeschlagen</code>: Definiert das Muster, das in der Antwort angezeigt wird, wenn der Login scheitert (z. B. "Login fehlgeschlagen").</li>
+</ul>
+
+<h3>Warum ist das wichtig?</h3>
 <p>
-    <strong>Erklärung:</strong><br>
-    - <code>-l &lt;BENUTZERNAME&gt;</code>: Gibt den Benutzernamen an, der getestet werden soll (z. B. <code>admin</code>).<br>
-    - <code>-P rockyou.txt</code>: Legt die Wordlist fest, die für die Passwortprüfung verwendet wird (hier: <code>rockyou.txt</code>).<br>
-    - <code>http-post-form</code>: Definiert, dass ein POST-Request gesendet wird, um Benutzernamen und Passwort zu prüfen.<br>
-    - <code>/login</code>: Der Pfad der Login-Seite, auf die die Anfragen gesendet werden.<br>
-    - <code>username=^USER^&amp;password=^PASS^</code>: Platzhalter für Benutzernamen (<code>^USER^</code>) und Passwort (<code>^PASS^</code>), 
-      die aus der Wordlist getestet werden.<br>
-    - <code>:F=Login fehlgeschlagen</code>: Ein Muster in der Antwort, das darauf hinweist, dass die Anmeldung fehlgeschlagen ist 
-      (z. B. der Text "Login fehlgeschlagen"). Hydra prüft die Antwort der Seite auf dieses Muster.
+    Diese Simulation zeigt dir, wie Angreifer systematisch Passwörter testen, bis sie erfolgreich sind. Sie verdeutlicht die Gefahren schwacher Passwörter und 
+    wie Sicherheitsmechanismen wie Captchas, Account-Sperrungen oder Zwei-Faktor-Authentifizierung solche Angriffe erschweren können.
 </p>
+<p>
+    Am Ende dieser Simulation verstehst du besser, warum es wichtig ist, starke und einzigartige Passwörter zu verwenden, die nicht in Wordlists vorkommen.
+</p>
+
 <p>
     Die Simulation zeigt, wie systematisch Passwörter getestet werden, bis ein erfolgreiches Ergebnis erzielt wird. In der echten Anwendung kann 
     ein solcher Angriff gestoppt werden, indem man Mechanismen wie Account-Sperrung nach mehreren Fehlversuchen oder Captchas einsetzt.
