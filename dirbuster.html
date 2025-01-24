@@ -123,87 +123,52 @@ gobuster dir -u http://192.168.0.10 -w wordlist.txt
         <!-- Konsolenausgabe -->
         <div id="step-2" class="hidden">
             <h2>Schritt 2: Scan-Ergebnisse</h2>
-            <div class="console" id="console-output"></div>
-        </div>
-    </div>
+    <div class="console" id="console-output" style="background: #000; color: #0f0; padding: 10px; border-radius: 5px; font-family: monospace; height: 300px; overflow-y: auto;">
+</div>
 
-    <script>
- const directories = [
-    "admin",
-    "images",
-    "css",
-    "js",
-    "backup",
-    "test",
-    "logs",
-    "config",
-    "old-site",
-    "bruteforce",
-    "phishingquiz",
-    "password-simulator",
-    "social-engineering",
-    "updates",
-    "secret-flag",
-    "sources",
-    "Datenschutz",
-    "Impressum"
-];
+<script>
+    const directories = [
+        { path: "backup", status: 200 },
+        { path: "old-site", status: 200 },
+        { path: "social-engineering", status: 200 },
+        { path: "test", status: 403 },
+        { path: "bruteforce", status: 200 },
+        { path: "password-simulator", status: 200 },
+        { path: "images", status: 200 },
+        { path: "css", status: 403 },
+        { path: "sources", status: 200 },
+        { path: "admin", status: 200 },
+        { path: "secret-flag", status: 200 },
+        { path: "sources", status: 200 },
+        
+    ];
 
+    function startGobuster() {
+        const consoleOutput = document.getElementById("console-output");
+        let index = 0;
 
-        // Funktion zum Mischen der Verzeichnisse
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
+        consoleOutput.innerHTML = "Gobuster v3.1.0\n\n";
+        consoleOutput.innerHTML += "[+] Target URL: http://192.168.0.10\n";
+        consoleOutput.innerHTML += "[+] Using Wordlist: wordlist.txt\n\n";
+        consoleOutput.innerHTML += "=============================================================\n";
+        consoleOutput.innerHTML += "DIRBUSTING STARTED:\n";
+        consoleOutput.innerHTML += "=============================================================\n\n";
 
-        shuffle(directories);
-
-        const correctCommand = "gobuster dir -u http://192.168.0.10 -w wordlist.txt";
-
-        function validateCommand() {
-            const inputCommand = document.getElementById("gobuster-command").value.trim();
-            const errorMessage = document.getElementById("error-message");
-            const successMessage = document.getElementById("success-message");
-
-            if (inputCommand === correctCommand) {
-                errorMessage.classList.add("hidden");
-                successMessage.classList.remove("hidden");
-                setTimeout(startGobuster, 1000); // 1 Sekunde warten, bevor der Scan startet
+        const interval = setInterval(() => {
+            if (index < directories.length) {
+                const dir = directories[index];
+                const statusColor = dir.status === 200 ? "#0f0" : "#f00";
+                consoleOutput.innerHTML += `[${new Date().toLocaleTimeString()}] /${dir.path} [Status: <span style="color: ${statusColor};">${dir.status}</span>]\n`;
+                consoleOutput.scrollTop = consoleOutput.scrollHeight;
+                index++;
             } else {
-                errorMessage.classList.remove("hidden");
-                successMessage.classList.add("hidden");
+                clearInterval(interval);
+                consoleOutput.innerHTML += "\nScan abgeschlossen. Überprüfe die gefundenen Verzeichnisse!";
             }
-        }
+        }, 500);
+    }
+</script>
 
-        function startGobuster() {
-            const consoleOutput = document.getElementById("console-output");
-            const step1 = document.getElementById("step-1");
-            const step2 = document.getElementById("step-2");
-
-            step1.classList.add("hidden");
-            step2.classList.remove("hidden");
-
-            consoleOutput.innerHTML = "Gobuster v3.1.0\n\n";
-            consoleOutput.innerHTML += "Scanning for directories...\n";
-
-            let index = 0;
-
-            const interval = setInterval(() => {
-                if (index < directories.length) {
-                    const responseCode = Math.random() > 0.2 ? "200" : "403";
-                    consoleOutput.innerHTML += `/` + directories[index] + ` [Status: ${responseCode}]\n`;
-                    consoleOutput.scrollTop = consoleOutput.scrollHeight;
-
-                    index++;
-                } else {
-                    clearInterval(interval);
-                    consoleOutput.innerHTML += "\nScan abgeschlossen. Überprüfe die gefundenen Verzeichnisse!";
-                }
-            }, 500); // 0.5 Sekunde pro Verzeichnis simulieren
-        }
-    </script>
 </body>
 </html>
 
