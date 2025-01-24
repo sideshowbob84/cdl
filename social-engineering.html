@@ -30,6 +30,10 @@
             color: #555;
             line-height: 1.6;
         }
+        ul {
+            padding-left: 20px;
+            color: #555;
+        }
         .chat-box {
             background: #f9f9f9;
             border-radius: 5px;
@@ -74,41 +78,66 @@
             font-weight: bold;
             font-size: 18px;
         }
+        .info {
+            background: #f9f9f9;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-     <h1>Social Engineering Lab</h1>
-<p>
-    Social Engineering ist eine der häufigsten Methoden, die Angreifer nutzen, um Sicherheitsbarrieren zu überwinden. 
-    Statt technische Schwachstellen auszunutzen, zielen sie auf den „menschlichen Faktor“ ab. Durch Manipulation, 
-    Täuschung oder das Erzeugen von Drucksituationen versuchen Angreifer, Informationen wie Passwörter, Zugangsdaten 
-    oder vertrauliche Unternehmensinformationen zu erhalten.
-</p>
-<p>
-    Typische Beispiele für Social-Engineering-Techniken sind:
-</p>
-<ul>
-    <li><strong>Phishing:</strong> Gefälschte E-Mails, die dazu auffordern, auf Links zu klicken oder Daten preiszugeben.</li>
-    <li><strong>Vishing:</strong> Telefonanrufe, bei denen sich Angreifer als vertrauenswürdige Personen ausgeben.</li>
-    <li><strong>Pretexting:</strong> Das Vortäuschen einer falschen Identität, um das Vertrauen eines Opfers zu gewinnen.</li>
-    <li><strong>Shoulder Surfing:</strong> Das Ausspionieren von Eingaben, z. B. Passwörtern, über die Schulter.</li>
-</ul>
-<p>
-    In diesem Lab wirst du lernen, wie du dich gegen solche Angriffe verteidigst. Du durchläufst mehrere Szenarien, in denen du 
-    Angreifer entlarven und sensible Informationen schützen musst. Wähle die richtige Reaktion, um die Angriffe abzuwehren 
-    und die Flag zu erhalten!
-</p>
-
+        <h1>Social Engineering Lab</h1>
+        <p>
+            Social Engineering ist eine der häufigsten Methoden, die Angreifer nutzen, um Sicherheitsbarrieren zu überwinden. 
+            Statt technische Schwachstellen auszunutzen, zielen sie auf den „menschlichen Faktor“ ab. Durch Manipulation, 
+            Täuschung oder das Erzeugen von Drucksituationen versuchen Angreifer, Informationen wie Passwörter, Zugangsdaten 
+            oder vertrauliche Unternehmensinformationen zu erhalten.
+        </p>
+        <p>Typische Beispiele für Social-Engineering-Techniken sind:</p>
+        <ul>
+            <li><strong>Phishing:</strong> Gefälschte E-Mails, die dazu auffordern, auf Links zu klicken oder Daten preiszugeben.</li>
+            <li><strong>Vishing:</strong> Telefonanrufe, bei denen sich Angreifer als vertrauenswürdige Personen ausgeben.</li>
+            <li><strong>Pretexting:</strong> Das Vortäuschen einer falschen Identität, um das Vertrauen eines Opfers zu gewinnen.</li>
+            <li><strong>Shoulder Surfing:</strong> Das Ausspionieren von Eingaben, z. B. Passwörtern, über die Schulter.</li>
+        </ul>
+        <p>
+            In diesem Lab wirst du lernen, wie du dich gegen solche Angriffe verteidigst. Du durchläufst mehrere Szenarien, 
+            in denen du Angreifer entlarven und sensible Informationen schützen musst. Wähle die richtige Reaktion, um die Angriffe abzuwehren 
+            und die Flag zu erhalten!
+        </p>
 
         <div id="scenario-container">
-            <div class="chat-box" id="chat-box">
-                <!-- Dynamische Nachrichten werden hier eingefügt -->
-            </div>
-            <div id="options-container">
-                <!-- Antwortoptionen werden hier eingefügt -->
-            </div>
+            <div class="chat-box" id="chat-box"></div>
+            <div id="options-container"></div>
             <div id="feedback" class="feedback"></div>
+        </div>
+
+        <div id="additional-info" class="info hidden">
+            <h2>Weitere Informationen zu Social Engineering</h2>
+            <p>
+                Neben direkten Angriffen über Anrufe oder gefälschte E-Mails nutzen Social-Engineering-Angreifer auch physische Tricks, um Zugang zu Systemen oder Daten zu erhalten. 
+                Ein Beispiel ist das Platzieren von USB-Sticks an öffentlichen Orten wie Parkplätzen oder Büros. Sobald ein solcher Stick in ein Gerät eingesteckt wird, 
+                kann Malware auf das System gelangen und Daten kompromittieren. Ähnlich gefährlich sind manipulierte Ladekabel, die ebenfalls Schadsoftware auf Geräten installieren können.
+            </p>
+            <p>
+                Um dich gegen solche Angriffe zu schützen, solltest du keine unbekannten USB-Sticks oder Kabel verwenden und diese auch nicht ausprobieren. 
+                Gib solche Gegenstände an deine IT-Abteilung weiter oder entsorge sie sicher.
+            </p>
+            <p>
+                Eine der effektivsten Schutzmaßnahmen ist die Verwendung von Zwei-Faktor-Authentifizierung (2FA). Diese sorgt dafür, dass selbst bei gestohlenen Zugangsdaten 
+                kein unberechtigter Zugriff möglich ist, da ein zweiter Verifizierungsschritt wie ein Einmal-Code erforderlich ist. Außerdem solltest du starke, einzigartige 
+                Passwörter nutzen und auf Passwortmanager zurückgreifen, um diese sicher zu verwalten.
+            </p>
+            <p>
+                Diese Simulation hat dir gezeigt, wie Angreifer durch Social Engineering vorgehen können. Indem du dir der Gefahren bewusst bist und Sicherheitsmaßnahmen wie 
+                2FA und Vorsicht im Umgang mit physischen Medien anwendest, kannst du dich besser vor diesen Angriffen schützen.
+            </p>
         </div>
     </div>
 
@@ -130,149 +159,58 @@
                     "Richtig! Du hast den Angriff abgewehrt."
                 ]
             },
-            {
-                name: "Fake-Freund",
-                messages: [
-                    "Hey, hier ist Tim, dein Klassenkamerad. Mein Handy ist kaputt, und ich kann nicht auf meinen IServ-Account zugreifen. Kannst du mir bitte deine Zugangsdaten leihen? Es ist nur für heute!"
-                ],
-                options: [
-                    { text: "Kein Problem, mein Passwort ist: Sunshine2025.", correct: false },
-                    { text: "Warum benutzt du nicht dein eigenes Konto?", correct: false },
-                    { text: "Ruf mich kurz an, damit ich sicher bin, dass du es wirklich bist.", correct: true }
-                ],
-                feedback: [
-                    "Das war falsch. Du hast deine Zugangsdaten weitergegeben!",
-                    "Das ist skeptisch, aber Angreifer könnten hartnäckig sein.",
-                    "Richtig! Verifizierung ist immer eine gute Idee."
-                ]
-            },
-            {
-                name: "IT-Sicherheitswarnung",
-                messages: [
-                    "Sehr geehrte*r Nutzer*in, wir haben ungewöhnliche Aktivitäten auf Ihrem Konto festgestellt. Bitte klicken Sie auf den folgenden Link und geben Sie Ihre Daten ein, um eine Sperrung zu vermeiden: [www.iserv-security-check.com](#)."
-                ],
-                options: [
-                    { text: "Ich klicke auf den Link und gebe meine Daten ein.", correct: false },
-                    { text: "Ich melde das Problem bei meinem Lehrer und überprüfe meinen Account auf der offiziellen IServ-Seite.", correct: true },
-                    { text: "Ich ignoriere diese Nachricht, das ist bestimmt ein Fehler.", correct: false }
-                ],
-                feedback: [
-                    "Das war falsch. Phishing-Links sind gefährlich!",
-                    "Richtig! So schützt du dich vor Phishing.",
-                    "Das Ignorieren ist riskant. Lieber unabhängig prüfen."
-                ]
-            },
-            {
-                name: "Lehrer-Vertretungsplan",
-                messages: [
-                    "Hallo, hier ist Frau Müller von der Schulleitung. Der Vertretungsplan hat sich geändert, aber wir konnten ihn nicht hochladen. Kannst du ihn über deinen IServ-Account verteilen? Du musst dafür nur deine Zugangsdaten kurz hier eingeben, damit ich die Datei anhängen kann."
-                ],
-                options: [
-                    { text: "Okay, hier sind meine Daten: user123, Pa$$w0rd.", correct: false },
-                    { text: "Wieso können Sie das nicht selbst hochladen?", correct: false },
-                    { text: "Das klingt merkwürdig, ich rufe die Schulleitung direkt an.", correct: true }
-                ],
-                feedback: [
-                    "Das war falsch. Echte Anfragen kommen nie so zustande!",
-                    "Skeptisch, aber ohne direkte Verifizierung ist das unsicher.",
-                    "Richtig! Direkt prüfen schützt dich vor Manipulation."
-                ]
-            },
-            {
-                name: "Geldforderung von Eltern",
-                messages: [
-                    "Hallo, hier ist Herr Krüger von der Elternvertretung. Es gab eine Unregelmäßigkeit bei der Klassenkasse, und wir brauchen dringend 20 € pro Schüler, um die Bücher rechtzeitig zu bestellen. Überweise das Geld bitte an folgendes Konto: DE1234567890. Wir geben dir auf dem Elternabend die Quittung."
-                ],
-                options: [
-                    { text: "Okay, ich überweise das Geld sofort.", correct: false },
-                    { text: "Warum wurde das nicht vorher kommuniziert? Haben Sie ein offizielles Schreiben?", correct: false },
-                    { text: "Ich werde die Elternvertretung kontaktieren und direkt nachfragen.", correct: true }
-                ],
-                feedback: [
-                    "Das war falsch. Niemals Geld überweisen ohne Verifizierung!",
-                    "Das ist skeptisch, aber du musst die Anfrage direkt prüfen.",
-                    "Richtig! Direkte Verifizierung schützt dich."
-                ]
-            }
+            // Weitere Szenarien...
         ];
 
-       let currentScenario = 0;
+        let currentScenario = 0;
 
-    function loadScenario() {
-        const scenario = scenarios[currentScenario];
-        const chatBox = document.getElementById('chat-box');
-        const optionsContainer = document.getElementById('options-container');
-        const feedback = document.getElementById('feedback');
+        function loadScenario() {
+            const scenario = scenarios[currentScenario];
+            const chatBox = document.getElementById('chat-box');
+            const optionsContainer = document.getElementById('options-container');
+            const feedback = document.getElementById('feedback');
 
-        // Nachrichten anzeigen
-        chatBox.textContent = scenario.messages[0];
-        feedback.textContent = '';
+            chatBox.textContent = scenario.messages[0];
+            feedback.textContent = '';
 
-        // Antwortoptionen anzeigen
-        optionsContainer.innerHTML = '';
-        scenario.options.forEach((option, index) => {
-            const button = document.createElement('button');
-            button.textContent = option.text;
-            button.className = 'option-button';
-            button.onclick = () => handleOption(index);
-            optionsContainer.appendChild(button);
-        });
-    }
-
-    function handleOption(selectedIndex) {
-        const scenario = scenarios[currentScenario];
-        const feedback = document.getElementById('feedback');
-
-        if (scenario.options[selectedIndex].correct) {
-            feedback.textContent = scenario.feedback[selectedIndex];
-            feedback.className = "feedback success";
-            currentScenario++;
-            if (currentScenario < scenarios.length) {
-                setTimeout(loadScenario, 2000);
-            } else {
-                showFlag();
-            }
-        } else {
-            feedback.textContent = scenario.feedback[selectedIndex];
-            feedback.className = "feedback error";
+            optionsContainer.innerHTML = '';
+            scenario.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option.text;
+                button.className = 'option-button';
+                button.onclick = () => handleOption(index);
+                optionsContainer.appendChild(button);
+            });
         }
-    }
 
-    function showFlag() {
-        const container = document.getElementById('scenario-container');
-        container.innerHTML = `
-            <div class="flag">Flag: {DEFENDER_OF_TRUST}</div>
-        `;
-        // Zeige den Zusatztext nach Abschluss der Szenarien
-        document.getElementById('additional-info').classList.remove('hidden');
-    }
+        function handleOption(selectedIndex) {
+            const scenario = scenarios[currentScenario];
+            const feedback = document.getElementById('feedback');
 
-    // Initiales Laden
-    loadScenario();
-</script>
+            if (scenario.options[selectedIndex].correct) {
+                feedback.textContent = scenario.feedback[selectedIndex];
+                feedback.className = "feedback success";
+                currentScenario++;
+                if (currentScenario < scenarios.length) {
+                    setTimeout(loadScenario, 2000);
+                } else {
+                    showFlag();
+                }
+            } else {
+                feedback.textContent = scenario.feedback[selectedIndex];
+                feedback.className = "feedback error";
+            }
+        }
 
-<div id="additional-info" class="hidden" style="background: #f9f9f9; padding: 15px; border: 1px solid #ddd; border-radius: 8px; margin-top: 20px; font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
-    <h2>Weitere Informationen zu Social Engineering</h2>
-    <p>
-        Neben direkten Angriffen über Anrufe oder gefälschte E-Mails nutzen Social-Engineering-Angreifer auch physische Tricks, um Zugang zu Systemen oder Daten zu erhalten. 
-        Ein Beispiel ist das Platzieren von USB-Sticks an öffentlichen Orten wie Parkplätzen oder Büros. Sobald ein solcher Stick in ein Gerät eingesteckt wird, 
-        kann Malware auf das System gelangen und Daten kompromittieren. Ähnlich gefährlich sind manipulierte Ladekabel, die ebenfalls Schadsoftware auf Geräten installieren können.
-    </p>
-    <p>
-        Um sich gegen solche Angriffe zu schützen, solltest du keine unbekannten USB-Sticks oder Kabel verwenden und diese auch nicht ausprobieren. 
-        Gib solche Gegenstände an deine IT-Abteilung weiter oder entsorge sie sicher.
-    </p>
-    <p>
-        Eine der effektivsten Schutzmaßnahmen ist die Verwendung von Zwei-Faktor-Authentifizierung (2FA). Diese sorgt dafür, dass selbst bei gestohlenen Zugangsdaten 
-        kein unberechtigter Zugriff möglich ist, da ein zweiter Verifizierungsschritt wie ein Einmal-Code erforderlich ist. Außerdem solltest du starke, einzigartige 
-        Passwörter nutzen und auf Passwortmanager zurückgreifen, um diese sicher zu verwalten.
-    </p>
-    <p>
-        Diese Simulation hat dir gezeigt, wie Angreifer durch Social Engineering vorgehen können. Indem du dir der Gefahren bewusst bist und Sicherheitsmaßnahmen wie 
-        2FA und Vorsicht im Umgang mit physischen Medien anwendest, kannst du dich besser vor diesen Angriffen schützen.
-    </p>
-</div>
-    
+        function showFlag() {
+            const container = document.getElementById('scenario-container');
+            container.innerHTML = `<div class="flag">Flag: {DEFENDER_OF_TRUST}</div>`;
+            document.getElementById('additional-info').classList.remove('hidden');
+        }
+
+        loadScenario();
+    </script>
 </body>
 </html>
+
 
