@@ -110,7 +110,7 @@ gobuster dir -u http://192.168.0.10 -w wordlist.txt
 
         </pre>
 
- <!-- Eingabeabschnitt -->
+<!-- Eingabeabschnitt -->
 <div id="step-1">
     <h2>Schritt 1: Gobuster-Befehl eingeben</h2>
     <p>Gib den Gobuster-Befehl ein, um den Scan zu starten:</p>
@@ -156,13 +156,17 @@ gobuster dir -u http://192.168.0.10 -w wordlist.txt
         const inputCommand = document.getElementById("gobuster-command").value.trim();
         const errorMessage = document.getElementById("error-message");
         const successMessage = document.getElementById("success-message");
+        const step1 = document.getElementById("step-1");
+        const step2 = document.getElementById("step-2");
 
         if (inputCommand === correctCommand) {
             errorMessage.classList.add("hidden");
             successMessage.classList.remove("hidden");
             setTimeout(() => {
                 successMessage.classList.add("hidden");
-                startGobuster(); // Starte den Scan, wenn der Befehl korrekt ist
+                step1.classList.add("hidden"); // Verstecke Eingabeabschnitt
+                step2.classList.remove("hidden"); // Zeige Konsolenausgabe
+                startGobuster(); // Starte den Scan
             }, 1000); // 1 Sekunde warten, bevor der Scan startet
         } else {
             errorMessage.classList.remove("hidden");
