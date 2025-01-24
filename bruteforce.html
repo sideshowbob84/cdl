@@ -140,12 +140,12 @@
 <p>
     In dieser Simulation nutzen wir den folgenden Befehl, um Passwörter systematisch zu testen:
 </p>
-<div class="shell" style="background-color: #f0f0f0; color: #333; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+<div style="background-color: #2b2b2b; color: #dcdcdc; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 14px; margin-bottom: 20px;">
     hydra -l <strong>&lt;BENUTZERNAME&gt;</strong> -P rockyou.txt http-post-form "/login:username=^USER^&amp;password=^PASS^:F=Login fehlgeschlagen"
 </div>
 
 <h3>Was macht der Befehl?</h3>
-<ul>
+<ul style="line-height: 1.8; list-style-type: square; padding-left: 20px;">
     <li><code>-l &lt;BENUTZERNAME&gt;</code>: Gibt den Benutzernamen an, der getestet werden soll (z. B. <strong>admin</strong>).</li>
     <li><code>-P rockyou.txt</code>: Verwendet die Wordlist <strong>rockyou.txt</strong>, um verschiedene Passwörter zu testen.</li>
     <li><code>http-post-form</code>: Zeigt an, dass die Login-Daten über ein Formular gesendet werden.</li>
@@ -164,9 +164,6 @@
     Am Ende dieser Simulation verstehst du besser, warum es wichtig ist, starke und einzigartige Passwörter zu verwenden, die nicht in Wordlists vorkommen.
 </p>
 
-<p>
-    Die Simulation zeigt, wie systematisch Passwörter getestet werden, bis ein erfolgreiches Ergebnis erzielt wird. In der echten Anwendung kann 
-    ein solcher Angriff gestoppt werden, indem man Mechanismen wie Account-Sperrung nach mehreren Fehlversuchen oder Captchas einsetzt.
 </p>
 
             <input type="text" id="targetUsername" placeholder="Ziel-Benutzername">
