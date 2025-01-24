@@ -119,6 +119,27 @@ gobuster dir -u http://192.168.0.10 -w wordlist.txt
             <p class="error-message hidden" id="error-message">Ungültiger Befehl! Überprüfe die Syntax und versuche es erneut.</p>
             <p class="success-message hidden" id="success-message">Befehl korrekt! Starte den Scan...</p>
         </div>
+        
+    function validateCommand() {
+    const inputCommand = document.getElementById("gobuster-command").value.trim();
+    const errorMessage = document.getElementById("error-message");
+    const successMessage = document.getElementById("success-message");
+
+    const correctCommand = "gobuster dir -u http://192.168.0.10 -w wordlist.txt";
+
+    if (inputCommand === correctCommand) {
+        errorMessage.classList.add("hidden");
+        successMessage.classList.remove("hidden");
+        setTimeout(() => {
+            successMessage.classList.add("hidden");
+            startGobuster(); // Starte den Scan, wenn der Befehl korrekt ist
+        }, 1000); // 1 Sekunde warten, bevor der Scan startet
+    } else {
+        errorMessage.classList.remove("hidden");
+        successMessage.classList.add("hidden");
+    }
+}
+
 
         <!-- Konsolenausgabe -->
         <div id="step-2" class="hidden">
