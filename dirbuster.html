@@ -110,44 +110,30 @@ gobuster dir -u http://192.168.0.10 -w wordlist.txt
 
         </pre>
 
-        <!-- Eingabeabschnitt -->
-        <div id="step-1">
-            <h2>Schritt 1: Gobuster-Befehl eingeben</h2>
-            <p>Gib den Gobuster-Befehl ein, um den Scan zu starten:</p>
-            <input type="text" id="gobuster-command" placeholder="Befehl eingeben..." style="width: calc(100% - 30px); padding: 10px; font-family: monospace;">
-            <button class="btn" onclick="validateCommand()">Befehl ausführen</button>
-            <p class="error-message hidden" id="error-message">Ungültiger Befehl! Überprüfe die Syntax und versuche es erneut.</p>
-            <p class="success-message hidden" id="success-message">Befehl korrekt! Starte den Scan...</p>
-        </div>
-        
-    function validateCommand() {
-    const inputCommand = document.getElementById("gobuster-command").value.trim();
-    const errorMessage = document.getElementById("error-message");
-    const successMessage = document.getElementById("success-message");
+ <!-- Eingabeabschnitt -->
+<div id="step-1">
+    <h2>Schritt 1: Gobuster-Befehl eingeben</h2>
+    <p>Gib den Gobuster-Befehl ein, um den Scan zu starten:</p>
+    <input 
+        type="text" 
+        id="gobuster-command" 
+        placeholder="Befehl eingeben..." 
+        style="width: calc(100% - 30px); padding: 10px; font-family: monospace;">
+    <button class="btn" onclick="validateCommand()">Befehl ausführen</button>
+    <p class="error-message hidden" id="error-message">Ungültiger Befehl! Überprüfe die Syntax und versuche es erneut.</p>
+    <p class="success-message hidden" id="success-message">Befehl korrekt! Starte den Scan...</p>
+</div>
 
-    const correctCommand = "gobuster dir -u http://192.168.0.10 -w wordlist.txt";
-
-    if (inputCommand === correctCommand) {
-        errorMessage.classList.add("hidden");
-        successMessage.classList.remove("hidden");
-        setTimeout(() => {
-            successMessage.classList.add("hidden");
-            startGobuster(); // Starte den Scan, wenn der Befehl korrekt ist
-        }, 1000); // 1 Sekunde warten, bevor der Scan startet
-    } else {
-        errorMessage.classList.remove("hidden");
-        successMessage.classList.add("hidden");
-    }
-}
-
-
-        <!-- Konsolenausgabe -->
-        <div id="step-2" class="hidden">
-            <h2>Schritt 2: Scan-Ergebnisse</h2>
-    <div class="console" id="console-output" style="background: #000; color: #0f0; padding: 10px; border-radius: 5px; font-family: monospace; height: 300px; overflow-y: auto;">
+<!-- Konsolenausgabe -->
+<div id="step-2" class="hidden">
+    <h2>Schritt 2: Scan-Ergebnisse</h2>
+    <div class="console" id="console-output" 
+         style="background: #000; color: #0f0; padding: 10px; border-radius: 5px; font-family: monospace; height: 300px; overflow-y: auto;">
+    </div>
 </div>
 
 <script>
+    // Liste der zu simulierenden Verzeichnisse
     const directories = [
         { path: "backup", status: 200 },
         { path: "old-site", status: 200 },
@@ -160,14 +146,36 @@ gobuster dir -u http://192.168.0.10 -w wordlist.txt
         { path: "sources", status: 200 },
         { path: "admin", status: 200 },
         { path: "secret-flag", status: 200 },
-        { path: "sources", status: 200 },
-        
     ];
 
+    // Korrekte Befehlsdefinition
+    const correctCommand = "gobuster dir -u http://192.168.0.10 -w wordlist.txt";
+
+    // Funktion zur Überprüfung des eingegebenen Befehls
+    function validateCommand() {
+        const inputCommand = document.getElementById("gobuster-command").value.trim();
+        const errorMessage = document.getElementById("error-message");
+        const successMessage = document.getElementById("success-message");
+
+        if (inputCommand === correctCommand) {
+            errorMessage.classList.add("hidden");
+            successMessage.classList.remove("hidden");
+            setTimeout(() => {
+                successMessage.classList.add("hidden");
+                startGobuster(); // Starte den Scan, wenn der Befehl korrekt ist
+            }, 1000); // 1 Sekunde warten, bevor der Scan startet
+        } else {
+            errorMessage.classList.remove("hidden");
+            successMessage.classList.add("hidden");
+        }
+    }
+
+    // Funktion zur Simulation des Gobuster-Scans
     function startGobuster() {
         const consoleOutput = document.getElementById("console-output");
         let index = 0;
 
+        // Initiale Konsolenausgabe
         consoleOutput.innerHTML = "Gobuster v3.1.0\n\n";
         consoleOutput.innerHTML += "[+] Target URL: http://192.168.0.10\n";
         consoleOutput.innerHTML += "[+] Using Wordlist: wordlist.txt\n\n";
@@ -175,6 +183,7 @@ gobuster dir -u http://192.168.0.10 -w wordlist.txt
         consoleOutput.innerHTML += "DIRBUSTING STARTED:\n";
         consoleOutput.innerHTML += "=============================================================\n\n";
 
+        // Intervall zur Simulation der Verzeichnisprüfung
         const interval = setInterval(() => {
             if (index < directories.length) {
                 const dir = directories[index];
@@ -186,9 +195,10 @@ gobuster dir -u http://192.168.0.10 -w wordlist.txt
                 clearInterval(interval);
                 consoleOutput.innerHTML += "\nScan abgeschlossen. Überprüfe die gefundenen Verzeichnisse!";
             }
-        }, 500);
+        }, 500); // Wartezeit zwischen den Verzeichnisausgaben
     }
 </script>
+
 
 </body>
 </html>
