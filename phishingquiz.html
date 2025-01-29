@@ -135,7 +135,7 @@
     </div>
 
     <script>
-   const emailPool = [
+  const emailPool = [
     {
         sender: "support@am4zon-security-alert.de",
         subject: "Ungewöhnliche Anmeldeaktivität erkannt",
@@ -227,94 +227,94 @@
         isPhishing: true,
         explanation: "Phishing: Die E-Mail behauptet, von einer Bank zu stammen, verwendet jedoch die verdächtige Domain 'fraud-check.net', die nicht zu einem echten Finanzinstitut gehört. Seriöse Banken würden für sicherheitsrelevante Anfragen nur ihre offizielle Domain verwenden."
     }
-];
 
+    ];
 
+    let currentEmailIndex = 0;
+    let correctAnswers = 0;
 
-        let currentEmailIndex = 0;
-        let correctAnswers = 0;
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
 
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
+    function setupQuiz() {
+        shuffle(emailPool);
+        loadEmail();
+    }
+
+    function updateProgressBar() {
+        const progress = ((currentEmailIndex / emailPool.length) * 100).toFixed(0);
+        document.getElementById("progress-bar").style.width = `${progress}%`;
+        document.getElementById("progress-bar").textContent = `${progress}%`;
+    }
+
+    function loadEmail() {
+        if (currentEmailIndex >= emailPool.length) {
+            endQuiz();
+            return;
         }
 
-        function setupQuiz() {
-            shuffle(emailPool);
-        }
+        const email = emailPool[currentEmailIndex];
+        document.getElementById("email-header").textContent = `Von: ${email.sender} | Betreff: ${email.subject}`;
+        document.getElementById("email-body").innerHTML = email.body;
 
-        function updateProgressBar() {
-            const progress = ((currentEmailIndex / emailPool.length) * 100).toFixed(0);
-            document.getElementById("progress-bar").style.width = `${progress}%`;
-            document.getElementById("progress-bar").textContent = `${progress}%`;
-        }
-
-        function loadEmail() {
-            if (currentEmailIndex >= emailPool.length) {
-                endQuiz();
-                return;
-            }
-            const email = emailPool[currentEmailIndex];
-            document.getElementById("email-header").textContent = `Von: ${email.sender} | Betreff: ${email.subject}`;
-            document.getElementById("email-body").innerHTML = email.body;
-
-            const links = document.querySelectorAll("#email-body a");
-            links.forEach(link => {
-                link.addEventListener("mouseover", () => {
-                    document.getElementById("link-preview").textContent = `Ziel: ${link.href}`;
-                    document.getElementById("link-preview").style.display = "block";
-                });
-                link.addEventListener("mouseout", () => {
-                    document.getElementById("link-preview").style.display = "none";
-                });
+        const links = document.querySelectorAll("#email-body a");
+        links.forEach(link => {
+            link.addEventListener("mouseover", () => {
+                document.getElementById("link-preview").textContent = `Ziel: ${link.href}`;
+                document.getElementById("link-preview").style.display = "block";
             });
+            link.addEventListener("mouseout", () => {
+                document.getElementById("link-preview").style.display = "none";
+            });
+        });
 
-            updateProgressBar();
-        }
+        updateProgressBar();
+    }
 
-        function checkAnswer(isPhishing) {
+    function checkAnswer(isPhishing) {
         const email = emailPool[currentEmailIndex];
         const explanationDiv = document.getElementById("explanation");
 
-        if (email.isPhishing === isPhishing) correctAnswers++;  // Punkte aktualisieren
-    
+        if (email.isPhishing === isPhishing) correctAnswers++;
+
         explanationDiv.textContent = email.explanation;
         explanationDiv.style.display = "block";
 
         setTimeout(() => {
-        explanationDiv.style.display = "none";
-        
-        currentEmailIndex++;  // Index erst hier erhöhen
+            explanationDiv.style.display = "none";
+            currentEmailIndex++;
 
-        if (currentEmailIndex < emailPool.length) {
-            loadEmail();  // Neue Frage laden
-        } else {
-            endQuiz();  // Quiz beenden, wenn alle Fragen beantwortet sind
-        }
-    }, 3000);  // 3 Sekunden warten, bevor die nächste Frage geladen wird
+            if (currentEmailIndex < emailPool.length) {
+                loadEmail();
+            } else {
+                endQuiz();
+            }
+        }, 3000);
     }
 
-        }
-
     function endQuiz() {
-    updateProgressBar();  // Fortschrittsbalken auf 100% aktualisieren
-    document.getElementById("quiz-content").style.display = "none";
-    const result = document.getElementById("result");
-    result.textContent = correctAnswers === emailPool.length 
-        ? "Herzlichen Glückwunsch! Du hast alle richtig beantwortet. 🎉 Flag: {CAUGHT_ALL_THE_PHISH}" 
-        : `Du hast ${correctAnswers} von ${emailPool.length} richtig beantwortet.`;
-    result.classList.remove("hidden");
-        }
+        updateProgressBar();
+        document.getElementById("quiz-content").style.display = "none";
+        const result = document.getElementById("result");
+        result.textContent = correctAnswers === emailPool.length 
+            ? "Herzlichen Glückwunsch! Du hast alle richtig beantwortet. 🎉 Flag: {CAUGHT_ALL_THE_PHISH}" 
+            : `Du hast ${correctAnswers} von ${emailPool.length} richtig beantwortet.`;
+        result.classList.remove("hidden");
+    }
 
-        setupQuiz();
-        loadEmail();
-        document.getElementById("phishing-btn").addEventListener("click", () => checkAnswer(true));
-        document.getElementById("not-phishing-btn").addEventListener("click", () => checkAnswer(false));
+    setupQuiz();
+    document.getElementById("phishing-btn").addEventListener("click", () => checkAnswer(true));
+    document.getElementById("not-phishing-btn").addEventListener("click", () => checkAnswer(false));
     </script>
 </body>
 </html>
+
+  
+
 
       
 
