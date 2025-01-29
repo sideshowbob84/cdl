@@ -285,17 +285,21 @@
 
 function updateProgressBar() {
     let progress = ((currentEmailIndex / selectedEmails.length) * 100).toFixed(0);
-    if (currentEmailIndex === selectedEmails.length) progress = 100;  // Korrekt am Ende auf 100% setzen
+    if (currentEmailIndex === selectedEmails.length) {
+        progress = 100;  // Am Ende sicherstellen, dass 100% angezeigt werden
+    }
     const progressBar = document.getElementById("progress-bar");
     progressBar.style.width = `${progress}%`;
     progressBar.textContent = `${progress}%`;
+}
+
 }
 
 
 
 function loadEmail() {
     if (currentEmailIndex >= selectedEmails.length) {
-        return;  // Beendet das Laden, falls alle Fragen beantwortet sind
+        return;  // Abbrechen, wenn keine E-Mails mehr übrig sind
     }
 
     const email = selectedEmails[currentEmailIndex];
@@ -314,6 +318,7 @@ function loadEmail() {
             document.getElementById("link-preview").style.display = "none";
         });
     });
+
 }
 
 
@@ -323,39 +328,44 @@ function loadEmail() {
 function checkAnswer(isPhishing) {
     const email = selectedEmails[currentEmailIndex];
     const explanationDiv = document.getElementById("explanation");
+
     if (email.isPhishing === isPhishing) {
         correctAnswers++;
     }
+
     explanationDiv.textContent = email.explanation;
     explanationDiv.style.display = "block";
 
-    // Warten, bis Erklärung angezeigt wurde, dann zur nächsten E-Mail wechseln
     setTimeout(() => {
         explanationDiv.style.display = "none";
-        currentEmailIndex++;  // Erst jetzt den Index erhöhen!
-        updateProgressBar();  // Fortschritt aktualisieren, nachdem Index erhöht wurde
-        
+        currentEmailIndex++;  // Erst hier den Index erhöhen
+        updateProgressBar();  // Danach die Progress-Bar aktualisieren
+
         if (currentEmailIndex < selectedEmails.length) {
-            loadEmail();  // Nächste E-Mail laden
+            loadEmail();  // Nur laden, wenn es noch Fragen gibt
         } else {
-            endQuiz();  // Quiz beenden, wenn alle E-Mails durch sind
+            endQuiz();  // Quiz beenden, wenn alle Fragen beantwortet sind
         }
-    }, 4000);
+    }, 3000);  // 3 Sekunden warten, um Erklärung zu zeigen
 }
 
+
 }
 
         }
 
-        function endQuiz() {
-            document.getElementById("quiz-content").style.display = "none";
-            const result = document.getElementById("result");
-            if (correctAnswers === selectedEmails.length) {
-                result.textContent = `Herzlichen Glückwunsch! Du hast alle richtig beantwortet. 🎉 Flag: {CAUGHT_ALL_THE_PHISH}`;
-            } else {
-                result.textContent = `Du hast ${correctAnswers} von 8 richtig beantwortet. Versuche es erneut!`;
-            }
-            result.classList.remove("hidden");
+function endQuiz() {
+    document.getElementById("quiz-content").style.display = "none";
+    const result = document.getElementById("result");
+
+    if (correctAnswers === selectedEmails.length) {
+        result.textContent = `Herzlichen Glückwunsch! Du hast alle richtig beantwortet. 🎉 Flag: {CAUGHT_ALL_THE_PHISH}`;
+    } else {
+        result.textContent = `Du hast ${correctAnswers} von ${selectedEmails.length} richtig beantwortet. Versuche es erneut!`;
+    }
+
+    result.classList.remove("hidden");
+
         }
 
         setupQuiz();
