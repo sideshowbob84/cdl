@@ -283,57 +283,66 @@
             for (let i = 0; i < 8; i++) selectedEmails.push(emailPool[i]);
         }
 
-       function updateProgressBar() {
-        let progress = ((currentEmailIndex / selectedEmails.length) * 100).toFixed(0);
-        if (currentEmailIndex === selectedEmails.length) progress = 100; // Fortschritt auf 100% setzen, wenn alle Fragen beantwortet wurden
-        const progressBar = document.getElementById("progress-bar");
-        progressBar.style.width = `${progress}%`;
-        progressBar.textContent = `${progress}%`;
+function updateProgressBar() {
+    let progress = ((currentEmailIndex / selectedEmails.length) * 100).toFixed(0);
+    if (currentEmailIndex === selectedEmails.length) progress = 100;  // Korrekt am Ende auf 100% setzen
+    const progressBar = document.getElementById("progress-bar");
+    progressBar.style.width = `${progress}%`;
+    progressBar.textContent = `${progress}%`;
 }
 
 
-        function loadEmail() {
-            if (currentEmailIndex >= selectedEmails.length) {
-                endQuiz();
-                return;
-            }
-            const email = selectedEmails[currentEmailIndex];
-            document.getElementById("email-header").textContent = `Von: ${email.sender} | Betreff: ${email.subject}`;
-            document.getElementById("email-body").innerHTML = email.body;
 
-            const links = document.querySelectorAll("#email-body a");
-            links.forEach(link => {
-                link.addEventListener("mouseover", () => {
-                    const preview = document.getElementById("link-preview");
-                    preview.textContent = `Ziel: ${link.href}`;
-                    preview.style.display = "block";
-                });
-                link.addEventListener("mouseout", () => {
-                    document.getElementById("link-preview").style.display = "none";
-                });
-            });
+function loadEmail() {
+    if (currentEmailIndex >= selectedEmails.length) {
+        return;  // Beendet das Laden, falls alle Fragen beantwortet sind
+    }
+
+    const email = selectedEmails[currentEmailIndex];
+    document.getElementById("email-header").textContent = `Von: ${email.sender} | Betreff: ${email.subject}`;
+    document.getElementById("email-body").innerHTML = email.body;
+
+    // Vorschau des Links anzeigen
+    const links = document.querySelectorAll("#email-body a");
+    links.forEach(link => {
+        link.addEventListener("mouseover", () => {
+            const preview = document.getElementById("link-preview");
+            preview.textContent = `Ziel: ${link.href}`;
+            preview.style.display = "block";
+        });
+        link.addEventListener("mouseout", () => {
+            document.getElementById("link-preview").style.display = "none";
+        });
+    });
+}
+
 
             updateProgressBar();
         }
 
-    function checkAnswer(isPhishing) {
+function checkAnswer(isPhishing) {
     const email = selectedEmails[currentEmailIndex];
     const explanationDiv = document.getElementById("explanation");
-    if (email.isPhishing === isPhishing) correctAnswers++;
+    if (email.isPhishing === isPhishing) {
+        correctAnswers++;
+    }
     explanationDiv.textContent = email.explanation;
     explanationDiv.style.display = "block";
-    
-    currentEmailIndex++;  // Index NACH der Antwort erhöhen
-    updateProgressBar();  // Progress direkt nach der Antwort aktualisieren
-    
+
+    // Warten, bis Erklärung angezeigt wurde, dann zur nächsten E-Mail wechseln
     setTimeout(() => {
         explanationDiv.style.display = "none";
-        if (currentEmailIndex >= selectedEmails.length) {
-            endQuiz();  // Quiz beenden, wenn alle Fragen beantwortet sind
+        currentEmailIndex++;  // Erst jetzt den Index erhöhen!
+        updateProgressBar();  // Fortschritt aktualisieren, nachdem Index erhöht wurde
+        
+        if (currentEmailIndex < selectedEmails.length) {
+            loadEmail();  // Nächste E-Mail laden
         } else {
-            loadEmail();  // Nächste Frage laden
+            endQuiz();  // Quiz beenden, wenn alle E-Mails durch sind
         }
     }, 4000);
+}
+
 }
 
         }
