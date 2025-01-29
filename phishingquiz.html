@@ -135,7 +135,7 @@
     </div>
 
     <script>
-        const emailPool = [
+      const emailPool = [
             { sender: "support@am4zon-security-alert.de", subject: "Ungewöhnliche Anmeldeaktivität erkannt", body: "Wir haben verdächtige Aktivitäten festgestellt. <a href='http://secure-am4zon.com'>Konto überprüfen</a>.", isPhishing: true, explanation: "Phishing: Die Domain 'am4zon-security-alert.de' gehört nicht zu Amazon." },
             { sender: "info@paypal-verification.com", subject: "Ihr Konto wurde eingeschränkt", body: "Bitte bestätigen Sie Ihre Identität. <a href='http://paypal-verification.fake'>Hier klicken</a>.", isPhishing: true, explanation: "Phishing: Die echte PayPal-Domain ist 'paypal.com', nicht 'paypal-verification.fake'." },
             { sender: "support@amazon.de", subject: "Ungewöhnliche Anmeldeaktivitäten", body: "Verdächtige Aktivitäten wurden entdeckt. <a href='https://amazon.de/account-security'>Hier klicken</a>, um Ihr Konto zu schützen.", isPhishing: false, explanation: "Dies ist eine echte E-Mail von Amazon." },
@@ -151,8 +151,20 @@
             { sender: "fraud@bank.de", subject: "Verdächtige Aktivitäten entdeckt", body: "Ihre Bankdaten könnten gefährdet sein. <a href='http://fraud-check.net'>Hier prüfen</a>.", isPhishing: true, explanation: "Phishing: Die Bank verwendet niemals 'fraud-check.net'." }
         ];
 
+
         let currentEmailIndex = 0;
         let correctAnswers = 0;
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function setupQuiz() {
+            shuffle(emailPool);
+        }
 
         function updateProgressBar() {
             const progress = ((currentEmailIndex / emailPool.length) * 100).toFixed(0);
@@ -205,6 +217,7 @@
             result.classList.remove("hidden");
         }
 
+        setupQuiz();
         loadEmail();
         document.getElementById("phishing-btn").addEventListener("click", () => checkAnswer(true));
         document.getElementById("not-phishing-btn").addEventListener("click", () => checkAnswer(false));
@@ -212,4 +225,5 @@
 </body>
 </html>
 
+      
 
