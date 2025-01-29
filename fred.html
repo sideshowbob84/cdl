@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fred ist entführt! - Digitale Forensik</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1, h2, h3 {
+            text-align: center;
+            color: #007bff;
+        }
+        .info {
+            background: #f4f4f4;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            margin-bottom: 20px;
+        }
+        .console {
+            background: #000;
+            color: #0f0;
+            font-family: monospace;
+            padding: 15px;
+            border-radius: 5px;
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+            margin: 10px auto;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .task {
+            margin-top: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: calc(100% - 22px);
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fred ist entführt! 🐭</h1>
+        <div class="info">
+            <h2>Digitale Forensik: Analyse von Bilddateien</h2>
+            <p>
+                Bilder enthalten oft mehr Informationen, als auf den ersten Blick sichtbar ist. Digitale Forensik nutzt Werkzeuge wie 
+                <strong>ExifTool</strong>, um **versteckte Metadaten** aus Bildern auszulesen. Diese Metadaten, bekannt als 
+                <strong>EXIF-Daten</strong> (<i>Exchangeable Image File Format</i>), liefern wichtige Hinweise zur Herkunft eines Bildes, 
+                wie beispielsweise:
+            </p>
+            <ul>
+                <li><strong>Kameramodell</strong>: Hersteller und Modell der Kamera oder des Smartphones</li>
+                <li><strong>Aufnahmedatum und Uhrzeit</strong>: Wann das Bild erstellt wurde</li>
+                <li><strong>GPS-Koordinaten</strong>: Falls aktiviert, können die genauen Geodaten des Aufnahmeortes gespeichert sein</li>
+                <li><strong>Bildbearbeitung</strong>: Software, mit der das Bild bearbeitet wurde</li>
+                <li><strong>Belichtungseinstellungen</strong>: Blende, Verschlusszeit, ISO-Wert</li>
+            </ul>
+            <p>
+                In unserem Szenario wurde Fred, die Ratte, entführt. Die Entführer haben ein Bild von ihm geschickt und behauptet, dass es ihm gut geht. 
+                Unsere Aufgabe ist es, durch digitale Forensik seinen Standort herauszufinden und Fred zu retten!
+            </p>
+        </div>
+
+        <h2>Bildanalyse</h2>
+        <img src="fred.jpg" alt="Bild von Fred der Ratte" style="width:100%; margin-bottom: 20px;">
+        
+        <button class="btn" onclick="runExifTool()">Exif-Daten anzeigen</button>
+
+        <div class="console" id="console-output"></div>
+
+        <div class="task">
+            <h2>Aufgaben</h2>
+            <p>Beantworte die folgenden Fragen zur Bildanalyse und rette Fred!</p>
+
+            <h3>1. Wo wurde Fred fotografiert? (Stadt und Land) **(10 Zeichen)**</h3>
+            <input type="text" id="question1" placeholder="**********">
+            <button class="btn" onclick="checkAnswer('New York', 'question1')">Prüfen</button>
+
+            <h3>2. Welches Kameramodell wurde verwendet? **(15 Zeichen)**</h3>
+            <input type="text" id="question2" placeholder="***************">
+            <button class="btn" onclick="checkAnswer('Nikon D850', 'question2')">Prüfen</button>
+
+            <h3>3. Welche Uhrzeit ist in den EXIF-Daten gespeichert? (HH:MM:SS) **(8 Zeichen)**</h3>
+            <input type="text" id="question3" placeholder="********">
+            <button class="btn" onclick="checkAnswer('15:30:21', 'question3')">Prüfen</button>
+
+            <h3>4. Was ist die Brennweite der Aufnahme? (in mm) **(5 Zeichen)**</h3>
+            <input type="text" id="question4" placeholder="*****">
+            <button class="btn" onclick="checkAnswer('50.0mm', 'question4')">Prüfen</button>
+
+            <h3>5. Mit welcher Software wurde das Bild zuletzt bearbeitet? **(10 Zeichen)**</h3>
+            <input type="text" id="question5" placeholder="**********">
+            <button class="btn" onclick="checkAnswer('Photoshop', 'question5')">Prüfen</button>
+        </div>
+    </div>
+
+    <script>
+        function runExifTool() {
+            const consoleOutput = document.getElementById("console-output");
+            consoleOutput.innerHTML = "Starte ExifTool...\n\n";
+            setTimeout(() => {
+                consoleOutput.innerHTML += `
+                Filename: fred.jpg\n
+                Camera Model: Nikon D850\n
+                Date/Time: 2024:12:10 15:30:21\n
+                Exposure Time: 1/250 sec\n
+                F-Number: f/1.8\n
+                ISO: 400\n
+                Focal Length: 50.0mm\n
+                GPS Latitude: 40°42'21.4"N\n
+                GPS Longitude: 74°00'45.2"W\n
+                GPS Altitude: 15.3 m Above Sea Level\n
+                Software: Photoshop 2024\n
+                Color Space: sRGB\n
+                Flash: No Flash\n
+                White Balance: Auto\n
+                Metering Mode: Multi-segment\n
+                Compression: JPEG (old-style)\n
+                Owner Name: ForensicsTeam\n
+                \n==================== Ende der Metadaten ====================\n
+                `;
+
+                consoleOutput.scrollTop = consoleOutput.scrollHeight;
+            }, 1000);
+        }
+
+        function checkAnswer(correctAnswer, questionId) {
+            const input = document.getElementById(questionId).value.trim();
+            if (input.toLowerCase() === correctAnswer.toLowerCase()) {
+                alert("Richtig! Gute Arbeit.");
+            } else {
+                alert("Falsch! Versuche es erneut.");
+            }
+        }
+    </script>
+</body>
+</html>
+
