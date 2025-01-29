@@ -58,8 +58,6 @@
             color: #fff;
             padding: 10px;
             font-weight: bold;
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
         }
         .email-body {
             padding: 20px;
@@ -71,9 +69,8 @@
         .controls button {
             background-color: #007bff;
             color: white;
-            border: none;
             padding: 10px 20px;
-            font-size: 16px;
+            border: none;
             cursor: pointer;
             border-radius: 5px;
             margin: 0 10px;
@@ -93,24 +90,6 @@
             margin-top: 30px;
             text-align: center;
             color: green;
-        }
-        .back-button {
-            display: inline-block;
-            margin-top: 20px;
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
-        .back-button:hover {
-            background-color: #0056b3;
-        }
-        .link-preview {
-            font-size: 0.9em;
-            color: #0056b3;
-            margin-top: 5px;
-            display: none;
         }
     </style>
 </head>
@@ -134,12 +113,10 @@
         <div class="progress-bar-container">
             <div id="progress-bar" class="progress-bar">0%</div>
         </div>
-        <p>Im Folgenden siehst du eine Reihe von E-Mails. Entscheide, ob es sich um Phishing handelt oder nicht!</p>
         <div id="quiz-content">
             <div id="email" class="email">
                 <div id="email-header"></div>
                 <div id="email-body" class="email-body"></div>
-                <div id="link-preview" class="link-preview"></div>
             </div>
             <div class="controls">
                 <button id="phishing-btn">Phishing</button>
@@ -148,57 +125,42 @@
             <div id="explanation" class="explanation"></div>
         </div>
         <div id="result" class="result hidden"></div>
-        <a href="index.html" class="back-button">Zurück zur Hauptseite</a>
     </div>
 
     <script>
         const emailPool = [
-            { sender: "support@am4zon-security-alert.de", subject: "Ungewöhnliche Anmeldeaktivität erkannt", body: "Wir haben verdächtige Aktivitäten festgestellt. <a href='http://secure-am4zon.com'>Konto überprüfen</a>.", isPhishing: true, explanation: "Die Domain 'am4zon-security-alert.de' ist verdächtig, ebenso der falsche Link 'secure-am4zon.com'." },
-            { sender: "info@paypal-verification.com", subject: "Ihr Konto wurde eingeschränkt", body: "Bitte bestätigen Sie Ihre Identität. <a href='http://paypal-verification.fake'>Hier klicken</a>.", isPhishing: true, explanation: "PayPal benutzt nur 'paypal.com'. Die hier verwendete Domain ist gefälscht." },
-            { sender: "support@amazon.de", subject: "Ungewöhnliche Anmeldeaktivitäten", body: "Verdächtige Aktivitäten wurden entdeckt. <a href='https://amazon.de/account-security'>Hier klicken</a>, um Ihr Konto zu schützen.", isPhishing: false, explanation: "Amazon verwendet 'amazon.de', was korrekt ist." },
-            { sender: "security@appleid.com", subject: "Apple ID wurde gesperrt", body: "Ihre Apple ID wurde gesperrt. <a href='http://appleid-security.com'>Hier klicken</a>, um das Problem zu beheben.", isPhishing: true, explanation: "Apple verwendet nur 'apple.com'. 'appleid-security.com' ist gefälscht." },
+            { sender: "support@am4zon-security-alert.de", subject: "Ungewöhnliche Anmeldeaktivität erkannt", body: "Wir haben verdächtige Aktivitäten festgestellt. <a href='http://secure-am4zon.com'>Konto überprüfen</a>.", isPhishing: true, explanation: "Die Domain 'am4zon-security-alert.de' ist verdächtig." },
+            { sender: "info@paypal-verification.com", subject: "Ihr Konto wurde eingeschränkt", body: "Bitte bestätigen Sie Ihre Identität. <a href='http://paypal-verification.fake'>Hier klicken</a>.", isPhishing: true, explanation: "Die echte PayPal-Domain ist 'paypal.com', nicht 'verification.fake'." },
+            { sender: "support@amazon.de", subject: "Ungewöhnliche Anmeldeaktivitäten", body: "Verdächtige Aktivitäten wurden entdeckt. <a href='https://amazon.de/account-security'>Hier klicken</a>.", isPhishing: false, explanation: "Dies ist eine echte E-Mail von Amazon." },
+            { sender: "security@appleid.com", subject: "Apple ID wurde gesperrt", body: "Ihre Apple ID wurde gesperrt. <a href='http://appleid-security.com'>Hier klicken</a>.", isPhishing: true, explanation: "Apple verwendet nur 'apple.com'. 'appleid-security.com' ist gefälscht." },
             { sender: "kundenservice@telekom.de", subject: "Ihre Rechnung ist verfügbar", body: "Ihre Telekom-Rechnung ist online einsehbar. <a href='https://www.telekom.de/rechnung'>Hier klicken</a>.", isPhishing: false, explanation: "Die Domain 'telekom.de' ist echt." },
-            { sender: "info@gesundheitsamt.de", subject: "COVID-19 Testergebnisse verfügbar", body: "Klicken Sie <a href='http://gesundheitsamt-ergebnis.com'>hier</a>, um die Ergebnisse zu sehen.", isPhishing: true, explanation: "Gesundheitsämter nutzen keine allgemeinen oder unbekannten Domains wie diese." },
-            { sender: "info@facebook.com", subject: "Ungewöhnliche Anmeldung erkannt", body: "Ein Login-Versuch wurde erkannt. <a href='https://facebook.com/security'>Sicherheitsüberprüfung starten</a>.", isPhishing: false, explanation: "Facebook verwendet ausschließlich 'facebook.com'." },
-            { sender: "info@dhl.de", subject: "Ihr Paket ist unterwegs", body: "Verfolgen Sie Ihr Paket <a href='https://www.dhl.de/sendungsverfolgung'>hier</a>.", isPhishing: false, explanation: "Diese Nachricht ist echt. DHL verwendet die Domain 'dhl.de'." }
+            { sender: "info@gesundheitsamt.de", subject: "COVID-19 Testergebnisse verfügbar", body: "Klicken Sie <a href='http://gesundheitsamt-ergebnis.com'>hier</a>.", isPhishing: true, explanation: "Gesundheitsämter verwenden keine verdächtigen Domains." },
+            { sender: "lottery@bigwin.org", subject: "Herzlichen Glückwunsch, Sie haben gewonnen!", body: "Fordern Sie Ihren Gewinn von 10.000 € an! <a href='http://bigwin.org'>Jetzt klicken</a>.", isPhishing: true, explanation: "Die Domain 'bigwin.org' ist verdächtig." },
+            { sender: "info@dhl.de", subject: "Ihr Paket ist unterwegs", body: "Verfolgen Sie Ihr Paket <a href='https://www.dhl.de/sendungsverfolgung'>hier</a>.", isPhishing: false, explanation: "Die echte DHL-Domain wird verwendet." }
         ];
 
         let currentEmailIndex = 0;
         let correctAnswers = 0;
-        const selectedEmails = [];
-
-        function shuffle(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
-
-        function setupQuiz() {
-            shuffle(emailPool);
-            selectedEmails.push(...emailPool.slice(0, 8));
-        }
 
         function updateProgressBar() {
-            const progress = ((currentEmailIndex / selectedEmails.length) * 100).toFixed(0);
-            const progressBar = document.getElementById("progress-bar");
-            progressBar.style.width = `${progress}%`;
-            progressBar.textContent = `${progress}%`;
+            const progress = ((currentEmailIndex / emailPool.length) * 100).toFixed(0);
+            document.getElementById("progress-bar").style.width = `${progress}%`;
+            document.getElementById("progress-bar").textContent = `${progress}%`;
         }
 
         function loadEmail() {
-            if (currentEmailIndex >= selectedEmails.length) {
+            if (currentEmailIndex >= emailPool.length) {
                 endQuiz();
                 return;
             }
-            const email = selectedEmails[currentEmailIndex];
+            const email = emailPool[currentEmailIndex];
             document.getElementById("email-header").textContent = `Von: ${email.sender} | Betreff: ${email.subject}`;
             document.getElementById("email-body").innerHTML = email.body;
             updateProgressBar();
         }
 
         function checkAnswer(isPhishing) {
-            const email = selectedEmails[currentEmailIndex];
+            const email = emailPool[currentEmailIndex];
             const explanationDiv = document.getElementById("explanation");
             if (email.isPhishing === isPhishing) correctAnswers++;
             explanationDiv.textContent = email.explanation;
@@ -213,19 +175,16 @@
         function endQuiz() {
             document.getElementById("quiz-content").style.display = "none";
             const result = document.getElementById("result");
-            if (correctAnswers === selectedEmails.length) {
-                result.textContent = `Herzlichen Glückwunsch! Du hast alle richtig beantwortet. 🎉 Flag: {CAUGHT_ALL_THE_PHISH}`;
-            } else {
-                result.textContent = `Du hast ${correctAnswers} von ${selectedEmails.length} richtig beantwortet. Versuche es erneut!`;
-            }
+            result.textContent = correctAnswers === emailPool.length 
+                ? "Herzlichen Glückwunsch! Du hast alle richtig beantwortet. 🎉 Flag: {CAUGHT_ALL_THE_PHISH}" 
+                : `Du hast ${correctAnswers} von ${emailPool.length} richtig beantwortet.`;
             result.classList.remove("hidden");
         }
 
-        setupQuiz();
         loadEmail();
-
         document.getElementById("phishing-btn").addEventListener("click", () => checkAnswer(true));
         document.getElementById("not-phishing-btn").addEventListener("click", () => checkAnswer(false));
     </script>
 </body>
 </html>
+
