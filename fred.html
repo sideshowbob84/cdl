@@ -89,36 +89,38 @@
         </div>
 
         <h2>Bildanalyse</h2>
-        <img src="fred.jpg" alt="Bild von Fred der Ratte" style="width:100%; margin-bottom: 20px;">
+        <img src="https://raw.githubusercontent.com/Rampe89/node/main/fred.jpg" alt="Bild von Fred der Ratte" style="width:100%; margin-bottom: 20px;">
         
         <button class="btn" onclick="runExifTool()">Exif-Daten anzeigen</button>
 
         <div class="console" id="console-output"></div>
 
+       
         <div class="task">
-            <h2>Aufgaben</h2>
-            <p>Beantworte die folgenden Fragen zur Bildanalyse und rette Fred!</p>
+    <h2>Aufgaben</h2>
+    <p>Beantworte die folgenden Fragen zur Bildanalyse und rette Fred!</p>
 
-            <h3>1. Wo wurde Fred fotografiert? (Stadt und Land) **(10 Zeichen)**</h3>
-            <input type="text" id="question1" placeholder="**********">
-            <button class="btn" onclick="checkAnswer('New York', 'question1')">Prüfen</button>
+    <h3>1. Wo wurde Fred fotografiert? (Stadt und Land) **(10 Zeichen)**</h3>
+    <input type="text" id="question1" placeholder="**********">
+    <button class="btn" onclick="checkAnswer('New York', 'question1')">Prüfen</button>
 
-            <h3>2. Welches Kameramodell wurde verwendet? **(15 Zeichen)**</h3>
-            <input type="text" id="question2" placeholder="***************">
-            <button class="btn" onclick="checkAnswer('Nikon D850', 'question2')">Prüfen</button>
+    <h3>2. Welches Kameramodell wurde verwendet? **(10 Zeichen)**</h3>
+    <input type="text" id="question2" placeholder="**********">
+    <button class="btn" onclick="checkAnswer('D850', 'question2')">Prüfen</button>
 
-            <h3>3. Welche Uhrzeit ist in den EXIF-Daten gespeichert? (HH:MM:SS) **(8 Zeichen)**</h3>
-            <input type="text" id="question3" placeholder="********">
-            <button class="btn" onclick="checkAnswer('15:30:21', 'question3')">Prüfen</button>
+    <h3>3. Wer ist der angegebene Besitzer des Bildes? **(11 Zeichen)**</h3>
+    <input type="text" id="question3" placeholder="***********">
+    <button class="btn" onclick="checkAnswer('Anna Tacker', 'question3')">Prüfen</button>
 
-            <h3>4. Was ist die Brennweite der Aufnahme? (in mm) **(5 Zeichen)**</h3>
-            <input type="text" id="question4" placeholder="*****">
-            <button class="btn" onclick="checkAnswer('50.0mm', 'question4')">Prüfen</button>
+    <h3>4. Mit welcher Software wurde das Bild zuletzt bearbeitet? **(6 Zeichen)**</h3>
+    <input type="text" id="question4" placeholder="******">
+    <button class="btn" onclick="checkAnswer('GIMP', 'question4')">Prüfen</button>
 
-            <h3>5. Mit welcher Software wurde das Bild zuletzt bearbeitet? **(10 Zeichen)**</h3>
-            <input type="text" id="question5" placeholder="**********">
-            <button class="btn" onclick="checkAnswer('Photoshop', 'question5')">Prüfen</button>
-        </div>
+    <h3>5. Welche Uhrzeit ist in den GPS-Daten gespeichert? (HH:MM:SS) **(8 Zeichen)**</h3>
+    <input type="text" id="question5" placeholder="********">
+    <button class="btn" onclick="checkAnswer('15:30:21', 'question5')">Prüfen</button>
+    </div>
+
     </div>
 
     <script>
@@ -127,23 +129,123 @@
             consoleOutput.innerHTML = "Starte ExifTool...\n\n";
             setTimeout(() => {
                 consoleOutput.innerHTML += `
-                Filename: fred.jpg\n
-                Camera Model: Nikon D850\n
-                Date/Time: 2024:12:10 15:30:21\n
-                Exposure Time: 1/250 sec\n
-                F-Number: f/1.8\n
-                ISO: 400\n
-                Focal Length: 50.0mm\n
-                GPS Latitude: 40°42'21.4"N\n
-                GPS Longitude: 74°00'45.2"W\n
-                GPS Altitude: 15.3 m Above Sea Level\n
-                Software: Photoshop 2024\n
-                Color Space: sRGB\n
-                Flash: No Flash\n
-                White Balance: Auto\n
-                Metering Mode: Multi-segment\n
-                Compression: JPEG (old-style)\n
-                Owner Name: ForensicsTeam\n
+             Filename: fred.jpg
+File Size: 4.7 MB
+File Type: JPEG
+MIME Type: image/jpeg
+Image Width: 6048 pixels
+Image Height: 4032 pixels
+Make: Nikon
+Camera Model: Nikon D850
+Orientation: Horizontal (normal)
+X Resolution: 300 dpi
+Y Resolution: 300 dpi
+Software: GIMP 2.10 (Linux)
+Modify Date: 2024:12:10 16:00:00
+Artist: Anna Tacker
+Copyright: NONE
+
+-- Camera Settings --
+Exposure Time: 1/250 sec
+F-Number: f/1.8
+ISO Speed: 400
+Exposure Program: Manual
+Metering Mode: Multi-segment
+Focal Length: 50.0 mm
+Lens Info: 50mm f/1.8
+Lens Model: Nikkor 50mm f/1.8G
+Flash: Off, Did Not Fire
+White Balance: Auto
+Exposure Compensation: 0 EV
+Light Source: Natural Light
+Color Space: sRGB
+Scene Capture Type: Standard
+Gain Control: Low Gain Up
+Sharpness: Normal
+Saturation: Normal
+Contrast: Normal
+Compression: JPEG (old-style)
+Quality: High
+Focus Mode: Manual
+Digital Zoom Ratio: None
+Subject Distance Range: Close
+
+-- GPS Data --
+GPS Latitude: 40°42'21.4"N
+GPS Longitude: 74°00'45.2"W
+GPS Altitude: 15.3 m Above Sea Level
+GPS Latitude Ref: North
+GPS Longitude Ref: West
+GPS Position: 40°42'21.4"N, 74°00'45.2"W
+GPS Date/Time: 2024:12:10 15:30:21 UTC
+Map Datum: WGS-84
+
+-- Image Processing --
+White Balance Mode: Auto
+Noise Reduction: On
+Dynamic Range: Standard
+High ISO Noise Reduction: Normal
+Color Mode: Vivid
+Image Optimization: Portrait Mode
+Editing Software: GIMP 2.10
+HDR: Off
+Panorama: No
+
+-- File System Info --
+File Creation Date: 2024:12:10 15:30:21
+File Modification Date: 2024:12:10 16:00:00
+File Permissions: Read/Write
+Directory: /images/fred/
+
+-- Additional Metadata --
+Owner Name: Anna Tacker
+Serial Number: 202411112345
+Copyright Info: Unbekannt
+Print Image Matching: 3.0
+Primary Chromaticities: (0.64, 0.33), (0.30, 0.60), (0.15, 0.06)
+YCbCr Positioning: Co-sited
+Subsampling: 4:2:2
+Pixel Format: 24 bits per pixel
+
+-- EXIF Version Information --
+Exif Version: 2.3
+Flashpix Version: 1.0
+Interoperability Index: R98 - DCF Basic File (sRGB)
+Subfile Type: Full-resolution Image
+
+-- Maker Notes --
+Custom Rendered: Normal
+Active D-Lighting: Auto
+VR Info: Off (No Vibration Reduction)
+Lens Serial Number: 70011123
+Shutter Count: 15052
+Image Stabilization: Not Supported
+
+-- Thumbnail Information --
+Thumbnail Image: Present
+Thumbnail Length: 18000 bytes
+Thumbnail Compression: JPEG
+Thumbnail Orientation: Horizontal (normal)
+
+-- IPTC Metadata --
+Headline: Fred’s Letzter Auftritt
+By-line: A. Tacker
+Special Instructions: Kein Kommentar
+City: New York
+Province/State: New York
+Country: United States
+Transmission Reference: CaseRAT2024
+
+-- XMP Metadata --
+XMP Toolkit: Adobe XMP Core 5.6
+Creator: Anna Tacker
+Document ID: xmp.did:entfuehrung2024
+Instance ID: xmp.iid:entfuehrung2024
+Original Document ID: xmp.did:shadyfile123
+History Action: saved
+History When: 2024:12:10 16:00:00
+History Software Agent: GIMP 2.10
+
                 \n==================== Ende der Metadaten ====================\n
                 `;
 
