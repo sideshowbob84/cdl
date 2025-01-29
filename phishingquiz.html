@@ -274,16 +274,16 @@
             updateProgressBar();
         }
 
-    function checkAnswer(isPhishing) {
-    const email = emailPool[currentEmailIndex];
-    const explanationDiv = document.getElementById("explanation");
+        function checkAnswer(isPhishing) {
+        const email = emailPool[currentEmailIndex];
+        const explanationDiv = document.getElementById("explanation");
 
-    if (email.isPhishing === isPhishing) correctAnswers++;  // Punkte aktualisieren
+        if (email.isPhishing === isPhishing) correctAnswers++;  // Punkte aktualisieren
     
-    explanationDiv.textContent = email.explanation;
-    explanationDiv.style.display = "block";
+        explanationDiv.textContent = email.explanation;
+        explanationDiv.style.display = "block";
 
-    setTimeout(() => {
+        setTimeout(() => {
         explanationDiv.style.display = "none";
         
         currentEmailIndex++;  // Index erst hier erhöhen
@@ -294,11 +294,11 @@
             endQuiz();  // Quiz beenden, wenn alle Fragen beantwortet sind
         }
     }, 3000);  // 3 Sekunden warten, bevor die nächste Frage geladen wird
-}
+    }
 
         }
 
-function endQuiz() {
+    function endQuiz() {
     updateProgressBar();  // Fortschrittsbalken auf 100% aktualisieren
     document.getElementById("quiz-content").style.display = "none";
     const result = document.getElementById("result");
