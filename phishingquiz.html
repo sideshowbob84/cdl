@@ -91,6 +91,12 @@
             text-align: center;
             color: green;
         }
+        .link-preview {
+            font-size: 0.9em;
+            color: #0056b3;
+            margin-top: 5px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -106,7 +112,7 @@
         <h3>Wie erkennt man Phishing?</h3>
         <ul>
             <li>Überprüfe die Absenderadresse: Sieht sie verdächtig aus?</li>
-            <li>Prüfe Links: Zeigen sie auf eine seriöse Domain?</li>
+            <li>Prüfe Links: Zeigen sie auf eine seriöse Domain? Achte dabei auf den Mauszeiger.</li>
             <li>Achte auf Rechtschreibfehler und ungewöhnliche Formulierungen.</li>
             <li>Sei misstrauisch bei Aufforderungen, vertrauliche Daten einzugeben.</li>
         </ul>
@@ -117,6 +123,7 @@
             <div id="email" class="email">
                 <div id="email-header"></div>
                 <div id="email-body" class="email-body"></div>
+                <div id="link-preview" class="link-preview"></div>
             </div>
             <div class="controls">
                 <button id="phishing-btn">Phishing</button>
@@ -129,14 +136,12 @@
 
     <script>
         const emailPool = [
-            { sender: "support@am4zon-security-alert.de", subject: "Ungewöhnliche Anmeldeaktivität erkannt", body: "Wir haben verdächtige Aktivitäten festgestellt. <a href='http://secure-am4zon.com'>Konto überprüfen</a>.", isPhishing: true, explanation: "Die Domain 'am4zon-security-alert.de' ist verdächtig." },
-            { sender: "info@paypal-verification.com", subject: "Ihr Konto wurde eingeschränkt", body: "Bitte bestätigen Sie Ihre Identität. <a href='http://paypal-verification.fake'>Hier klicken</a>.", isPhishing: true, explanation: "Die echte PayPal-Domain ist 'paypal.com', nicht 'verification.fake'." },
-            { sender: "support@amazon.de", subject: "Ungewöhnliche Anmeldeaktivitäten", body: "Verdächtige Aktivitäten wurden entdeckt. <a href='https://amazon.de/account-security'>Hier klicken</a>.", isPhishing: false, explanation: "Dies ist eine echte E-Mail von Amazon." },
-            { sender: "security@appleid.com", subject: "Apple ID wurde gesperrt", body: "Ihre Apple ID wurde gesperrt. <a href='http://appleid-security.com'>Hier klicken</a>.", isPhishing: true, explanation: "Apple verwendet nur 'apple.com'. 'appleid-security.com' ist gefälscht." },
-            { sender: "kundenservice@telekom.de", subject: "Ihre Rechnung ist verfügbar", body: "Ihre Telekom-Rechnung ist online einsehbar. <a href='https://www.telekom.de/rechnung'>Hier klicken</a>.", isPhishing: false, explanation: "Die Domain 'telekom.de' ist echt." },
-            { sender: "info@gesundheitsamt.de", subject: "COVID-19 Testergebnisse verfügbar", body: "Klicken Sie <a href='http://gesundheitsamt-ergebnis.com'>hier</a>.", isPhishing: true, explanation: "Gesundheitsämter verwenden keine verdächtigen Domains." },
-            { sender: "lottery@bigwin.org", subject: "Herzlichen Glückwunsch, Sie haben gewonnen!", body: "Fordern Sie Ihren Gewinn von 10.000 € an! <a href='http://bigwin.org'>Jetzt klicken</a>.", isPhishing: true, explanation: "Die Domain 'bigwin.org' ist verdächtig." },
-            { sender: "info@dhl.de", subject: "Ihr Paket ist unterwegs", body: "Verfolgen Sie Ihr Paket <a href='https://www.dhl.de/sendungsverfolgung'>hier</a>.", isPhishing: false, explanation: "Die echte DHL-Domain wird verwendet." }
+            { sender: "support@am4zon-security-alert.de", subject: "Ungewöhnliche Anmeldeaktivität erkannt", body: "Wir haben verdächtige Aktivitäten festgestellt. <a href='http://secure-am4zon.com'>Konto überprüfen</a>.", isPhishing: true, explanation: "Phishing! Die echte Amazon-Domain wäre 'amazon.de' oder 'amazon.com'." },
+            { sender: "info@paypal-verification.com", subject: "Ihr Konto wurde eingeschränkt", body: "Bitte bestätigen Sie Ihre Identität. <a href='http://paypal-verification.fake'>Hier klicken</a>.", isPhishing: true, explanation: "Phishing: Die echte PayPal-Domain ist 'paypal.com'." },
+            { sender: "security@appleid.com", subject: "Apple ID wurde gesperrt", body: "Ihre Apple ID wurde gesperrt. <a href='http://appleid-security.com'>Hier klicken</a>.", isPhishing: true, explanation: "Die echte Apple-Domain ist 'apple.com'. Dies ist eine Fälschung." },
+            { sender: "kundenservice@telekom.de", subject: "Ihre Rechnung ist verfügbar", body: "Ihre Telekom-Rechnung ist online verfügbar. <a href='https://www.telekom.de/rechnung'>Hier klicken</a>.", isPhishing: false, explanation: "Dies ist eine legitime Nachricht von der echten Telekom-Domain." },
+            { sender: "lottery@bigwin.org", subject: "Herzlichen Glückwunsch, Sie haben gewonnen!", body: "Fordern Sie Ihren Gewinn von 10.000 € an! <a href='http://bigwin.org'>Jetzt klicken</a>.", isPhishing: true, explanation: "Phishing: Sie haben nie an einem Gewinnspiel teilgenommen." },
+            { sender: "info@dhl.de", subject: "Ihr Paket ist unterwegs", body: "Verfolgen Sie Ihr Paket <a href='https://www.dhl.de/sendungsverfolgung'>hier</a>.", isPhishing: false, explanation: "Die Nachricht ist echt. DHL verwendet die offizielle Domain 'dhl.de'." }
         ];
 
         let currentEmailIndex = 0;
@@ -156,6 +161,19 @@
             const email = emailPool[currentEmailIndex];
             document.getElementById("email-header").textContent = `Von: ${email.sender} | Betreff: ${email.subject}`;
             document.getElementById("email-body").innerHTML = email.body;
+
+            // Link-Ziel bei Hover anzeigen
+            const links = document.querySelectorAll("#email-body a");
+            links.forEach(link => {
+                link.addEventListener("mouseover", () => {
+                    document.getElementById("link-preview").textContent = `Ziel: ${link.href}`;
+                    document.getElementById("link-preview").style.display = "block";
+                });
+                link.addEventListener("mouseout", () => {
+                    document.getElementById("link-preview").style.display = "none";
+                });
+            });
+
             updateProgressBar();
         }
 
@@ -187,4 +205,5 @@
     </script>
 </body>
 </html>
+
 
