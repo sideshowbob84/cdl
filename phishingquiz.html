@@ -136,12 +136,19 @@
 
     <script>
         const emailPool = [
-            { sender: "support@am4zon-security-alert.de", subject: "Ungewöhnliche Anmeldeaktivität erkannt", body: "Wir haben verdächtige Aktivitäten festgestellt. <a href='http://secure-am4zon.com'>Konto überprüfen</a>.", isPhishing: true, explanation: "Phishing! Die echte Amazon-Domain wäre 'amazon.de' oder 'amazon.com'." },
-            { sender: "info@paypal-verification.com", subject: "Ihr Konto wurde eingeschränkt", body: "Bitte bestätigen Sie Ihre Identität. <a href='http://paypal-verification.fake'>Hier klicken</a>.", isPhishing: true, explanation: "Phishing: Die echte PayPal-Domain ist 'paypal.com'." },
-            { sender: "security@appleid.com", subject: "Apple ID wurde gesperrt", body: "Ihre Apple ID wurde gesperrt. <a href='http://appleid-security.com'>Hier klicken</a>.", isPhishing: true, explanation: "Die echte Apple-Domain ist 'apple.com'. Dies ist eine Fälschung." },
-            { sender: "kundenservice@telekom.de", subject: "Ihre Rechnung ist verfügbar", body: "Ihre Telekom-Rechnung ist online verfügbar. <a href='https://www.telekom.de/rechnung'>Hier klicken</a>.", isPhishing: false, explanation: "Dies ist eine legitime Nachricht von der echten Telekom-Domain." },
-            { sender: "lottery@bigwin.org", subject: "Herzlichen Glückwunsch, Sie haben gewonnen!", body: "Fordern Sie Ihren Gewinn von 10.000 € an! <a href='http://bigwin.org'>Jetzt klicken</a>.", isPhishing: true, explanation: "Phishing: Sie haben nie an einem Gewinnspiel teilgenommen." },
-            { sender: "info@dhl.de", subject: "Ihr Paket ist unterwegs", body: "Verfolgen Sie Ihr Paket <a href='https://www.dhl.de/sendungsverfolgung'>hier</a>.", isPhishing: false, explanation: "Die Nachricht ist echt. DHL verwendet die offizielle Domain 'dhl.de'." }
+            { sender: "support@am4zon-security-alert.de", subject: "Ungewöhnliche Anmeldeaktivität erkannt", body: "Wir haben verdächtige Aktivitäten festgestellt. <a href='http://secure-am4zon.com'>Konto überprüfen</a>.", isPhishing: true, explanation: "Phishing: Die Domain 'am4zon-security-alert.de' gehört nicht zu Amazon." },
+            { sender: "info@paypal-verification.com", subject: "Ihr Konto wurde eingeschränkt", body: "Bitte bestätigen Sie Ihre Identität. <a href='http://paypal-verification.fake'>Hier klicken</a>.", isPhishing: true, explanation: "Phishing: Die echte PayPal-Domain ist 'paypal.com', nicht 'paypal-verification.fake'." },
+            { sender: "support@amazon.de", subject: "Ungewöhnliche Anmeldeaktivitäten", body: "Verdächtige Aktivitäten wurden entdeckt. <a href='https://amazon.de/account-security'>Hier klicken</a>, um Ihr Konto zu schützen.", isPhishing: false, explanation: "Dies ist eine echte E-Mail von Amazon." },
+            { sender: "security@appleid.com", subject: "Apple ID wurde gesperrt", body: "Ihre Apple ID wurde gesperrt. <a href='http://appleid-security.com'>Hier klicken</a>.", isPhishing: true, explanation: "Apple verwendet nur 'apple.com'. 'appleid-security.com' ist gefälscht." },
+            { sender: "kundenservice@telekom.de", subject: "Ihre Rechnung ist verfügbar", body: "Ihre Telekom-Rechnung ist online einsehbar. <a href='https://www.telekom.de/rechnung'>Hier klicken</a>.", isPhishing: false, explanation: "Die Domain 'telekom.de' ist echt." },
+            { sender: "lottery@bigwin.org", subject: "Herzlichen Glückwunsch, Sie haben gewonnen!", body: "Fordern Sie Ihren Gewinn von 10.000 € an! <a href='http://bigwin.org'>Jetzt klicken</a>.", isPhishing: true, explanation: "Phishing: Die Domain 'bigwin.org' ist verdächtig." },
+            { sender: "info@dhl.de", subject: "Ihr Paket ist unterwegs", body: "Verfolgen Sie Ihr Paket <a href='https://www.dhl.de/sendungsverfolgung'>hier</a>.", isPhishing: false, explanation: "Die Nachricht ist echt. DHL verwendet die offizielle Domain 'dhl.de'." },
+            { sender: "helpdesk@university.edu", subject: "Wichtige Sicherheitsaktualisierung", body: "Ihr Passwort läuft bald ab. <a href='http://university-support.com'>Hier klicken</a>.", isPhishing: true, explanation: "Phishing: Offizielle Universitäten verwenden ihre eigene Domain." },
+            { sender: "info@facebook.com", subject: "Ungewöhnliche Anmeldung erkannt", body: "Ein Login-Versuch wurde erkannt. <a href='https://facebook.com/security'>Sicherheitsüberprüfung starten</a>.", isPhishing: false, explanation: "Facebook verwendet ausschließlich die Domain 'facebook.com'." },
+            { sender: "newsletter@zalando.de", subject: "10% Willkommensrabatt", body: "Nutzen Sie Ihren Rabatt <a href='https://zalando.de/welcome'>hier</a>, um beim nächsten Einkauf zu sparen.", isPhishing: false, explanation: "Die Domain 'zalando.de' ist vertrauenswürdig." },
+            { sender: "info@banking-alerts.com", subject: "Sicherheitswarnung für Ihr Konto", body: "Bitte bestätigen Sie Ihre Bankdaten <a href='http://banking-alerts.com'>hier</a>.", isPhishing: true, explanation: "Phishing: Banken fordern niemals per E-Mail vertrauliche Daten an." },
+            { sender: "security@microsoft.com", subject: "Anmeldung aus einem neuen Gerät erkannt", body: "Ein Login aus Berlin wurde erkannt. <a href='https://microsoft.com/security'>Überprüfung durchführen</a>.", isPhishing: false, explanation: "Microsoft verwendet immer 'microsoft.com'." },
+            { sender: "fraud@bank.de", subject: "Verdächtige Aktivitäten entdeckt", body: "Ihre Bankdaten könnten gefährdet sein. <a href='http://fraud-check.net'>Hier prüfen</a>.", isPhishing: true, explanation: "Phishing: Die Bank verwendet niemals 'fraud-check.net'." }
         ];
 
         let currentEmailIndex = 0;
@@ -162,7 +169,6 @@
             document.getElementById("email-header").textContent = `Von: ${email.sender} | Betreff: ${email.subject}`;
             document.getElementById("email-body").innerHTML = email.body;
 
-            // Link-Ziel bei Hover anzeigen
             const links = document.querySelectorAll("#email-body a");
             links.forEach(link => {
                 link.addEventListener("mouseover", () => {
