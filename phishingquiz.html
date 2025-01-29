@@ -135,21 +135,100 @@
     </div>
 
     <script>
-      const emailPool = [
-            { sender: "support@am4zon-security-alert.de", subject: "Ungewöhnliche Anmeldeaktivität erkannt", body: "Wir haben verdächtige Aktivitäten festgestellt. <a href='http://secure-am4zon.com'>Konto überprüfen</a>.", isPhishing: true, explanation: "Phishing: Die Domain 'am4zon-security-alert.de' gehört nicht zu Amazon." },
-            { sender: "info@paypal-verification.com", subject: "Ihr Konto wurde eingeschränkt", body: "Bitte bestätigen Sie Ihre Identität. <a href='http://paypal-verification.fake'>Hier klicken</a>.", isPhishing: true, explanation: "Phishing: Die echte PayPal-Domain ist 'paypal.com', nicht 'paypal-verification.fake'." },
-            { sender: "support@amazon.de", subject: "Ungewöhnliche Anmeldeaktivitäten", body: "Verdächtige Aktivitäten wurden entdeckt. <a href='https://amazon.de/account-security'>Hier klicken</a>, um Ihr Konto zu schützen.", isPhishing: false, explanation: "Dies ist eine echte E-Mail von Amazon." },
-            { sender: "security@appleid.com", subject: "Apple ID wurde gesperrt", body: "Ihre Apple ID wurde gesperrt. <a href='http://appleid-security.com'>Hier klicken</a>.", isPhishing: true, explanation: "Apple verwendet nur 'apple.com'. 'appleid-security.com' ist gefälscht." },
-            { sender: "kundenservice@telekom.de", subject: "Ihre Rechnung ist verfügbar", body: "Ihre Telekom-Rechnung ist online einsehbar. <a href='https://www.telekom.de/rechnung'>Hier klicken</a>.", isPhishing: false, explanation: "Die Domain 'telekom.de' ist echt." },
-            { sender: "lottery@bigwin.org", subject: "Herzlichen Glückwunsch, Sie haben gewonnen!", body: "Fordern Sie Ihren Gewinn von 10.000 € an! <a href='http://bigwin.org'>Jetzt klicken</a>.", isPhishing: true, explanation: "Phishing: Die Domain 'bigwin.org' ist verdächtig." },
-            { sender: "info@dhl.de", subject: "Ihr Paket ist unterwegs", body: "Verfolgen Sie Ihr Paket <a href='https://www.dhl.de/sendungsverfolgung'>hier</a>.", isPhishing: false, explanation: "Die Nachricht ist echt. DHL verwendet die offizielle Domain 'dhl.de'." },
-            { sender: "helpdesk@university.edu", subject: "Wichtige Sicherheitsaktualisierung", body: "Ihr Passwort läuft bald ab. <a href='http://university-support.com'>Hier klicken</a>.", isPhishing: true, explanation: "Phishing: Offizielle Universitäten verwenden ihre eigene Domain." },
-            { sender: "info@facebook.com", subject: "Ungewöhnliche Anmeldung erkannt", body: "Ein Login-Versuch wurde erkannt. <a href='https://facebook.com/security'>Sicherheitsüberprüfung starten</a>.", isPhishing: false, explanation: "Facebook verwendet ausschließlich die Domain 'facebook.com'." },
-            { sender: "newsletter@zalando.de", subject: "10% Willkommensrabatt", body: "Nutzen Sie Ihren Rabatt <a href='https://zalando.de/welcome'>hier</a>, um beim nächsten Einkauf zu sparen.", isPhishing: false, explanation: "Die Domain 'zalando.de' ist vertrauenswürdig." },
-            { sender: "info@banking-alerts.com", subject: "Sicherheitswarnung für Ihr Konto", body: "Bitte bestätigen Sie Ihre Bankdaten <a href='http://banking-alerts.com'>hier</a>.", isPhishing: true, explanation: "Phishing: Banken fordern niemals per E-Mail vertrauliche Daten an." },
-            { sender: "security@microsoft.com", subject: "Anmeldung aus einem neuen Gerät erkannt", body: "Ein Login aus Berlin wurde erkannt. <a href='https://microsoft.com/security'>Überprüfung durchführen</a>.", isPhishing: false, explanation: "Microsoft verwendet immer 'microsoft.com'." },
-            { sender: "fraud@bank.de", subject: "Verdächtige Aktivitäten entdeckt", body: "Ihre Bankdaten könnten gefährdet sein. <a href='http://fraud-check.net'>Hier prüfen</a>.", isPhishing: true, explanation: "Phishing: Die Bank verwendet niemals 'fraud-check.net'." }
-        ];
+   const emailPool = [
+    {
+        sender: "support@am4zon-security-alert.de",
+        subject: "Ungewöhnliche Anmeldeaktivität erkannt",
+        body: "Wir haben verdächtige Aktivitäten festgestellt. <a href='http://secure-am4zon.com'>Konto überprüfen</a>.",
+        isPhishing: true,
+        explanation: "Phishing: Die Domain 'am4zon-security-alert.de' im Absender ist ähnlich zur echten Amazon-Domain, jedoch ein typisches Beispiel für Typosquatting. Kriminelle manipulieren dabei populäre Markennamen wie 'Amazon', um Nutzer zu täuschen. Zudem verweist der Link auf 'secure-am4zon.com', was ebenfalls keine vertrauenswürdige Amazon-Subdomain ist."
+    },
+    {
+        sender: "info@paypal-verification.com",
+        subject: "Ihr Konto wurde eingeschränkt",
+        body: "Bitte bestätigen Sie Ihre Identität. <a href='http://paypal-verification.fake'>Hier klicken</a>.",
+        isPhishing: true,
+        explanation: "Phishing: Die echte PayPal-Domain endet auf 'paypal.com', nicht auf 'paypal-verification.fake'. Phishing-E-Mails fügen oft legitim klingende Begriffe wie 'verification' hinzu, um Vertrauen zu schaffen. Links in solchen E-Mails führen häufig zu betrügerischen Seiten, die Zugangsdaten stehlen."
+    },
+    {
+        sender: "support@amazon.de",
+        subject: "Ungewöhnliche Anmeldeaktivitäten",
+        body: "Verdächtige Aktivitäten wurden entdeckt. <a href='https://amazon.de/account-security'>Hier klicken</a>, um Ihr Konto zu schützen.",
+        isPhishing: false,
+        explanation: "Echt: Die E-Mail stammt von 'amazon.de', der offiziellen deutschen Amazon-Domain. Der Link führt zu 'amazon.de/account-security', einer vertrauenswürdigen und legitimen Amazon-Subdomain. Solche Sicherheitsmails sollten jedoch immer über das Kundenkonto direkt geprüft werden."
+    },
+    {
+        sender: "security@appleid.com",
+        subject: "Apple ID wurde gesperrt",
+        body: "Ihre Apple ID wurde gesperrt. <a href='http://appleid-security.com'>Hier klicken</a>.",
+        isPhishing: true,
+        explanation: "Phishing: Obwohl der Absender 'security@appleid.com' auf den ersten Blick glaubwürdig aussieht, ist die verlinkte Domain 'appleid-security.com' betrügerisch. Apple verwendet ausschließlich die Domain 'apple.com', und jede Abweichung davon sollte als verdächtig gelten."
+    },
+    {
+        sender: "kundenservice@telekom.de",
+        subject: "Ihre Rechnung ist verfügbar",
+        body: "Ihre Telekom-Rechnung ist online einsehbar. <a href='https://www.telekom.de/rechnung'>Hier klicken</a>.",
+        isPhishing: false,
+        explanation: "Echt: Die E-Mail stammt von 'telekom.de', der offiziellen und vertrauenswürdigen Domain der Deutschen Telekom. Der Link führt ebenfalls zu einer Subdomain, die zur Hauptdomain 'telekom.de' gehört, was den Inhalt authentisch macht."
+    },
+    {
+        sender: "lottery@bigwin.org",
+        subject: "Herzlichen Glückwunsch, Sie haben gewonnen!",
+        body: "Fordern Sie Ihren Gewinn von 10.000 € an! <a href='http://bigwin.org'>Jetzt klicken</a>.",
+        isPhishing: true,
+        explanation: "Phishing: Die E-Mail verspricht einen hohen Geldgewinn, eine typische Phishing-Taktik. Die Domain 'bigwin.org' ist nicht vertrauenswürdig, und seriöse Lotterien kontaktieren Gewinner in der Regel nicht per E-Mail ohne vorherige Teilnahme."
+    },
+    {
+        sender: "info@dhl.de",
+        subject: "Ihr Paket ist unterwegs",
+        body: "Verfolgen Sie Ihr Paket <a href='https://www.dhl.de/sendungsverfolgung'>hier</a>.",
+        isPhishing: false,
+        explanation: "Echt: Die E-Mail stammt von 'dhl.de', der offiziellen Domain des Unternehmens. Auch der Link zur Sendungsverfolgung zeigt auf eine vertrauenswürdige Subdomain ('www.dhl.de'), die für echte Kundeninformationen genutzt wird."
+    },
+    {
+        sender: "helpdesk@university.edu",
+        subject: "Wichtige Sicherheitsaktualisierung",
+        body: "Ihr Passwort läuft bald ab. <a href='http://university-support.com'>Hier klicken</a>.",
+        isPhishing: true,
+        explanation: "Phishing: Der Absender suggeriert, dass die E-Mail von einer offiziellen Universitätsadresse stammt, aber der angegebene Link verweist auf 'university-support.com', eine nicht vertrauenswürdige Domain. Universitäten nutzen in der Regel ausschließlich ihre offizielle Domain."
+    },
+    {
+        sender: "info@facebook.com",
+        subject: "Ungewöhnliche Anmeldung erkannt",
+        body: "Ein Login-Versuch wurde erkannt. <a href='https://facebook.com/security'>Sicherheitsüberprüfung starten</a>.",
+        isPhishing: false,
+        explanation: "Echt: Die E-Mail stammt von 'facebook.com', der offiziellen und einzigen Domain, die Facebook verwendet. Der Sicherheitslink führt ebenfalls zu einer vertrauenswürdigen Subdomain."
+    },
+    {
+        sender: "newsletter@zalando.de",
+        subject: "10% Willkommensrabatt",
+        body: "Nutzen Sie Ihren Rabatt <a href='https://zalando.de/welcome'>hier</a>, um beim nächsten Einkauf zu sparen.",
+        isPhishing: false,
+        explanation: "Echt: Die E-Mail stammt von der offiziellen Domain 'zalando.de', die regelmäßig für Marketing- und Kundenaktionen genutzt wird. Der Link verweist auf eine legitime Subdomain."
+    },
+    {
+        sender: "info@banking-alerts.com",
+        subject: "Sicherheitswarnung für Ihr Konto",
+        body: "Bitte bestätigen Sie Ihre Bankdaten <a href='http://banking-alerts.com'>hier</a>.",
+        isPhishing: true,
+        explanation: "Phishing: Echte Banken fordern ihre Kunden niemals per E-Mail auf, persönliche oder sicherheitsrelevante Informationen preiszugeben. Die Domain 'banking-alerts.com' ist verdächtig und hat keine Verbindung zu bekannten Finanzinstituten."
+    },
+    {
+        sender: "security@microsoft.com",
+        subject: "Anmeldung aus einem neuen Gerät erkannt",
+        body: "Ein Login aus Berlin wurde erkannt. <a href='https://microsoft.com/security'>Überprüfung durchführen</a>.",
+        isPhishing: false,
+        explanation: "Echt: Die E-Mail stammt von 'microsoft.com', der einzigen Domain, die Microsoft für sicherheitsrelevante Kommunikation nutzt. Der angegebene Link führt direkt zu einer vertrauenswürdigen Subdomain."
+    },
+    {
+        sender: "fraud@bank.de",
+        subject: "Verdächtige Aktivitäten entdeckt",
+        body: "Ihre Bankdaten könnten gefährdet sein. <a href='http://fraud-check.net'>Hier prüfen</a>.",
+        isPhishing: true,
+        explanation: "Phishing: Die E-Mail behauptet, von einer Bank zu stammen, verwendet jedoch die verdächtige Domain 'fraud-check.net', die nicht zu einem echten Finanzinstitut gehört. Seriöse Banken würden für sicherheitsrelevante Anfragen nur ihre offizielle Domain verwenden."
+    }
+];
+
 
 
         let currentEmailIndex = 0;
