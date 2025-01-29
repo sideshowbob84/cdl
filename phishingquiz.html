@@ -283,12 +283,14 @@
             for (let i = 0; i < 8; i++) selectedEmails.push(emailPool[i]);
         }
 
-        function updateProgressBar() {
-            const progress = ((currentEmailIndex / selectedEmails.length) * 100).toFixed(0);
-            const progressBar = document.getElementById("progress-bar");
-            progressBar.style.width = `${progress}%`;
-            progressBar.textContent = `${progress}%`;
-        }
+       function updateProgressBar() {
+        let progress = ((currentEmailIndex / selectedEmails.length) * 100).toFixed(0);
+        if (currentEmailIndex === selectedEmails.length) progress = 100; // Fortschritt auf 100% setzen, wenn alle Fragen beantwortet wurden
+        const progressBar = document.getElementById("progress-bar");
+        progressBar.style.width = `${progress}%`;
+        progressBar.textContent = `${progress}%`;
+}
+
 
         function loadEmail() {
             if (currentEmailIndex >= selectedEmails.length) {
