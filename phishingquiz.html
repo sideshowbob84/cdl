@@ -316,17 +316,26 @@
             updateProgressBar();
         }
 
-        function checkAnswer(isPhishing) {
-            const email = selectedEmails[currentEmailIndex];
-            const explanationDiv = document.getElementById("explanation");
-            if (email.isPhishing === isPhishing) correctAnswers++;
-            explanationDiv.textContent = email.explanation;
-            explanationDiv.style.display = "block";
-            currentEmailIndex++;
-            setTimeout(() => {
-                explanationDiv.style.display = "none";
-                loadEmail();
-            }, 4000);
+    function checkAnswer(isPhishing) {
+    const email = selectedEmails[currentEmailIndex];
+    const explanationDiv = document.getElementById("explanation");
+    if (email.isPhishing === isPhishing) correctAnswers++;
+    explanationDiv.textContent = email.explanation;
+    explanationDiv.style.display = "block";
+    
+    currentEmailIndex++;  // Index NACH der Antwort erhöhen
+    updateProgressBar();  // Progress direkt nach der Antwort aktualisieren
+    
+    setTimeout(() => {
+        explanationDiv.style.display = "none";
+        if (currentEmailIndex >= selectedEmails.length) {
+            endQuiz();  // Quiz beenden, wenn alle Fragen beantwortet sind
+        } else {
+            loadEmail();  // Nächste Frage laden
+        }
+    }, 4000);
+}
+
         }
 
         function endQuiz() {
