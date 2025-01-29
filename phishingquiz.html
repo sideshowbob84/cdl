@@ -274,26 +274,38 @@
             updateProgressBar();
         }
 
-        function checkAnswer(isPhishing) {
-            const email = emailPool[currentEmailIndex];
-            const explanationDiv = document.getElementById("explanation");
-            if (email.isPhishing === isPhishing) correctAnswers++;
-            explanationDiv.textContent = email.explanation;
-            explanationDiv.style.display = "block";
-            currentEmailIndex++;
-            setTimeout(() => {
-                explanationDiv.style.display = "none";
-                loadEmail();
-            }, 3000);
+    function checkAnswer(isPhishing) {
+    const email = emailPool[currentEmailIndex];
+    const explanationDiv = document.getElementById("explanation");
+
+    if (email.isPhishing === isPhishing) correctAnswers++;  // Punkte aktualisieren
+    
+    explanationDiv.textContent = email.explanation;
+    explanationDiv.style.display = "block";
+
+    setTimeout(() => {
+        explanationDiv.style.display = "none";
+        
+        currentEmailIndex++;  // Index erst hier erhöhen
+
+        if (currentEmailIndex < emailPool.length) {
+            loadEmail();  // Neue Frage laden
+        } else {
+            endQuiz();  // Quiz beenden, wenn alle Fragen beantwortet sind
+        }
+    }, 3000);  // 3 Sekunden warten, bevor die nächste Frage geladen wird
+}
+
         }
 
-        function endQuiz() {
-            document.getElementById("quiz-content").style.display = "none";
-            const result = document.getElementById("result");
-            result.textContent = correctAnswers === emailPool.length 
-                ? "Herzlichen Glückwunsch! Du hast alle richtig beantwortet. 🎉 Flag: {CAUGHT_ALL_THE_PHISH}" 
-                : `Du hast ${correctAnswers} von ${emailPool.length} richtig beantwortet.`;
-            result.classList.remove("hidden");
+function endQuiz() {
+    updateProgressBar();  // Fortschrittsbalken auf 100% aktualisieren
+    document.getElementById("quiz-content").style.display = "none";
+    const result = document.getElementById("result");
+    result.textContent = correctAnswers === emailPool.length 
+        ? "Herzlichen Glückwunsch! Du hast alle richtig beantwortet. 🎉 Flag: {CAUGHT_ALL_THE_PHISH}" 
+        : `Du hast ${correctAnswers} von ${emailPool.length} richtig beantwortet.`;
+    result.classList.remove("hidden");
         }
 
         setupQuiz();
