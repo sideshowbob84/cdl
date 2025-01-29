@@ -283,89 +283,59 @@
             for (let i = 0; i < 8; i++) selectedEmails.push(emailPool[i]);
         }
 
-function updateProgressBar() {
-    let progress = ((currentEmailIndex / selectedEmails.length) * 100).toFixed(0);
-    if (currentEmailIndex === selectedEmails.length) {
-        progress = 100;  // Am Ende sicherstellen, dass 100% angezeigt werden
-    }
-    const progressBar = document.getElementById("progress-bar");
-    progressBar.style.width = `${progress}%`;
-    progressBar.textContent = `${progress}%`;
-}
+        function updateProgressBar() {
+            const progress = ((currentEmailIndex / selectedEmails.length) * 100).toFixed(0);
+            const progressBar = document.getElementById("progress-bar");
+            progressBar.style.width = ${progress}%;
+            progressBar.textContent = ${progress}%;
+        }
 
-}
+        function loadEmail() {
+            if (currentEmailIndex >= selectedEmails.length) {
+                endQuiz();
+                return;
+            }
+            const email = selectedEmails[currentEmailIndex];
+            document.getElementById("email-header").textContent = Von: ${email.sender} | Betreff: ${email.subject};
+            document.getElementById("email-body").innerHTML = email.body;
 
-
-
-function loadEmail() {
-    if (currentEmailIndex >= selectedEmails.length) {
-        return;  // Abbrechen, wenn keine E-Mails mehr übrig sind
-    }
-
-    const email = selectedEmails[currentEmailIndex];
-    document.getElementById("email-header").textContent = `Von: ${email.sender} | Betreff: ${email.subject}`;
-    document.getElementById("email-body").innerHTML = email.body;
-
-    // Vorschau des Links anzeigen
-    const links = document.querySelectorAll("#email-body a");
-    links.forEach(link => {
-        link.addEventListener("mouseover", () => {
-            const preview = document.getElementById("link-preview");
-            preview.textContent = `Ziel: ${link.href}`;
-            preview.style.display = "block";
-        });
-        link.addEventListener("mouseout", () => {
-            document.getElementById("link-preview").style.display = "none";
-        });
-    });
-
-}
-
+            const links = document.querySelectorAll("#email-body a");
+            links.forEach(link => {
+                link.addEventListener("mouseover", () => {
+                    const preview = document.getElementById("link-preview");
+                    preview.textContent = Ziel: ${link.href};
+                    preview.style.display = "block";
+                });
+                link.addEventListener("mouseout", () => {
+                    document.getElementById("link-preview").style.display = "none";
+                });
+            });
 
             updateProgressBar();
         }
 
-function checkAnswer(isPhishing) {
-    const email = selectedEmails[currentEmailIndex];
-    const explanationDiv = document.getElementById("explanation");
-
-    if (email.isPhishing === isPhishing) {
-        correctAnswers++;
-    }
-
-    explanationDiv.textContent = email.explanation;
-    explanationDiv.style.display = "block";
-
-    setTimeout(() => {
-        explanationDiv.style.display = "none";
-        currentEmailIndex++;  // Erst hier den Index erhöhen
-        updateProgressBar();  // Danach die Progress-Bar aktualisieren
-
-        if (currentEmailIndex < selectedEmails.length) {
-            loadEmail();  // Nur laden, wenn es noch Fragen gibt
-        } else {
-            endQuiz();  // Quiz beenden, wenn alle Fragen beantwortet sind
-        }
-    }, 3000);  // 3 Sekunden warten, um Erklärung zu zeigen
-}
-
-
-}
-
+        function checkAnswer(isPhishing) {
+            const email = selectedEmails[currentEmailIndex];
+            const explanationDiv = document.getElementById("explanation");
+            if (email.isPhishing === isPhishing) correctAnswers++;
+            explanationDiv.textContent = email.explanation;
+            explanationDiv.style.display = "block";
+            currentEmailIndex++;
+            setTimeout(() => {
+                explanationDiv.style.display = "none";
+                loadEmail();
+            }, 4000);
         }
 
-function endQuiz() {
-    document.getElementById("quiz-content").style.display = "none";
-    const result = document.getElementById("result");
-
-    if (correctAnswers === selectedEmails.length) {
-        result.textContent = `Herzlichen Glückwunsch! Du hast alle richtig beantwortet. 🎉 Flag: {CAUGHT_ALL_THE_PHISH}`;
-    } else {
-        result.textContent = `Du hast ${correctAnswers} von ${selectedEmails.length} richtig beantwortet. Versuche es erneut!`;
-    }
-
-    result.classList.remove("hidden");
-
+        function endQuiz() {
+            document.getElementById("quiz-content").style.display = "none";
+            const result = document.getElementById("result");
+            if (correctAnswers === selectedEmails.length) {
+                result.textContent = Herzlichen Glückwunsch! Du hast alle richtig beantwortet. 🎉 Flag: {CAUGHT_ALL_THE_PHISH};
+            } else {
+                result.textContent = Du hast ${correctAnswers} von 8 richtig beantwortet. Versuche es erneut!;
+            }
+            result.classList.remove("hidden");
         }
 
         setupQuiz();
@@ -376,5 +346,4 @@ function endQuiz() {
     </script>
 </body>
 </html>
-
       
