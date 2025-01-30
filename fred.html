@@ -144,7 +144,7 @@
             question5: false,
         };
 
-    function runExifTool() {
+     function runExifTool() {
     const consoleOutput = document.getElementById("console-output");
     consoleOutput.innerHTML = "Starte ExifTool...<br><br>";
 
@@ -270,17 +270,12 @@ History Software Agent: GIMP 2.10
 ==================== Ende der Metadaten ====================
         `;
 
-        // Zeilenweise Ausgabe mit <br> für saubere Darstellung
-        const lines = metadata.trim().split('\n');
-        lines.forEach(line => {
-            consoleOutput.innerHTML += line + "<br>";
-        });
-
+        // Zeilenumbrüche durch <br> ersetzen
+        consoleOutput.innerHTML += metadata.replace(/\n/g, '<br>');
         consoleOutput.scrollTop = consoleOutput.scrollHeight;
     }, 1000);
 }
 
-}
 
 
         function checkAnswer(correctAnswer, questionId) {
