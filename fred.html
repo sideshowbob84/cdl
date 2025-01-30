@@ -144,11 +144,12 @@
             question5: false,
         };
 
-        function runExifTool() {
-            const consoleOutput = document.getElementById("console-output");
-            consoleOutput.innerHTML = "Starte ExifTool...\n\n";
-            setTimeout(() => {
-                consoleOutput.innerHTML += `
+    function runExifTool() {
+    const consoleOutput = document.getElementById("console-output");
+    consoleOutput.innerHTML = "Starte ExifTool...\n\n";
+    
+    setTimeout(() => {
+        const metadata = `
 Filename: fred.jpg
 File Size: 4.7 MB
 File Type: JPEG
@@ -266,12 +267,19 @@ History Action: saved
 History When: 2024:12:10 16:00:00
 History Software Agent: GIMP 2.10
 
-
 ==================== Ende der Metadaten ====================
-                `;
-                consoleOutput.scrollTop = consoleOutput.scrollHeight;
-            }, 1000);
-        }
+        `;
+        
+        // Teilt die Metadaten in Zeilen auf und gibt sie einzeln aus
+        const lines = metadata.trim().split('\n');
+        lines.forEach(line => {
+            consoleOutput.innerHTML += line + '\n';
+        });
+
+        consoleOutput.scrollTop = consoleOutput.scrollHeight;
+    }, 1000);
+}
+
 
         function checkAnswer(correctAnswer, questionId) {
             const input = document.getElementById(questionId).value.trim();
