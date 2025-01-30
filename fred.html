@@ -146,8 +146,8 @@
 
     function runExifTool() {
     const consoleOutput = document.getElementById("console-output");
-    consoleOutput.innerHTML = "Starte ExifTool...\n\n";
-    
+    consoleOutput.innerHTML = "Starte ExifTool...<br><br>";
+
     setTimeout(() => {
         const metadata = `
 Filename: fred.jpg
@@ -269,15 +269,17 @@ History Software Agent: GIMP 2.10
 
 ==================== Ende der Metadaten ====================
         `;
-        
-        // Teilt die Metadaten in Zeilen auf und gibt sie einzeln aus
+
+        // Zeilenweise Ausgabe mit <br> für saubere Darstellung
         const lines = metadata.trim().split('\n');
         lines.forEach(line => {
-            consoleOutput.innerHTML += line + '\n';
+            consoleOutput.innerHTML += line + "<br>";
         });
 
         consoleOutput.scrollTop = consoleOutput.scrollHeight;
     }, 1000);
+}
+
 }
 
 
