@@ -320,23 +320,33 @@ function hideCookieBanner() {
             }
         }
 
-        function checkCookie() {
-            const cookies = document.cookie.split('; ');
-            const hiddenCookie = cookies.find(cookie => cookie.startsWith("cyberFlag="));
+    function checkCookie() {
+    const cookies = document.cookie.split('; ');
+    const hiddenCookie = cookies.find(cookie => cookie.startsWith("cyberFlag="));
 
-            if (hiddenCookie) {
-                const flagValue = hiddenCookie.split('=')[1];
-                const userInput = document.getElementById("cookie-input").value;
+    if (hiddenCookie) {
+        const flagValue = hiddenCookie.split('=')[1];
+        const userInput = document.getElementById("cookie-input").value;
 
-                if (userInput === flagValue) {
-                    alert("🎉 Richtig! Du hast die versteckte Flag in den Cookies gefunden.");
-                } else {
-                    alert("Falsch. Überprüfe die Cookies nochmal in den Developer Tools.");
-                }
-            } else {
-                alert("Kein verstecktes Cookie gefunden. Vielleicht bist du auf einer falschen Spur?");
-            }
+        if (userInput === flagValue) {
+            alert("🎉 Richtig! Du hast die versteckte Flag in den Cookies gefunden.");
+            
+            // Flag setzen (9. Flag in collectedFlags markieren)
+            collectedFlags[8] = true;
+
+            // Achievement anzeigen
+            displayAchievement("🍪 Cookie-Jäger");
+
+            // Fortschrittsanzeige aktualisieren
+            updateProgress();
+        } else {
+            alert("Falsch. Überprüfe die Cookies nochmal in den Developer Tools.");
         }
+    } else {
+        alert("Kein verstecktes Cookie gefunden. Vielleicht bist du auf einer falschen Spur?");
+    }
+}
+
 
         function unlockTasks() {
             const inputPassword = document.getElementById("lab-password").value;
