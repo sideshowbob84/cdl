@@ -222,17 +222,47 @@
 
     </div>
 
-    <!-- Cookie-Banner -->
+    <!-- Cookie-Banner mit akzeptieren/ablehnen -->
     <div class="cookie-banner" id="cookie-banner">
-        🍪 Diese Website verwendet kaum Cookies – außer vielleicht ein paar Versteckte... <button onclick="hideCookieBanner()">Okay</button>
+    🍪 Diese Website verwendet kaum Cookies – außer vielleicht ein paar Versteckte...  
+    <button onclick="acceptCookies()">Akzeptieren</button>
+    <button onclick="rejectCookies()">Ablehnen (leider keine Flag für dich)</button>
     </div>
 
-    <script>
-       // Verschlüsselte Flag (Base64)
-        const encodedFlag = "e0NPT0tJRVNfUkVWRUFMX1NFQ1JFVFN9";
 
-      // Verstecktes Cookie setzen (nach Dekodierung)
-        document.cookie = `cyberFlag=${atob(encodedFlag)}; path=/; max-age=3600`;
+    <script>
+        // Beim Laden der Seite prüfen, ob der Nutzer schon eine Entscheidung getroffen hat
+window.onload = function() {
+    if (localStorage.getItem('cookiesAccepted') === 'true') {
+        setCookie();
+        hideCookieBanner();
+    } else if (localStorage.getItem('cookiesAccepted') === 'false') {
+        hideCookieBanner();
+    }
+}
+
+// Funktion zum Setzen des versteckten Cookies
+function setCookie() {
+    document.cookie = `cyberFlag=${atob(encodedFlag)}; path=/; max-age=3600`;
+}
+
+// Nutzer akzeptiert Cookies
+function acceptCookies() {
+    localStorage.setItem('cookiesAccepted', 'true');
+    setCookie();
+    hideCookieBanner();
+}
+
+// Nutzer lehnt Cookies ab
+function rejectCookies() {
+    localStorage.setItem('cookiesAccepted', 'false');
+    hideCookieBanner();
+}
+
+// Cookie-Banner ausblenden
+function hideCookieBanner() {
+    document.getElementById('cookie-banner').style.display = 'none';
+}
 
 
         const collectedFlags = [false, false, false, false, false, false, false, false];
