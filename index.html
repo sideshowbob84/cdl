@@ -212,19 +212,23 @@
     <a href="datenschutz.html">Datenschutzerklärung</a> |
     <a href="sources.html">Quellen</a> |
     <a href="/fred.html">🐭</a>
-
-        
-
     </footer>
 
     </div>
 
     <!-- Cookie-Banner -->
     <div class="cookie-banner" id="cookie-banner">
-        🍪 Diese Website verwendet keine Cookies. <button onclick="hideCookieBanner()">Okay</button>
+        🍪 Diese Website verwendet kaum Cookies – außer vielleicht ein paar versteckte... <button onclick="hideCookieBanner()">Okay</button>
     </div>
 
     <script>
+       // Verschlüsselte Flag (Base64)
+        const encodedFlag = "RmxhZ197Q09PS0lFU19SRVZFQUxfU0VDUkVUU30=";
+
+      // Verstecktes Cookie setzen (nach Dekodierung)
+        document.cookie = `cyberFlag=${atob(encodedFlag)}; path=/; max-age=3600`;
+
+
         const collectedFlags = [false, false, false, false, false, false, false, false];
         const obfuscatedPassword = atob("dXNlcjEyMw==");
 
@@ -272,6 +276,24 @@
             }
         }
 
+        function checkCookie() {
+            const cookies = document.cookie.split('; ');
+            const hiddenCookie = cookies.find(cookie => cookie.startsWith("cyberFlag="));
+
+            if (hiddenCookie) {
+                const flagValue = hiddenCookie.split('=')[1];
+                const userInput = document.getElementById("cookie-input").value;
+
+                if (userInput === flagValue) {
+                    alert("🎉 Richtig! Du hast die versteckte Flag in den Cookies gefunden.");
+                } else {
+                    alert("Falsch. Überprüfe die Cookies nochmal in den Developer Tools.");
+                }
+            } else {
+                alert("Kein verstecktes Cookie gefunden. Vielleicht bist du auf einer falschen Spur?");
+            }
+        }
+
         function unlockTasks() {
             const inputPassword = document.getElementById("lab-password").value;
             const errorMessage = document.getElementById("error-message");
@@ -295,7 +317,6 @@
     </script>
 </body>
 </html>
-
 
 
 
