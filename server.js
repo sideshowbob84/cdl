@@ -58,6 +58,9 @@ const server = http.createServer((req, res) => {
          } else if (req.url === '/fred.html') {
             // Quellen-Seite ausliefern
             serveFile('fred.html', res);
+         } else if (req.url === '/cookies.html') {
+            // Quellen-Seite ausliefern
+            serveFile('cookies.html', res);
         } else {
             // 404-Seite
             res.statusCode = 404;
