@@ -258,7 +258,12 @@ function acceptCookies() {
 // Nutzer lehnt Cookies ab
 function rejectCookies() {
     localStorage.setItem('cookiesAccepted', 'false');
+    deleteCookie("cyberFlag");
     hideCookieBanner();
+}
+
+function deleteCookie(name) {
+    document.cookie = name + "=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
 }
 
 // Cookie-Banner ausblenden
