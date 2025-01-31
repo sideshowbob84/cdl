@@ -284,28 +284,33 @@ function hideCookieBanner() {
         function decodeBase64(encoded) {
             return atob(encoded);
         }
-
         function checkFlag(taskNumber, encodedFlag, title) {
-            const input = document.getElementById(`flag${taskNumber}`);
-            const achievements = document.getElementById("achievements");
-            const decodedFlag = decodeBase64(encodedFlag);
+        const input = document.getElementById(`flag${taskNumber}`);
+        const decodedFlag = decodeBase64(encodedFlag);
 
-            if (input.value === decodedFlag) {
-                alert(`Richtig! Flag für Aufgabe ${taskNumber} akzeptiert.`);
-                collectedFlags[taskNumber - 1] = true;
-                input.disabled = true;
+        if (input.value === decodedFlag) {
+        alert(`Richtig! Flag für Aufgabe ${taskNumber} akzeptiert.`);
+        collectedFlags[taskNumber - 1] = true;
+        input.disabled = true;
 
-                const achievement = document.createElement("div");
-                achievement.className = "achievement";
-                achievement.innerHTML = `<span>${title.split(" ")[0]}</span>${title.slice(2)}`;
-                achievements.appendChild(achievement);
+        // Achievement zentral anzeigen
+        displayAchievement(title);
 
-                achievements.classList.remove("hidden");
-                updateProgress();
-            } else {
-                alert("Falsch! Versuche es erneut.");
-            }
-        }
+        updateProgress();  // Fortschrittsanzeige aktualisieren
+        } else {
+        alert("Falsch! Versuche es erneut.");
+    }
+}
+
+    function displayAchievement(title) {
+    const achievements = document.getElementById("achievements");
+    const achievement = document.createElement("div");
+    achievement.className = "achievement";
+    achievement.innerHTML = `<span>${title.split(" ")[0]}</span> ${title.slice(2)}`;
+    achievements.appendChild(achievement);
+    achievements.classList.remove("hidden");
+}
+
 
         function checkHashFlags() {
             const flag7a = document.getElementById("flag7a").value.trim();
