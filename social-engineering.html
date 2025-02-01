@@ -165,81 +165,82 @@ const scenarios = [
             "Hallo, hier ist Herr Müller, dein Geschichtslehrer. Es gibt ein Problem mit deiner letzten Prüfung. Ich brauche kurz deine Schulnummer und deinen Login, um zu prüfen, ob alles stimmt."
         ],
         options: [
-            { text: "Hier sind meine Daten, Herr Müller: Schüler12345.", correct: false },
-            { text: "Ich werde die Daten nicht weitergeben. Ich frage morgen persönlich nach.", correct: true },
-            { text: "Ich gebe nur meine Schulnummer weiter, aber nicht mein Passwort.", correct: false }
+            { text: "Ich gebe ihm die Daten, er ist ja mein Lehrer.", correct: false },
+            { text: "Ich frage, ob ich das direkt in der Schule klären kann.", correct: true },
+            { text: "Ich gebe ihm nur meine Schulnummer, das reicht bestimmt.", correct: false }
         ],
         feedback: [
-            "Das war falsch. Auch Schulnummern können zu weiteren Angriffen führen!",
-            "Richtig! Persönlich nachfragen ist der beste Schutz.",
-            "Das war riskant. Jede Information kann Angreifern helfen."
+            "Das war falsch. Auch Lehrer sollten keine sensiblen Daten am Telefon verlangen.",
+            "Richtig! Persönlich klären ist sicherer.",
+            "Das war gefährlich. Auch kleine Details können missbraucht werden."
         ]
     },
     {
-        name: "Techniker-Anruf",
+        name: "Techniker-Anruf mit Details",
         messages: [
-            "Hallo, hier ist der Techniker von der Schul-IT. Wir haben gesehen, dass dein Laptop von einem Virus befallen ist. Ich brauche deinen Administrator-Zugang, um den Virus zu entfernen."
+            "Hallo, hier ist der Techniker von der Schul-IT. Es gibt ein bekanntes Problem mit den Laptops der 10. Klasse. Kannst du bitte bestätigen, welches Modell du hast und ob du zuletzt Software installiert hast?"
         ],
         options: [
-            { text: "Natürlich, hier sind meine Zugangsdaten.", correct: false },
-            { text: "Ich werde keine Daten weitergeben. Können Sie bitte einen Termin im Sekretariat vereinbaren?", correct: true },
-            { text: "Ich gebe den Zugang frei, aber nur für eine Stunde.", correct: false }
+            { text: "Ja, ich habe gestern ein neues Spiel installiert. Warum fragen Sie das?", correct: false },
+            { text: "Können Sie mir erst Ihre IT-Nummer nennen, damit ich weiß, dass Sie echt sind?", correct: true },
+            { text: "Ich beantworte nur Fragen, die keine persönlichen Daten betreffen.", correct: false }
         ],
         feedback: [
-            "Das war falsch. Du hast einem Fremden Zugriff auf deinen Laptop gegeben!",
-            "Richtig! Niemals am Telefon Zugangsdaten weitergeben.",
-            "Das war gefährlich. Ein kurzer Zugriff reicht Angreifern oft schon."
+            "Das war gefährlich. Solche Informationen könnten zur Manipulation genutzt werden!",
+            "Richtig! Du hast die Identität überprüft.",
+            "Nicht ganz. Auch technische Details können ein Risiko darstellen."
         ]
     },
     {
-        name: "Falscher Elternanruf",
+        name: "Gefälschter Elternanruf",
         messages: [
             "Hallo, hier ist der Vater deines Freundes Leon. Leon hat sein Handy verloren, und wir brauchen seine IServ-Zugangsdaten, um seine Aufgaben ausdrucken zu können."
         ],
         options: [
             { text: "Ich kenne die Zugangsdaten von Leon, ich gebe sie Ihnen.", correct: false },
-            { text: "Ich gebe keine fremden Zugangsdaten weiter. Sie sollten direkt bei Leon nachfragen.", correct: true },
-            { text: "Ich frage Leon zuerst, ob es okay ist.", correct: false }
+            { text: "Leon soll mich später selbst anrufen und mir bestätigen, dass es in Ordnung ist.", correct: true },
+            { text: "Ich gebe nur den Benutzernamen, aber nicht das Passwort.", correct: false }
         ],
         feedback: [
             "Das war falsch. Du hast sensible Daten ohne Erlaubnis weitergegeben!",
-            "Richtig! Es ist nicht deine Aufgabe, fremde Zugangsdaten zu teilen.",
-            "Das war riskant. Du hättest die Situation direkt ablehnen sollen."
+            "Richtig! Du hast auf eine direkte Bestätigung gewartet.",
+            "Das war gefährlich. Benutzernamen können Teil eines Angriffs sein."
         ]
     },
     {
-        name: "Bankdaten-Abzocke",
+        name: "Gefälschter Bankanruf mit Trick",
         messages: [
-            "Hallo, hier ist Frau Schneider aus der Buchhaltung. Wir haben festgestellt, dass die letzte Überweisung an deine Schulbuchhandlung fehlgeschlagen ist. Bitte gib mir deine IBAN, damit wir das überprüfen können."
+            "Hallo, hier ist Frau Schneider aus der Buchhaltung. Wir haben festgestellt, dass eine Rückerstattung für deine Klassenfahrt blockiert wurde. Bitte bestätige mir deine IBAN, damit ich die Buchung freigeben kann."
         ],
         options: [
-            { text: "Natürlich, hier ist meine IBAN: DE1234567890.", correct: false },
-            { text: "Ich gebe keine sensiblen Bankdaten weiter. Bitte senden Sie mir eine offizielle Mail.", correct: true },
-            { text: "Ich frage meine Eltern, bevor ich Bankdaten weitergebe.", correct: false }
+            { text: "Meine IBAN lautet: DE1234567890.", correct: false },
+            { text: "Ich frage nach dem genauen Betrag und dem Namen der Klassenfahrt.", correct: true },
+            { text: "Ich gebe ihr nur meine Bankleitzahl.", correct: false }
         ],
         feedback: [
-            "Das war falsch. Bankdaten können für Betrügereien genutzt werden!",
-            "Richtig! Sensible Bankdaten gehören nicht ans Telefon.",
-            "Fast richtig. Aber am besten verweist du direkt auf eine offizielle Anfrage."
+            "Das war falsch. Bankdaten sollten niemals telefonisch weitergegeben werden!",
+            "Richtig! Detailfragen helfen, Betrüger zu entlarven.",
+            "Nicht ideal. Bankleitzahlen können missbraucht werden."
         ]
     },
     {
-        name: "Verlorener Laptop-Trick",
+        name: "Falscher Anruf von der Polizei",
         messages: [
-            "Hallo, hier ist Paul aus deiner Parallelklasse. Mein Laptop ist abgestürzt, und ich brauche dringend deine Zugangsdaten, um meine Präsentation über deinen Account hochzuladen."
+            "Hallo, hier ist Polizeioberkommissar Meier. Wir ermitteln gerade in einem Fall von Identitätsdiebstahl. Uns fehlen noch ein paar Informationen aus deinem Online-Konto. Kannst du mir deine IServ-E-Mail-Adresse und dein Geburtsdatum nennen?"
         ],
         options: [
-            { text: "Natürlich, hier sind meine Zugangsdaten.", correct: false },
-            { text: "Sorry, ich gebe meine Zugangsdaten nicht weiter. Frag einen Lehrer.", correct: true },
-            { text: "Ich gebe meine Zugangsdaten nur für den Rest des Tages.", correct: false }
+            { text: "Natürlich, ich helfe der Polizei gerne weiter.", correct: false },
+            { text: "Ich gebe die Daten nicht weiter und rufe direkt die örtliche Polizeistelle an.", correct: true },
+            { text: "Ich gebe nur mein Geburtsdatum an.", correct: false }
         ],
         feedback: [
-            "Das war falsch. Deine Zugangsdaten könnten missbraucht werden!",
-            "Richtig! Eigene Zugangsdaten sollte man niemals teilen.",
-            "Das war riskant. Auch zeitlich begrenzter Zugang ist gefährlich."
+            "Das war falsch. Betrüger geben sich oft als Behörden aus!",
+            "Richtig! Direkt die örtliche Polizeistelle zu kontaktieren ist sicher.",
+            "Nicht ideal. Selbst einzelne Daten können zu Betrug führen."
         ]
     }
 ];
+
 
 
         let currentScenario = 0;
