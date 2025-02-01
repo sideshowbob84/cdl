@@ -113,40 +113,49 @@
         </div>
 
         <!-- Brute-Force-Demo -->
-        <div class="demo-container">
-<div class="info-container">
-    <h2>Brute-Force-Demo: So funktioniert's</h2>
-    <p>
-        Gib unten den Benutzernamen ein (z. B. <strong>admin</strong> oder <strong>user</strong>), den du angreifen möchtest. Wir simulieren einen Brute-Force-Angriff mit 70 Einträgen aus der Wordlist <strong>RockYou.txt</strong>, die Passwörter aus echten Datenlecks enthält.
-    </p>
-    <p>
-        Sobald das richtige Passwort gefunden wurde, kannst du dich mit dem Benutzernamen <strong>admin</strong> und dem gefundenen Passwort einloggen, um die Flag zu erhalten.
-    </p>
+<div class="container">
+    <div class="demo-container">
+        <div class="info-container">
+            <h2>Brute-Force-Demo: So funktioniert's</h2>
+            <p>
+                Gib unten den Benutzernamen ein (z. B. <strong>admin</strong> oder <strong>user</strong>), den du angreifen möchtest. 
+                Wir simulieren einen Brute-Force-Angriff mit 70 Einträgen aus der Wordlist <strong>RockYou.txt</strong>, 
+                die Passwörter aus echten Datenlecks enthält.
+            </p>
+            <p>
+                Sobald das richtige Passwort gefunden wurde, kannst du dich mit dem Benutzernamen <strong>admin</strong> und dem 
+                gefundenen Passwort einloggen, um die Flag zu erhalten.
+            </p>
 
-    <h3>Hydra-Befehl (Simulation):</h3>
-    <p>Der folgende Befehl simuliert das systematische Testen von Passwörtern:</p>
-    <div style="background-color: #2b2b2b; color: #dcdcdc; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 14px; margin-bottom: 20px;">
-        hydra -l <strong>&lt;BENUTZERNAME&gt;</strong> -P rockyou.txt http-post-form "/login:username=^USER^&amp;password=^PASS^:F=Login fehlgeschlagen"
+            <h3>Hydra-Befehl (Simulation):</h3>
+            <p>Der folgende Befehl simuliert das systematische Testen von Passwörtern:</p>
+            <div style="background-color: #2b2b2b; color: #dcdcdc; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 14px; margin-bottom: 20px;">
+                hydra -l <strong>&lt;BENUTZERNAME&gt;</strong> -P rockyou.txt http-post-form "/login:username=^USER^&amp;password=^PASS^:F=Login fehlgeschlagen"
+            </div>
+
+            <h3>Was passiert hier genau?</h3>
+            <ul style="line-height: 1.8; list-style-type: square; padding-left: 20px;">
+                <li><code>-l &lt;BENUTZERNAME&gt;</code>: Der Benutzername, der getestet wird (z. B. <strong>admin</strong>).</li>
+                <li><code>-P rockyou.txt</code>: Die Wordlist, die verschiedene Passwörter enthält.</li>
+                <li><code>http-post-form</code>: Gibt an, dass die Login-Daten über ein Formular gesendet werden.</li>
+                <li><code>/login</code>: Die URL der Login-Seite, die angegriffen wird.</li>
+                <li><code>username=^USER^&amp;password=^PASS^</code>: Platzhalter für den Benutzernamen und das Passwort, die getestet werden.</li>
+                <li><code>:F=Login fehlgeschlagen</code>: Das Muster, das Hydra erkennt, wenn der Login scheitert.</li>
+            </ul>
+
+            <h3>Warum ist das wichtig?</h3>
+            <p>
+                Diese Simulation verdeutlicht, wie leicht schwache Passwörter durch automatisierte Angriffe geknackt werden können. 
+                Du lernst, warum starke Passwörter wichtig sind und wie Sicherheitsmechanismen wie Captchas oder 
+                Zwei-Faktor-Authentifizierung solche Angriffe abwehren können.
+            </p>
+            <p>
+                Nach dieser Übung weißt du, wie Angreifer Passwörter systematisch testen und wie du dich davor schützen kannst.
+            </p>
+        </div>
     </div>
-
-    <h3>Was passiert hier genau?</h3>
-    <ul style="line-height: 1.8; list-style-type: square; padding-left: 20px;">
-        <li><code>-l &lt;BENUTZERNAME&gt;</code>: Der Benutzername, der getestet wird (z. B. <strong>admin</strong>).</li>
-        <li><code>-P rockyou.txt</code>: Die Wordlist, die verschiedene Passwörter enthält.</li>
-        <li><code>http-post-form</code>: Gibt an, dass die Login-Daten über ein Formular gesendet werden.</li>
-        <li><code>/login</code>: Die URL der Login-Seite, die angegriffen wird.</li>
-        <li><code>username=^USER^&amp;password=^PASS^</code>: Platzhalter für den Benutzernamen und das Passwort, die getestet werden.</li>
-        <li><code>:F=Login fehlgeschlagen</code>: Das Muster, das Hydra erkennt, wenn der Login scheitert.</li>
-    </ul>
-
-    <h3>Warum ist das wichtig?</h3>
-    <p>
-        Diese Simulation verdeutlicht, wie leicht schwache Passwörter durch automatisierte Angriffe geknackt werden können. Du lernst, warum starke Passwörter wichtig sind und wie Sicherheitsmechanismen wie Captchas oder Zwei-Faktor-Authentifizierung solche Angriffe abwehren können.
-    </p>
-    <p>
-        Nach dieser Übung weißt du, wie Angreifer Passwörter systematisch testen und wie du dich davor schützen kannst.
-    </p>
 </div>
+
 
 
             <input type="text" id="targetUsername" placeholder="Ziel-Benutzername">
