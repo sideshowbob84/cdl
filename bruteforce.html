@@ -19,16 +19,19 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             padding: 20px;
         }
-        h1, h2 {
+        h1, h2, h3 {
             color: #333;
             text-align: center;
         }
-        p {
+        p, ul {
             color: #555;
             line-height: 1.6;
         }
-        .login-container, .demo-container, .info-container {
-            margin-bottom: 20px;
+        ul {
+            padding-left: 20px;
+        }
+        .login-container {
+            margin-top: 20px;
         }
         input {
             width: 100%;
@@ -51,13 +54,13 @@
             background: #0056b3;
         }
         .shell {
-            background: #000;
+            background: #333;
             color: #0f0;
             padding: 15px;
             border-radius: 5px;
             font-family: "Courier New", Courier, monospace;
             margin-top: 20px;
-            height: 300px;
+            max-height: 200px;
             overflow-y: scroll;
             white-space: pre-wrap;
         }
@@ -68,6 +71,7 @@
             text-align: center;
             border-radius: 5px;
             display: none;
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -81,10 +85,10 @@
             Ein <strong>Brute-Force-Angriff</strong> testet systematisch verschiedene Passwörter, bis das richtige gefunden wird. Schwache Passwörter wie „123456“ oder „password“ sind besonders gefährdet, da sie leicht zu knacken sind. Diese Simulation hilft dir zu verstehen, warum sichere Passwörter essenziell sind.
         </p>
         <p>
-            Angreifer nutzen oft sogenannte <strong>Wordlists</strong> mit Passwörtern aus echten Datenlecks, wie die bekannte Liste <strong>RockYou.txt</strong>. Dadurch können gezielt häufig verwendete Passwörter getestet werden, anstatt alle möglichen Kombinationen durchzuprobieren.
+            Angreifer nutzen oft sogenannte <strong>Wordlists</strong> mit Passwörtern aus echten Datenlecks, wie die bekannte Liste <strong>RockYou.txt</strong>. Dadurch können gezielt häufig verwendete Passwörter getestet werden.
         </p>
         <p>
-            Ein sicheres Passwort sollte:  
+            Ein sicheres Passwort sollte:
         </p>
         <ul>
             <li>mindestens 12 Zeichen lang sein,</li>
@@ -96,10 +100,6 @@
             Diese Übung zeigt dir, wie Angreifer schwache Passwörter knacken und warum starke Passwörter deine Daten und Systeme schützen.  
             <strong>Hinweis:</strong> Die Simulation findet in einer sicheren Umgebung statt und dient ausschließlich Bildungszwecken.
         </p>
-    </div>
-</div>
-
-
 
         <!-- Loginmaske -->
         <div class="login-container">
@@ -111,132 +111,106 @@
             </form>
             <div id="flag" class="flag"></div>
         </div>
-
-        <!-- Brute-Force-Demo -->
-<div class="container">
-    <div class="demo-container">
-        <div class="info-container">
-            <h2>Brute-Force-Demo: So funktioniert's</h2>
-            <p>
-                Gib unten den Benutzernamen ein (z. B. <strong>admin</strong> oder <strong>user</strong>), den du angreifen möchtest. 
-                Wir simulieren einen Brute-Force-Angriff mit 70 Einträgen aus der Wordlist <strong>RockYou.txt</strong>, 
-                die Passwörter aus echten Datenlecks enthält.
-            </p>
-            <p>
-                Sobald das richtige Passwort gefunden wurde, kannst du dich mit dem Benutzernamen <strong>admin</strong> und dem 
-                gefundenen Passwort einloggen, um die Flag zu erhalten.
-            </p>
-
-            <h3>Hydra-Befehl (Simulation):</h3>
-            <p>Der folgende Befehl simuliert das systematische Testen von Passwörtern:</p>
-            <div style="background-color: #2b2b2b; color: #dcdcdc; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 14px; margin-bottom: 20px;">
-                hydra -l <strong>&lt;BENUTZERNAME&gt;</strong> -P rockyou.txt http-post-form "/login:username=^USER^&amp;password=^PASS^:F=Login fehlgeschlagen"
-            </div>
-
-            <h3>Was passiert hier genau?</h3>
-            <ul style="line-height: 1.8; list-style-type: square; padding-left: 20px;">
-                <li><code>-l &lt;BENUTZERNAME&gt;</code>: Der Benutzername, der getestet wird (z. B. <strong>admin</strong>).</li>
-                <li><code>-P rockyou.txt</code>: Die Wordlist, die verschiedene Passwörter enthält.</li>
-                <li><code>http-post-form</code>: Gibt an, dass die Login-Daten über ein Formular gesendet werden.</li>
-                <li><code>/login</code>: Die URL der Login-Seite, die angegriffen wird.</li>
-                <li><code>username=^USER^&amp;password=^PASS^</code>: Platzhalter für den Benutzernamen und das Passwort, die getestet werden.</li>
-                <li><code>:F=Login fehlgeschlagen</code>: Das Muster, das Hydra erkennt, wenn der Login scheitert.</li>
-            </ul>
-
-            <h3>Warum ist das wichtig?</h3>
-            <p>
-                Diese Simulation verdeutlicht, wie leicht schwache Passwörter durch automatisierte Angriffe geknackt werden können. 
-                Du lernst, warum starke Passwörter wichtig sind und wie Sicherheitsmechanismen wie Captchas oder 
-                Zwei-Faktor-Authentifizierung solche Angriffe abwehren können.
-            </p>
-            <p>
-                Nach dieser Übung weißt du, wie Angreifer Passwörter systematisch testen und wie du dich davor schützen kannst.
-            </p>
-        </div>
     </div>
 </div>
 
+<!-- Brute-Force-Demo -->
+<div class="container">
+    <div class="info-container">
+        <h2>Brute-Force-Demo: So funktioniert's</h2>
+        <p>
+            Gib unten den Benutzernamen ein (z. B. <strong>admin</strong> oder <strong>user</strong>), den du angreifen möchtest. 
+            Wir simulieren einen Brute-Force-Angriff mit 70 Einträgen aus der Wordlist <strong>RockYou.txt</strong>, 
+            die Passwörter aus echten Datenlecks enthält.
+        </p>
+        <p>
+            Sobald das richtige Passwort gefunden wurde, kannst du dich mit dem Benutzernamen <strong>admin</strong> und dem 
+            gefundenen Passwort einloggen, um die Flag zu erhalten.
+        </p>
 
-
-            <input type="text" id="targetUsername" placeholder="Ziel-Benutzername">
-            <p>Hydra-Befehl:</p>
-            <div class="shell" id="hydraCommand"></div>
-            <button onclick="startSimulation()">Simulation starten</button>
-            <div class="shell" id="simulation"></div>
+        <h3>Hydra-Befehl (Simulation):</h3>
+        <p>Der folgende Befehl simuliert das systematische Testen von Passwörtern:</p>
+        <div style="background-color: #2b2b2b; color: #dcdcdc; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 14px; margin-bottom: 20px;">
+            hydra -l <strong>&lt;BENUTZERNAME&gt;</strong> -P rockyou.txt http-post-form "/login:username=^USER^&amp;password=^PASS^:F=Login fehlgeschlagen"
         </div>
+
+        <h3>Was passiert hier genau?</h3>
+        <ul style="line-height: 1.8; list-style-type: square; padding-left: 20px;">
+            <li><code>-l &lt;BENUTZERNAME&gt;</code>: Der Benutzername, der getestet wird (z. B. <strong>admin</strong>).</li>
+            <li><code>-P rockyou.txt</code>: Die Wordlist, die verschiedene Passwörter enthält.</li>
+            <li><code>http-post-form</code>: Gibt an, dass die Login-Daten über ein Formular gesendet werden.</li>
+            <li><code>/login</code>: Die URL der Login-Seite, die angegriffen wird.</li>
+            <li><code>username=^USER^&amp;password=^PASS^</code>: Platzhalter für den Benutzernamen und das Passwort, die getestet werden.</li>
+            <li><code>:F=Login fehlgeschlagen</code>: Das Muster, das Hydra erkennt, wenn der Login scheitert.</li>
+        </ul>
+
+        <h3>Simulation starten:</h3>
+        <input type="text" id="targetUsername" placeholder="Ziel-Benutzername">
+        <button onclick="startSimulation()">Simulation starten</button>
+
+        <div class="shell" id="hydraCommand"></div>
+        <div class="shell" id="simulation"></div>
     </div>
+</div>
 
-    <script>
-        const correctPasswords = { admin: "admin123", user: "user123" }; // Bekannte Passwörter
-        const rockyouSample = [
-            "123456", "password", "qwerty", "12345", "12345678", "123456789", "1234567", "iloveyou", "111111", "abc123",
-            "password1", "123123", "admin", "monkey", "shadow", "123321", "654321", "123qwe", "michael", "superman",
-            "sunshine", "letmein", "football", "hunter", "baseball", "soccer", "dragon", "starwars", "hello", "freedom",
-            "passw0rd", "master", "killer", "welcome", "trustno1", "whatever", "testing", "secure", "summer2023",
-            "spring2023", "fall2023", "winter2023", "zxcvbn", "batman", "matrix", "pokemon", "kingkong", "rockyou",
-            "guessme", "default", "mypass", "mustang", "password123", "secureme", "simplepass", "hardpass", "mypassword",
-            "dragon123", "hackme", "password2023", "mysecurepass", "letmein1", "admin123", "user123", "rockyou123"
-        ]; // 70 Passwörter
+<script>
+    const correctPasswords = { admin: "admin123", user: "user123" }; // Bekannte Passwörter
+    const rockyouSample = [
+        "123456", "password", "qwerty", "12345", "12345678", "admin123", "user123"
+    ]; // Kurze Liste zur Demonstration
 
-        function startSimulation() {
-            const targetUsername = document.getElementById("targetUsername").value.trim();
-            const simulation = document.getElementById("simulation");
-            const hydraCommand = document.getElementById("hydraCommand");
+    function startSimulation() {
+        const targetUsername = document.getElementById("targetUsername").value.trim();
+        const simulation = document.getElementById("simulation");
+        const hydraCommand = document.getElementById("hydraCommand");
 
-            if (!targetUsername || !correctPasswords[targetUsername]) {
-                simulation.textContent = "Fehler: Bitte einen gültigen Benutzernamen eingeben (admin oder user)!";
-                return;
-            }
+        if (!targetUsername || !correctPasswords[targetUsername]) {
+            simulation.textContent = "Fehler: Bitte einen gültigen Benutzernamen eingeben (admin oder user)!";
+            return;
+        }
 
-            hydraCommand.textContent = `hydra -l ${targetUsername} -P rockyou.txt http-post-form "/login:username=^USER^&password=^PASS^:F=Login fehlgeschlagen"`;
+        hydraCommand.textContent = `hydra -l ${targetUsername} -P rockyou.txt http-post-form "/login:username=^USER^&password=^PASS^:F=Login fehlgeschlagen"`;
 
-            simulation.textContent = ""; // Vorherigen Inhalt löschen
-            let index = 0;
-            const delay = 100; // Verzögerung in ms
+        simulation.textContent = ""; // Vorherigen Inhalt löschen
+        let index = 0;
+        const delay = 500; // Verzögerung in ms
 
-            const introText = [
-                "Hydra v9.4-dev (c) 2023 by van Hauser/THC and David Maciejak\n",
-                "This tool is for legal purposes only! Do not use it for illegal activities.\n",
-                "Hydra starting...\n",
-                `Targeting username: ${targetUsername}\n\n`
-            ];
+        simulation.textContent += "Hydra v9.4-dev - Simulation läuft...\n";
 
-            introText.forEach(line => (simulation.textContent += line));
+        const interval = setInterval(() => {
+            if (index < rockyouSample.length) {
+                const pass = rockyouSample[index];
+                simulation.textContent += `[TEST] ${targetUsername}: ${pass}\n`;
 
-            const interval = setInterval(() => {
-                if (index < rockyouSample.length) {
-                    const pass = rockyouSample[index];
-                    simulation.textContent += `[TEST] ${targetUsername}: ${pass}\n`;
-
-                    if (pass === correctPasswords[targetUsername]) {
-                        simulation.textContent += `[SUCCESS] Password found: ${pass}\nAttack finished.\n`;
-                        clearInterval(interval);
-                    }
-
-                    simulation.scrollTop = simulation.scrollHeight;
-                    index++;
-                } else {
+                if (pass === correctPasswords[targetUsername]) {
+                    simulation.textContent += `[SUCCESS] Password found: ${pass}\nAttack finished.\n`;
                     clearInterval(interval);
-                    simulation.textContent += `\n[FAILURE] No valid password found for ${targetUsername}.`;
                 }
-            }, delay);
-        }
 
-        function handleLogin(event) {
-            event.preventDefault();
-            const username = document.getElementById("loginUsername").value.trim();
-            const password = document.getElementById("loginPassword").value.trim();
-            const flagDiv = document.getElementById("flag");
-
-            if (correctPasswords[username] && correctPasswords[username] === password) {
-                flagDiv.textContent = "Login erfolgreich! Flag: {BRUTE_FORCE_ADMIN_SUCCESS}";
-                flagDiv.style.display = "block";
+                simulation.scrollTop = simulation.scrollHeight;
+                index++;
             } else {
-                flagDiv.textContent = "Login fehlgeschlagen!";
-                flagDiv.style.display = "block";
+                clearInterval(interval);
+                simulation.textContent += `\n[FAILURE] No valid password found for ${targetUsername}.`;
             }
+        }, delay);
+    }
+
+    function handleLogin(event) {
+        event.preventDefault();
+        const username = document.getElementById("loginUsername").value.trim();
+        const password = document.getElementById("loginPassword").value.trim();
+        const flagDiv = document.getElementById("flag");
+
+        if (correctPasswords[username] && correctPasswords[username] === password) {
+            flagDiv.textContent = "Login erfolgreich! Flag: {BRUTE_FORCE_ADMIN_SUCCESS}";
+            flagDiv.style.display = "block";
+        } else {
+            flagDiv.textContent = "Login fehlgeschlagen!";
+            flagDiv.style.display = "block";
         }
-    </script>
+    }
+</script>
 </body>
 </html>
 
