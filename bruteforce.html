@@ -131,48 +131,55 @@
         <div id="flag" class="flag"></div>
     </div>
 </div>
-    <script>
-        const correctPasswords = { admin: "admin123", user: "user123" };
-        const rockyouSample = [
-            "123456", "password", "qwerty", "12345", "12345678", "123456789", "1234567", "iloveyou", "111111", "abc123",
-            "password1", "123123", "admin", "monkey", "shadow", "123321", "654321", "123qwe", "michael", "superman",
-            "sunshine", "letmein", "football", "hunter", "baseball", "soccer", "dragon", "starwars", "hello", "freedom",
-            "passw0rd", "master", "killer", "welcome", "trustno1", "whatever", "testing", "secure", "summer2023",
-            "spring2023", "fall2023", "winter2023", "zxcvbn", "batman", "matrix", "pokemon", "kingkong", "rockyou",
-            "guessme", "default", "mypass", "mustang", "password123", "secureme", "simplepass", "hardpass", "mypassword",
-            "dragon123", "hackme", "password2023", "mysecurepass", "letmein1", "admin123", "user123", "rockyou123"
-        ];
+    function startSimulation() {
+    const targetUsername = document.getElementById("targetUsername").value.trim();
+    const simulation = document.getElementById("simulation");
 
-        function startSimulation() {
-            const targetUsername = document.getElementById("targetUsername").value.trim();
-            const simulation = document.getElementById("simulation");
+    if (!targetUsername || !correctPasswords[targetUsername]) {
+        simulation.textContent = "Fehler: Bitte einen gültigen Benutzernamen eingeben (admin oder user)!";
+        return;
+    }
 
-            if (!targetUsername || !correctPasswords[targetUsername]) {
-                simulation.textContent = "Fehler: Bitte einen gültigen Benutzernamen eingeben (admin oder user)!";
-                return;
+    // Hydra-ähnlicher Header
+    simulation.textContent = `
+Hydra v9.4-dev (c) 2023 by van Hauser/THC and David Maciejak
+This tool is for legal purposes only! Do not use it for illegal activities.
+
+[DATA] Target: http-post-form "/login:username=^USER^&password=^PASS^:F=Login fehlgeschlagen"
+[DATA] Wordlist: rockyou.txt (70 entries)
+[DATA] Username: ${targetUsername}
+[STATUS] Starting attack...\n`;
+
+    let index = 0;
+    const delay = 150;
+    let attemptCount = 0;
+
+    const interval = setInterval(() => {
+        if (index < rockyouSample.length) {
+            const pass = rockyouSample[index];
+            simulation.textContent += `[ATTEMPT] Trying password: ${pass}\n`;
+            attemptCount++;
+
+            if (pass === correctPasswords[targetUsername]) {
+                simulation.textContent += `
+[INFO] Login successful for ${targetUsername} using password: ${pass}
+[STATUS] Attack completed successfully after ${attemptCount} attempts.
+[STATS] Time taken: ${(attemptCount * delay) / 1000}s\n`;
+                clearInterval(interval);
             }
 
-            simulation.textContent = `Hydra startet Angriffe auf Benutzer: ${targetUsername}\n\n`;
-            let index = 0;
-            const delay = 100;
-
-            const interval = setInterval(() => {
-                if (index < rockyouSample.length) {
-                    const pass = rockyouSample[index];
-                    simulation.textContent += `[TEST] ${targetUsername}: ${pass}\n`;
-
-                    if (pass === correctPasswords[targetUsername]) {
-                        simulation.textContent += `[SUCCESS] Password found: ${pass}\nAngriff erfolgreich.\n`;
-                        clearInterval(interval);
-                    }
-                    simulation.scrollTop = simulation.scrollHeight;
-                    index++;
-                } else {
-                    clearInterval(interval);
-                    simulation.textContent += "\n[FAILURE] Kein gültiges Passwort gefunden.";
-                }
-            }, delay);
+            simulation.scrollTop = simulation.scrollHeight; // Automatisches Scrollen
+            index++;
+        } else {
+            clearInterval(interval);
+            simulation.textContent += `
+[FAILURE] No valid password found for ${targetUsername}.
+[STATS] ${attemptCount} passwords tried.
+[STATUS] Attack failed.`;
         }
+    }, delay);
+}
+
 
         function handleLogin(event) {
             event.preventDefault();
