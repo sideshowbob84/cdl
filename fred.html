@@ -110,12 +110,12 @@
             <p>Beantworte die folgenden Fragen zur Bildanalyse und rette Fred!</p>
 
             <h3>1. Wo wurde Fred fotografiert? (Stadt) </h3>
-            <input type="text" id="question1" placeholder="*** ****">
-            <button class="btn" onclick="checkAnswer('New York', 'question1')">Prüfen</button>
+            <input type="text" id="question1" placeholder="***********">
+            <button class="btn" onclick="checkAnswer('Braunschweig', 'question1')">Prüfen</button>
 
             <h3>2. Welches Kameramodell wurde verwendet? </h3>
-            <input type="text" id="question2" placeholder="****">
-            <button class="btn" onclick="checkAnswer('D850', 'question2')">Prüfen</button>
+            <input type="text" id="question2" placeholder="***** ****">
+            <button class="btn" onclick="checkAnswer('Nikon D850', 'question2')">Prüfen</button>
 
             <h3>3. Wer ist der angegebene Besitzer des Bildes? </h3>
             <input type="text" id="question3" placeholder="**** ******">
@@ -125,9 +125,14 @@
             <input type="text" id="question4" placeholder="****">
             <button class="btn" onclick="checkAnswer('GIMP', 'question4')">Prüfen</button>
 
-            <h3>5. Welche Uhrzeit ist in den GPS-Daten gespeichert? (HH:MM:SS) **(8 Zeichen)**</h3>
+            <h3>5. Welche Uhrzeit ist in den GPS-Daten gespeichert? (HH:MM:SS)</h3>
             <input type="text" id="question5" placeholder="**:**:**">
             <button class="btn" onclick="checkAnswer('15:30:21', 'question5')">Prüfen</button>
+
+            <h3>5. Welches Gebäude sollten wir uns genauer ansehen? (**** *** ************)</h3>
+            <input type="text" id="question5" placeholder="**:**:**">
+            <button class="btn" onclick="checkAnswer('Haus der Wissenschaft', 'question6')">Prüfen</button>
+            
         </div>
 
         <!-- Flag-Anzeige -->
@@ -149,7 +154,7 @@
     consoleOutput.innerHTML = "Starte ExifTool...<br><br>";
 
     setTimeout(() => {
-        const metadata = `
+const metadata = `
 Filename: fred.jpg
 File Size: 4.7 MB
 File Type: JPEG
@@ -192,12 +197,12 @@ Digital Zoom Ratio: None
 Subject Distance Range: Close
 
 -- GPS Data --
-GPS Latitude: 40°42'21.4"N
-GPS Longitude: 74°00'45.2"W
-GPS Altitude: 15.3 m Above Sea Level
+GPS Latitude: 52°15'59.9"N
+GPS Longitude: 10°31'37.2"E
+GPS Altitude: 75.0 m Above Sea Level
 GPS Latitude Ref: North
-GPS Longitude Ref: West
-GPS Position: 40°42'21.4"N, 74°00'45.2"W
+GPS Longitude Ref: East
+GPS Position: 52°15'59.9"N, 10°31'37.2"E
 GPS Date/Time: 2024:12:10 15:30:21 UTC
 Map Datum: WGS-84
 
@@ -252,9 +257,9 @@ Thumbnail Orientation: Horizontal (normal)
 Headline: Fred’s Letzter Auftritt
 By-line: A. Tacker
 Special Instructions: Kein Kommentar
-City: New York
-Province/State: New York
-Country: United States
+City: Braunschweig
+Province/State: Niedersachsen
+Country: Germany
 Transmission Reference: CaseRAT2024
 
 -- XMP Metadata --
@@ -268,11 +273,12 @@ History When: 2024:12:10 16:00:00
 History Software Agent: GIMP 2.10
 
 ==================== Ende der Metadaten ====================
-        `;
+`;
 
-        // Zeilenumbrüche durch <br> ersetzen
-        consoleOutput.innerHTML += metadata.replace(/\n/g, '<br>');
-        consoleOutput.scrollTop = consoleOutput.scrollHeight;
+// Zeilenumbrüche durch <br> ersetzen
+consoleOutput.innerHTML += metadata.replace(/\n/g, '<br>');
+consoleOutput.scrollTop = consoleOutput.scrollHeight;
+
     }, 1000);
 }
 
