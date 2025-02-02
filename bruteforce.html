@@ -73,41 +73,49 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Login und Brute-Force-Demo</h1>
+<div class="container">
+    <h1>Login und Brute-Force-Demo</h1>
 
-        <div class="info-container">
-            <h2>Was passiert hier?</h2>
-            <p>
-                Ein <strong>Brute-Force-Angriff</strong> testet systematisch verschiedene Passwörter, bis das Richtige gefunden wird. Schwache Passwörter wie "123456" oder "password" sind besonders gefährdet, da sie leicht zu knacken sind.
-            </p>
-            <h2>Brute-Force-Demo: So funktioniert's</h2>
-            <p>
-                Gib unten den Benutzernamen ein (z. B. <strong>admin</strong> oder <strong>user</strong>), den du angreifen möchtest. Wir simulieren einen Brute-Force-Angriff mit einer Auswahl von 70 Passwörtern aus der Wordlist <strong>RockYou.txt</strong>.
-                Die vollständige Liste enthält 32 Millionen Passwörter.
-            </p>
+    <div class="info-container">
+        <h2>Was passiert hier?</h2>
+        <p>
+            Ein <strong>Brute-Force-Angriff</strong> ist eine Angriffsmethode, bei der automatisiert verschiedene Passwortkombinationen durchprobiert werden, 
+            bis das richtige gefunden wird. Diese Methode ist besonders effektiv bei schwachen Passwörtern wie „123456“ oder „password“, da diese 
+            häufig verwendet werden und leicht zu erraten sind.
+        </p>
 
-            <h3>Hydra-Befehl (Simulation):</h3>
-            <p>Der folgende Befehl zeigt, wie Passwörter systematisch getestet werden:</p>
-            <div style="background-color: #2b2b2b; color: #dcdcdc; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 14px; margin-bottom: 20px;">
-                hydra -l <strong>&lt;BENUTZERNAME&gt;</strong> -P rockyou.txt http-post-form "/login:username=^USER^&amp;password=^PASS^:F=Login fehlgeschlagen"
-            </div>
+        <h2>Brute-Force-Demo: Aufbau</h2>
+        <p>
+            In dieser Demo kannst du einen Angriff simulieren, indem du einen Benutzernamen eingibst (z. B. <strong>admin</strong> oder <strong>user</strong>). 
+            Die Simulation nutzt 70 Passwörter aus der bekannten Wordlist <strong>RockYou.txt</strong>. Diese Liste enthält in der echten Welt 
+            bis zu 32 Millionen Passwörter, die aus Datenlecks stammen.
+        </p>
 
-            <h3>Was macht der Befehl?</h3>
-            <ul>
-                <li><code>-l &lt;BENUTZERNAME&gt;</code>: Der Benutzername, der getestet wird (z. B. <strong>admin</strong>).</li>
-                <li><code>-P rockyou.txt</code>: Die Wordlist, die verschiedene Passwörter enthält.</li>
-                <li><code>http-post-form</code>: Gibt an, dass die Login-Daten über ein Formular gesendet werden.</li>
-                <li><code>/login</code>: Die URL der Login-Seite, die angegriffen wird.</li>
-                <li><code>username=^USER^&amp;password=^PASS^</code>: Platzhalter für den Benutzernamen und das Passwort.</li>
-                <li><code>:F=Login fehlgeschlagen</code>: Das Muster, das Hydra erkennt, wenn der Login scheitert.</li>
-            </ul>
-
-            <h3>Warum ist das wichtig?</h3>
-            <p>
-                Diese Simulation zeigt, wie leicht schwache Passwörter durch automatisierte Angriffe geknackt werden können. Sicherheitsmechanismen wie Captchas oder Zwei-Faktor-Authentifizierung können solche Angriffe erschweren.
-            </p>
+        <h3>Hydra-Befehl (Simulation)</h3>
+        <p>Der folgende Befehl zeigt, wie in der Praxis systematisch Passwörter getestet werden:</p>
+        <div style="background-color: #2b2b2b; color: #dcdcdc; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 14px; margin-bottom: 20px;">
+            hydra -l <strong>&lt;BENUTZERNAME&gt;</strong> -P rockyou.txt http-post-form "/login:username=^USER^&amp;password=^PASS^:F=Login fehlgeschlagen"
         </div>
+
+        <h3>Erklärung des Hydra-Befehls</h3>
+        <ul>
+            <li><code>-l &lt;BENUTZERNAME&gt;</code>: Gibt den Benutzernamen an, gegen den der Angriff durchgeführt wird (z. B. <strong>admin</strong>).</li>
+            <li><code>-P rockyou.txt</code>: Verwendet die Wordlist, um verschiedene Passwortkombinationen auszuprobieren.</li>
+            <li><code>http-post-form</code>: Zeigt an, dass die Login-Daten über ein Webformular gesendet werden.</li>
+            <li><code>/login</code>: Der Pfad zur Login-Seite, die angegriffen wird.</li>
+            <li><code>username=^USER^&amp;password=^PASS^</code>: Platzhalter für den Benutzernamen (<code>^USER^</code>) und das getestete Passwort (<code>^PASS^</code>).</li>
+            <li><code>:F=Login fehlgeschlagen</code>: Definiert das Muster, das Hydra erkennt, wenn der Loginversuch scheitert.</li>
+        </ul>
+
+        <h3>Warum ist das wichtig?</h3>
+        <p>
+            Brute-Force-Angriffe sind real und weit verbreitet. Schwache Passwörter machen Systeme leicht angreifbar. In der Praxis werden solche Angriffe oft automatisiert mit 
+            umfangreichen Listen durchgeführt. Diese Simulation verdeutlicht, warum starke Passwörter (mindestens 12 Zeichen, Kombinationen aus Zahlen, Groß- und Kleinbuchstaben sowie Sonderzeichen) 
+            und zusätzliche Sicherheitsmechanismen wie Captchas oder Zwei-Faktor-Authentifizierung essenziell sind.
+        </p>
+    </div>
+</div>
+
 
         <h2>Simulation starten</h2>
         <input type="text" id="targetUsername" placeholder="Ziel-Benutzername">
