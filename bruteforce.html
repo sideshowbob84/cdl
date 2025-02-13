@@ -80,7 +80,7 @@
         <h2>Was passiert hier?</h2>
         <p>
             Ein <strong>Brute-Force-Angriff</strong> ist eine Methode, bei der automatisiert viele Passwortkombinationen durchprobiert werden, 
-            bis das richtige gefunden wird. Besonders schwache Passwörter wie „123456“ oder „password“ sind leicht zu knacken. Diese Methode nutzen Angreifer weltweit, um ungeschützte Konten zu kompromittieren.
+            bis das richtige gefunden wird. Besonders schwache Passwörter wie „123456“ oder „passwort“ sind leicht zu knacken. Diese Methode nutzen Angreifer weltweit, um ungeschützte Konten zu kompromittieren.
         </p>
 
         <h2>Brute-Force-Demo: Aufbau</h2>
@@ -92,13 +92,14 @@
         <h3>Hydra-Befehl (Simulation)</h3>
         <p>So könnte ein Angreifer systematisch verschiedene Passwörter testen:</p>
         <div style="background-color: #2b2b2b; color: #dcdcdc; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 14px; margin-bottom: 20px;">
-            hydra -l <strong>&lt;BENUTZERNAME&gt;</strong> -P rockyou.txt http-post-form "/login:username=^USER^&amp;password=^PASS^:F=Login fehlgeschlagen"
+            hydra -l <strong>&lt;BENUTZERNAME&gt;</strong> -P rockyou.txt www.example.com http-post-form "/login:username=^USER^&amp;password=^PASS^:F=Login fehlgeschlagen"
         </div>
 
         <h3>Erklärung des Hydra-Befehls</h3>
         <ul>
             <li><code>-l &lt;BENUTZERNAME&gt;</code>: Gibt den Benutzernamen an, gegen den der Angriff erfolgt (z. B. <strong>admin</strong>).</li>
             <li><code>-P rockyou.txt</code>: Nutzt eine Wordlist, um verschiedene Passwortkombinationen zu testen.</li>
+            <li><code>www.example.com -> Die Zielwebseite.</li>
             <li><code>http-post-form</code>: Gibt an, dass die Login-Daten über ein Formular gesendet werden.</li>
             <li><code>username=^USER^&amp;password=^PASS^</code>: Platzhalter für den Benutzernamen und das getestete Passwort.</li>
             <li><code>:F=Login fehlgeschlagen</code>: Muster, das Hydra erkennt, wenn der Loginversuch scheitert.</li>
@@ -127,7 +128,7 @@
 <script>
     const correctPasswords = { admin: "admin123", user: "user123" };
     const rockyouSample = [
-        "123456", "password", "qwerty", "12345", "12345678", "123456789", "1234567", "iloveyou", "111111", "abc123",
+        "123456", "passwort", "qwertz", "12345", "12345678", "123456789", "1234567", "iloveyou", "111111", "abc123",
         "password1", "123123", "admin", "monkey", "shadow", "123321", "654321", "123qwe", "michael", "superman",
         "sunshine", "letmein", "football", "hunter", "baseball", "soccer", "dragon", "starwars", "hello", "freedom",
         "passw0rd", "master", "killer", "welcome", "trustno1", "whatever", "testing", "secure", "summer2023",
@@ -145,7 +146,7 @@
 Hydra v9.4-dev (c) 2023 by van Hauser/THC and David Maciejak
 This tool is for legal purposes only! Do not use it for illegal activities.
 
-[DATA] Target: http-post-form "/login:username=^USER^&password=^PASS^:F=Login fehlgeschlagen"
+[DATA] Target: www.example.com http-post-form "/login:username=^USER^&password=^PASS^:F=Login fehlgeschlagen"
 [DATA] Wordlist: rockyou.txt (70 entries)
 [DATA] Username: ${targetUsername}
 [STATUS] Starting brute-force attack...\n\n`;
