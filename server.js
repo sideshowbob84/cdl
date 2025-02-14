@@ -64,7 +64,7 @@ const server = http.createServer((req, res) => {
          } else if (req.url === '/contact.html') {
             // Kontakt-Seite ausliefern
             serveFile('contact.html', res);
-         } else if (req.url === '/impressum2.html') {
+         } else if (req.url === '/datenschutz2.html') {
             // DSchutzinteraktiv-Seite ausliefern
             serveFile('datenschutz2.html', res);
         } else {
