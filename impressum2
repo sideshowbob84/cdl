@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datenschutzerklärung - CyberDefense Lab</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        h2 {
+            margin-top: 20px;
+            color: #007bff;
+        }
+        p, li {
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .highlight {
+            background: #ffeb3b;
+            padding: 2px 5px;
+            border-radius: 5px;
+        }
+        .fixed {
+            background: #d4edda;
+            color: #155724;
+            padding: 2px 5px;
+            border-radius: 5px;
+        }
+        .explanation {
+            display: none;
+            font-size: 14px;
+            color: #d9534f;
+            margin-top: 5px;
+        }
+        .message {
+            display: none;
+            background: #28a745;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .notice {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="notice">
+            Diese Datenschutzerklärung ist interaktiv! Klicke auf hervorgehobene Passagen, um mögliche Probleme zu erkennen und zu korrigieren. Das korrekte Impressum kann unter <a href="impressum.html">diesem Link</a> eingesehen werden.
+        </div>
+        
+        <h1>Datenschutzerklärung</h1>
+        <p><span class="highlight" onclick="showExplanation(this, 'Diese Aussage ist ungenau. Besser wäre eine klarere Formulierung.')">Das CyberDefense Lab erhebt, speichert oder verarbeitet keine personenbezogenen Daten der Nutzer.</span> Alle Interaktionen erfolgen lokal und werden nicht weitergeleitet.<br><span class="explanation"></span></p>
+        
+        <h2>1. Datenverarbeitung</h2>
+        <p><span class="highlight" onclick="showExplanation(this, 'Das Wort "keine Speicherung" kann missverständlich sein. Ein genauerer Hinweis wäre sinnvoll.')">Keine Speicherung:</span> Das Lab verwendet keine Datenbanken, Log-Dateien oder Cookies.<br><span class="explanation"></span></p>
+        
+        <h2>2. Drittanbieter</h2>
+        <p><span class="highlight" onclick="showExplanation(this, 'Es sollte klar darauf hingewiesen werden, dass diese externen Dienste eigene Datenschutzrichtlinien haben.')">Das Lab enthält Links zu externen Tools wie CyberChef oder CrackStation.</span><br><span class="explanation"></span></p>
+        
+        <h2>3. Sicherheitsaspekte</h2>
+        <p><span class="highlight" onclick="showExplanation(this, 'Hier fehlt eine klarere Warnung, dass ethische Nutzung notwendig ist.')">Das Lab dient Bildungszwecken, sollte jedoch nicht für illegale Aktivitäten verwendet werden.</span><br><span class="explanation"></span></p>
+        
+        <h2>4. Haftungsausschluss</h2>
+        <p><span class="highlight" onclick="showExplanation(this, 'Eine detailliertere Formulierung könnte die Risiken klarer darlegen.')">Die Nutzung des Labs erfolgt auf eigene Verantwortung.</span> Es wird keine Haftung für unsachgemäße Nutzung übernommen.<br><span class="explanation"></span></p>
+        
+        <h2>5. Kontakt</h2>
+        <p>Fragen zur Nutzung oder Datenschutz? <span class="highlight" onclick="showExplanation(this, 'Eine E-Mail-Adresse oder ein direkter Kontaktweg wäre hier hilfreich.')">Wenden Sie sich an den Administrator.</span><br><span class="explanation"></span></p>
+        
+        <p class="message" id="successMessage">🏆 Glückwunsch! Du hast alle problematischen Stellen erkannt! Hier ist deine Flag: {FLAG_PRIVACY_AWARE}</p>
+    </div>
+
+    <script>
+        function showExplanation(element, explanation) {
+            let expElement = element.nextElementSibling;
+            expElement.innerText = explanation;
+            expElement.style.display = "block";
+            setTimeout(() => fixText(element, expElement), 2000);
+        }
+
+        function fixText(element, expElement) {
+            let correctedText = "✔️ " + element.innerText.replace('🔍', '').trim();
+            element.classList.remove("highlight");
+            element.classList.add("fixed");
+            element.innerHTML = correctedText;
+            expElement.style.display = "none";
+            checkCompletion();
+        }
+        
+        function checkCompletion() {
+            if (document.querySelectorAll(".highlight").length === 0) {
+                document.getElementById("successMessage").style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
