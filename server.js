@@ -62,8 +62,11 @@ const server = http.createServer((req, res) => {
             // Quellen-Seite ausliefern
             serveFile('cookies.html', res);
          } else if (req.url === '/contact.html') {
-            // Quellen-Seite ausliefern
+            // Kontakt-Seite ausliefern
             serveFile('contact.html', res);
+         } else if (req.url === '/impressum2.html') {
+            // Impressuminteraktiv-Seite ausliefern
+            serveFile('impressum2.html', res);
         } else {
             // 404-Seite
             res.statusCode = 404;
