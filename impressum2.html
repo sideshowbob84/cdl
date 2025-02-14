@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datenschutzerklärung - CyberDefense Lab</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        h2 {
+            margin-top: 20px;
+            color: #007bff;
+        }
+        p, li {
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .fixed {
+            background: #d4edda;
+            color: #155724;
+            padding: 2px 5px;
+            border-radius: 5px;
+        }
+        .explanation {
+            display: none;
+            font-size: 14px;
+            color: #d9534f;
+            margin-top: 5px;
+        }
+        .message {
+            display: none;
+            background: #28a745;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .notice {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="notice">
+            Diese Datenschutzerklärung enthält versteckte problematische Stellen. Klicke auf Aussagen, die dir auffällig erscheinen, um sie zu prüfen und ggf. zu verbessern. Das vollständige Impressum kann unter <a href="impressum.html">diesem Link</a> eingesehen werden.
+        </div>
+        
+        <h1>Datenschutzerklärung</h1>
+        <p onclick="checkText(this, 'Diese Aussage ist ungenau. Besser wäre eine klarere Formulierung.', 'Das CyberDefense Lab erhebt keine personenbezogenen Daten und speichert keine Nutzeraktivitäten.')">Das CyberDefense Lab erhebt, speichert oder verarbeitet keine personenbezogenen Daten der Nutzer.</p>
+        
+        <h2>1. Datenverarbeitung</h2>
+        <p onclick="checkText(this, 'Ein klarer Hinweis auf den rein lokalen Ablauf wäre besser.', 'Alle Prozesse bleiben vollständig auf dem Gerät des Nutzers.')">Lokale Verarbeitung: Alle Eingaben (z. B. Flags, Passwörter) werden ausschließlich lokal verarbeitet. Es findet keine Speicherung oder Übermittlung an einen Server oder Dritte statt.</p>
+        <p onclick="checkText(this, 'Das Wort "keine Speicherung" kann missverständlich sein. Ein genauerer Hinweis wäre sinnvoll.', 'Es findet keine Speicherung oder Analyse von Nutzerdaten statt.')">Keine Speicherung: Das Lab verwendet keine Datenbanken, Log-Dateien oder Cookies.</p>
+        
+        <h2>2. Drittanbieter</h2>
+        <p onclick="checkText(this, 'Ein Hinweis auf die Datenschutzrichtlinien der Drittanbieter wäre sinnvoll.', 'Externe Links unterliegen den Datenschutzrichtlinien der jeweiligen Anbieter.')">Das Lab enthält Links zu externen Tools wie CyberChef oder CrackStation.</p>
+        
+        <h2>3. Sicherheitsaspekte</h2>
+        <p onclick="checkText(this, 'Besser darauf hinweisen, dass keine echten Sicherheitsrisiken bestehen.', 'Die Nutzung dient rein pädagogischen Zwecken und stellt kein reales Sicherheitsrisiko dar.')">Das Lab dient ausschließlich Bildungszwecken.</p>
+        
+        <h2>4. Haftungsausschluss</h2>
+        <p onclick="checkText(this, 'Eine detailliertere Formulierung könnte die Risiken klarer darlegen.', 'Die Nutzung des Labs erfolgt auf eigene Verantwortung. Sicherheitsrisiken sollten stets abgewogen werden.')">Die Nutzung des Labs erfolgt auf eigene Verantwortung.</p>
+        
+        <h2>5. Kontakt</h2>
+        <p onclick="checkText(this, 'Eine E-Mail-Adresse oder ein direkter Kontaktweg wäre hier hilfreich.', 'Kontaktieren Sie den Administrator unter der angegebenen E-Mail-Adresse.')">Wenden Sie sich an den Administrator.</p>
+        
+        <p class="message" id="successMessage">🏆 Glückwunsch! Du hast alle problematischen Stellen erkannt! Hier ist deine Flag: {FLAG_PRIVACY_AWARE}</p>
+    </div>
+
+    <script>
+        function checkText(element, explanation, correctedText) {
+            if (!element.classList.contains("fixed")) {
+                let expElement = document.createElement("span");
+                expElement.className = "explanation";
+                expElement.innerText = explanation;
+                element.after(expElement);
+                expElement.style.display = "block";
+                setTimeout(() => fixText(element, expElement, correctedText), 2000);
+            }
+        }
+
+        function fixText(element, expElement, correctedText) {
+            element.classList.add("fixed");
+            element.innerHTML = correctedText + " ✅";
+            expElement.style.display = "none";
+            checkCompletion();
+        }
+        
+        function checkCompletion() {
+            if (document.querySelectorAll(".fixed").length === 6) {
+                document.getElementById("successMessage").style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
