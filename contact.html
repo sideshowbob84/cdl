@@ -95,25 +95,23 @@
         </form>
         <p id="responseMessage" class="message">Nachricht erfolgreich gesendet!</p>
 
-        <!-- Einklappbarer Hinweis -->
         <div class="hint-container">
         <button class="hint-button" onclick="toggleHint()">💡 Das ist kein echtes Kontaktformular. Was gibt es hier zu tun?</button>
         <div id="hintContent" class="hint-content">
-        <strong>Entwickler nutzen die Konsole zur Fehlersuche.</strong><br>
-        Aber manchmal landen dort <strong>sensible Daten</strong>! Ein Fehler in einer echten Anwendung könnte einem Angreifer wertvolle Informationen liefern.<br><br>
+            <strong>Entwickler nutzen die Konsole zur Fehlersuche.</strong><br>
+            Aber manchmal landen dort <strong>sensible Daten</strong>! Ein Fehler in einer echten Anwendung könnte einem Angreifer wertvolle Informationen liefern.<br><br>
 
-        <strong>🕵️ Deine Challenge:</strong><br>
-        - Sende eine Nachricht über das Kontaktformular (wird hier nur zum Schein verschickt).<br>
-        - Öffne die Developer Tools mit <code>F12</code> oder <code>Strg + Umschalt + I</code>.<br>
-        - Wechsle zum <strong>"Console"-Tab</strong>.<br>
-        - Finde die versteckte Nachricht!<br><br>
+            <strong>🕵️ Deine Challenge:</strong><br>
+            - Sende eine Nachricht über das Kontaktformular (wird hier nur zum Schein verschickt).<br>
+            - Öffne die Developer Tools mit <code>F12</code> oder <code>Strg + Umschalt + I</code>.<br>
+            - Wechsle zum <strong>"Console"-Tab</strong>.<br>
+            - Finde die versteckte Nachricht!<br><br>
 
-        <strong>📌 Was kannst du daraus lernen?</strong><br>
-        - Vertraue nicht darauf, dass Informationen "versteckt" sind!<br>
-        - Entwickler sollten niemals Debugging-Daten oder interne API-Keys in der Konsole ausgeben.<br>
-            </div>
+            <strong>📌 Was kannst du daraus lernen?</strong><br>
+            - Vertraue nicht darauf, dass Informationen "versteckt" sind!<br>
+            - Entwickler sollten niemals Debugging-Daten oder interne API-Keys in der Konsole ausgeben.<br>
         </div>
-
+    </div>
     </div>
 
     <script>
@@ -122,11 +120,18 @@
             
             document.getElementById("responseMessage").style.display = "block";
 
-            // Geheime Flag für Developer Tools
-            console.log("%cGlückwunsch! Du hast es gefunden: {CONSOLE_LOG_HACKER}", "color: green; font-size: 16px; font-weight: bold;");
+            // Simulierte unsichere Debugging-Daten
+            console.log("[DEBUG] Nachricht gesendet: ", {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                message: document.getElementById("message").value
+            });
+
+            console.log("[WARNING] API Key (exposed!): 12345-SECRET-KEY-67890");
+            console.log("[ERROR] SQL Query: SELECT * FROM users WHERE email='" + document.getElementById("email").value + "'");
+            console.log("%cGlückwunsch! Du hast die versteckte Flag gefunden: {FLAG_CONSOLE_LEAK}", "color: green; font-size: 16px; font-weight: bold;");
         });
 
-        // Funktion zum Ein- und Ausklappen des Hinweises
         function toggleHint() {
             let hint = document.getElementById("hintContent");
             hint.style.display = hint.style.display === "none" || hint.style.display === "" ? "block" : "none";
