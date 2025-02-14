@@ -15,9 +15,10 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            flex-direction: column;
         }
         .container {
-            max-width: 400px;
+            max-width: 450px;
             background: #fff;
             color: #333;
             border-radius: 10px;
@@ -56,6 +57,30 @@
             margin-top: 10px;
             display: none;
         }
+        .hint-container {
+            margin-top: 15px;
+            text-align: left;
+        }
+        .hint-button {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+        }
+        .hint-button:hover {
+            color: #0056b3;
+        }
+        .hint-content {
+            display: none;
+            background: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -69,6 +94,24 @@
             <button type="submit">Senden</button>
         </form>
         <p id="responseMessage" class="message">Nachricht erfolgreich gesendet!</p>
+
+        <!-- Einklappbarer Hinweis -->
+        <div class="hint-container">
+            <button class="hint-button" onclick="toggleHint()">💡 Warum ist das wichtig?</button>
+            <div id="hintContent" class="hint-content">
+                <strong>💻 Entwickler nutzen die Konsole zur Fehlersuche.</strong>  
+                Aber manchmal landen dort **sensible Daten**! Ein Fehler in einer echten Anwendung könnte einem Angreifer wertvolle Informationen liefern.  
+                
+                **Deine Challenge:**  
+                - **Öffne die Developer Tools mit** `F12` oder `Strg + Umschalt + I`  
+                - **Wechsle zum "Console"-Tab**  
+                - **Finde die versteckte Nachricht!**  
+                
+                🚀 **Was kannst du daraus lernen?**  
+                - Vertraue nicht darauf, dass Informationen "versteckt" sind!  
+                - Entwickler sollten niemals Debugging-Daten oder interne API-Keys in der Konsole ausgeben.  
+            </div>
+        </div>
     </div>
 
     <script>
@@ -77,9 +120,16 @@
             
             document.getElementById("responseMessage").style.display = "block";
 
-            // Versteckte Flag für Developer Tools
-            console.log("%cGlückwunsch! Hier ist deine Flag: {CONSOLE_LOG_HACKER}", "color: green; font-size: 16px; font-weight: bold;");
+            // Geheime Flag für Developer Tools
+            console.log("%cGlückwunsch! Du hast es gefunden: {CONSOLE_LOG_HACKER}", "color: green; font-size: 16px; font-weight: bold;");
         });
+
+        // Funktion zum Ein- und Ausklappen des Hinweises
+        function toggleHint() {
+            let hint = document.getElementById("hintContent");
+            hint.style.display = hint.style.display === "none" || hint.style.display === "" ? "block" : "none";
+        }
     </script>
 </body>
 </html>
+
