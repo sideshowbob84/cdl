@@ -38,12 +38,6 @@
             padding: 2px 5px;
             border-radius: 5px;
         }
-        .explanation {
-            display: none;
-            font-size: 14px;
-            color: #d9534f;
-            margin-top: 5px;
-        }
         .message {
             display: none;
             background: #28a745;
@@ -63,60 +57,42 @@
             text-align: center;
             font-weight: bold;
         }
+        .explanation {
+            display: none;
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border: 1px solid #ffeeba;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="notice">
-            Diese Datenschutzerklärung enthält versteckte problematische Stellen. Klicke auf Aussagen, die dir auffällig erscheinen, um sie zu prüfen und ggf. zu verbessern. Die vollständige Datenschutzerklärung kann unter <a href="datenschutz.html">diesem Link</a> eingesehen werden.
+            Diese Datenschutzerklärung enthält versteckte problematische Stellen. Klicke auf Aussagen, die dir auffällig erscheinen, um sie zu prüfen und zu verbessern. Sobald alle Korrekturen vorgenommen wurden, erhältst du eine vollständige, präzise Datenschutzerklärung. Die vollständige Datenschutzerklärung kann unter <a href="datenschutzerklaerung.html">diesem Link</a> eingesehen werden.
         </div>
         
         <h1>Datenschutzerklärung</h1>
-        <p onclick="checkText(this, 'Diese Aussage ist ungenau. Besser wäre eine klarere Formulierung.', 'Das CyberDefense Lab erhebt keine personenbezogenen Daten und speichert keine Nutzeraktivitäten.')">Das CyberDefense Lab erhebt, speichert oder verarbeitet keine personenbezogenen Daten der Nutzer.</p>
-        
         <h2>1. Datenverarbeitung</h2>
-        <p onclick="checkText(this, 'Ein klarer Hinweis auf den rein lokalen Ablauf wäre besser.', 'Alle Prozesse bleiben vollständig auf dem Gerät des Nutzers.')">Lokale Verarbeitung: Alle Eingaben (z. B. Flags, Passwörter) werden ausschließlich lokal verarbeitet. Es findet keine Speicherung oder Übermittlung an einen Server oder Dritte statt.</p>
-        <p onclick="checkText(this, 'Das Wort "keine Speicherung" kann missverständlich sein. Ein genauerer Hinweis wäre sinnvoll.', 'Es findet keine Speicherung oder Analyse von Nutzerdaten statt.')">Keine Speicherung: Das Lab verwendet keine Datenbanken, Log-Dateien oder Cookies, um Daten zu speichern.</p>
-
+        <p onclick="checkText(this, 'Diese Aussage könnte präziser sein.', 'Alle Nutzereingaben werden ausschließlich lokal verarbeitet. Es erfolgt keine Speicherung, Analyse oder Übermittlung an Server oder Dritte.')">Alle Nutzereingaben werden ausschließlich lokal auf dem Gerät des Nutzers verarbeitet. Es erfolgt keine Speicherung, Analyse oder Übermittlung an Dritte oder Server.</p>
+        <p onclick="checkText(this, 'Ein genauerer Hinweis auf Datenlöschung wäre sinnvoll.', 'Das Lab speichert keine Nutzerdaten in Datenbanken, Log-Dateien oder Cookies. Jegliche Eingaben verbleiben nur temporär im Speicher des Geräts und werden nach Beendigung der Sitzung automatisch gelöscht.')">Das Lab speichert keine Nutzerdaten in Datenbanken, Log-Dateien oder Cookies. Jegliche Eingaben verbleiben nur temporär im Speicher des Geräts und werden nach Schließen der Seite gelöscht.</p>
+        
         <h2>2. Drittanbieter</h2>
-        <p onclick="checkText(this, 'Ein Hinweis auf die Datenschutzrichtlinien der Drittanbieter wäre sinnvoll.', 'Externe Links unterliegen den Datenschutzrichtlinien der jeweiligen Anbieter.')">Das Lab enthält Links zu externen Tools wie CyberChef oder CrackStation. Beim Aufrufen dieser Seiten gelten deren jeweilige Datenschutzerklärungen. Bitte informieren Sie sich auf den entsprechenden Seiten über deren Datenschutzpraktiken.</p>
-
+        <p onclick="checkText(this, 'Ein deutlicherer Hinweis auf Datenschutzrichtlinien externer Dienste wäre hilfreich.', 'Beim Aufrufen externer Dienste wie CyberChef oder CrackStation gelten deren eigene Datenschutzbestimmungen. Nutzer sollten diese sorgfältig prüfen, bevor sie persönliche Daten eingeben, da diese Lab-externe Dienste sind.')">Beim Aufrufen externer Dienste wie CyberChef oder CrackStation gelten deren eigene Datenschutzbestimmungen. Nutzer sollten diese sorgfältig prüfen, bevor sie persönliche Daten eingeben.</p>
+        
         <h2>3. Sicherheitsaspekte</h2>
-        <p onclick="checkText(this, 'Besser darauf hinweisen, dass keine echten Sicherheitsrisiken bestehen.', 'Die Nutzung dient rein pädagogischen Zwecken und stellt kein reales Sicherheitsrisiko dar.')">Das Lab dient ausschließlich Bildungszwecken. Die hier verwendeten Inhalte und Techniken dürfen nicht für illegale Aktivitäten eingesetzt werden. Alle Szenarien sind so konzipiert, dass keine echten Sicherheitsrisiken entstehen.</p>
-
+        <p onclick="checkText(this, 'Der Hinweis auf reale Sicherheitsrisiken fehlt.', 'Das Lab dient ausschließlich Bildungszwecken. Alle Inhalte sind simulationsbasiert und stellen keine realen Bedrohungen dar. Dennoch sollten Nutzer verantwortungsvoll mit den bereitgestellten Informationen umgehen.')">Das Lab ist ausschließlich zu Bildungszwecken konzipiert. Alle Inhalte sind simulationsbasiert, sodass keine realen Sicherheitsrisiken entstehen. Die gezeigten Angriffe und Abwehrmechanismen sind sicher und dienen ausschließlich dem Verständnis von IT-Sicherheitskonzepten.</p>
+        
         <h2>4. Haftungsausschluss</h2>
-        <p onclick="checkText(this, 'Eine detailliertere Formulierung könnte die Risiken klarer darlegen.', 'Die Nutzung des Labs erfolgt auf eigene Verantwortung. Sicherheitsrisiken sollten stets abgewogen werden.')">Das CyberDefense Lab wurde sorgfältig entwickelt, um ein sicheres Lernumfeld zu bieten. Dennoch wird keine Haftung für Schäden übernommen, die durch die unsachgemäße Nutzung des Labs oder der erlernten Techniken entstehen könnten. Die Nutzung des Labs erfolgt auf eigene Verantwortung.</p>
-
+        <p onclick="checkText(this, 'Eine genauere Definition der Haftung wäre sinnvoll.', 'Das CyberDefense Lab stellt eine sichere Lernumgebung zur Verfügung. Die Nutzung erfolgt auf eigene Verantwortung. Jegliche Nutzung zu rechtswidrigen Zwecken ist untersagt. Der Betreiber haftet nicht für Schäden, die durch unsachgemäße Anwendung entstehen.')">Das CyberDefense Lab stellt eine sichere Lernumgebung zur Verfügung. Die Nutzung des Labs erfolgt auf eigene Verantwortung. Für Schäden, die durch missbräuchliche Anwendung oder Fehlinterpretationen entstehen, übernimmt das Lab keine Haftung.</p>
+        
         <h2>5. Kontakt</h2>
-        <p onclick="checkText(this, 'Eine E-Mail-Adresse oder ein direkter Kontaktweg wäre hier hilfreich.', 'Kontaktieren Sie den Administrator unter der angegebenen E-Mail-Adresse.')">Bei Fragen zur Nutzung des Labs oder zu Datenschutzthemen wenden Sie sich bitte an den Administrator des Labs.</p>
+        <p onclick="checkText(this, 'Eine klar definierte Kontaktmöglichkeit wäre hier sinnvoll.', 'Für Fragen zur Nutzung des Labs oder zu Datenschutzthemen kontaktieren Sie uns bitte unter <a href=\"mailto:ramon.berghorn@hsklunkau.de\">ramon.berghorn@hsklunkau.de</a>.')">Für Fragen zur Nutzung des Labs oder zu Datenschutzthemen kontaktieren Sie uns bitte unter <a href="mailto:ramon.berghorn@hsklunkau.de">ramon.berghorn@hsklunkau.de</a>.</p>
         
-        <p class="message" id="successMessage">🏆 Glückwunsch! Du hast alle problematischen Stellen erkannt! Hier ist deine Flag: {FLAG_PRIVACY_AWARE}</p>
+        <p class="message" id="successMessage">🏆 Glückwunsch! Du hast alle problematischen Stellen erkannt! Hier ist deine Flag: '{FLAG_PRIVACY_AWARE}'</p>
     </div>
-
-    <script>
-        function checkText(element, explanation, correctedText) {
-            if (!element.classList.contains("fixed")) {
-                let expElement = document.createElement("span");
-                expElement.className = "explanation";
-                expElement.innerText = explanation;
-                element.after(expElement);
-                expElement.style.display = "block";
-                setTimeout(() => fixText(element, expElement, correctedText), 2000);
-            }
-        }
-
-        function fixText(element, expElement, correctedText) {
-            element.classList.add("fixed");
-            element.innerHTML = correctedText + " ✅";
-            expElement.style.display = "none";
-            checkCompletion();
-        }
-        
-        function checkCompletion() {
-            if (document.querySelectorAll(".fixed").length === 6) {
-                document.getElementById("successMessage").style.display = "block";
-            }
-        }
-    </script>
 </body>
 </html>
+
