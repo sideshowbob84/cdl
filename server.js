@@ -53,13 +53,13 @@ const server = http.createServer((req, res) => {
             // Quellen-Seite ausliefern
             serveFile('sources.html', res);
          } else if (req.url === '/assets.html') {
-            // Quellen-Seite ausliefern
+            // Assets-Seite ausliefern
             serveFile('assets.html', res);
          } else if (req.url === '/fred.html') {
-            // Quellen-Seite ausliefern
+            // Fred-Seite ausliefern
             serveFile('fred.html', res);
          } else if (req.url === '/cookies.html') {
-            // Quellen-Seite ausliefern
+            // Cookie-Seite ausliefern
             serveFile('cookies.html', res);
          } else if (req.url === '/contact.html') {
             // Kontakt-Seite ausliefern
@@ -67,6 +67,10 @@ const server = http.createServer((req, res) => {
          } else if (req.url === '/datenschutz2.html') {
             // DSchutzinteraktiv-Seite ausliefern
             serveFile('datenschutz2.html', res);
+         } else if (req.url === '/robot.html') {
+            // Rbobot-Seite ausliefern
+            serveFile('robot.html', res);
+            
         } else {
             // 404-Seite
             res.statusCode = 404;
