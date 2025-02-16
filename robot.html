@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR. ROBOT FLAG</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: "Courier New", monospace;
+            font-size: 18px;
+            white-space: pre;
+            overflow: hidden;
+            padding: 20px;
+            text-align: center;
+        }
+        .console {
+            max-width: 80%;
+            margin: auto;
+            display: block;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="console" id="console"></div>
+    
+    <script>
+        const asciiArt = `
+        ██████████  
+        █▄█████▄█  
+        █▼▼▼▼▼█  
+        █    █  
+        █▲▲▲▲▲█  
+        ██████████  
+        ▀▀▀▀▀▀▀▀▀▀  
+        `;
+        
+        const binaryString = "01001101 01010010 01010100 01010010 01001111 01000010 01001111 01010100 01010010 01000101 01000110 01000101 01010010 01000101 01001110 01000011 01000101";
+        let consoleDiv = document.getElementById("console");
+        let index = 0;
+        
+        function typeBinary() {
+            if (index < binaryString.length) {
+                consoleDiv.innerHTML += binaryString.charAt(index);
+                index++;
+                setTimeout(typeBinary, 100);
+            }
+        }
+        
+        window.onload = () => {
+            consoleDiv.innerText = asciiArt + "\n";
+            setTimeout(typeBinary, 1000);
+        };
+    </script>
+</body>
+</html>
