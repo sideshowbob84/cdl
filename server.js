@@ -52,9 +52,9 @@ const server = http.createServer((req, res) => {
         } else if (req.url === '/sources.html') {
             // Quellen-Seite ausliefern
             serveFile('sources.html', res);
-         } else if (req.url === '/images.html') {
+         } else if (req.url === '/assets.html') {
             // Quellen-Seite ausliefern
-            serveFile('images.html', res);
+            serveFile('assets.html', res);
          } else if (req.url === '/fred.html') {
             // Quellen-Seite ausliefern
             serveFile('fred.html', res);
