@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CyberDefense Lab 🧪</title>
   <!-- Einbindung von canvas-confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
@@ -212,7 +212,7 @@
     </p>
 
     <!-- Fortschrittsanzeige & Fortschrittsbalken -->
-    <div id="progress">Fortschritt: 0/11 Flags gesammelt</div>
+    <div id="progress">Fortschritt: 0/12 Flags gesammelt</div>
     <div id="progress-bar">
       <div id="progress-fill"></div>
     </div>
@@ -347,6 +347,15 @@
             Prüfen
           </button>
         </div>
+        <!-- Console Leak -->
+        <div class="task">
+          <h3>Console Leak</h3>
+          <p>Gib die Konsole-Leak-Flag ein.</p>
+          <input type="text" id="flag12" placeholder="{Flag eingeben}"/>
+          <button class="btn" onclick="checkFlag(12, 'e0ZMQUdfQ09OU09MRV9MRUFLfQ==', '💬 Console Leak')">
+            Prüfen
+          </button>
+        </div>
       </div>
     </div>
 
@@ -377,9 +386,9 @@
     /***********************************
      * Globale Variablen & Konfiguration
      ***********************************/
-    // Insgesamt 11 Flags (Index 0-10)
+    // Insgesamt 12 Flags (Index 0-11)
     let collectedFlags = JSON.parse(localStorage.getItem("collectedFlags")) || 
-      [false, false, false, false, false, false, false, false, false, false, false];
+      [false, false, false, false, false, false, false, false, false, false, false, false];
     // Base64-String für das Cookie {COOKIES_REVEAL_SECRETS}
     const cookieEncoded = "e0NPT0tJRVNfUkVWRUFMX1NFQ1JFVFN9";
     // Konfetti soll nur einmal ausgelöst werden
@@ -516,10 +525,10 @@
      ****************************/
     function updateProgress() {
       const count = collectedFlags.filter(Boolean).length;
-      document.getElementById("progress").textContent = `Fortschritt: ${count}/11 Flags gesammelt`;
-      const percentage = (count / 11) * 100;
+      document.getElementById("progress").textContent = `Fortschritt: ${count}/12 Flags gesammelt`;
+      const percentage = (count / 12) * 100;
       document.getElementById("progress-fill").style.width = percentage + '%';
-      if (count === 11 && !confettiShown) {
+      if (count === 12 && !confettiShown) {
         confetti();
         confettiShown = true;
       }
@@ -528,7 +537,7 @@
       localStorage.setItem("collectedFlags", JSON.stringify(collectedFlags));
     }
     function updateUI() {
-      for (let i = 1; i <= 11; i++) {
+      for (let i = 1; i <= 12; i++) {
         const el = document.getElementById(`flag${i}`);
         if (el && collectedFlags[i - 1]) {
           el.disabled = true;
