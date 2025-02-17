@@ -72,6 +72,9 @@
             margin-top: 20px;
             border-radius: 5px;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -81,7 +84,7 @@
             <h2>Digitale Forensik: Analyse von Bilddateien</h2>
             <p>
                 Bilder enthalten oft mehr Informationen, als auf den ersten Blick sichtbar ist. Digitale Forensik nutzt Werkzeuge wie 
-                <strong>ExifTool</strong>, um **versteckte Metadaten** aus Bildern auszulesen. Diese Metadaten, bekannt als 
+                <strong>ExifTool</strong>, um <strong>versteckte Metadaten</strong> aus Bildern auszulesen. Diese Metadaten, bekannt als 
                 <strong>EXIF-Daten</strong> (<i>Exchangeable Image File Format</i>), liefern wichtige Hinweise zur Herkunft eines Bildes, 
                 wie beispielsweise:
             </p>
@@ -93,7 +96,7 @@
                 <li><strong>Belichtungseinstellungen</strong>: Blende, Verschlusszeit, ISO-Wert</li>
             </ul>
             <p>
-                In unserem Szenario wurde Fred, die Laborrate des CyberDefense Labs, entführt. Die Entführer haben ein Bild von ihm geschickt und behauptet, dass es ihm gut geht. 
+                In unserem Szenario wurde Fred, die Laborratte des CyberDefense Labs, entführt. Die Entführer haben ein Bild von ihm geschickt und behauptet, dass es ihm gut geht. 
                 Unsere Aufgabe ist es, durch digitale Forensik seinen Standort herauszufinden und Fred zu retten!
             </p>
         </div>
@@ -109,15 +112,15 @@
             <h2>Aufgaben</h2>
             <p>Beantworte die folgenden Fragen zur Bildanalyse und rette Fred!</p>
 
-            <h3>1. Wo wurde Fred fotografiert? (Stadt) </h3>
+            <h3>1. Wo wurde Fred fotografiert? (Stadt)</h3>
             <input type="text" id="question1" placeholder="***********">
             <button class="btn" onclick="checkAnswer('Braunschweig', 'question1')">Prüfen</button>
 
-            <h3>2. Welches Kameramodell wurde verwendet? </h3>
+            <h3>2. Welches Kameramodell wurde verwendet?</h3>
             <input type="text" id="question2" placeholder="***** ****">
             <button class="btn" onclick="checkAnswer('Nikon D850', 'question2')">Prüfen</button>
 
-            <h3>3. Wer ist der angegebene Besitzer des Bildes? </h3>
+            <h3>3. Wer ist der angegebene Besitzer des Bildes?</h3>
             <input type="text" id="question3" placeholder="**** ******">
             <button class="btn" onclick="checkAnswer('Anna Tacker', 'question3')">Prüfen</button>
 
@@ -129,8 +132,9 @@
             <input type="text" id="question5" placeholder="**:**:**">
             <button class="btn" onclick="checkAnswer('15:30:21', 'question5')">Prüfen</button>
 
-            <h3>6. Welches Gebäude sollten wir uns genauer ansehen? ()</h3>
-            <input type="text" id="question5" placeholder="***********">
+            <h3>6. Welches Gebäude sollten wir uns genauer ansehen?</h3>
+            <!-- Hier habe ich die ID von question5 auf question6 geändert -->
+            <input type="text" id="question6" placeholder="***********">
             <button class="btn" onclick="checkAnswer('Katasteramt', 'question6')">Prüfen</button>
             
         </div>
@@ -141,20 +145,22 @@
     </div>
 
     <script>
+        // Hier werden die korrekten Antworten für alle Fragen definiert (jetzt inklusive question6)
         const correctAnswers = {
             question1: false,
             question2: false,
             question3: false,
             question4: false,
             question5: false,
+            question6: false
         };
 
-     function runExifTool() {
-    const consoleOutput = document.getElementById("console-output");
-    consoleOutput.innerHTML = "Starte ExifTool...<br><br>";
+        function runExifTool() {
+            const consoleOutput = document.getElementById("console-output");
+            consoleOutput.innerHTML = "Starte ExifTool...<br><br>";
 
-    setTimeout(() => {
-const metadata = `
+            setTimeout(() => {
+                const metadata = `
 Filename: fred.jpg
 File Size: 4.7 MB
 File Type: JPEG
@@ -274,15 +280,11 @@ History Software Agent: GIMP 2.10
 
 ==================== Ende der Metadaten ====================
 `;
-
-// Zeilenumbrüche durch <br> ersetzen
-consoleOutput.innerHTML += metadata.replace(/\n/g, '<br>');
-consoleOutput.scrollTop = consoleOutput.scrollHeight;
-
-    }, 1000);
-}
-
-
+                // Ersetze Zeilenumbrüche durch <br> und füge die Daten in das Konsolenfeld ein
+                consoleOutput.innerHTML += metadata.replace(/\n/g, '<br>');
+                consoleOutput.scrollTop = consoleOutput.scrollHeight;
+            }, 1000);
+        }
 
         function checkAnswer(correctAnswer, questionId) {
             const input = document.getElementById(questionId).value.trim();
@@ -302,11 +304,12 @@ consoleOutput.scrollTop = consoleOutput.scrollHeight;
 
         function showFlag() {
             document.getElementById("flag-container").innerHTML = `
-                <div class="flag">Flag: {Where_is_Fred?}</div>
+                <div class="flag">Flag: {WHERE_IS_FRED?}</div>
             `;
             document.getElementById("flag-container").classList.remove("hidden");
         }
     </script>
 </body>
 </html>
+
 
