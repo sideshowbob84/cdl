@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CyberDefense Lab 🧪</title>
+  <!-- canvas-confetti via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -52,6 +54,7 @@
       border-radius: 5px;
       display: inline-block;
       margin-top: 10px;
+      cursor: pointer;
     }
     .btn:hover {
       background-color: #0056b3;
@@ -79,13 +82,11 @@
       border: 1px solid #ddd;
     }
     .achievement {
-      display: flex;
-      align-items: center;
       margin-bottom: 10px;
-    }
-    .achievement span {
-      font-size: 24px;
-      margin-right: 10px;
+      padding: 5px;
+      background: #e0e0e0;
+      border-radius: 5px;
+      font-weight: bold;
     }
     .cookie-banner {
       position: fixed;
@@ -122,21 +123,30 @@
     footer a:hover {
       text-decoration: underline;
     }
+    /* Stil für den ausklappbaren geheimen Flags-Bereich */
+    #secret-flags-header {
+      cursor: pointer;
+      user-select: none;
+    }
+    #toggle-secret {
+      font-size: 0.8em;
+      color: #007bff;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>CyberDefense Lab 🧪</h1>
     <p style="text-align: center; font-size: 14px; color: #888;">
-      Hinweis: Dieses Lab dient ausschließlich Bildungszwecken. Der Einsatz der hier erlernten Techniken für illegale Zwecke ist strengstens untersagt. Es handelt sich hierbei ausschließlich um Simulationen und keine echten Angriffe.
+      Hinweis: Dieses Lab dient ausschließlich Bildungszwecken. Der Einsatz der hier erlernten Techniken für illegale Zwecke ist strengstens untersagt. Es handelt sich um Simulationen, keine echten Angriffe.
     </p>
 
     <!-- Fortschrittsanzeige -->
     <div id="progress" style="text-align: center; margin-bottom: 20px;">
-      Fortschritt: 0/12 Flags gesammelt
+      Fortschritt: 0/11 Flags gesammelt
     </div>
 
-    <!-- Offene Aufgaben -->
+    <!-- Öffentliche Aufgaben -->
     <h2>Offene Aufgaben</h2>
     <div class="task">
       <h3>Phishing-Quiz</h3>
@@ -154,7 +164,7 @@
     </div>
     <div class="task">
       <h3>Social-Engineering-Simulation</h3>
-      <p>Lerne, wie Angreifer durch Täuschung Informationen gewinnen können, und entdecke Strategien, um solche Angriffe zu erkennen und abzuwehren.</p>
+      <p>Lerne, wie Angreifer durch Täuschung Informationen gewinnen und wie du dich dagegen schützt.</p>
       <a href="social-engineering.html" class="btn">Aufgabe öffnen</a>
       <input type="text" id="flag3" placeholder="{Flag eingeben}">
       <button class="btn" onclick="checkFlag(3, 'e0RFRkVOREVSX09GX1RSVVNUfQ==', '🤝 Abwehrstratege')">Prüfen</button>
@@ -173,7 +183,7 @@
       <p>Um auf die fortgeschrittenen Aufgaben zuzugreifen, gib das User-Passwort ein:</p>
       <input type="password" id="lab-password" placeholder="User-Passwort eingeben">
       <button class="btn" onclick="unlockTasks()">Freischalten</button>
-      <p class="error-message hidden" id="error-message"> Wenn du das Passwort nicht selbst herausfindest, bist du noch nicht bereit.</p>
+      <p class="error-message hidden" id="error-message">Wenn du das Passwort nicht selbst herausfindest, bist du noch nicht bereit.</p>
     </div>
     <div id="protected-tasks" class="hidden">
       <div class="task">
@@ -208,26 +218,26 @@
       </div>
     </div>
 
-    <!-- Geheime Flags Container -->
-    <h2>Geheime Flags</h2>
-    <div id="secret-flags-container">
+    <!-- Ausklappbarer Bereich für geheime Flags -->
+    <h2 id="secret-flags-header">Geheime Flags <span id="toggle-secret">[+]</span></h2>
+    <div id="secret-flags-container" style="display: none;">
       <div class="task">
         <h3>SYS_ADMIN</h3>
         <p>Gib den geheimen Admin-Flag ein.</p>
-        <input type="text" id="flag10" placeholder="{Flag eingeben}">
-        <button class="btn" onclick="checkFlag(10, 'e0ZMQUdfQURNSU5fT1ZFUlJJREV9', 'SYS_ADMIN')">Prüfen</button>
+        <input type="text" id="flag9" placeholder="{Flag eingeben}">
+        <button class="btn" onclick="checkFlag(9, 'e0ZMQUdfQURNSU5fT1ZFUlJJREV9', 'SYS_ADMIN')">Prüfen</button>
       </div>
       <div class="task">
         <h3>Mr. Robot</h3>
         <p>Gib den fsociety-Flag ein.</p>
-        <input type="text" id="flag11" placeholder="{Flag eingeben}">
-        <button class="btn" onclick="checkFlag(11, 'e01SX1JPQk9UX1JFRkVSRU5DRQ==', 'Mr. Robot')">Prüfen</button>
+        <input type="text" id="flag10" placeholder="{Flag eingeben}">
+        <button class="btn" onclick="checkFlag(10, 'e01SX1JPQk9UX1JFRkVSRU5DRQ==', 'Mr. Robot')">Prüfen</button>
       </div>
       <div class="task">
         <h3>Mäusejäger</h3>
         <p>Gib den Fred-Flag ein.</p>
-        <input type="text" id="flag12" placeholder="{Flag eingeben}">
-        <button class="btn" onclick="checkFlag(12, 'e1dIRVJFX0lTX0ZSREVEPz0=', 'Mäusejäger')">Prüfen</button>
+        <input type="text" id="flag11" placeholder="{Flag eingeben}">
+        <button class="btn" onclick="checkFlag(11, 'e1dIRVJFX0lTX0ZSREVEPz0=', 'Mäusejäger')">Prüfen</button>
       </div>
     </div>
 
@@ -254,17 +264,40 @@
   </div>
 
   <script>
-    // Verschlüsselte Flag (Base64)
+    // Verschlüsselte Flag für den Cookie-Hinweis
     const encodedFlag = "e0CPT0tJRVNfUkVWRUFMX1NFQ1JFVFN9";
-    // Beim Laden der Seite prüfen, ob der Nutzer schon eine Entscheidung getroffen hat
+    // Variable, um sicherzustellen, dass Konfetti nur einmal gezeigt wird
+    let confettiShown = false;
+    
+    // Insgesamt 11 Flags (Indices 0-10)
+    let collectedFlags = JSON.parse(localStorage.getItem("collectedFlags")) || 
+      [false, false, false, false, false, false, false, false, false, false, false];
+
+    // Beim Laden der Seite
     window.onload = function() {
+      // Cookie-Banner-Handling
       if (localStorage.getItem('cookiesAccepted') === 'true') {
         setCookie();
         hideCookieBanner();
       } else if (localStorage.getItem('cookiesAccepted') === 'false') {
         hideCookieBanner();
       }
-    }
+      // UI updaten
+      updateUI();
+      updateProgress();
+      // Eventlistener für den ausklappbaren geheimen Bereich
+      document.getElementById("secret-flags-header").addEventListener("click", function() {
+        const container = document.getElementById("secret-flags-container");
+        const toggle = document.getElementById("toggle-secret");
+        if (container.style.display === "none") {
+          container.style.display = "block";
+          toggle.textContent = "[-]";
+        } else {
+          container.style.display = "none";
+          toggle.textContent = "[+]";
+        }
+      });
+    };
 
     // Funktion zum Setzen des versteckten Cookies
     function setCookie() {
@@ -294,69 +327,69 @@
       document.getElementById('cookie-banner').style.display = 'none';
     }
 
-    // Aktualisierte Liste der gesammelten Flags (12 insgesamt)
-    const collectedFlags = [false, false, false, false, false, false, false, false, false, false, false, false];
-    const obfuscatedPassword = atob("dXNlcjEyMw==");
-
-    function updateProgress() {
-      const progress = collectedFlags.filter(flag => flag).length;
-      document.getElementById("progress").textContent = `Fortschritt: ${progress}/12 Flags gesammelt`;
+    // Fortschritt in localStorage speichern
+    function updateLocalStorage() {
+      localStorage.setItem("collectedFlags", JSON.stringify(collectedFlags));
     }
 
+    // Fortschrittsanzeige updaten und Konfetti auslösen, wenn 11 Flags erreicht wurden
+    function updateProgress() {
+      const progress = collectedFlags.filter(flag => flag).length;
+      document.getElementById("progress").textContent = `Fortschritt: ${progress}/11 Flags gesammelt`;
+      if (progress === 11 && !confettiShown) {
+        confetti();
+        confettiShown = true;
+      }
+    }
+
+    // Base64 decodieren
     function decodeBase64(encoded) {
       return atob(encoded);
     }
 
+    // Prüft einzelne Flags
     function checkFlag(taskNumber, encodedFlag, title) {
       const input = document.getElementById(`flag${taskNumber}`);
       const decodedFlag = decodeBase64(encodedFlag);
-
       if (input.value === decodedFlag) {
         alert(`Richtig! Flag für Aufgabe ${taskNumber} akzeptiert.`);
         collectedFlags[taskNumber - 1] = true;
         input.disabled = true;
         displayAchievement(title);
+        updateLocalStorage();
         updateProgress();
       } else {
         alert("Falsch! Versuche es erneut.");
       }
     }
 
-    function displayAchievement(title) {
-      const achievements = document.getElementById("achievements");
-      const achievement = document.createElement("div");
-      achievement.className = "achievement";
-      achievement.innerHTML = `<span>${title.split(" ")[0]}</span> ${title.slice(2)}`;
-      achievements.appendChild(achievement);
-      achievements.classList.remove("hidden");
-    }
-
+    // Prüft die beiden Flags im Hashing Lab (Task 7, Index 6)
     function checkHashFlags() {
       const flag7a = document.getElementById("flag7a").value.trim();
       const flag7b = document.getElementById("flag7b").value.trim();
-
       if (flag7a === atob("e0xFVF9ISU1fQ09PS30=") && flag7b === atob("e0FERF9BX1BJTkNIX09GX1NBTFR9")) {
         alert("Richtig! Beide Flags akzeptiert.");
-        collectedFlags[7] = true;
+        collectedFlags[6] = true;
         displayAchievement("🍲 🧂Let Him Cook");
+        updateLocalStorage();
         updateProgress();
       } else {
         alert("Falsch! Versuche es erneut.");
       }
     }
 
+    // Prüft den Cookie-Task (Task 8, Index 7)
     function checkCookie() {
       const cookies = document.cookie.split('; ');
       const hiddenCookie = cookies.find(cookie => cookie.startsWith("cyberFlag="));
-
       if (hiddenCookie) {
         const flagValue = hiddenCookie.split('=')[1];
         const userInput = document.getElementById("cookie-input").value;
-
         if (userInput === flagValue) {
           alert("🎉 Richtig! Du hast die versteckte Flag in den Cookies gefunden.");
-          collectedFlags[8] = true;
+          collectedFlags[7] = true;
           displayAchievement("🍪 Cookie-Jäger");
+          updateLocalStorage();
           updateProgress();
         } else {
           alert("Falsch. Überprüfe die Cookies nochmal in den Developer Tools.");
@@ -366,11 +399,12 @@
       }
     }
 
+    // Passwortgeschützten Bereich freischalten
     function unlockTasks() {
       const inputPassword = document.getElementById("lab-password").value;
       const errorMessage = document.getElementById("error-message");
       const protectedTasks = document.getElementById("protected-tasks");
-
+      const obfuscatedPassword = atob("dXNlcjEyMw==");
       if (inputPassword === obfuscatedPassword) {
         document.getElementById("password-container").classList.add("hidden");
         protectedTasks.classList.remove("hidden");
@@ -380,12 +414,45 @@
       }
     }
 
-    updateProgress();
+    // Zeigt ein Achievement an – jetzt wird der komplette Titel angezeigt
+    function displayAchievement(title) {
+      const achievements = document.getElementById("achievements");
+      const achievement = document.createElement("div");
+      achievement.className = "achievement";
+      achievement.textContent = title;
+      achievements.appendChild(achievement);
+      achievements.classList.remove("hidden");
+    }
+
+    // Aktualisiert die UI: Deaktiviert Eingabefelder für bereits gesammelte Flags
+    function updateUI() {
+      // Öffentliche Aufgaben (Tasks 1-4)
+      for (let i = 1; i <= 4; i++) {
+        if (collectedFlags[i - 1]) {
+          document.getElementById(`flag${i}`).disabled = true;
+        }
+      }
+      // Passwortgeschützte Aufgaben (Tasks 5,6,7,8)
+      [5, 6, 8].forEach(task => {
+        if (collectedFlags[task - 1]) {
+          document.getElementById(`flag${task}`).disabled = true;
+        }
+      });
+      // Hashing Lab (Task 7, zwei Eingabefelder)
+      if (collectedFlags[6]) {
+        document.getElementById("flag7a").disabled = true;
+        document.getElementById("flag7b").disabled = true;
+      }
+      // Geheime Flags (Tasks 9-11)
+      for (let i = 9; i <= 11; i++) {
+        if (collectedFlags[i - 1]) {
+          document.getElementById(`flag${i}`).disabled = true;
+        }
+      }
+    }
   </script>
 </body>
 </html>
-
-
 
 
 
