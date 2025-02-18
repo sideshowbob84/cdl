@@ -7,7 +7,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background: #f4f4f4;
       margin: 0;
       padding: 20px;
     }
@@ -15,15 +15,15 @@
       max-width: 800px;
       margin: auto;
       background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
     }
-    h1, h2, h3 {
+    h1, h2 {
       color: #333;
       text-align: center;
     }
-    p, li {
+    p {
       color: #555;
       line-height: 1.6;
     }
@@ -33,23 +33,20 @@
       padding: 15px;
       border-radius: 5px;
       font-family: "Courier New", Courier, monospace;
-      margin-top: 20px;
+      margin: 20px 0;
       height: 300px;
       overflow-y: scroll;
       white-space: pre-wrap;
     }
-    input {
+    input, button {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
-      border: 1px solid #ddd;
-      border-radius: 5px;
       box-sizing: border-box;
     }
     button {
       background: #007bff;
       color: #fff;
-      padding: 10px 15px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
@@ -58,10 +55,6 @@
     button:hover {
       background: #0056b3;
     }
-    ul {
-      padding-left: 20px;
-      list-style-type: square;
-    }
     .flag {
       background: #007bff;
       color: #fff;
@@ -69,41 +62,32 @@
       text-align: center;
       border-radius: 5px;
       display: none;
+      margin-top: 15px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Brute-Force-Demo</h1>
-    <div class="info-container">
-      <h2>Was passiert hier?</h2>
-      <p>
-        Bei einem <strong>Brute-Force-Angriff</strong> werden automatisiert viele Passwortkombinationen ausprobiert – bis das richtige gefunden ist. Schwache Passwörter wie „123456“ oder „passwort“ sind so schnell geknackt.
-      </p>
-
-      <h2>Demo: Aufbau</h2>
-      <p>
-        Teste, wie ein einfacher Brute-Force-Angriff funktioniert: Gib einen Benutzernamen ein (z. B. <strong>admin</strong> oder <strong>user</strong>) und wir simulieren 70 Passwörter aus der Wordlist <strong>RockYou.txt</strong>.
-      </p>
-
-      <h3>Hydra-Befehl (Simulation)</h3>
-      <p>Ein Beispielbefehl für Hydra:</p>
-      <div style="background-color: #2b2b2b; color: #dcdcdc; padding: 15px; border-radius: 10px; font-family: monospace; font-size: 14px; margin-bottom: 20px;">
-        hydra -l <strong>&lt;BENUTZERNAME&gt;</strong> -P rockyou.txt www.example.com http-post-form "/login:username=^USER^&amp;password=^PASS^:F=Login fehlgeschlagen"
-      </div>
-
-      <h3>Warum ist das wichtig?</h3>
-      <p>
-        Brute-Force-Angriffe zeigen, wie wichtig starke Passwörter (mindestens 12 Zeichen, Groß-/Kleinbuchstaben, Zahlen & Sonderzeichen) und zusätzliche Schutzmechanismen wie Zwei-Faktor-Authentifizierung sind.
-      </p>
-    </div>
-
+    <p>
+      Ein <strong>Brute-Force-Angriff</strong> versucht, durch das automatische Ausprobieren vieler Passwörter den richtigen Zugang zu finden. Dabei werden oft <strong>Passwortlisten</strong> verwendet – Sammlungen, die häufig genutzte oder geleakte Passwörter enthalten. 
+    </p>
+    <p>
+      Ein bekanntes Beispiel hierfür ist die <strong>RockYou.txt</strong>-Liste. Ursprünglich stammt diese Liste aus einem Datenleck und enthält Millionen von Passwörtern, die von Nutzern gewählt wurden. In dieser Demo wird eine verkürzte Version dieser Liste mit 70 Einträgen verwendet, um den Ablauf übersichtlich zu halten.
+    </p>
+    <p>
+      <strong>Hinweis:</strong> Verwende als Ziel-Benutzernamen entweder <em>admin</em> oder <em>user</em>.
+    </p>
+    
     <h2>Simulation starten</h2>
-    <input type="text" id="targetUsername" placeholder="Ziel-Benutzername">
+    <input type="text" id="targetUsername" placeholder="Gib admin oder user ein">
     <button onclick="startSimulation()">Simulation starten</button>
     <div class="shell" id="simulation"></div>
-
+    
     <h2>Login</h2>
+    <p>
+      Versuche, dich einzuloggen. Gib dazu einen der beiden Benutzernamen (admin oder user) und das dazugehörige Passwort ein.
+    </p>
     <form onsubmit="handleLogin(event)">
       <input type="text" id="loginUsername" placeholder="Benutzername" required>
       <input type="password" id="loginPassword" placeholder="Passwort" required>
@@ -129,8 +113,8 @@
       const simulation = document.getElementById("simulation");
       const isKnownUser = correctPasswords.hasOwnProperty(targetUsername);
 
-      simulation.textContent = `Hydra v9.4-dev (c) 2023 by THC &amp; Maciejak
-Dieses Tool dient nur zu Lernzwecken.
+      simulation.textContent = `Hydra v9.4-dev (c) 2023 by THC & Maciejak
+Dieses Tool dient zu Demonstrationszwecken.
 
 [DATA] Ziel: www.example.com http-post-form "/login:username=^USER^&password=^PASS^:F=Login fehlgeschlagen"
 [DATA] Wordlist: rockyou.txt (70 Einträge)
@@ -183,6 +167,8 @@ Dieses Tool dient nur zu Lernzwecken.
   </script>
 </body>
 </html>
+
+
 
 
 
