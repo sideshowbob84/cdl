@@ -70,8 +70,13 @@ const server = http.createServer((req, res) => {
          } else if (req.url === '/robot.html') {
             // Rbobot-Seite ausliefern
             serveFile('robot.html', res);
-            
-        } else {
+         } else if (req.url === '/about.html') {
+            // about-Seite ausliefern
+            serveFile('about.html', res);
+         } else if (req.url === '/geheim.html') {
+            // geheim-Seite ausliefern
+            serveFile('geheim.html', res);
+         } else {
             // 404-Seite
             res.statusCode = 404;
             res.setHeader('Content-Type', 'text/plain');
