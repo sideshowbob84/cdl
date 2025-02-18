@@ -73,7 +73,7 @@
       Ein <strong>Brute-Force-Angriff</strong> versucht, durch das automatische Ausprobieren vieler Passwörter den richtigen Zugang zu finden. Dabei werden oft <strong>Passwortlisten</strong> verwendet – Sammlungen, die häufig genutzte oder geleakte Passwörter enthalten. 
     </p>
     <p>
-      Ein bekanntes Beispiel hierfür ist die <strong>RockYou.txt</strong>-Liste. Ursprünglich stammt diese Liste aus einem Datenleck und enthält Millionen von Passwörtern, die von Nutzern gewählt wurden. In dieser Demo wird eine verkürzte Version dieser Liste mit 70 Einträgen verwendet, um den Ablauf übersichtlich zu halten.
+      Ein bekanntes Beispiel hierfür ist die <strong>RockYou.txt</strong>-Liste. Ursprünglich aus einem Datenleck stammend, enthält sie Millionen von Passwörtern. In dieser Demo nutzen wir eine verkürzte Version mit 70 Einträgen.
     </p>
     <p>
       <strong>Hinweis:</strong> Verwende als Ziel-Benutzernamen entweder <em>admin</em> oder <em>user</em>.
@@ -86,7 +86,7 @@
     
     <h2>Login</h2>
     <p>
-      Versuche, dich einzuloggen. Gib dazu einen der beiden Benutzernamen (admin oder user) und das dazugehörige Passwort ein.
+      Versuche, dich einzuloggen, indem du einen der beiden Benutzernamen (admin oder user) und das dazugehörige Passwort eingibst.
     </p>
     <form onsubmit="handleLogin(event)">
       <input type="text" id="loginUsername" placeholder="Benutzername" required>
@@ -158,8 +158,13 @@ Dieses Tool dient zu Demonstrationszwecken.
       const flag = document.getElementById("flag");
 
       if (correctPasswords[username] && correctPasswords[username] === password) {
-        flag.style.display = "block";
-        flag.textContent = "{BRUTE_FORCE_ADMIN_SUCCESS}";
+        if (username === "admin") {
+          flag.style.display = "block";
+          flag.textContent = "{BRUTE_FORCE_ADMIN_SUCCESS}";
+        } else if (username === "user") {
+          flag.style.display = "block";
+          flag.textContent = "Hinweis: Diese Zugangsdaten könnten für einen anderen Teil des Labs benötigt werden.";
+        }
       } else {
         alert("Ungültiger Benutzername oder Passwort!");
       }
