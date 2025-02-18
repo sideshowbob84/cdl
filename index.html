@@ -1,7 +1,3 @@
-
-
-
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -81,11 +77,12 @@
     }
     /* Flexbox-Aufteilung der Aufgaben */
     .flex-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      align-items: flex-start;
+     display: flex;
+     flex-wrap: wrap;
+     gap: 20px;
+     align-items: flex-start; 
     }
+
     .column {
       flex: 1;
       min-width: 300px;
@@ -370,32 +367,33 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    &copy; 2025 CyberDefense Lab by Ramon Berghorn | Bildungszwecke |
-    <a href="impressum.html">Impressum</a> |
-    <a href="datenschutz.html">Datenschutzerklärung</a> |
-    <a href="sources.html">Quellen</a> |
-    <a href="/fred.html">🐭</a> |
-    <a href="/contact.html">Kontakt</a>
-  </footer>
+<!-- Footer -->
+<footer>
+  &copy; 2025 CyberDefense Lab by Ramon Berghorn | Bildungszwecke |
+  <a href="impressum.html">Impressum</a> |
+  <a href="datenschutz.html">Datenschutzerklärung</a> |
+  <a href="sources.html">Quellen</a> |
+  <a href="/fred.html">🐭</a> |
+  <a href="/contact.html">Kontakt</a>
+</footer>
 
-  <style>
-    footer {
-      text-align: center;
-      margin: 20px 0;
-      color: #ccc; /* Grundfarbe des Textes */
-      font-size: 14px;
-    }
-    footer a {
-      color: #ffffff; /* Weiß für die Links */
-      text-decoration: none;
-    }
-    footer a:hover {
-      color: #ffdd00; /* Gelb beim Hover */
-      text-decoration: underline;
-    }
-  </style>
+<style>
+  footer {
+    text-align: center;
+    margin: 20px 0;
+    color: #ccc; /* Grundfarbe des Textes */
+    font-size: 14px;
+  }
+  footer a {
+    color: #ffffff; /* Weiß für die Links */
+    text-decoration: none;
+  }
+  footer a:hover {
+    color: #ffdd00; /* Gelb beim Hover */
+    text-decoration: underline;
+  }
+</style>
+
 
   <!-- Cookie-Banner -->
   <div class="cookie-banner" id="cookie-banner">
@@ -415,8 +413,6 @@
     const cookieEncoded = "e0NPT0tJRVNfUkVWRUFMX1NFQ1JFVFN9";
     // Konfetti soll nur einmal ausgelöst werden
     let confettiShown = false;
-    // Finales Achievement soll nur einmal angezeigt werden
-    let finalFlagShown = false;
 
     /****************************
      * Initialisierung bei Laden
@@ -556,10 +552,6 @@
         confetti();
         confettiShown = true;
       }
-      if (count === 12 && !finalFlagShown) {
-        displayFinalFlag();
-        finalFlagShown = true;
-      }
     }
     function saveFlags() {
       localStorage.setItem("collectedFlags", JSON.stringify(collectedFlags));
@@ -580,13 +572,6 @@
       div.textContent = title;
       achievements.appendChild(div);
     }
-    function displayFinalFlag() {
-      // Diese finale Flag wird ohne Eingabe angezeigt, um anzuzeigen, dass man fertig ist.
-      displayAchievement("🚀 Mission Accomplished");
-    }
-    
-    // Initialisiere die Variable für die finale Flag
-    let finalFlagShown = false;
   </script>
 </body>
 </html>
