@@ -64,16 +64,24 @@
       display: none;
       margin-top: 15px;
     }
+    .learn {
+      background: #e7f3ff;
+      border: 1px solid #cce5ff;
+      color: #31708f;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Brute-Force-Demo</h1>
     <p>
-      Ein <strong>Brute-Force-Angriff</strong> versucht, durch das automatische Ausprobieren vieler Passwörter den richtigen Zugang zu finden. Dabei werden oft <strong>Passwortlisten</strong> verwendet – Sammlungen, die häufig genutzte oder geleakte Passwörter enthalten. 
+      Ein <strong>Brute-Force-Angriff</strong> versucht, durch das automatische Ausprobieren vieler Passwörter den richtigen Zugang zu finden. Dabei werden oft <strong>Passwortlisten</strong> verwendet – Sammlungen, die häufig genutzte oder geleakte Passwörter enthalten.
     </p>
     <p>
-      Ein bekanntes Beispiel hierfür ist die <strong>RockYou.txt</strong>-Liste. Ursprünglich aus einem Datenleck stammend, enthält sie Millionen von Passwörtern. In dieser Demo nutzen wir eine verkürzte Version mit 70 Einträgen.
+      Ein bekanntes Beispiel ist die <strong>RockYou.txt</strong>-Liste. Ursprünglich aus einem Datenleck stammend, enthält sie Millionen von Passwörtern. In dieser Demo verwenden wir eine verkürzte Version mit 70 Einträgen.
     </p>
     <p>
       <strong>Hinweis:</strong> Verwende als Ziel-Benutzernamen entweder <em>admin</em> oder <em>user</em>.
@@ -94,6 +102,13 @@
       <button type="submit">Einloggen</button>
     </form>
     <div id="flag" class="flag"></div>
+
+    <div class="learn">
+      <h2>Was wir daraus lernen können</h2>
+      <p>
+        Diese Demo zeigt, wie schnell schwache Passwörter durch automatisierte Angriffe kompromittiert werden können. Verwende starke, einzigartige Passwörter und zusätzliche Sicherheitsmaßnahmen, um deine Daten zu schützen. Außerdem kann das Wissen über solche Angriffe helfen, Schwachstellen in eigenen Systemen frühzeitig zu erkennen und zu beheben.
+      </p>
+    </div>
   </div>
 
   <script>
