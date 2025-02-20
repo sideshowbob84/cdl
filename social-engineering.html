@@ -174,14 +174,14 @@
 </div>
 <script>
   /* Szenarien:
-     1. Bankberater (formell – Sie): Ein Bankberater ruft an und versucht, sensible Kontodaten zu erhalten.
-     2. Klassenchat: Der IT-Verantwortliche fordert alle auf, ihre Zugangsdaten preiszugeben. Max äußert kritische Zweifel, während Lisa direkt ihre Daten postet.
-     3. Schulleiter-Support: Der Schulleiter fordert zur schnellen Bestätigung der Zugangsdaten auf und weist darauf hin, dass selbst ein Benutzername sensibel sein kann.
-     4. Iserv Support: Der Iserv-Support meldet ein Problem mit deinem Iserv-Account und betont, dass auch schulische Zugangsdaten gefährlich sind.
-     5. IT-Support Nachhaken: In drei Runden hakt der IT-Support nach – jede Runde bietet abwechslungsreiche Antwortoptionen.
+     1. Bankberater (formell – Sie-Anrede)
+     2. Manipulation im Klassenchat
+     3. Schulleiter-Support
+     4. Iserv Support (überarbeitet)
+     5. Paketbenachrichtigung (neu)
   */
   const scenarios = [
-    // 1. Bankberater (formell – Sie-Anrede)
+    // 1. Bankberater
     {
       name: "Bankberater",
       conversation: [
@@ -220,7 +220,7 @@
         }
       ]
     },
-    // 2. Klassenchat
+    // 2. Manipulation im Klassenchat
     {
       name: "Manipulation im Klassenchat",
       conversation: [
@@ -308,122 +308,79 @@
         }
       ]
     },
-    // 4. Iserv Support
+    // 4. Iserv Support (überarbeitet)
     {
       name: "Iserv Support",
       conversation: [
         {
           type: "message",
           sender: "Iserv-Support",
-          text: "Hallo, hier ist der Iserv-Support. Wir haben ein Problem mit deinem Iserv-Account festgestellt."
+          text: "Hallo, hier ist der Iserv-Support. Wir haben ungewöhnliche Aktivitäten in deinem Iserv-Account festgestellt."
         },
         {
           type: "message",
           sender: "Iserv-Support",
-          text: "Deine Anmeldedaten scheinen nicht korrekt synchronisiert zu sein. Bitte bestätige deine Zugangsdaten, damit wir das Problem beheben können."
-        },
-        {
-          type: "message",
-          sender: "Iserv-Support",
-          text: "Beachte: Auch wenn es sich nur um deinen Iserv-Account handelt, können diese Daten häufig auch für andere wichtige Konten verwendet werden. Gib niemals deine Zugangsdaten preis!"
+          text: "Um deinen Account zu schützen, müssen wir deine Daten kurzfristig verifizieren. Bitte bestätige deine Anmeldedaten, damit dein Account wieder freigeschaltet werden kann."
         },
         {
           type: "choice",
           choices: [
             {
-              text: "Ich melde den Vorfall direkt beim IT-Support der Schule.",
+              text: "Ich kontaktiere zuerst den offiziellen IT-Support der Schule zur Bestätigung.",
               correct: true,
-              feedback: "Richtig! Du entscheidest dich, den Vorfall offiziell zu melden.",
-              finalMessage: "Iserv-Support: Danke, deine Meldung wurde an den IT-Support weitergeleitet."
+              feedback: "Richtig! Überprüfe immer die Echtheit der Anfrage, bevor du sensible Daten preisgibst.",
+              finalMessage: "Iserv-Support: Danke, wir warten auf deine Rückmeldung vom IT-Support."
             },
             {
               text: "Hier sind meine Iserv-Zugangsdaten.",
               correct: false,
-              feedback: "Falsch! Sensible Daten solltest du niemals ohne Überprüfung preisgeben.",
-              finalMessage: "Iserv-Support: Deine Daten wurden entgegengenommen – das birgt ein hohes Risiko."
+              feedback: "Falsch! Ohne vorherige Verifizierung gibst du unnötig sensible Daten preis.",
+              finalMessage: "Iserv-Support: Deine Daten wurden entgegengenommen – das ist jedoch unsicher."
             },
             {
-              text: "Ich gebe nur meine Iserv-Benutzer-ID preis.",
+              text: "Ich gebe nur meinen Benutzernamen preis, da das reichen sollte.",
               correct: false,
-              feedback: "Nicht ausreichend! Auch eine Benutzer-ID kann Rückschlüsse auf dein Konto zulassen.",
-              finalMessage: "Iserv-Support: Deine Information ist unvollständig und stellt ein Sicherheitsrisiko dar."
+              feedback: "Nicht ausreichend! Auch unvollständige Angaben können missbraucht werden.",
+              finalMessage: "Iserv-Support: Deine Information ist unvollständig und stellt ein Risiko dar."
             }
           ]
         }
       ]
     },
-    // 5. IT-Support Nachhaken (persistent)
+    // 5. Paketbenachrichtigung (neu)
     {
-      name: "IT-Support Nachhaken",
-      persistent: true,
-      initialMessage: "Hallo, hier ist der IT-Support. Es gibt ein kritisches Sicherheitsproblem mit deinem Account. Bitte bestätige deine Zugangsdaten, damit wir den Schaden begrenzen können.",
-      rounds: [
+      name: "Paketbenachrichtigung",
+      conversation: [
         {
-          followUp: "IT-Support: Bitte, das ist wirklich dringend! Wir müssen sofort handeln, um deinen Account zu schützen.",
-          choices: [
-            {
-              text: "Ich werde zuerst telefonisch überprüfen, ob die Anfrage echt ist.",
-              correct: true,
-              feedback: "Richtig! Du handelst besonnen und verifizierst zuerst.",
-              finalMessage: "IT-Support: Danke, warte bitte auf weitere Anweisungen."
-            },
-            {
-              text: "Ich sende sofort meine Zugangsdaten.",
-              correct: false,
-              feedback: "Falsch! Ohne Überprüfung setzt du deinen Account einem hohen Risiko aus.",
-              finalMessage: "IT-Support: Deine Daten wurden entgegengenommen – das ist jedoch unsicher."
-            },
-            {
-              text: "Ich gebe nur meinen Nutzernamen weiter, weil man damit ja nichts anfangen kann.",
-              correct: false,
-              feedback: "Falsch! Selbst ein Nutzername kann Rückschlüsse auf dein Konto zulassen.",
-              finalMessage: "IT-Support: Deine Information ist unvollständig und gefährdet deinen Account."
-            }
-          ]
+          type: "message",
+          sender: "Paketdienst",
+          text: "Hallo, hier ist ein Zusteller von ExpressPaket. Wir haben versucht, ein Paket an Sie zuzustellen, aber niemand war zu Hause."
         },
         {
-          followUp: "IT-Support: Ihre erste Rückmeldung ist notiert. Um deinen Account optimal zu schützen, benötige ich noch detailliertere Informationen. Bitte bestätige, dass deine Angaben vollständig und korrekt sind.",
-          choices: [
-            {
-              text: "Ich habe bereits telefonisch bestätigt – bitte notiere das.",
-              correct: true,
-              feedback: "Richtig! Deine konsequente Sorgfalt ist der richtige Weg.",
-              finalMessage: "IT-Support: Deine Bestätigung wurde vermerkt."
-            },
-            {
-              text: "Okay, ich sende jetzt nochmals meine Zugangsdaten.",
-              correct: false,
-              feedback: "Falsch! Das erneute Preisgeben bleibt riskant.",
-              finalMessage: "IT-Support: Deine Daten wurden erneut entgegengenommen – leider erhöht das das Risiko."
-            },
-            {
-              text: "Naja, meine IBAN kann er ja haben, oder? Was soll schon passieren?",
-              correct: false,
-              feedback: "Falsch! Auch einzelne Bankdaten sind sensibel und können missbraucht werden.",
-              finalMessage: "IT-Support: Deine Information ist unzureichend – bitte bestätige, dass alle Daten korrekt sind."
-            }
-          ]
+          type: "message",
+          sender: "Paketdienst",
+          text: "Bitte bestätigen Sie Ihre Lieferadresse und Ihre Telefonnummer, damit wir einen erneuten Zustellversuch vereinbaren können."
         },
         {
-          followUp: "IT-Support: Bitte bestätige noch einmal, dass du die Anfrage vollständig verifiziert hast!",
+          type: "choice",
           choices: [
             {
-              text: "Ich bestätige, dass ich die Anfrage verifiziert habe. Bitte informiere mich über die nächsten Schritte.",
+              text: "Ich rufe direkt bei ExpressPaket unter der offiziellen Nummer an, um die Zustellung zu klären.",
               correct: true,
-              feedback: "Richtig! Deine Sorgfalt sichert deinen Account.",
-              finalMessage: "IT-Support: Vielen Dank für deine Sorgfalt. Der Vorfall wird nun abgeschlossen."
+              feedback: "Richtig! Es ist immer sicherer, direkt über offizielle Kanäle zu verifizieren.",
+              finalMessage: "Paketdienst: Danke, Ihre Anfrage wird über die offizielle Hotline geklärt."
             },
             {
-              text: "Hier, ich sende erneut meine Zugangsdaten.",
+              text: "Meine Adresse: Musterstraße 12, 12345 Musterstadt, und meine Telefonnummer: 0123 456789.",
               correct: false,
-              feedback: "Falsch! Wiederholtes Preisgeben ist extrem riskant.",
-              finalMessage: "IT-Support: Leider haben wir weiterhin keine konsequent sichere Rückmeldung erhalten."
+              feedback: "Falsch! Geben Sie Ihre persönlichen Daten nicht unüberlegt preis.",
+              finalMessage: "Paketdienst: Ihre Daten wurden notiert – bitte beachten Sie, dass dies ein hohes Risiko darstellt."
             },
             {
-              text: "Ich gebe dir meine Benutzer-ID und E-Mail-Adresse.",
+              text: "Ich sende nur meine Telefonnummer, da das genügen sollte.",
               correct: false,
-              feedback: "Falsch! Diese Angaben sind unzureichend, um deine Sicherheit zu gewährleisten.",
-              finalMessage: "IT-Support: Deine Antwort reicht nicht aus."
+              feedback: "Nicht ausreichend! Selbst die Telefonnummer kann für unbefugte Zwecke missbraucht werden.",
+              finalMessage: "Paketdienst: Ihre Information ist unvollständig und birgt ein Sicherheitsrisiko."
             }
           ]
         }
@@ -433,7 +390,6 @@
   
   let currentScenarioIndex = 0;
   let currentStepIndex = 0;
-  let currentRoundIndex = 0; // Für persistente Szenarien
   
   const chatWindow = document.getElementById("chat-window");
   const choicesContainer = document.getElementById("choices-container");
@@ -449,7 +405,6 @@
   function appendMessage(sender, text, className = "message") {
     const msgDiv = document.createElement("div");
     msgDiv.className = className;
-    // String-Konkatenation statt Template-Literals:
     msgDiv.innerHTML = '<span class="sender">' + sender + ':</span> ' + text;
     chatWindow.appendChild(msgDiv);
     chatWindow.scrollTop = chatWindow.scrollHeight;
@@ -467,8 +422,8 @@
     });
   }
   
-  // Standardverarbeitung für nicht-persistente Szenarien.
-  function handleStandardChoice(choice) {
+  // Verarbeitung für Standard-Szenarien.
+  function handleChoice(choice) {
     appendMessage("Du", choice.text, "message du");
     choicesContainer.innerHTML = "";
     appendMessage("System", choice.feedback, "message system-message");
@@ -480,70 +435,18 @@
     }, 3000);
   }
   
-  // Verarbeitung für persistente Szenarien (Szenario 5).
-  function handlePersistentChoice(choice) {
-    appendMessage("Du", choice.text, "message du");
-    choicesContainer.innerHTML = "";
-    appendMessage("System", choice.feedback, "message system-message");
-    const scenario = scenarios[currentScenarioIndex];
-    if (!choice.correct) {
-      scenario.breached = true;
-    }
-    setTimeout(() => {
-      appendMessage("IT-Support", choice.finalMessage, "message other");
-      currentRoundIndex++;
-      if (currentRoundIndex < scenario.rounds.length) {
-        setTimeout(() => {
-          appendMessage("IT-Support", scenario.rounds[currentRoundIndex].followUp, "message other");
-          displayChoices(scenario.rounds[currentRoundIndex].choices);
-        }, 3000);
-      } else {
-        setTimeout(() => {
-          if (scenario.breached) {
-            appendMessage("IT-Support", "IT-Support: Leider haben wir keine konsequent sichere Rückmeldung erhalten. Dein Account ist gefährdet.", "message other");
-          } else {
-            appendMessage("IT-Support", "IT-Support: Vielen Dank für deine Sorgfalt. Der Vorfall wird nun abgeschlossen.", "message other");
-          }
-          setTimeout(nextScenario, 5000);
-        }, 3000);
-      }
-    }, 3000);
-  }
-  
-  // Wird ausgeführt, wenn du eine Wahl triffst.
-  function handleChoice(choice) {
-    const currentScenario = scenarios[currentScenarioIndex];
-    if (currentScenario.persistent) {
-      handlePersistentChoice(choice);
-    } else {
-      handleStandardChoice(choice);
-    }
-  }
-  
-  // Verarbeitet den nächsten Schritt im aktuellen (nicht-persistenten) Szenario.
+  // Verarbeitet die nächsten Schritte im aktuellen Szenario.
   function processStep() {
     const scenario = scenarios[currentScenarioIndex];
-    if (scenario.persistent) {
-      if (currentStepIndex === 0) {
-        appendMessage("IT-Support", scenario.initialMessage, "message other");
-        currentStepIndex++;
-        setTimeout(() => {
-          currentRoundIndex = 0;
-          appendMessage("IT-Support", scenario.rounds[currentRoundIndex].followUp, "message other");
-          displayChoices(scenario.rounds[currentRoundIndex].choices);
-        }, 3000);
-      }
-    } else {
-      if (currentStepIndex >= scenario.conversation.length) return;
-      const step = scenario.conversation[currentStepIndex];
-      if (step.type === "message") {
-        appendMessage(step.sender, step.text, (step.sender === "Du") ? "message du" : "message other");
-        currentStepIndex++;
-        setTimeout(processStep, 3000);
-      } else if (step.type === "choice") {
-        displayChoices(step.choices);
-        currentStepIndex++;
-      }
+    if (currentStepIndex >= scenario.conversation.length) return;
+    const step = scenario.conversation[currentStepIndex];
+    if (step.type === "message") {
+      appendMessage(step.sender, step.text, (step.sender === "Du") ? "message du" : "message other");
+      currentStepIndex++;
+      setTimeout(processStep, 3000);
+    } else if (step.type === "choice") {
+      displayChoices(step.choices);
+      currentStepIndex++;
     }
   }
   
@@ -553,10 +456,6 @@
     currentStepIndex = 0;
     if (currentScenarioIndex < scenarios.length) {
       clearChat();
-      if (scenarios[currentScenarioIndex].persistent) {
-        currentRoundIndex = 0;
-        scenarios[currentScenarioIndex].breached = false;
-      }
       processStep();
     } else {
       chatWindow.innerHTML = "";
@@ -575,5 +474,6 @@
 </script>
 </body>
 </html>
+
 
 
