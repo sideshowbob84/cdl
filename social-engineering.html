@@ -145,8 +145,7 @@
       In diesem Lab wirst du realistische Chat-Szenarien durchlaufen, in denen Angreifer versuchen, dich unter Druck zu setzen – sei es durch Dringlichkeit, Gruppendruck oder hartnäckiges Nachhaken.
     </p>
     <p>
-      Lies die Nachrichten aufmerksam und wähle deine Antworten mit Bedacht. Prüfe stets, ob die Anfrage legitim ist, und verifiziere die Identität deines Gegenübers.
-      Nur so kannst du dich effektiv schützen.
+      Lies die Nachrichten aufmerksam und wähle deine Antworten mit Bedacht. Prüfe stets, ob die Anfrage legitim ist, und verifiziere die Identität deines Gegenübers. Nur so kannst du dich effektiv schützen.
     </p>
     <p>
       Viel Erfolg – und bleib wachsam!
@@ -175,10 +174,10 @@
 </div>
 <script>
   /* Szenarien:
-     1. Bankberater (formell – Sie-Anrede): Ein Bankberater ruft an und versucht, sensible Kontodaten zu erhalten.
-     2. Klassenchat: Der IT-Verantwortliche fordert alle zur Herausgabe ihrer Zugangsdaten auf. Max äußert kritische Zweifel, während Lisa direkt ihre Daten in den Chat postet: "lisa_h@schule.de passwort: sunshine123".
-     3. Schulleiter-Support: Der Schulleiter meldet Unregelmäßigkeiten im Schulportal und fordert zur schnellen Bestätigung der Zugangsdaten auf.
-     4. Iserv Support: Der Iserv-Support meldet ein Problem mit deinem Iserv-Account und fordert zur Verifizierung auf.
+     1. Bankberater (formell – Sie): Ein Bankberater ruft an und versucht, sensible Kontodaten zu erhalten.
+     2. Klassenchat: Der IT-Verantwortliche fordert alle auf, ihre Zugangsdaten preiszugeben. Max äußert kritische Zweifel, während Lisa direkt ihre Daten postet.
+     3. Schulleiter-Support: Der Schulleiter fordert zur schnellen Bestätigung der Zugangsdaten auf und weist darauf hin, dass selbst ein Benutzername sensibel sein kann.
+     4. Iserv Support: Der Iserv-Support meldet ein Problem mit deinem Iserv-Account und betont, dass auch schulische Zugangsdaten gefährlich sind.
      5. IT-Support Nachhaken: In drei Runden hakt der IT-Support nach – jede Runde bietet abwechslungsreiche Antwortoptionen.
   */
   const scenarios = [
@@ -251,20 +250,20 @@
             {
               text: "Ich melde den Vorfall direkt beim offiziellen IT-Support.",
               correct: true,
-              feedback: "Richtig! Du lässt dich nicht von dem Gruppendruck beeinflussen und handelst eigenständig.",
+              feedback: "Richtig! Du lässt dich nicht vom Gruppendruck beeinflussen und handelst eigenständig.",
               finalMessage: "IT-Verantwortlicher: Danke, deine Meldung wurde weitergeleitet und wird geprüft."
             },
             {
               text: "Ich folge Lisa und sende auch meine Zugangsdaten.",
               correct: false,
-              feedback: "Falsch! Auch wenn Lisa ihre Daten teilt, solltest du dich nicht unter Druck setzen lassen – das setzt dein Konto unnötig einem Risiko aus.",
-              finalMessage: "IT-Verantwortlicher: Deine Daten wurden entgegengenommen – das ist jedoch ein sehr riskanter Schritt."
+              feedback: "Falsch! Gruppendruck kann dazu verleiten, unüberlegt zu handeln.",
+              finalMessage: "IT-Verantwortlicher: Deine Daten wurden entgegengenommen – das ist jedoch sehr riskant."
             },
             {
-              text: "Ich frage Max, warum er misstrauisch ist, anstatt selbst zu handeln.",
-              correct: false,
-              feedback: "Auch wenn Nachfragen wichtig sind, musst du letztlich selbst eine sichere Entscheidung treffen.",
-              finalMessage: "Max: Ich denke, wir sollten erst prüfen, ob die Anfrage wirklich legitim ist, bevor wir Daten preisgeben."
+              text: "Ich frage Max, was genau los ist.",
+              correct: true,
+              feedback: "Gut! Es ist absolut legitim, nachzufragen, um die Situation besser zu verstehen – aber letztlich musst du selbst entscheiden.",
+              finalMessage: "Max: Ich bin skeptisch, weil ich solche Anfragen noch nie gehört habe. Es ist besser, wenn du dich selbst absicherst."
             }
           ]
         }
@@ -324,6 +323,11 @@
           text: "Deine Anmeldedaten scheinen nicht korrekt synchronisiert zu sein. Bitte bestätige deine Zugangsdaten, damit wir das Problem beheben können."
         },
         {
+          type: "message",
+          sender: "Iserv-Support",
+          text: "Beachte: Auch wenn es sich nur um deinen Iserv-Account handelt, können diese Daten oft auch für andere wichtige Konten verwendet werden – gib niemals deine Zugangsdaten preis!"
+        },
+        {
           type: "choice",
           choices: [
             {
@@ -358,7 +362,7 @@
           followUp: "IT-Support: Bitte, das ist wirklich dringend! Wir müssen sofort handeln, um deinen Account zu schützen.",
           choices: [
             {
-              text: "Ich werde zuerst telefonisch die Echtheit der Anfrage überprüfen.",
+              text: "Ich werde zuerst telefonisch überprüfen, ob die Anfrage echt ist.",
               correct: true,
               feedback: "Richtig! Du handelst besonnen und verifizierst zuerst.",
               finalMessage: "IT-Support: Danke, warte bitte auf weitere Anweisungen."
@@ -387,7 +391,7 @@
               finalMessage: "IT-Support: Deine Bestätigung wurde vermerkt."
             },
             {
-              text: "Okay, ich sende jetzt nochmal meine Zugangsdaten.",
+              text: "Okay, ich sende jetzt nochmals meine Zugangsdaten.",
               correct: false,
               feedback: "Falsch! Wiederholtes Preisgeben erhöht das Risiko erheblich.",
               finalMessage: "IT-Support: Deine Daten wurden erneut entgegengenommen – leider erhöht das das Risiko."
@@ -395,8 +399,8 @@
             {
               text: "Naja, meine IBAN kann er ja haben, oder? Was soll schon passieren?",
               correct: false,
-              feedback: "Falsch! Auch eine IBAN ist sensibel und kann missbraucht werden.",
-              finalMessage: "IT-Support: Deine Information ist unzureichend – bitte bestätige, dass alle Daten korrekt sind."
+              feedback: "Falsch! Auch einzelne Bankdaten sind sensibel und können missbraucht werden.",
+              finalMessage: "IT-Support: Deine Information ist unzureichend – bitte bestätige, dass alle Angaben korrekt sind."
             }
           ]
         },
@@ -555,19 +559,6 @@
       processStep();
     } else {
       chatWindow.innerHTML = "";
-      flagContainer.innerHTML = `<div class="flag">Flag: {DEFENDER_OF_TRUST}</div>`;
-      additionalInfo.style.display = "block";
-      choicesContainer.innerHTML = "";
-    }
-  }
-  
-  function loadScenario() {
-    clearChat();
-    processStep();
-  }
-  
-  window.onload = loadScenario;
-</script>
-</body>
-</html>
+      flagContainer.innerHTML = `<div class="flag">Flag: 
+
 
