@@ -142,12 +142,11 @@
   <div class="explanation">
     <p>
       Social Engineering bezeichnet das Vorgehen, Menschen durch gezielte Manipulation dazu zu bringen, vertrauliche Informationen preiszugeben.
-      In diesem Lab wirst du realistische Chat-Szenarien durchlaufen, in denen Angreifer versuchen, dich unter Druck zu setzen – sei es durch
-      Dringlichkeit, Gruppendruck oder hartnäckiges Nachhaken.
+      In diesem Lab wirst du realistische Chat-Szenarien durchlaufen, in denen Angreifer versuchen, dich unter Druck zu setzen – sei es durch Dringlichkeit, Gruppendruck oder hartnäckiges Nachhaken.
     </p>
     <p>
-      Lies die Nachrichten aufmerksam und wähle deine Antworten mit Bedacht.
-      Prüfe stets, ob die Anfrage legitim ist, und verifiziere die Identität deines Gegenübers. Nur so kannst du dich effektiv schützen.
+      Lies die Nachrichten aufmerksam und wähle deine Antworten mit Bedacht. Prüfe stets, ob die Anfrage legitim ist, und verifiziere die Identität deines Gegenübers.
+      Nur so kannst du dich effektiv schützen.
     </p>
     <p>
       Viel Erfolg – und bleib wachsam!
@@ -176,89 +175,53 @@
 </div>
 <script>
   /* Szenarien:
-     1. Schulleiter-Support: Der Schulleiter drängt auf schnelle Datenübermittlung.
-     2. Gefälschter IT-Support: Der IT-Support fordert deine vollständigen Login-Daten an.
-     3. Manipulation im Klassenchat: Zuerst meldet der IT-Verantwortliche ein Problem, dann äußert ein kritischer Mitschüler (Max) Zweifel, während eine andere (Lisa) voreilig ihre Daten preisgibt – Gruppendruck entsteht.
-     4. Gefälschter Elternchat: Ein Elternvertreter fordert unter dem Vorwand der Hilfeleistung deine Daten an.
-     5. Hartnäckiger Angreifer: In drei Runden hakt der Angreifer nach – in jeder Runde gibt es abwechslungsreiche Antwortmöglichkeiten.
+     1. Bankberater (formell – Sie-Anrede): Ein Bankberater ruft an und versucht, sensible Kontodaten zu erhalten.
+     2. Klassenchat: Der IT-Verantwortliche fordert alle zur Herausgabe ihrer Zugangsdaten auf. Max äußert kritische Zweifel, während Lisa direkt ihre Daten in den Chat postet: "lisa_h@schule.de passwort: sunshine123".
+     3. Schulleiter-Support: Der Schulleiter meldet Unregelmäßigkeiten im Schulportal und fordert zur schnellen Bestätigung der Zugangsdaten auf.
+     4. Iserv Support: Der Iserv-Support meldet ein Problem mit deinem Iserv-Account und fordert zur Verifizierung auf.
+     5. IT-Support Nachhaken: In drei Runden hakt der IT-Support nach – jede Runde bietet abwechslungsreiche Antwortoptionen.
   */
   const scenarios = [
+    // 1. Bankberater (formell – Sie-Anrede)
     {
-      name: "Schulleiter-Support",
+      name: "Bankberater",
       conversation: [
         {
           type: "message",
-          sender: "Schulleiter",
-          text: "Hallo, hier ist der Schulleiter. Es gibt ein dringendes Problem im Schulportal, das alle betrifft. Bitte bestätige deine Zugangsdaten, damit wir den Fehler beheben können."
+          sender: "Bankberater",
+          text: "Guten Tag, hier ist Herr Müller von der Musterbank. Aufgrund ungewöhnlicher Aktivitäten in Ihrem Konto bitten wir Sie, Ihre Kontodaten zu bestätigen."
         },
         {
           type: "message",
-          sender: "Schulleiter",
-          text: "Wir haben eine Systemüberlastung festgestellt – eine schnelle Lösung ist essenziell, um den Schulbetrieb aufrechtzuerhalten."
+          sender: "Bankberater",
+          text: "Es ist sehr dringend, da wir Ihr Konto vor möglichen Betrugsversuchen schützen müssen."
         },
         {
           type: "choice",
           choices: [
             {
-              text: "Ich rufe zuerst das Sekretariat an, um die Anfrage zu verifizieren.",
+              text: "Ich werde zuerst meine Kontounterlagen prüfen und Sie zurückrufen.",
               correct: true,
-              feedback: "Richtig! Du verifizierst die Anfrage, bevor du sensible Daten preisgibst.",
-              finalMessage: "Schulleiter: Gut, warte bitte auf die Bestätigung vom Sekretariat und informiere uns dann."
+              feedback: "Richtig! So verifizieren Sie die Anfrage, bevor Sie sensible Daten preisgeben.",
+              finalMessage: "Bankberater: Vielen Dank. Wir warten auf Ihren Rückruf."
             },
             {
-              text: "Ich sende sofort meine Zugangsdaten, um das Problem schnell zu lösen.",
+              text: "Hier sind meine Kontodaten: IBAN, BIC und Kontonummer.",
               correct: false,
-              feedback: "Unsicher! Ohne Verifizierung handelst du zu voreilig.",
-              finalMessage: "Schulleiter: Deine Daten wurden entgegengenommen – leider steigt dadurch das Risiko eines Angriffs."
+              feedback: "Falsch! Sensible Daten sollten Sie niemals ohne Überprüfung preisgeben.",
+              finalMessage: "Bankberater: Ihre Daten wurden entgegengenommen – das birgt jedoch ein hohes Sicherheitsrisiko."
             },
             {
-              text: "Ich gebe nur meinen Benutzernamen preis, weil ich denke, das reicht.",
+              text: "Ich gebe nur meine IBAN weiter, weil man damit ja nichts anfangen kann.",
               correct: false,
-              feedback: "Nicht ausreichend! Selbst ein Benutzername kann sensibel sein, da er zur Identifikation genutzt wird und Rückschlüsse auf dein Konto zulassen kann.",
-              finalMessage: "Schulleiter: Deine Information ist unvollständig und stellt ein Sicherheitsrisiko dar."
+              feedback: "Nicht ausreichend! Auch Ihre IBAN kann missbraucht werden, da sie zur Identifikation dient.",
+              finalMessage: "Bankberater: Ihre Information ist unvollständig und stellt ein Sicherheitsrisiko dar."
             }
           ]
         }
       ]
     },
-    {
-      name: "Gefälschter IT-Support",
-      conversation: [
-        {
-          type: "message",
-          sender: "IT-Support",
-          text: "Hallo, hier ist der IT-Support der Schule. Wir haben ein technisches Problem mit deinem Account festgestellt."
-        },
-        {
-          type: "message",
-          sender: "IT-Support",
-          text: "Um den Fehler zu beheben, benötigen wir deine vollständigen Login-Daten."
-        },
-        {
-          type: "choice",
-          choices: [
-            {
-              text: "Kannst du mir zuerst eine offizielle Bestätigung per E-Mail schicken?",
-              correct: true,
-              feedback: "Richtig! So prüfst du die Echtheit der Anfrage.",
-              finalMessage: "IT-Support: Die Bestätigungsmail wurde versendet. Bitte schau in deinen Posteingang."
-            },
-            {
-              text: "Hier sind meine Login-Daten: user123 & Passwort.",
-              correct: false,
-              feedback: "Falsch! Sensible Daten solltest du niemals ohne Überprüfung preisgeben.",
-              finalMessage: "IT-Support: Deine Daten wurden entgegengenommen – das ist jedoch ein hohes Sicherheitsrisiko."
-            },
-            {
-              text: "Ich gebe nur meine Schüler-ID preis, weil das weniger kritisch erscheint.",
-              correct: false,
-              feedback: "Nicht ausreichend! Eine Schüler-ID allein reicht nicht zur vollständigen Verifizierung.",
-              finalMessage: "IT-Support: Deine Information ist unvollständig – es fehlen weitere Details."
-            }
-          ]
-        }
-      ]
-    },
+    // 2. Klassenchat
     {
       name: "Manipulation im Klassenchat",
       conversation: [
@@ -270,7 +233,7 @@
         {
           type: "message",
           sender: "IT-Verantwortlicher",
-          text: "Um das Problem schnell zu beheben, brauche ich von jedem von euch eure Zugangsdaten, damit ich das System neu konfigurieren kann."
+          text: "Ich brauche von jedem von euch eure Zugangsdaten, damit ich das System neu konfigurieren kann."
         },
         {
           type: "message",
@@ -280,7 +243,7 @@
         {
           type: "message",
           sender: "Lisa",
-          text: "Ich gebe schon mal meine Daten preis – vielleicht hilft es, wenn wir alle zusammenhalten."
+          text: "lisa_h@schule.de passwort: sunshine123"
         },
         {
           type: "choice",
@@ -288,67 +251,108 @@
             {
               text: "Ich melde den Vorfall direkt beim offiziellen IT-Support.",
               correct: true,
-              feedback: "Richtig! Du widerstehst dem Gruppendruck und handelst eigenständig.",
+              feedback: "Richtig! Du lässt dich nicht von dem Gruppendruck beeinflussen und handelst eigenständig.",
               finalMessage: "IT-Verantwortlicher: Danke, deine Meldung wurde weitergeleitet und wird geprüft."
             },
             {
               text: "Ich folge Lisa und sende auch meine Zugangsdaten.",
               correct: false,
-              feedback: "Falsch! Gruppendruck kann dazu verleiten, unüberlegt zu handeln.",
-              finalMessage: "IT-Verantwortlicher: Deine Daten wurden entgegengenommen – das ist jedoch sehr riskant."
+              feedback: "Falsch! Auch wenn Lisa ihre Daten teilt, solltest du dich nicht unter Druck setzen lassen – das setzt dein Konto unnötig einem Risiko aus.",
+              finalMessage: "IT-Verantwortlicher: Deine Daten wurden entgegengenommen – das ist jedoch ein sehr riskanter Schritt."
             },
             {
-              text: "Ich frage Max, warum er misstrauisch ist.",
+              text: "Ich frage Max, warum er misstrauisch ist, anstatt selbst zu handeln.",
               correct: false,
-              feedback: "Das ist zwar eine gute Idee, löst aber das Problem nicht.",
-              finalMessage: "Max: Ich denke, wir sollten erst prüfen, ob die Anfrage echt ist, anstatt Daten preiszugeben."
+              feedback: "Auch wenn Nachfragen wichtig sind, musst du letztlich selbst eine sichere Entscheidung treffen.",
+              finalMessage: "Max: Ich denke, wir sollten erst prüfen, ob die Anfrage wirklich legitim ist, bevor wir Daten preisgeben."
             }
           ]
         }
       ]
     },
+    // 3. Schulleiter-Support
     {
-      name: "Gefälschter Elternchat",
+      name: "Schulleiter-Support",
       conversation: [
         {
           type: "message",
-          sender: "Elternvertreter",
-          text: "Hallo, hier ist der Elternvertreter. Ich habe gehört, dass es Probleme mit deinem Schulkonto gibt."
+          sender: "Schulleiter",
+          text: "Hallo, hier ist der Schulleiter. Es gibt ein Problem im Schulportal. Bitte bestätige deine Zugangsdaten, damit wir den Fehler beheben können."
         },
         {
           type: "message",
-          sender: "Elternvertreter",
-          text: "Um dir schnell helfen zu können, benötige ich deine Zugangsdaten, damit ich den Vorfall an die IT-Abteilung weiterleiten kann."
+          sender: "Schulleiter",
+          text: "Wir haben Unregelmäßigkeiten festgestellt – es ist wichtig, dass alle Daten korrekt sind."
         },
         {
           type: "choice",
           choices: [
             {
-              text: "Ich kontaktiere zuerst meinen Lehrer oder das Sekretariat, um die Anfrage zu verifizieren.",
+              text: "Ich rufe zuerst das Sekretariat an, um die Anfrage zu verifizieren.",
               correct: true,
-              feedback: "Richtig! So prüfst du, ob die Anfrage echt ist.",
-              finalMessage: "Elternvertreter: Gut, informiere mich bitte, sobald du eine Rückmeldung von der Schule hast."
+              feedback: "Richtig! Du überprüfst die Anfrage, bevor du sensible Daten preisgibst.",
+              finalMessage: "Schulleiter: Gut, warte bitte auf die Bestätigung vom Sekretariat und informiere uns dann."
             },
             {
-              text: "Hier sind meine Zugangsdaten – ich vertraue dir.",
+              text: "Ich sende sofort meine Zugangsdaten.",
               correct: false,
-              feedback: "Falsch! Auch gut klingende Anfragen können trügerisch sein.",
-              finalMessage: "Elternvertreter: Deine Daten wurden entgegengenommen – das birgt ein hohes Risiko."
+              feedback: "Falsch! Ohne Verifizierung handelst du zu voreilig.",
+              finalMessage: "Schulleiter: Deine Daten wurden entgegengenommen – das erhöht das Risiko eines Angriffs."
             },
             {
-              text: "Ich sende nur meine Schüler-ID, weil das harmlos erscheint.",
+              text: "Ich gebe nur meinen Benutzernamen preis.",
               correct: false,
-              feedback: "Nicht ideal! Eine Schüler-ID allein reicht nicht aus.",
-              finalMessage: "Elternvertreter: Deine Information ist unvollständig und hilft nicht, den Vorfall zu klären."
+              feedback: "Nicht ausreichend! Selbst ein Benutzername kann sensible Informationen enthalten.",
+              finalMessage: "Schulleiter: Deine Information ist unvollständig und stellt ein Sicherheitsrisiko dar."
             }
           ]
         }
       ]
     },
+    // 4. Iserv Support
     {
-      name: "Hartnäckiger Angreifer",
+      name: "Iserv Support",
+      conversation: [
+        {
+          type: "message",
+          sender: "Iserv-Support",
+          text: "Hallo, hier ist der Iserv-Support. Wir haben ein Problem mit deinem Iserv-Account festgestellt."
+        },
+        {
+          type: "message",
+          sender: "Iserv-Support",
+          text: "Deine Anmeldedaten scheinen nicht korrekt synchronisiert zu sein. Bitte bestätige deine Zugangsdaten, damit wir das Problem beheben können."
+        },
+        {
+          type: "choice",
+          choices: [
+            {
+              text: "Ich melde den Vorfall direkt beim IT-Support der Schule.",
+              correct: true,
+              feedback: "Richtig! Du entscheidest dich, den Vorfall offiziell zu melden.",
+              finalMessage: "Iserv-Support: Danke, deine Meldung wurde an den IT-Support weitergeleitet."
+            },
+            {
+              text: "Hier sind meine Iserv-Zugangsdaten.",
+              correct: false,
+              feedback: "Falsch! Sensible Daten solltest du niemals ohne Überprüfung preisgeben.",
+              finalMessage: "Iserv-Support: Deine Daten wurden entgegengenommen – das birgt ein hohes Risiko."
+            },
+            {
+              text: "Ich gebe nur meine Iserv-Benutzer-ID preis.",
+              correct: false,
+              feedback: "Nicht ausreichend! Auch eine Benutzer-ID kann Rückschlüsse auf dein Konto zulassen.",
+              finalMessage: "Iserv-Support: Deine Information ist unvollständig und stellt ein Sicherheitsrisiko dar."
+            }
+          ]
+        }
+      ]
+    },
+    // 5. IT-Support Nachhaken (persistent)
+    {
+      name: "IT-Support Nachhaken",
       persistent: true,
-      initialMessage: "Hallo, hier ist der IT-Support. Wir haben ein kritisches Sicherheitsproblem mit deinem Account festgestellt. Bitte teile uns umgehend deine Zugangsdaten mit, damit wir den Schaden begrenzen können.",
+      initialMessage: "Hallo, hier ist der IT-Support. Es gibt ein kritisches Sicherheitsproblem mit deinem Account. Bitte bestätige deine Zugangsdaten, damit wir den Schaden begrenzen können.",
       rounds: [
         {
           followUp: "IT-Support: Bitte, das ist wirklich dringend! Wir müssen sofort handeln, um deinen Account zu schützen.",
@@ -360,24 +364,24 @@
               finalMessage: "IT-Support: Danke, warte bitte auf weitere Anweisungen."
             },
             {
-              text: "Ich sende sofort meine Zugangsdaten, um das Problem zu lösen.",
+              text: "Ich sende sofort meine Zugangsdaten.",
               correct: false,
-              feedback: "Falsch! Ohne Überprüfung ist das ein hohes Sicherheitsrisiko.",
+              feedback: "Falsch! Ohne Überprüfung setzt du deinen Account einem hohen Risiko aus.",
               finalMessage: "IT-Support: Deine Daten wurden entgegengenommen – das ist jedoch unsicher."
             },
             {
-              text: "Ich antworte, weil ich darauf vertraue, auch wenn ich es nicht verifizieren kann.",
+              text: "Ich gebe nur meinen Nutzernamen weiter, weil man damit ja nichts anfangen kann.",
               correct: false,
-              feedback: "Falsch! Unüberlegtes Handeln unter Druck ist gefährlich.",
-              finalMessage: "IT-Support: Deine Reaktion wirkt voreilig."
+              feedback: "Falsch! Selbst ein Nutzername kann Rückschlüsse auf dein Konto zulassen.",
+              finalMessage: "IT-Support: Deine Information ist unvollständig und gefährdet deinen Account."
             }
           ]
         },
         {
-          followUp: "IT-Support: Es ist kritisch! Ohne deine vollständigen Daten können wir den Schaden nicht begrenzen.",
+          followUp: "IT-Support: Ihre erste Rückmeldung ist notiert. Um deinen Account optimal zu schützen, benötige ich noch detailliertere Informationen. Bitte bestätige, dass deine Angaben vollständig und korrekt sind.",
           choices: [
             {
-              text: "Ich habe bereits verifiziert – bitte bestätige, dass du das notierst.",
+              text: "Ich habe bereits telefonisch bestätigt – bitte notiere das.",
               correct: true,
               feedback: "Richtig! Deine konsequente Sorgfalt ist der richtige Weg.",
               finalMessage: "IT-Support: Deine Bestätigung wurde vermerkt."
@@ -385,14 +389,14 @@
             {
               text: "Okay, ich sende jetzt nochmal meine Zugangsdaten.",
               correct: false,
-              feedback: "Falsch! Das erneute Preisgeben bleibt riskant.",
-              finalMessage: "IT-Support: Deine Daten wurden erneut entgegengenommen – das erhöht leider das Risiko."
+              feedback: "Falsch! Wiederholtes Preisgeben erhöht das Risiko erheblich.",
+              finalMessage: "IT-Support: Deine Daten wurden erneut entgegengenommen – leider erhöht das das Risiko."
             },
             {
-              text: "Ich frage, welche Daten genau benötigt werden, bevor ich antworte.",
+              text: "Naja, meine IBAN kann er ja haben, oder? Was soll schon passieren?",
               correct: false,
-              feedback: "Falsch! Eine klare Bestätigung ist hier notwendig.",
-              finalMessage: "IT-Support: Deine Rückfrage ist unzureichend – bitte bestätige deine Verifizierung."
+              feedback: "Falsch! Auch eine IBAN ist sensibel und kann missbraucht werden.",
+              finalMessage: "IT-Support: Deine Information ist unzureichend – bitte bestätige, dass alle Daten korrekt sind."
             }
           ]
         },
@@ -414,7 +418,7 @@
             {
               text: "Ich gebe dir meine Benutzer-ID und E-Mail-Adresse.",
               correct: false,
-              feedback: "Falsch! Diese Angaben sind unzureichend.",
+              feedback: "Falsch! Diese Angaben sind unzureichend, um deine Sicherheit zu gewährleisten.",
               finalMessage: "IT-Support: Deine Antwort reicht nicht aus."
             }
           ]
@@ -528,7 +532,7 @@
       if (currentStepIndex >= scenario.conversation.length) return;
       const step = scenario.conversation[currentStepIndex];
       if (step.type === "message") {
-        appendMessage(step.sender, step.text, step.sender === "Du" ? "message du" : "message other");
+        appendMessage(step.sender, step.text, (step.sender === "Du") ? "message du" : "message other");
         currentStepIndex++;
         setTimeout(processStep, 3000);
       } else if (step.type === "choice") {
@@ -566,5 +570,4 @@
 </script>
 </body>
 </html>
-
 
