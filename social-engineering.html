@@ -220,7 +220,7 @@
         }
       ]
     },
-    // 2. Manipulation im Klassenchat
+    // 2. Manipulation im Klassenchat (erweitert)
     {
       name: "Manipulation im Klassenchat",
       conversation: [
@@ -238,6 +238,21 @@
           type: "message",
           sender: "Max",
           text: "Moment mal, das klingt ziemlich dubios. Ich bin mir nicht sicher, ob das echt ist."
+        },
+        {
+          type: "message",
+          sender: "Anna",
+          text: "Ich bin mir da sicher, wenn's vom IT-Verantwortlichen kommt, dann stimmt es schon, oder? 😊"
+        },
+        {
+          type: "message",
+          sender: "Tom",
+          text: "Was soll das überhaupt bedeuten? Ich verstehe nicht, warum wir unsere Daten teilen sollen..."
+        },
+        {
+          type: "message",
+          sender: "Lukas",
+          text: "Wer von euch ist am Samstag eigentlich dabei?! 😜"
         },
         {
           type: "message",
@@ -410,10 +425,16 @@
     chatWindow.scrollTop = chatWindow.scrollHeight;
   }
   
-  // Zeigt Antwortmöglichkeiten an.
+  // Zeigt Antwortmöglichkeiten an und mischt diese zufällig.
   function displayChoices(choices) {
     choicesContainer.innerHTML = "";
-    choices.forEach(choice => {
+    // Erstelle eine Kopie der Choices und mische sie
+    let shuffledChoices = choices.slice();
+    for (let i = shuffledChoices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledChoices[i], shuffledChoices[j]] = [shuffledChoices[j], shuffledChoices[i]];
+    }
+    shuffledChoices.forEach(choice => {
       const btn = document.createElement("button");
       btn.className = "choice-button";
       btn.textContent = choice.text;
