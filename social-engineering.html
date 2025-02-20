@@ -262,7 +262,7 @@
             {
               text: "Ich frage Max, was genau los ist.",
               correct: true,
-              feedback: "Gut! Es ist absolut legitim, nachzufragen, um die Situation besser zu verstehen – aber letztlich musst du selbst entscheiden.",
+              feedback: "Gut! Es ist absolut legitim, nachzufragen, um die Situation besser zu verstehen.",
               finalMessage: "Max: Ich bin skeptisch, weil ich solche Anfragen noch nie gehört habe. Es ist besser, wenn du dich selbst absicherst."
             }
           ]
@@ -325,7 +325,7 @@
         {
           type: "message",
           sender: "Iserv-Support",
-          text: "Beachte: Auch wenn es sich nur um deinen Iserv-Account handelt, können diese Daten oft auch für andere wichtige Konten verwendet werden – gib niemals deine Zugangsdaten preis!"
+          text: "Beachte: Auch wenn es sich nur um deinen Iserv-Account handelt, können diese Daten häufig auch für andere wichtige Konten verwendet werden. Gib niemals deine Zugangsdaten preis!"
         },
         {
           type: "choice",
@@ -393,14 +393,14 @@
             {
               text: "Okay, ich sende jetzt nochmals meine Zugangsdaten.",
               correct: false,
-              feedback: "Falsch! Wiederholtes Preisgeben erhöht das Risiko erheblich.",
+              feedback: "Falsch! Das erneute Preisgeben bleibt riskant.",
               finalMessage: "IT-Support: Deine Daten wurden erneut entgegengenommen – leider erhöht das das Risiko."
             },
             {
               text: "Naja, meine IBAN kann er ja haben, oder? Was soll schon passieren?",
               correct: false,
               feedback: "Falsch! Auch einzelne Bankdaten sind sensibel und können missbraucht werden.",
-              finalMessage: "IT-Support: Deine Information ist unzureichend – bitte bestätige, dass alle Angaben korrekt sind."
+              finalMessage: "IT-Support: Deine Information ist unzureichend – bitte bestätige, dass alle Daten korrekt sind."
             }
           ]
         },
@@ -449,7 +449,8 @@
   function appendMessage(sender, text, className = "message") {
     const msgDiv = document.createElement("div");
     msgDiv.className = className;
-    msgDiv.innerHTML = `<span class="sender">${sender}:</span> ${text}`;
+    // String-Konkatenation statt Template-Literals:
+    msgDiv.innerHTML = '<span class="sender">' + sender + ':</span> ' + text;
     chatWindow.appendChild(msgDiv);
     chatWindow.scrollTop = chatWindow.scrollHeight;
   }
@@ -559,6 +560,20 @@
       processStep();
     } else {
       chatWindow.innerHTML = "";
-      flagContainer.innerHTML = `<div class="flag">Flag: 
+      flagContainer.innerHTML = '<div class="flag">Flag: {DEFENDER_OF_TRUST}</div>';
+      additionalInfo.style.display = "block";
+      choicesContainer.innerHTML = "";
+    }
+  }
+  
+  function loadScenario() {
+    clearChat();
+    processStep();
+  }
+  
+  window.onload = loadScenario;
+</script>
+</body>
+</html>
 
 
