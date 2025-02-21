@@ -1,158 +1,159 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gobuster-Simulation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        h1 {
-            text-align: center;
-            color: #007bff;
-        }
-        .console {
-            background: #000;
-            color: #0f0;
-            font-family: monospace;
-            padding: 20px;
-            border-radius: 5px;
-            height: 300px;
-            overflow-y: auto;
-            margin-bottom: 20px;
-        }
-        .btn {
-            display: block;
-            margin: 10px auto;
-            padding: 10px 20px;
-            background: #007bff;
-            color: #fff;
-            text-align: center;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            font-size: 16px;
-        }
-        .btn:hover {
-            background: #0056b3;
-        }
-        .hidden {
-            display: none;
-        }
-        .error-message {
-            color: red;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        .success-message {
-            color: green;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        .info {
-            background: #f4f4f4;
-            padding: 10px;
-            border-left: 4px solid #007bff;
-            color: #333;
-            margin-bottom: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gobuster-Simulation</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+    h1 {
+      text-align: center;
+      color: #007bff;
+    }
+    .console {
+      background: #000;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+      border-radius: 5px;
+      height: 300px;
+      overflow-y: auto;
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      background: #007bff;
+      color: #fff;
+      text-align: center;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 16px;
+      border: none;
+    }
+    .btn:hover {
+      background: #0056b3;
+    }
+    .hidden {
+      display: none;
+    }
+    .error-message, .success-message {
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .error-message {
+      color: #d9534f;
+    }
+    .success-message {
+      color: #5cb85c;
+    }
+    .info {
+      background: #f4f4f4;
+      padding: 15px;
+      border-left: 5px solid #007bff;
+      color: #333;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+    /* Styling für einzelne Konsolenzeilen */
+    .line {
+      margin: 0;
+      padding: 2px 0;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Gobuster-Simulation</h1>
+  <div class="container">
+    <h1>Gobuster-Simulation</h1>
 
-        <!-- Erklärender Infotext -->
-        <div class="info">
-            <h2>Was ist Directory Busting?</h2>
-           <p>
-    Beim Directory Busting spürst du versteckte Verzeichnisse oder Dateien auf einem Webserver auf. Diese Methode wird häufig von Systemadministratoren genutzt, um Schwachstellen zu finden und abzusichern. Gleichzeitig wird sie aber auch von Angreifern eingesetzt, um nach ungeschützten Daten, Admin-Bereichen oder sensiblen Dateien zu suchen, die nicht ausreichend geschützt sind.
-</p>
-<p>
-    Mit Tools wie <strong>Gobuster</strong> kannst du systematisch eine Liste potenzieller Verzeichnisnamen (eine sogenannte Wordlist) prüfen lassen. Gobuster sendet dabei automatisierte Anfragen an den Server und wertet die Antworten aus. Wenn ein Verzeichnis existiert, meldet der Server einen Erfolgscode zurück. Das bedeutet, dass dieses Verzeichnis potenziell zugänglich ist und weitere Informationen enthalten könnte.
-</p>
-<p>
-    In dieser Simulation lernst du, wie Directory Busting funktioniert und welche Gefahren entstehen, wenn Webserver nicht ausreichend abgesichert sind. Dein Ziel ist es, versteckte Verzeichnisse auf einem simulierten Server zu finden und zu analysieren. Dazu musst du die gefundenen Verzeichnisse manuell im Browser eingeben, wobei die Endung <code>.html</code> angehängt werden muss, um den Inhalt der Dateien anzuzeigen.
-</p>
-<p>
-    <strong>Warum machen wir das?</strong><br>
-    Diese Übung hilft dir, die Funktionsweise von Angriffstechniken wie Directory Busting zu verstehen. Du erkennst, wie Angreifer durch schlecht gesicherte Webserver auf sensible Verzeichnisse zugreifen könnten. Durch diese Simulation lernst du, warum es so wichtig ist, Serverstrukturen sorgfältig zu planen und unnötige Verzeichnisse zu entfernen oder zu schützen. Das Verständnis dieser Angriffsweise ist ein erster Schritt, um mögliche Schwachstellen frühzeitig zu erkennen und zu vermeiden.
-</p>
-
-        </div>
-<p>Nutze den folgenden Befehl, um den Scan korrekt zu starten:</p>
-<div class="shell" style="background-color: #000; color: #0f0; padding: 10px; border-radius: 5px; font-family: monospace;">
-gobuster dir -u http://192.168.0.10 -w wordlist.txt
-</div>
-<p>
-    <strong>Was macht der Befehl?</strong><br>
-    - <code>gobuster</code>: Startet das Tool Gobuster, ein Verzeichnis-Suchwerkzeug.<br>
-    - <code>dir</code>: Gibt an, dass Verzeichnisse gesucht werden sollen.<br>
-    - <code>-u http://192.168.0.10</code>: Definiert die Ziel-URL (hier ein lokaler Server).<br>
-    - <code>-w wordlist.txt</code>: Verwendet die angegebene Wortliste (<code>wordlist.txt</code>), um nach Verzeichnissen zu suchen.<br>
-</p>
-<p>
-    Der Befehl durchsucht die angegebenen Ziel-URLs systematisch nach Verzeichnissen, die in der <code>wordlist.txt</code> enthalten sind. 
-    Dies simuliert die Vorgehensweise von Angreifern, um versteckte Verzeichnisse oder Dateien aufzuspüren.
-</p>
-
-        </pre>
-
-<!-- Eingabeabschnitt -->
-<div id="step-1">
-    <h2>Schritt 1: Gobuster-Befehl eingeben</h2>
-    <p>Gib den Gobuster-Befehl ein, um den Scan zu starten:</p>
-    <input 
-        type="text" 
-        id="gobuster-command" 
-        placeholder="Befehl eingeben..." 
-        style="width: calc(100% - 30px); padding: 10px; font-family: monospace;">
-    <button class="btn" onclick="validateCommand()">Befehl ausführen</button>
-    <p class="error-message hidden" id="error-message">Ungültiger Befehl! Überprüfe die Syntax und versuche es erneut.</p>
-    <p class="success-message hidden" id="success-message">Befehl korrekt! Starte den Scan...</p>
-</div>
-
-<!-- Konsolenausgabe -->
-<div id="step-2" class="hidden">
-    <h2>Schritt 2: Scan-Ergebnisse</h2>
-    <div class="console" id="console-output" 
-         style="background: #000; color: #0f0; padding: 10px; border-radius: 5px; font-family: monospace; height: 300px; overflow-y: auto;">
+    <!-- Erklärender Infotext -->
+    <div class="info">
+      <h2>Was ist Directory Busting?</h2>
+      <p>
+        Beim Directory Busting spürst du versteckte Verzeichnisse oder Dateien auf einem Webserver auf. Diese Methode wird häufig von Systemadministratoren genutzt, um Schwachstellen zu finden und abzusichern. Gleichzeitig wird sie aber auch von Angreifern eingesetzt, um nach ungeschützten Daten, Admin-Bereichen oder sensiblen Dateien zu suchen.
+      </p>
+      <p>
+        Mit Tools wie <strong>Gobuster</strong> kannst du systematisch eine Liste potenzieller Verzeichnisnamen (eine sogenannte Wordlist) prüfen lassen. Gobuster sendet dabei automatisierte Anfragen an den Server und wertet die Antworten aus. Wenn ein Verzeichnis existiert, meldet der Server einen Erfolgscode zurück.
+      </p>
+      <p>
+        In dieser Simulation lernst du, wie Directory Busting funktioniert und welche Gefahren entstehen, wenn Webserver nicht ausreichend abgesichert sind. Dein Ziel ist es, versteckte Verzeichnisse auf einem simulierten Server zu finden und zu analysieren. Dazu musst du die gefundenen Verzeichnisse manuell im Browser eingeben, wobei die Endung <code>.html</code> angehängt werden muss, um den Inhalt der Dateien anzuzeigen.
+      </p>
+      <p>
+        <strong>Warum machen wir das?</strong><br>
+        Diese Übung hilft dir, die Funktionsweise von Angriffstechniken wie Directory Busting zu verstehen. Du erkennst, wie Angreifer durch schlecht gesicherte Webserver auf sensible Verzeichnisse zugreifen könnten. Das Verständnis dieser Angriffsweise ist ein erster Schritt, um mögliche Schwachstellen frühzeitig zu erkennen und zu vermeiden.
+      </p>
     </div>
-</div>
 
-<script>
+    <p>Nutze den folgenden Befehl, um den Scan korrekt zu starten:</p>
+    <div class="shell" style="background-color: #000; color: #0f0; padding: 10px; border-radius: 5px; font-family: monospace; margin-bottom: 20px;">
+      gobuster dir -u http://192.168.0.10 -w wordlist.txt
+    </div>
+    <p>
+      <strong>Was macht der Befehl?</strong><br>
+      - <code>gobuster</code>: Startet das Tool Gobuster.<br>
+      - <code>dir</code>: Gibt an, dass Verzeichnisse gesucht werden sollen.<br>
+      - <code>-u http://192.168.0.10</code>: Definiert die Ziel-URL (hier ein lokaler Server).<br>
+      - <code>-w wordlist.txt</code>: Verwendet die angegebene Wortliste (<code>wordlist.txt</code>), um nach Verzeichnissen zu suchen.
+    </p>
+
+    <!-- Eingabeabschnitt -->
+    <div id="step-1">
+      <h2>Schritt 1: Gobuster-Befehl eingeben</h2>
+      <p>Gib den Gobuster-Befehl ein, um den Scan zu starten:</p>
+      <input type="text" id="gobuster-command" placeholder="Befehl eingeben..." style="width: 100%; padding: 10px; font-family: monospace;">
+      <button class="btn" onclick="validateCommand()">Befehl ausführen</button>
+      <p class="error-message hidden" id="error-message">Ungültiger Befehl! Überprüfe die Syntax und versuche es erneut.</p>
+      <p class="success-message hidden" id="success-message">Befehl korrekt! Starte den Scan...</p>
+    </div>
+
+    <!-- Konsolenausgabe -->
+    <div id="step-2" class="hidden">
+      <h2>Schritt 2: Scan-Ergebnisse</h2>
+      <div class="console" id="console-output"></div>
+    </div>
+  </div>
+
+  <script>
     // Liste der zu simulierenden Verzeichnisse
     const directories = [
-        { path: "backup", status: 200 },
-        { path: "old-site", status: 200 },
-        { path: "social-engineering", status: 200 },
-        { path: "test", status: 403 },
-        { path: "bruteforce", status: 200 },
-        { path: "password-simulator", status: 200 },
-        { path: "assets", status: 200 },
-        { path: "css", status: 403 },
-        { path: "sources", status: 200 },
-        { path: "admin", status: 200 },
-        { path: "secret-flag", status: 200 },
-        { path: "fred.html", status: 200},
-        { path: "datenschutz.html", status: 200},
-        { path: "social-engineering.html", status: 200},
-        { path: "hash.html", status: 200},
-        { path: "kontakt.html", status: 200},
-
-        
+      { path: "backup", status: 200 },
+      { path: "old-site", status: 200 },
+      { path: "social-engineering", status: 200 },
+      { path: "test", status: 403 },
+      { path: "bruteforce", status: 200 },
+      { path: "password-simulator", status: 200 },
+      { path: "assets", status: 200 },
+      { path: "css", status: 403 },
+      { path: "sources", status: 200 },
+      { path: "admin", status: 200 },
+      { path: "secret-flag", status: 200 },
+      { path: "fred.html", status: 200 },
+      { path: "datenschutz.html", status: 200 },
+      { path: "social-engineering.html", status: 200 },
+      { path: "hash.html", status: 200 },
+      { path: "kontakt.html", status: 200 }
     ];
 
     // Korrekte Befehlsdefinition
@@ -160,58 +161,79 @@ gobuster dir -u http://192.168.0.10 -w wordlist.txt
 
     // Funktion zur Überprüfung des eingegebenen Befehls
     function validateCommand() {
-        const inputCommand = document.getElementById("gobuster-command").value.trim();
-        const errorMessage = document.getElementById("error-message");
-        const successMessage = document.getElementById("success-message");
-        const step1 = document.getElementById("step-1");
-        const step2 = document.getElementById("step-2");
+      const inputCommand = document.getElementById("gobuster-command").value.trim();
+      const errorMessage = document.getElementById("error-message");
+      const successMessage = document.getElementById("success-message");
+      const step1 = document.getElementById("step-1");
+      const step2 = document.getElementById("step-2");
 
-        if (inputCommand === correctCommand) {
-            errorMessage.classList.add("hidden");
-            successMessage.classList.remove("hidden");
-            setTimeout(() => {
-                successMessage.classList.add("hidden");
-                step1.classList.add("hidden"); // Verstecke Eingabeabschnitt
-                step2.classList.remove("hidden"); // Zeige Konsolenausgabe
-                startGobuster(); // Starte den Scan
-            }, 1000); // 1 Sekunde warten, bevor der Scan startet
-        } else {
-            errorMessage.classList.remove("hidden");
-            successMessage.classList.add("hidden");
-        }
+      if (inputCommand === correctCommand) {
+        errorMessage.classList.add("hidden");
+        successMessage.classList.remove("hidden");
+        setTimeout(() => {
+          successMessage.classList.add("hidden");
+          step1.classList.add("hidden");
+          step2.classList.remove("hidden");
+          startGobuster();
+        }, 1000);
+      } else {
+        errorMessage.classList.remove("hidden");
+        successMessage.classList.add("hidden");
+      }
     }
 
     // Funktion zur Simulation des Gobuster-Scans
     function startGobuster() {
-        const consoleOutput = document.getElementById("console-output");
-        let index = 0;
+      const consoleOutput = document.getElementById("console-output");
+      let index = 0;
 
-        // Initiale Konsolenausgabe
-        consoleOutput.innerHTML = "Gobuster v3.1.0\n\n";
-        consoleOutput.innerHTML += "[+] Target URL: http://192.168.0.10\n";
-        consoleOutput.innerHTML += "[+] Using Wordlist: wordlist.txt\n\n";
-        consoleOutput.innerHTML += "=============================================================\n";
-        consoleOutput.innerHTML += "DIRBUSTING STARTED:\n";
-        consoleOutput.innerHTML += "=============================================================\n\n";
+      // Initiale Konsolenausgabe
+      const initialLines = [
+        "Gobuster v3.1.0",
+        "",
+        "[+] Target URL: http://192.168.0.10",
+        "[+] Using Wordlist: wordlist.txt",
+        "",
+        "=============================================================",
+        "DIRBUSTING STARTED:",
+        "=============================================================",
+        ""
+      ];
 
-        // Intervall zur Simulation der Verzeichnisprüfung
-        const interval = setInterval(() => {
-            if (index < directories.length) {
-                const dir = directories[index];
-                const statusColor = dir.status === 200 ? "#0f0" : "#f00";
-                consoleOutput.innerHTML += `[${new Date().toLocaleTimeString()}] /${dir.path} [Status: <span style="color: ${statusColor};">${dir.status}</span>]\n`;
-                consoleOutput.scrollTop = consoleOutput.scrollHeight;
-                index++;
-            } else {
-                clearInterval(interval);
-                consoleOutput.innerHTML += "\nScan abgeschlossen. Überprüfe die gefundenen Verzeichnisse!";
-            }
-        }, 500); // Wartezeit zwischen den Verzeichnisausgaben
+      initialLines.forEach(line => {
+        appendLine(line);
+      });
+
+      const interval = setInterval(() => {
+        if (index < directories.length) {
+          const dir = directories[index];
+          const statusColor = dir.status === 200 ? "#0f0" : "#f00";
+          const lineText = `[${new Date().toLocaleTimeString()}] /${dir.path} [Status: ${dir.status}]`;
+          appendLine(lineText, statusColor);
+          index++;
+        } else {
+          clearInterval(interval);
+          appendLine("");
+          appendLine("Scan abgeschlossen. Überprüfe die gefundenen Verzeichnisse!");
+        }
+      }, 500);
     }
-</script>
 
-
+    // Neue Zeile mit Fade-In-Effekt hinzufügen
+    function appendLine(text, color) {
+      const consoleOutput = document.getElementById("console-output");
+      const lineElement = document.createElement("p");
+      lineElement.className = "line";
+      lineElement.innerHTML = text;
+      if (color) {
+        lineElement.style.color = color;
+      }
+      consoleOutput.appendChild(lineElement);
+      consoleOutput.scrollTop = consoleOutput.scrollHeight;
+    }
+  </script>
 </body>
 </html>
+
 
 
