@@ -23,11 +23,13 @@
             text-align: center;
             color: #007bff;
         }
+        /* Angepasste Info-Box-Styles ohne linken Streifen */
         .info {
-            background: #f4f4f4;
-            padding: 15px;
-            border-left: 4px solid #007bff;
+            background: linear-gradient(135deg, #eef2f3, #f9fafb);
+            padding: 20px;
             margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         pre {
             background: #f9f9f9;
@@ -73,7 +75,7 @@
             <h3>Wozu werden Hashes verwendet?</h3>
             <ul>
                 <li><strong>Speichern von Passwörtern:</strong> Statt Passwörter im Klartext zu speichern, werden ihre Hashes gespeichert. Wenn ein Angreifer eine Datenbank stiehlt, sieht er nur die Hashes, nicht die eigentlichen Passwörter. (In der Praxis wird zusätzlich ein <strong>Salt</strong> verwendet, dazu gleich mehr.)</li>
-                <li><strong>Überprüfen auf Änderungen:</strong> Bereits eine minimale Änderung in den Eingabedaten führt zu einem völlig anderen Hash. Dies nennt man den <strong>Avalanche-Effekt</strong>. So kann überprüft werden, ob ein Dokument manipuliert wurde.</li>
+                <li><strong>Überprüfen auf Änderungen:</strong> Bereits eine minimale Änderung in den Eingabedaten führt zu einem völlig unterschiedlichen Hash – den sogenannten <strong>Avalanche-Effekt</strong>. So kann überprüft werden, ob ein Dokument manipuliert wurde.</li>
             </ul>
         </div>
 
@@ -99,8 +101,8 @@
                 Öffne <a href="https://crackstation.net" target="_blank">Crackstation</a>. Kopiere die folgenden Hashes in das Eingabefeld:
             </p>
             <pre>
-                1. 5f4dcc3b5aa765d61d8327deb882cf99
-                2. 098f6bcd4621d373cade4e832627b4f6
+1. 5f4dcc3b5aa765d61d8327deb882cf99
+2. 098f6bcd4621d373cade4e832627b4f6
             </pre>
             <p>Welches Passwort gehört zu den Hashes? Gib eines der Passwörter als Flag ein:</p>
             <input type="text" id="flag1" placeholder="Flag eingeben">
@@ -156,4 +158,5 @@ Hashing-Methode: MD5
     </script>
 </body>
 </html>
+
 
