@@ -133,7 +133,6 @@
             <button class="btn" onclick="checkAnswer('15:30:21', 'question5')">Prüfen</button>
 
             <h3>6. Welches Gebäude sollten wir uns genauer ansehen?</h3>
-            <!-- Hier habe ich die ID von question5 auf question6 geändert -->
             <input type="text" id="question6" placeholder="***********">
             <button class="btn" onclick="checkAnswer('Katasteramt', 'question6')">Prüfen</button>
             
@@ -279,10 +278,22 @@ History When: 2024:12:10 16:00:00
 History Software Agent: GIMP 2.10
 
 ==================== Ende der Metadaten ====================
-`;
-                // Ersetze Zeilenumbrüche durch <br> und füge die Daten in das Konsolenfeld ein
-                consoleOutput.innerHTML += metadata.replace(/\n/g, '<br>');
-                consoleOutput.scrollTop = consoleOutput.scrollHeight;
+                `;
+                // Aufteilen der Metadaten in einzelne Zeilen
+                const lines = metadata.split('\n');
+                let index = 0;
+                const intervalTime = 50; // Verzögerung in Millisekunden pro Zeile
+
+                const interval = setInterval(() => {
+                    if (index < lines.length) {
+                        // Zeile zur Konsole hinzufügen und scrollen
+                        consoleOutput.innerHTML += lines[index] + '<br>';
+                        consoleOutput.scrollTop = consoleOutput.scrollHeight;
+                        index++;
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, intervalTime);
             }, 1000);
         }
 
@@ -311,5 +322,6 @@ History Software Agent: GIMP 2.10
     </script>
 </body>
 </html>
+
 
 
