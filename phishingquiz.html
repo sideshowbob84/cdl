@@ -170,6 +170,8 @@
       <li>Prüfe Links: Zeigen sie auf eine seriöse Domain? Achte dabei auf den Mauszeiger.</li>
       <li>Achte auf Rechtschreibfehler und ungewöhnliche Formulierungen.</li>
       <li>Sei misstrauisch bei Aufforderungen, vertrauliche Daten einzugeben.</li>
+      <li>Achte auf Zeitdruck: Phishing-Mails fordern oft eine schnelle Reaktion durch künstliche Fristen.</li>
+      <li>Seriöse Anbieter verschicken in der Regel keine direkten Links – im Zweifel lieber die offizielle Website manuell aufrufen.</li>
     </ul>
     <div class="progress-bar-container">
       <div id="progress-bar" class="progress-bar">0%</div>
@@ -189,10 +191,7 @@
     <div id="info-text">
       Hinweis: Auch wenn der Absender auf den ersten Blick seriös erscheint, können E-Mails gefälscht sein (Spoofing). 
       Spoofing bedeutet, dass Angreifer die Absenderinformationen fälschen, sodass es so aussieht, als käme die E-Mail 
-      von einer vertrauenswürdigen Quelle.<br><br>
-      Um selbst zu prüfen, ob eine E-Mail möglicherweise gespooft ist, kannst du in den erweiterten E-Mail-Headern nachsehen 
-      und prüfen, ob SPF, DKIM und DMARC korrekt konfiguriert sind. Falls du Zweifel hast, ist es immer sinnvoll, den Anbieter 
-      direkt (z. B. telefonisch) zu kontaktieren.
+      von einer vertrauenswürdigen Quelle.
     </div>
   </div>
 
@@ -207,10 +206,10 @@
       },
       {
         sender: "info@paypal-verification.com",
-        subject: "Ihr Konto wurde eingeschränkt",
-        body: "Sehr geehrter PayPal-Nutzer,<br><br>aufgrund ungewöhnlicher Aktivitäten wurde Ihr Konto vorübergehend eingeschränkt. Bitte bestätigen Sie Ihre Identität, um den uneingeschränkten Zugriff wiederherzustellen. Klicken Sie dazu bitte auf den folgenden Link: <a href='http://paypal-verification.fake'>Hier klicken</a>.<br><br>Falls Sie diese Anfrage nicht veranlasst haben, kontaktieren Sie bitte umgehend unseren Kundensupport.",
+        subject: "Ihr Konto wurde eingeschränkt – Aktion innerhalb 24 Stunden erforderlich",
+        body: "Sehr geehrter PayPal-Nutzer,<br><br>aufgrund ungewöhnlicher Aktivitäten wurde Ihr Konto vorübergehend eingeschränkt. Bitte bestätigen Sie Ihre Identität <strong>innerhalb der nächsten 24 Stunden</strong>, um den uneingeschränkten Zugriff wiederherzustellen. Klicken Sie dazu bitte auf den folgenden Link: <a href='http://paypal-verification.fake'>Hier klicken</a>.<br><br>Falls Sie diese Anfrage nicht veranlasst haben, kontaktieren Sie bitte umgehend unseren Kundensupport.",
         isPhishing: true,
-        explanation: "Phishing: Die echte PayPal-Domain endet auf 'paypal.com', nicht auf 'paypal-verification.fake'."
+        explanation: "Phishing: Die echte PayPal-Domain endet auf 'paypal.com', nicht auf 'paypal-verification.fake'. Außerdem wird hier durch die 24-Stunden-Frist unnötiger Zeitdruck aufgebaut, was eine typische Phishing-Taktik ist."
       },
       {
         sender: "support@amazon.de",
@@ -229,9 +228,9 @@
       {
         sender: "kundenservice@telekom.de",
         subject: "Ihre Rechnung ist verfügbar",
-        body: "Sehr geehrte Kundin, sehr geehrter Kunde,<br><br>Ihre aktuelle Telekom-Rechnung steht jetzt online zur Einsicht bereit. Bitte loggen Sie sich über den folgenden Link in Ihr Kundenkonto ein: <a href='https://www.telekom.de/rechnung'>Hier klicken</a>.<br><br>Bei Fragen steht Ihnen unser Kundenservice gerne zur Verfügung.<br><br>Mit freundlichen Grüßen,<br>Ihr Telekom-Team",
+        body: "Sehr geehrte Kundin, sehr geehrter Kunde,<br><br>Ihre aktuelle Telekom-Rechnung steht jetzt online zur Einsicht bereit. Bitte loggen Sie sich manuell über Ihren Browser in Ihr Kundenkonto ein, indem Sie die offizielle Adresse <strong>www.telekom.de</strong> in die Adresszeile eingeben.<br><br>Bei Fragen steht Ihnen unser Kundenservice gerne zur Verfügung.<br><br>Mit freundlichen Grüßen,<br>Ihr Telekom-Team",
         isPhishing: false,
-        explanation: "Echt: Die E-Mail stammt von der offiziellen Domain 'telekom.de'."
+        explanation: "Echt: Seriöse Anbieter versenden in der Regel keine direkten Links, sondern empfehlen, die offizielle Adresse manuell in den Browser einzugeben, um Phishing zu vermeiden."
       },
       {
         sender: "lottery@bigwin.org",
