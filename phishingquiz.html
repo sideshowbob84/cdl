@@ -191,7 +191,8 @@
     <div id="info-text">
       Hinweis: Auch wenn der Absender auf den ersten Blick seriös erscheint, können E-Mails gefälscht sein (Spoofing). 
       Spoofing bedeutet, dass Angreifer die Absenderinformationen fälschen, sodass es so aussieht, als käme die E-Mail 
-      von einer vertrauenswürdigen Quelle.
+      von einer vertrauenswürdigen Quelle. Zum Schutz vor Spoofing solltest du niemals direkt auf Links in E-Mails klicken, sondern 
+      die offizielle Webseite manuell in deinem Browser eingeben.
     </div>
   </div>
 
@@ -324,6 +325,10 @@
     }
     
     function checkAnswer(isPhishing) {
+      // Deaktivieren der Buttons, um Mehrfachklicks zu verhindern
+      document.getElementById("phishing-btn").disabled = true;
+      document.getElementById("not-phishing-btn").disabled = true;
+      
       const email = emailPool[currentEmailIndex];
       const explanationDiv = document.getElementById("explanation");
       
@@ -340,6 +345,9 @@
         } else {
           endQuiz();
         }
+        // Buttons wieder aktivieren
+        document.getElementById("phishing-btn").disabled = false;
+        document.getElementById("not-phishing-btn").disabled = false;
       }, 4000);
     }
     
