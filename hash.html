@@ -60,37 +60,57 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="info">
-            <h2>Was sind Hashes und Rainbow Tables?</h2>
-            <p>
-                Ein <strong>Hash</strong> ist das Ergebnis einer kryptografischen Funktion, die aus beliebig großen Eingabedaten 
-                (wie einer Datei oder einem Passwort) eine Zeichenkette mit fester Länge berechnet. Diese Zeichenkette wird auch als 
-                <strong>Checksum</strong> oder <strong>Message Digest</strong> bezeichnet. Zum Beispiel erzeugt der Algorithmus 
-                <strong>SHA256</strong> (Secure Hash Algorithm 256) einen 256-Bit-Hash, der als 64 Zeichen in Hexadezimalform dargestellt wird.
-            </p>
-        </div>
+   <div class="info">
+    <h2>Was sind Hashes und wie funktionieren sie?</h2>
+    <p>
+        Ein <strong>Hash</strong> ist das Ergebnis einer kryptografischen <strong>Hashfunktion</strong>. Diese nimmt eine beliebig große Eingabe 
+        (z. B. eine Datei oder ein Passwort) und berechnet daraus eine <strong>Zeichenkette mit fester Länge</strong>.  
+        Hashfunktionen sind <strong>Einwegfunktionen</strong>, das bedeutet, der ursprüngliche Wert kann nicht aus dem Hash zurückberechnet werden.
+    </p>
+    <p>
+        Zum Beispiel erzeugt der Algorithmus <strong>SHA-256</strong> (Secure Hash Algorithm 256) einen <strong>256-Bit-Hash</strong>, der 
+        als <strong>64 Zeichen lange Hexadezimalzeichenkette</strong> dargestellt wird.
+    </p>
+</div>
 
-        <div class="info">
-            <h3>Wozu werden Hashes verwendet?</h3>
-            <ul>
-                <li><strong>Speichern von Passwörtern:</strong> Statt Passwörter im Klartext zu speichern, werden ihre Hashes gespeichert. Wenn ein Angreifer eine Datenbank stiehlt, sieht er nur die Hashes, nicht die eigentlichen Passwörter. (In der Praxis wird zusätzlich ein <strong>Salt</strong> verwendet, dazu gleich mehr.)</li>
-                <li><strong>Überprüfen auf Änderungen:</strong> Bereits eine minimale Änderung in den Eingabedaten führt zu einem völlig unterschiedlichen Hash – den sogenannten <strong>Avalanche-Effekt</strong>. So kann überprüft werden, ob ein Dokument manipuliert wurde.</li>
-            </ul>
-        </div>
+<div class="info">
+    <h3>Wozu werden Hashes verwendet?</h3>
+    <ul>
+        <li><strong>Speichern von Passwörtern:</strong>  
+            Statt Passwörter im Klartext zu speichern, wird ihr Hashwert gespeichert.  
+            Beim Anmeldevorgang wird das eingegebene Passwort erneut gehasht und mit dem gespeicherten Wert verglichen.  
+            Dadurch sieht ein Angreifer, der eine Datenbank stiehlt, nur die Hashes – nicht die echten Passwörter.
+        </li>
+        <li><strong>Integritätsprüfung:</strong>  
+            Bereits eine minimale Änderung der Eingabe führt zu einem völlig anderen Hashwert (<strong>Avalanche-Effekt</strong>).  
+            Dies wird genutzt, um Dateien oder Nachrichten auf Manipulationen zu prüfen.
+        </li>
+        <li><strong>Digitale Signaturen und Authentifizierung:</strong>  
+            Hashes werden in der Kryptographie verwendet, um Daten sicher zu verifizieren und Identitäten zu bestätigen.
+        </li>
+    </ul>
+</div>
 
-        <div class="info">
-            <h3>Schwachstellen: Rainbow Tables und Hash-Kollisionen</h3>
-            <p>
-                Obwohl Hashes eine starke Methode sind, können Angreifer <strong>Rainbow Tables</strong> verwenden. Dabei handelt es sich um vorberechnete Tabellen, 
-                die viele Passwörter und deren Hashes enthalten. Dadurch können Passwörter schneller "entschlüsselt" werden, besonders wenn sie schwach oder häufig verwendet werden 
-                (z. B. "123456").
-            </p>
-            <p>
-                Um <strong>Rainbow Tables</strong> zu verhindern, wird <strong>Salt</strong> eingesetzt. Dabei wird eine zufällige Zeichenkette an das Passwort angehängt, bevor es gehasht wird. 
-                Selbst wenn zwei Benutzer dasselbe Passwort haben, erzeugt der Salt individuelle Hashes.
-            </p>
-        </div>
+<div class="info">
+    <h3>Schwachstellen: Rainbow Tables und Hash-Kollisionen</h3>
+    <p>
+        Obwohl Hashes ein starkes Sicherheitsmerkmal sind, gibt es Angriffsmethoden wie <strong>Rainbow Tables</strong>.  
+        Dabei handelt es sich um vorberechnete Tabellen mit gängigen Passwörtern und deren Hashes.  
+        Ein Angreifer kann einen gestohlenen Hash mit diesen Tabellen abgleichen, um das ursprüngliche Passwort zu ermitteln.  
+        Besonders <strong>schwache oder häufig verwendete Passwörter</strong> (z. B. "123456") sind leicht zu knacken.
+    </p>
+    <p>
+        Um dies zu verhindern, wird ein <strong>Salt</strong> eingesetzt. Dabei wird vor dem Hashing eine zufällige Zeichenkette an das Passwort angehängt.  
+        Selbst wenn zwei Benutzer dasselbe Passwort haben, ergibt sich durch das Salt ein unterschiedlicher Hashwert.  
+        Dadurch werden Rainbow Tables wirkungslos.
+    </p>
+    <p>
+        Eine weitere potenzielle Schwäche sind <strong>Hash-Kollisionen</strong>.  
+        Dabei erzeugen zwei verschiedene Eingaben denselben Hash.  
+        Moderne Hashfunktionen wie SHA-256 sind so konzipiert, dass solche Kollisionen extrem unwahrscheinlich sind.
+    </p>
+</div>
+
 
         <div class="steps">
             <h2>Aufgabe</h2>
